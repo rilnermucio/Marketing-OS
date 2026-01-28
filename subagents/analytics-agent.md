@@ -545,6 +545,277 @@ Conversões: [P]
 
 ---
 
+## 📐 Modelagem de Atribuição
+
+### Modelos de Atribuição
+
+**Last-Click (Último Clique):**
+- Atribui 100% do crédito ao último ponto de contato antes da conversão
+- Mais simples de implementar
+- Padrão na maioria das plataformas
+
+**First-Click (Primeiro Clique):**
+- Atribui 100% do crédito ao primeiro ponto de contato
+- Útil para entender quais canais geram descoberta
+- Valoriza o topo do funil
+
+**Linear:**
+- Distribui o crédito igualmente entre todos os pontos de contato
+- Visão equilibrada do funil
+- Bom para jornadas com poucos touchpoints
+
+**Time Decay (Decaimento Temporal):**
+- Atribui mais crédito aos pontos de contato mais recentes
+- Bom para ciclos de venda curtos
+- Valoriza ações próximas da conversão
+
+**Data-Driven (Baseado em Dados):**
+- Utiliza machine learning para distribuir crédito
+- Modelo mais preciso, mas exige volume alto de dados
+- Disponível no GA4 e Google Ads com dados suficientes
+
+### Quando Usar Cada Modelo
+
+| Modelo | Melhor Para | Prós | Contras |
+|--------|-------------|------|---------|
+| **Last-Click** | Campanhas de conversão direta | Simples, fácil de medir | Ignora topo de funil |
+| **First-Click** | Estratégias de awareness | Valoriza descoberta | Ignora influência posterior |
+| **Linear** | Funis equilibrados | Visão completa | Pode diluir importância real |
+| **Time Decay** | Ciclos de venda curtos | Prioriza ações recentes | Subestima awareness |
+| **Data-Driven** | Contas com alto volume | Mais preciso e adaptativo | Exige muitos dados (mín. 300 conversões/mês) |
+
+### Como a Atribuição Afeta Decisões de Orçamento
+
+- **Last-click** tende a concentrar budget em retargeting e busca paga
+- **First-click** justifica mais investimento em awareness e redes sociais
+- **Linear** distribui budget mais uniformemente entre canais
+- **Data-driven** otimiza budget com base em contribuição real de cada canal
+- Recomendação: sempre analisar mais de um modelo antes de realocar verba
+
+---
+
+## 📊 Google Analytics 4 (GA4)
+
+### Diferenças Principais do Universal Analytics
+
+| Aspecto | Universal Analytics | GA4 |
+|---------|---------------------|-----|
+| Modelo de dados | Sessões e pageviews | Eventos e parâmetros |
+| Rastreamento | Por sessão | Por usuário e eventos |
+| Relatórios | Pré-definidos | Exploração customizável |
+| Retenção de dados | Ilimitada | 2 ou 14 meses (padrão) |
+| Integração com BigQuery | Paga (360) | Gratuita |
+| Machine Learning | Limitado | Insights automáticos e previsões |
+
+### Eventos Essenciais para Rastrear
+
+| Evento | Descrição | Quando Usar |
+|--------|-----------|-------------|
+| `page_view` | Visualização de página | Automático (enhanced measurement) |
+| `scroll` | Rolagem até 90% da página | Automático (enhanced measurement) |
+| `click` | Clique em link externo | Automático (enhanced measurement) |
+| `form_submit` | Envio de formulário | Automático ou customizado |
+| `purchase` | Compra concluída | Configuração manual (e-commerce) |
+| `generate_lead` | Lead gerado | Configuração manual |
+| `sign_up` | Cadastro realizado | Configuração manual |
+| `add_to_cart` | Produto adicionado ao carrinho | Configuração manual (e-commerce) |
+
+### Configuração de Eventos Customizados
+
+```
+Estrutura de evento GA4:
+├── Nome do evento: snake_case, máx. 40 caracteres
+├── Parâmetros: até 25 por evento
+│   ├── Chave: máx. 40 caracteres
+│   └── Valor: máx. 100 caracteres (texto) ou número
+└── Propriedades do usuário: até 25 customizadas
+```
+
+**Exemplos de eventos customizados para criadores de conteúdo:**
+- `video_started` - Usuário iniciou reprodução de vídeo
+- `ebook_downloaded` - Download de material rico
+- `cta_clicked` - Clique em botão de CTA específico
+- `pricing_viewed` - Visualização da página de preços
+
+### Configuração de Eventos de Conversão
+
+1. Acessar Admin > Eventos > Marcar como conversão
+2. Máximo de 30 eventos de conversão por propriedade
+3. Conversões essenciais: `purchase`, `generate_lead`, `sign_up`
+4. Testar com Relatórios em Tempo Real antes de publicar
+
+### Construtor de Públicos (Audience Builder)
+
+**Públicos recomendados:**
+- Visitantes que visualizaram página de produto (últimos 7 dias)
+- Usuários que iniciaram checkout mas não compraram
+- Leitores frequentes do blog (3+ visitas em 30 dias)
+- Leads que não converteram em 14 dias
+- Compradores recorrentes (2+ compras em 90 dias)
+
+### Relatórios de Exploração
+
+| Tipo de Exploração | Uso Principal |
+|--------------------|---------------|
+| **Funil (Funnel)** | Visualizar etapas da jornada e onde há abandono |
+| **Caminho (Path)** | Entender trajetos comuns dos usuários no site |
+| **Sobreposição de Segmentos** | Comparar comportamento entre grupos de usuários |
+| **Exploração Livre** | Análises ad hoc com arrastar e soltar |
+| **Coorte** | Analisar retenção ao longo do tempo |
+| **Lifetime** | Receita e valor acumulado por usuário |
+
+### Boas Práticas de UTM
+
+| Parâmetro | Obrigatório | Exemplo | Descrição |
+|-----------|-------------|---------|-----------|
+| `utm_source` | Sim | `instagram`, `google`, `newsletter` | Origem do tráfego |
+| `utm_medium` | Sim | `cpc`, `social`, `email` | Tipo de mídia |
+| `utm_campaign` | Sim | `lancamento_curso_jan26` | Nome da campanha |
+| `utm_term` | Não | `marketing_digital` | Palavra-chave (para search) |
+| `utm_content` | Não | `banner_azul`, `cta_topo` | Diferenciação de criativos |
+
+**Convenções recomendadas:**
+- Sempre usar letras minúsculas
+- Separar palavras com underline (_)
+- Manter nomenclatura padronizada e documentada
+- Nunca usar UTM em links internos do próprio site
+
+### Integração GA4 + Google Ads
+
+- Vincular contas para importar conversões automaticamente
+- Compartilhar públicos do GA4 para remarketing no Google Ads
+- Usar sinais de conversão do GA4 para otimização de lances
+- Relatórios de aquisição com dados de custo do Google Ads
+
+### Relatórios Essenciais para Criadores de Conteúdo
+
+1. **Aquisição de Tráfego** - De onde vêm os visitantes
+2. **Engajamento > Páginas e Telas** - Conteúdos mais acessados
+3. **Monetização** - Receita por produto/campanha
+4. **Retenção** - Usuários novos vs retornantes
+5. **Demografia** - Perfil de idade, gênero e localização
+6. **Conversões** - Taxa e volume por evento de conversão
+
+---
+
+## 💰 ROI e Métricas Financeiras
+
+### Fórmula de Cálculo do ROI
+
+```
+ROI = ((Receita - Investimento) / Investimento) x 100
+
+Exemplo:
+- Investimento em ads: R$ 5.000
+- Receita gerada: R$ 20.000
+- ROI = ((20.000 - 5.000) / 5.000) x 100 = 300%
+```
+
+### Cálculo do ROAS (Return on Ad Spend)
+
+```
+ROAS = Receita Gerada / Investimento em Ads
+
+Exemplo:
+- Investimento em ads: R$ 5.000
+- Receita gerada: R$ 20.000
+- ROAS = 20.000 / 5.000 = 4x (ou 400%)
+
+Benchmarks:
+- ROAS mínimo viável: 2x (para margens altas)
+- ROAS bom: 3x-5x
+- ROAS excelente: >5x
+```
+
+### Customer Lifetime Value (CLV/LTV)
+
+```
+LTV = Ticket Médio x Frequência de Compra x Tempo de Retenção
+
+Exemplo:
+- Ticket médio: R$ 200
+- Compras por ano: 4
+- Tempo médio de cliente: 2 anos
+- LTV = 200 x 4 x 2 = R$ 1.600
+```
+
+### Customer Acquisition Cost (CAC)
+
+```
+CAC = Total Investido em Aquisição / Número de Novos Clientes
+
+Exemplo:
+- Investimento total (ads + time + ferramentas): R$ 10.000/mês
+- Novos clientes no mês: 50
+- CAC = 10.000 / 50 = R$ 200
+```
+
+### Relação CAC/LTV
+
+| Relação CAC:LTV | Interpretação | Ação Recomendada |
+|-----------------|---------------|------------------|
+| 1:1 | Prejuízo (custo = receita) | Reduzir CAC ou aumentar LTV urgentemente |
+| 1:2 | Sustentável, mas apertado | Otimizar canais e melhorar retenção |
+| 1:3 | Saudável (benchmark ideal) | Manter e escalar com cautela |
+| 1:4 ou mais | Excelente | Investir mais em aquisição para crescer |
+
+### Análise de Break-Even para Campanhas
+
+```
+Break-Even = Custo Total da Campanha / Margem de Lucro por Unidade
+
+Exemplo:
+- Custo da campanha: R$ 3.000
+- Preço do produto: R$ 150
+- Custo do produto: R$ 50
+- Margem por unidade: R$ 100
+- Break-even: 3.000 / 100 = 30 vendas necessárias
+```
+
+### Template de Relatório de ROI
+
+```markdown
+# RELATÓRIO DE ROI - [CAMPANHA/PERÍODO]
+
+## INVESTIMENTO
+| Item | Valor |
+|------|-------|
+| Anúncios pagos | R$ [X] |
+| Ferramentas | R$ [X] |
+| Produção de conteúdo | R$ [X] |
+| **Total investido** | **R$ [X]** |
+
+## RECEITA GERADA
+| Fonte | Valor |
+|-------|-------|
+| Vendas diretas (ads) | R$ [X] |
+| Vendas orgânicas atribuídas | R$ [X] |
+| **Total receita** | **R$ [X]** |
+
+## MÉTRICAS FINANCEIRAS
+| Métrica | Valor |
+|---------|-------|
+| ROI | [X]% |
+| ROAS | [X]x |
+| CAC | R$ [X] |
+| LTV estimado | R$ [X] |
+| Relação CAC:LTV | 1:[X] |
+| Break-even | [X] vendas |
+| Vendas realizadas | [X] |
+
+## ANÁLISE
+- [Insight sobre eficiência dos canais]
+- [Comparação com período anterior]
+- [Oportunidades de otimização]
+
+## RECOMENDAÇÕES
+1. [Ação para melhorar ROI]
+2. [Realocação de verba sugerida]
+3. [Próximo teste planejado]
+```
+
+---
+
 ## 🔄 Integração com Content Creator
 
 O Analytics Agent fornece:

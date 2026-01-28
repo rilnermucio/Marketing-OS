@@ -79,6 +79,8 @@ CONTENT CREATOR (Agente Principal)
 | **AI Tools Agent** ⭐ | [subagents/ai-tools-agent.md](subagents/ai-tools-agent.md) | Geração de imagens e vídeos com IA |
 | **Analytics Agent** ⭐ | [subagents/analytics-agent.md](subagents/analytics-agent.md) | Métricas, relatórios, análise de performance |
 | **Audio Agent** ⭐ | [subagents/audio-agent.md](subagents/audio-agent.md) | Podcasts, roteiros de áudio, spots |
+| **Email Agent** 🆕 | [subagents/email-agent.md](subagents/email-agent.md) | Sequências de email, newsletters, automações |
+| **Ads Agent** 🆕 | [subagents/ads-agent.md](subagents/ads-agent.md) | Copy de anúncios Meta/Google/TikTok, estratégia de ads |
 
 ## Assets e Recursos
 
@@ -93,6 +95,13 @@ CONTENT CREATOR (Agente Principal)
 | Press Release | [assets/templates/press-release.md](assets/templates/press-release.md) | Comunicados de imprensa |
 | Case Study | [assets/templates/case-study.md](assets/templates/case-study.md) | Estudos de caso |
 | Whitepaper | [assets/templates/whitepaper.md](assets/templates/whitepaper.md) | Conteúdo B2B aprofundado |
+| **Webinar Script** 🆕 | [assets/templates/webinar-script.md](assets/templates/webinar-script.md) | Roteiro completo de webinar/live de vendas |
+| **Sales Page** 🆕 | [assets/templates/sales-page.md](assets/templates/sales-page.md) | Estrutura de página de vendas |
+| **Lead Magnet** 🆕 | [assets/templates/lead-magnet.md](assets/templates/lead-magnet.md) | Templates de iscas digitais |
+| **UGC Brief** 🆕 | [assets/templates/ugc-brief.md](assets/templates/ugc-brief.md) | Briefing para criadores UGC |
+| **YouTube Shorts** 🆕 | [assets/templates/youtube-shorts.md](assets/templates/youtube-shorts.md) | Scripts e estratégias para Shorts |
+| **Pinterest Pins** 🆕 | [assets/templates/pinterest-pins.md](assets/templates/pinterest-pins.md) | Templates de pins, boards e SEO |
+| **Podcast Ad Reads** 🆕 | [assets/templates/podcast-ad-reads.md](assets/templates/podcast-ad-reads.md) | Scripts de anúncios para podcast |
 
 ### Swipe Files
 | Swipe File | Referência | Uso |
@@ -102,6 +111,7 @@ CONTENT CREATOR (Agente Principal)
 | CTAs Conversão | [assets/swipe-files/ctas-conversao.md](assets/swipe-files/ctas-conversao.md) | Chamadas para ação |
 | Emails Conversão | [assets/swipe-files/emails-conversao.md](assets/swipe-files/emails-conversao.md) | Templates de email |
 | Copy Carrossel | [assets/swipe-files/copy-carrossel.md](assets/swipe-files/copy-carrossel.md) | Estruturas de carrosséis |
+| **Bios Instagram** 🆕 | [assets/swipe-files/bios-instagram.md](assets/swipe-files/bios-instagram.md) | Exemplos de bio otimizadas por nicho |
 
 ### Personas
 | Recurso | Referência | Uso |
@@ -115,6 +125,8 @@ CONTENT CREATOR (Agente Principal)
 | Lançamento de Produto | [workflows/lancamento-produto.md](workflows/lancamento-produto.md) | Campanha completa de lançamento |
 | Calendário Mensal | [workflows/calendario-mensal.md](workflows/calendario-mensal.md) | Planejamento editorial mensal |
 | Campanha de Conversão | [workflows/campanha-conversao.md](workflows/campanha-conversao.md) | Flash sale, promoções, leads |
+| **Funil de Vendas** 🆕 | [workflows/funil-vendas.md](workflows/funil-vendas.md) | Processo completo TOFU → MOFU → BOFU |
+| **Parceria Influencer** 🆕 | [workflows/parceria-influencer.md](workflows/parceria-influencer.md) | Prospecção, briefing e gestão de influenciadores |
 
 ## Workflow Principal
 
@@ -303,6 +315,8 @@ Adaptar o tom conforme o briefing e nicho:
 | **`headline_scorer.py`** ⭐ | Pontuar headlines por efetividade | `python scripts/headline_scorer.py "headline"` |
 | **`readability_checker.py`** ⭐ | Analisar legibilidade de texto | `python scripts/readability_checker.py --file arquivo.txt` |
 | **`content_repurposer.py`** ⭐ | Adaptar conteúdo entre plataformas | `python scripts/content_repurposer.py --file arquivo.txt --output todos` |
+| **`hook_generator.py`** 🆕 | Gerar hooks virais para vídeos/posts | `python scripts/hook_generator.py "tema" plataforma quantidade` |
+| **`content_idea_generator.py`** 🆕 | Gerar ideias de conteúdo por nicho | `python scripts/content_idea_generator.py nicho quantidade` |
 
 ## Checklist de Qualidade
 

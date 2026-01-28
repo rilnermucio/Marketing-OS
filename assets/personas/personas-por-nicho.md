@@ -342,6 +342,302 @@ Personas pré-definidas para os principais nichos do Content Creator.
 
 ---
 
+## 🏥 NICHO: SAÚDE E BEM-ESTAR
+
+### Persona 1: Daniela, a Mãe Sobrecarregada
+**Perfil:** Mãe que tenta ser saudável mas não tem tempo
+
+| Aspecto | Descrição |
+|---------|-----------|
+| **Idade** | 30-45 anos |
+| **Profissão** | Qualquer (acumula trabalho + casa + filhos) |
+| **Renda** | R$ 4.000 - R$ 15.000 |
+| **Momento** | Exausta, querendo mudança sustentável |
+
+**Dores:**
+- "Não tenho tempo pra academia"
+- "Como bem durante a semana mas descontrolo no final de semana"
+- "Acordo cansada e durmo cansada"
+- "Já tentei mil dietas e nenhuma funciona"
+
+**Desejos:**
+- Ter energia para acompanhar os filhos
+- Perder peso sem dietas radicais
+- Dar exemplo de saúde pros filhos
+- Rotina prática que caiba na vida real
+
+**Linguagem:**
+- Tom: Acolhedor, sem culpa, prático
+- Evitar: "Desculpa é de fraco", cobranças extremas, dietas restritivas
+- Usar: "Possível", "No seu tempo", "Pequenas mudanças", "Rotina real"
+
+**Conteúdo que funciona:**
+- Receitas saudáveis em 15 minutos
+- Exercícios em casa enquanto as crianças brincam
+- Dicas de energia para mães
+- Meal prep simples para a semana
+- Autocuidado sem culpa
+
+---
+
+### Persona 2: Rafael, o Executivo Sedentário
+**Perfil:** Profissional de sucesso cujo corpo começou a reclamar
+
+| Aspecto | Descrição |
+|---------|-----------|
+| **Idade** | 35-50 anos |
+| **Profissão** | Executivo, Gerente, Diretor |
+| **Renda** | R$ 15.000 - R$ 50.000+ |
+| **Momento** | Sinal de alerta no check-up |
+
+**Dores:**
+- "Dor nas costas todo dia"
+- "Stress constante, não desligo nunca"
+- "O check-up veio assustador"
+- "Não durmo direito faz meses"
+
+**Desejos:**
+- Saúde sem perder produtividade
+- Rotina sustentável que funcione no longo prazo
+- Voltar a se sentir bem no corpo
+- Prevenir problemas maiores
+
+**Linguagem:**
+- Tom: Objetivo, com dados, orientado a resultado
+- Evitar: "Largue tudo e vá meditar", soluções irreais para a rotina
+- Usar: "Eficiente", "Otimizar", "Performance", "ROI da saúde"
+
+**Conteúdo que funciona:**
+- Treinos de 30 minutos para executivos
+- Como dormir melhor mesmo com agenda lotada
+- Alimentação estratégica no escritório
+- Gestão de stress baseada em ciência
+- Hacks de saúde para quem tem pouco tempo
+
+---
+
+## 📚 NICHO: EDUCAÇÃO
+
+### Persona 1: Camila, a Concurseira
+**Perfil:** Estudante dedicada buscando aprovação em concurso público
+
+| Aspecto | Descrição |
+|---------|-----------|
+| **Idade** | 22-35 anos |
+| **Profissão** | Estudante de concurso (muitas vezes desempregada ou CLT) |
+| **Renda** | R$ 0 - R$ 5.000 |
+| **Momento** | Já reprovou, não desistiu |
+
+**Dores:**
+- "Já reprovei 3 vezes e a família cobra"
+- "Material infinito, não sei o que priorizar"
+- "Ansiedade trava tudo na hora da prova"
+- "Sinto que estudo muito e aprendo pouco"
+
+**Desejos:**
+- Aprovação no próximo concurso
+- Método eficiente de estudo
+- Confiança para fazer a prova tranquila
+- Estabilidade financeira e profissional
+
+**Linguagem:**
+- Tom: Motivador mas realista, empático
+- Evitar: "É só estudar mais", minimizar o esforço
+- Usar: "Método", "Estratégia", "Aprovado", "Edital", "Revisão"
+
+**Conteúdo que funciona:**
+- Técnicas de estudo com base em neurociência
+- Cronogramas de revisão por ciclos
+- Como lidar com ansiedade de prova
+- Relatos de aprovados
+- Análise de editais e bancas
+
+---
+
+### Persona 2: Marcos, o Professor Digital
+**Perfil:** Professor/especialista querendo criar cursos online
+
+| Aspecto | Descrição |
+|---------|-----------|
+| **Idade** | 30-50 anos |
+| **Profissão** | Professor, Especialista, Consultor |
+| **Renda** | R$ 4.000 - R$ 15.000 |
+| **Momento** | Tem conhecimento, falta o digital |
+
+**Dores:**
+- "Sei o conteúdo mas não sei gravar"
+- "Não entendo nada de marketing digital"
+- "Meus alunos presenciais amam, mas online não sei como fazer"
+- "Tecnologia me trava"
+
+**Desejos:**
+- Renda extra (ou principal) com seu conhecimento
+- Impactar mais alunos além da sala de aula
+- Ter um curso que vende no automático
+- Ser reconhecido como autoridade
+
+**Linguagem:**
+- Tom: Prático, passo a passo, encorajador
+- Evitar: Jargões de marketing excessivos, "6 em 7"
+- Usar: "Didática", "Alunos", "Transformação", "Método", "Plataforma"
+
+**Conteúdo que funciona:**
+- Como gravar aulas com celular
+- Plataformas de curso online comparadas
+- Como estruturar um curso do zero
+- Precificação de infoprodutos
+- Marketing para professores
+
+---
+
+## ⚡ NICHO: PRODUTIVIDADE
+
+### Persona 1: Juliana, a Multitarefa
+**Perfil:** Faz tudo ao mesmo tempo e não termina nada
+
+| Aspecto | Descrição |
+|---------|-----------|
+| **Idade** | 25-40 anos |
+| **Profissão** | Qualquer (geralmente acumula funções) |
+| **Renda** | R$ 4.000 - R$ 12.000 |
+| **Momento** | Sobrecarregada, à beira do burnout |
+
+**Dores:**
+- "1000 abas abertas no navegador e na cabeça"
+- "Lista de tarefas infinita que só cresce"
+- "Trabalho o dia todo e parece que não fiz nada"
+- "Burnout batendo na porta"
+
+**Desejos:**
+- Foco real em poucas coisas que importam
+- Fazer mais com menos esforço
+- Ter tempo para si mesma
+- Sensação de progresso no final do dia
+
+**Linguagem:**
+- Tom: Empático, organizado, sem cobranças
+- Evitar: "Acorde às 5h", rotinas impossíveis, hustle culture
+- Usar: "Simplificar", "Priorizar", "Menos é mais", "Intencional"
+
+**Conteúdo que funciona:**
+- Métodos de priorização (Eisenhower, 1-3-5)
+- Como dizer não sem culpa
+- Ferramentas de organização simples
+- Rotina mínima viável
+- Detox digital e gestão de notificações
+
+---
+
+### Persona 2: André, o Gestor Operacional
+**Perfil:** Líder que não consegue sair do operacional
+
+| Aspecto | Descrição |
+|---------|-----------|
+| **Idade** | 30-50 anos |
+| **Profissão** | Gestor, Coordenador, Gerente |
+| **Renda** | R$ 10.000 - R$ 30.000 |
+| **Momento** | Afogado em processos e reuniões |
+
+**Dores:**
+- "Reuniões o dia todo, trabalho de noite"
+- "Equipe desorganizada, preciso resolver tudo"
+- "Sem tempo para pensar estrategicamente"
+- "Delego mas volta mal feito"
+
+**Desejos:**
+- Delegar de verdade e confiar na equipe
+- Processos claros que funcionam sem ele
+- Sair do operacional e ir pro estratégico
+- Ter uma equipe autônoma
+
+**Linguagem:**
+- Tom: Direto, orientado a processos, profissional
+- Evitar: Soluções genéricas, "só delega"
+- Usar: "Sistema", "Processo", "Escalar", "Documentar", "Playbook"
+
+**Conteúdo que funciona:**
+- Como criar SOPs (procedimentos operacionais)
+- Frameworks de delegação eficaz
+- Gestão de reuniões produtivas
+- Ferramentas de gestão de equipe
+- Como construir uma equipe autônoma
+
+---
+
+## 💻 NICHO: TECNOLOGIA/PROGRAMAÇÃO
+
+### Persona 1: Igor, o Dev Junior
+**Perfil:** Iniciante na carreira de programação
+
+| Aspecto | Descrição |
+|---------|-----------|
+| **Idade** | 20-28 anos |
+| **Profissão** | Estudante de programação, Dev Júnior |
+| **Renda** | R$ 0 - R$ 5.000 |
+| **Momento** | Começando, inseguro, querendo a primeira oportunidade |
+
+**Dores:**
+- "Síndrome do impostor me paralisa"
+- "Não sei qual linguagem focar, tem muita opção"
+- "Portfolio vazio, ninguém me chama pra entrevista"
+- "Tutorial hell — assisto tudo mas não construo nada"
+
+**Desejos:**
+- Conseguir o primeiro emprego ou freela
+- Ser um bom programador de verdade
+- Ganhar salário em dólar trabalhando remoto
+- Ter projetos reais no portfólio
+
+**Linguagem:**
+- Tom: Encorajador, prático, com exemplos de código
+- Evitar: "É fácil, qualquer um faz", elitismo técnico
+- Usar: "Projeto real", "Na prática", "Portfolio", "Passo a passo"
+
+**Conteúdo que funciona:**
+- Projetos para portfólio com tutorial
+- Roadmap de carreira dev
+- Como se preparar para entrevistas técnicas
+- Linguagem X vs Y — qual escolher
+- Como sair do tutorial hell
+
+---
+
+### Persona 2: Patrícia, a Tech Lead
+**Perfil:** Desenvolvedora experiente equilibrando liderança e código
+
+| Aspecto | Descrição |
+|---------|-----------|
+| **Idade** | 30-45 anos |
+| **Profissão** | Tech Lead, Staff Engineer, Arquiteta |
+| **Renda** | R$ 20.000 - R$ 50.000+ |
+| **Momento** | Sênior, precisa se manter atualizada |
+
+**Dores:**
+- "Tecnologias mudam rápido demais, não consigo acompanhar"
+- "Gestão de pessoas toma tempo do código"
+- "Burnout técnico — cansei de apagar incêndio"
+- "Difícil equilibrar liderança e mão na massa"
+
+**Desejos:**
+- Equilibrar liderança técnica e gestão de pessoas
+- Mentorar devs juniores com eficiência
+- Dominar arquitetura moderna e escalável
+- Continuar relevante tecnicamente enquanto lidera
+
+**Linguagem:**
+- Tom: Técnico, profundo, entre pares
+- Evitar: Explicações básicas, hype sem substância
+- Usar: "Arquitetura", "Trade-off", "Escalabilidade", "Design patterns"
+
+**Conteúdo que funciona:**
+- Decisões de arquitetura com prós e contras
+- Como fazer 1:1 eficientes com devs
+- Tech radar — o que vale a pena aprender
+- Gestão técnica vs gestão de pessoas
+- Como revisar código sem ser tóxico
+
+---
+
 ## 📚 COMO USAR ESSAS PERSONAS
 
 ### Na criação de conteúdo:

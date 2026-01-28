@@ -1,0 +1,41 @@
+# ============================================================
+# Agente Criador de Conteudo - Dependencias Python
+# ============================================================
+#
+# Todos os scripts utilizam apenas modulos da biblioteca padrao
+# do Python 3.8+. Nenhuma dependencia externa e necessaria
+# para o funcionamento atual.
+#
+# Modulos padrao utilizados pelos scripts:
+#   - json          (seo_analyzer, hashtag_generator, ab_generator,
+#                    content_calendar, hook_generator, content_idea_generator)
+#   - sys           (todos os scripts)
+#   - re            (seo_analyzer, ab_generator, headline_scorer,
+#                    readability_checker, content_repurposer)
+#   - os            (uso geral)
+#   - datetime      (content_calendar, content_repurposer,
+#                    content_idea_generator)
+#   - argparse      (headline_scorer, readability_checker,
+#                    content_repurposer)
+#   - collections   (seo_analyzer, readability_checker - Counter)
+#   - random        (hook_generator, content_idea_generator)
+#   - statistics    (readability_checker)
+#   - typing        (headline_scorer, readability_checker,
+#                    content_repurposer, hook_generator,
+#                    content_calendar, content_idea_generator)
+#
+# ============================================================
+# Dependencias opcionais para funcionalidades futuras
+# ============================================================
+# Descomente as linhas abaixo conforme necessario:
+#
+# requests>=2.28.0          # Para integracao com APIs externas
+# beautifulsoup4>=4.12.0    # Para web scraping de conteudo
+# pandas>=2.0.0             # Para analise de dados e metricas
+# matplotlib>=3.7.0         # Para geracao de graficos e relatorios
+# openai>=1.0.0             # Para integracao com API da OpenAI
+# anthropic>=0.18.0         # Para integracao com API da Anthropic
+# tweepy>=4.14.0            # Para integracao com Twitter/X API
+# python-dotenv>=1.0.0      # Para gerenciamento de variaveis de ambiente
+# schedule>=1.2.0           # Para agendamento de publicacoes
+# Pillow>=10.0.0            # Para manipulacao de imagens

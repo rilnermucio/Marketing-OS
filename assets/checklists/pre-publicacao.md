@@ -135,6 +135,54 @@ Use este checklist antes de publicar qualquer conteúdo.
 
 ---
 
+## 🎬 VÍDEO (YouTube, Reels, TikTok, Shorts)
+
+### YouTube (Long-form)
+- [ ] Thumbnail atrativa (1280x720px, CTR >5%)
+- [ ] Título otimizado para SEO (<70 caracteres)
+- [ ] Descrição com keywords, timestamps e links
+- [ ] Tags relevantes (10-15)
+- [ ] Cards e end screens configurados
+- [ ] Primeira frase do vídeo = hook forte
+- [ ] Retenção: pattern interrupts a cada 30-60s
+- [ ] CTA verbal + visual no vídeo
+- [ ] Legendas/closed captions revisadas
+- [ ] Playlist adequada selecionada
+
+### YouTube Shorts
+- [ ] Formato vertical (9:16, 1080x1920px)
+- [ ] Duração ≤60 segundos
+- [ ] Hook nos primeiros 1-2s
+- [ ] Texto na tela legível
+- [ ] Loop natural (final conecta com início)
+- [ ] #Shorts na descrição
+
+### Instagram Reels
+- [ ] Formato 9:16 (1080x1920px)
+- [ ] Duração ideal: 15-30s
+- [ ] Áudio trending (quando aplicável)
+- [ ] Cover frame atrativo
+- [ ] Caption com hook + hashtags
+- [ ] Compartilhado no feed
+
+### TikTok
+- [ ] Formato 9:16 (1080x1920px)
+- [ ] Hook nos primeiros 0.5s
+- [ ] Texto na tela sincronizado
+- [ ] Som/música popular
+- [ ] Hashtags trending + nicho
+- [ ] Descrição curta com gancho
+
+### Podcast/Áudio
+- [ ] Qualidade de áudio (sem ruído de fundo)
+- [ ] Intro e outro presentes
+- [ ] Show notes com timestamps
+- [ ] Título de episódio descritivo
+- [ ] Arte do episódio (3000x3000px)
+- [ ] Distribuição em todas as plataformas
+
+---
+
 ## 🚀 ÚLTIMA VERIFICAÇÃO
 
 - [ ] Conteúdo agendado para melhor horário
