@@ -45,13 +45,17 @@ CONTENT CREATOR (Agente Principal)
 Agente Criador de Conteudo/
 |
 +-- Skill.md                          # Arquivo principal da skill (Claude Code)
++-- plugin.json                       # Metadados do plugin para marketplace
 +-- README.md                         # Este arquivo
 +-- GUIA-DE-USO.md                    # Guia completo de uso do agente
 +-- INSTALACAO-SKILL.md               # Instrucoes de instalacao da skill
 +-- requirements.txt                  # Dependencias Python
-+-- content-creator.skill             # Skill empacotada v1
-+-- content-creator-v2.skill          # Skill empacotada v2
 +-- .gitignore
+|
++-- skills/                           # Skills para Claude Cowork marketplace
+|   +-- content-creator/              # Skill principal
+|       +-- SKILL.md                  # Definicao da skill
+|       +-- (symlinks para pastas)
 |
 +-- subagents/                        # 11 subagentes especializados
 |   +-- research-agent.md
@@ -428,19 +432,38 @@ O agente utiliza os seguintes frameworks conforme o contexto:
 
 ## :package: Instalacao Rapida
 
-### Opcao 1: Skill Empacotada
+### Opcao 1: Via Claude Cowork (Recomendado)
 
-1. Baixe o arquivo `content-creator-v2.skill`
-2. Importe no Claude Code como skill
-3. Comece a usar!
+Instale diretamente do GitHub como marketplace de plugins:
 
-### Opcao 2: Via Repositorio
+1. Abra o **Claude Cowork**
+2. Va em **Plugins** > **Adicionar marketplace do GitHub**
+3. Cole a URL do repositorio:
+   ```
+   https://github.com/rilnermucio/Agents
+   ```
+4. Clique em **Adicionar**
+5. A skill `content-creator` estara disponivel automaticamente!
+
+**Vantagem:** Sempre atualizado! Quando o repositorio for atualizado, sua skill tambem sera.
+
+### Opcao 2: Instalacao Local
 
 ```bash
+# Clone o repositorio
 git clone https://github.com/rilnermucio/Agents.git
 cd "Agente Criador de Conteudo"
+
+# Instale dependencias Python (opcional, para scripts)
 pip install -r requirements.txt
 ```
+
+### Opcao 3: Copiar Skill Manualmente
+
+1. Copie a pasta `skills/content-creator/` para:
+   - **macOS:** `~/.claude/skills/`
+   - **Windows:** `%APPDATA%\Claude\skills\`
+   - **Linux:** `~/.config/claude/skills/`
 
 Para instrucoes detalhadas, consulte `INSTALACAO-SKILL.md`.
 

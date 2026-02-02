@@ -1,0 +1,34 @@
+{
+  "name": "content-creator-agents",
+  "version": "2.0.0",
+  "description": "Agentes avancados de criacao de conteudo para multiplas plataformas. 11 subagentes especializados: Copy, SEO, Social, Video, Audio, Design, AI Tools, Analytics, Email, Ads e Research.",
+  "author": "rilnermucio",
+  "repository": "https://github.com/rilnermucio/Agents",
+  "skills": [
+    "skills/content-creator"
+  ],
+  "keywords": [
+    "content",
+    "marketing",
+    "copywriting",
+    "social-media",
+    "seo",
+    "instagram",
+    "linkedin",
+    "tiktok",
+    "youtube",
+    "reels",
+    "video",
+    "podcast",
+    "ai-tools",
+    "design",
+    "email-marketing",
+    "ads"
+  ],
+  "categories": [
+    "marketing",
+    "content-creation",
+    "social-media",
+    "copywriting"
+  ]
+}
