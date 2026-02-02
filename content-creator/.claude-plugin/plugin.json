@@ -1,5 +1,19 @@
 {
   "name": "content-creator",
-  "description": "Agente de criacao de conteudo com 11 subagentes especializados para posts, artigos, videos, podcasts e imagens IA",
-  "version": "2.0.0"
+  "description": "Agente de criacao de conteudo com 12 habilidades especializadas para posts, artigos, videos, podcasts e imagens IA",
+  "version": "2.1.0",
+  "skills": [
+    "skills/content-creator",
+    "skills/copy-agent",
+    "skills/seo-agent",
+    "skills/social-agent",
+    "skills/video-agent",
+    "skills/audio-agent",
+    "skills/ai-tools-agent",
+    "skills/design-agent",
+    "skills/analytics-agent",
+    "skills/email-agent",
+    "skills/ads-agent",
+    "skills/research-agent"
+  ]
 }
