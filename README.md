@@ -8,7 +8,7 @@ Agente de IA especializado em criacao de conteudo estrategico para multiplos nic
 
 ## :clipboard: Visao Geral
 
-O **Agente Criador de Conteudo** e um sistema de IA composto por 10 subagentes especializados que trabalham em conjunto para criar conteudo estrategico de alta qualidade. Ele cobre:
+O **Agente Criador de Conteudo** e um sistema de IA composto por 11 subagentes especializados que trabalham em conjunto para criar conteudo estrategico de alta qualidade. Ele cobre:
 
 - **Redes sociais**: Instagram (feed, carrossel, reels, stories), LinkedIn, Twitter/X, TikTok, YouTube, Pinterest, Facebook
 - **Marketing**: Email marketing, newsletters, sequencias de automacao
@@ -36,6 +36,7 @@ CONTENT CREATOR (Agente Principal)
 +-- :studio_microphone: AUDIO AGENT          - Podcasts, roteiros de audio, spots
 +-- :envelope: EMAIL AGENT           - Sequencias de email, newsletters
 +-- :loudspeaker: ADS AGENT            - Copy de anuncios Meta/Google/TikTok/LinkedIn
++-- :art: DESIGN AGENT          - Design visual, paletas de cores, identidade
 ```
 
 ## :open_file_folder: Estrutura do Projeto
@@ -45,10 +46,14 @@ Agente Criador de Conteudo/
 |
 +-- Skill.md                          # Arquivo principal da skill (Claude Code)
 +-- README.md                         # Este arquivo
++-- GUIA-DE-USO.md                    # Guia completo de uso do agente
++-- INSTALACAO-SKILL.md               # Instrucoes de instalacao da skill
 +-- requirements.txt                  # Dependencias Python
++-- content-creator.skill             # Skill empacotada v1
++-- content-creator-v2.skill          # Skill empacotada v2
 +-- .gitignore
 |
-+-- subagents/                        # 10 subagentes especializados
++-- subagents/                        # 11 subagentes especializados
 |   +-- research-agent.md
 |   +-- copy-agent.md
 |   +-- seo-agent.md
@@ -59,8 +64,9 @@ Agente Criador de Conteudo/
 |   +-- audio-agent.md
 |   +-- email-agent.md
 |   +-- ads-agent.md
+|   +-- design-agent.md               # NOVO: Design visual e identidade
 |
-+-- scripts/                          # Scripts Python de automacao
++-- scripts/                          # 20 scripts Python de automacao
 |   +-- seo_analyzer.py
 |   +-- hashtag_generator.py
 |   +-- content_calendar.py
@@ -69,19 +75,35 @@ Agente Criador de Conteudo/
 |   +-- readability_checker.py
 |   +-- content_repurposer.py
 |   +-- hook_generator.py
+|   +-- hook_variant_generator.py
 |   +-- content_idea_generator.py
+|   +-- caption_generator.py
+|   +-- carousel_structure_generator.py
+|   +-- reels_script_generator.py
+|   +-- instagram_hashtag_research.py
+|   +-- competitor_analyzer.py
+|   +-- content_audit.py
+|   +-- trend_tracker.py
+|   +-- trend_adapter.py
+|   +-- tiktok_trends_scraper.py
 |
 +-- assets/
-|   +-- templates/                    # 26 templates de conteudo
+|   +-- templates/                    # 27 templates de conteudo
 |   |   +-- artigo-seo.md
 |   |   +-- email-newsletter.md
 |   |   +-- post-linkedin.md
 |   |   +-- post-instagram-carrossel.md
+|   |   +-- instagram-feed-post.md    # NOVO
+|   |   +-- instagram-stories.md      # NOVO
 |   |   +-- youtube-script.md
+|   |   +-- youtube-shorts.md         # NOVO
 |   |   +-- reels-tiktok-script.md
+|   |   +-- reels-audio-strategy.md   # NOVO
 |   |   +-- vsl-script.md
 |   |   +-- podcast-episode.md
+|   |   +-- podcast-ad-reads.md       # NOVO
 |   |   +-- twitter-thread.md
+|   |   +-- pinterest-pins.md         # NOVO
 |   |   +-- press-release.md
 |   |   +-- case-study.md
 |   |   +-- whitepaper.md
@@ -89,6 +111,10 @@ Agente Criador de Conteudo/
 |   |   +-- sales-page.md
 |   |   +-- lead-magnet.md
 |   |   +-- ugc-brief.md
+|   |   +-- carrossel-thumbnail-mastery.md  # NOVO
+|   |   +-- card-unico-niche-templates.md   # NOVO
+|   |   +-- pesquisa-tiktok-trends.md       # NOVO
+|   |   +-- meus-templates.md               # NOVO: Templates personalizados
 |   |
 |   +-- swipe-files/                  # Banco de referencias e exemplos
 |   |   +-- headlines-virais.md
@@ -97,6 +123,9 @@ Agente Criador de Conteudo/
 |   |   +-- emails-conversao.md
 |   |   +-- copy-carrossel.md
 |   |   +-- bios-instagram.md
+|   |   +-- transicoes-reels.md       # NOVO
+|   |   +-- trends-adaptaveis.md      # NOVO
+|   |   +-- paletas-cores.md          # NOVO
 |   |
 |   +-- personas/                     # Templates e personas por nicho
 |   |   +-- persona-template.md
@@ -107,6 +136,8 @@ Agente Criador de Conteudo/
 |   |
 |   +-- prompts/
 |       +-- prompt-biblioteca.md
+|       +-- prompts-imagem-ia.md      # NOVO: Prompts para geracao de imagens
+|       +-- prompts-post-pronto.md    # NOVO: Prompts para posts prontos
 |
 +-- references/                       # Guias de referencia por tipo
 |   +-- niches.md
@@ -116,15 +147,22 @@ Agente Criador de Conteudo/
 |   +-- email-marketing.md
 |   +-- landing-pages.md
 |   +-- ads-copy.md
+|   +-- design-specs.md               # NOVO: Especificacoes de design
 |
-+-- workflows/                        # Workflows de campanha
++-- workflows/                        # 7 workflows de campanha
 |   +-- lancamento-produto.md
 |   +-- calendario-mensal.md
 |   +-- campanha-conversao.md
 |   +-- funil-vendas.md
 |   +-- parceria-influencer.md
+|   +-- batch-production-workflow.md  # NOVO: Producao em lote
+|   +-- tiktok-trends-chrome.md       # NOVO: Monitoramento TikTok
 |
 +-- output/                           # Pasta para conteudo gerado
++-- outputs/                          # Exemplos de conteudo gerado
+|
++-- skill-package/                    # Skill empacotada para distribuicao
+    +-- content-creator/
 ```
 
 ## :robot: Subagentes
@@ -132,38 +170,76 @@ Agente Criador de Conteudo/
 | Subagente | Arquivo | Descricao |
 |-----------|---------|-----------|
 | Research Agent | `subagents/research-agent.md` | Pesquisa de tendencias, analise de concorrencia, keyword research, mapeamento de audiencia |
-| Copy Agent | `subagents/copy-agent.md` | Headlines, hooks, CTAs otimizados, copy de vendas, variacoes A/B |
+| Copy Agent | `subagents/copy-agent.md` | Headlines, hooks, CTAs otimizados, copy de vendas, variacoes A/B, neuromarketing |
 | SEO Agent | `subagents/seo-agent.md` | Otimizacao on-page, estruturacao de conteudo, meta tags, E-E-A-T |
-| Social Agent | `subagents/social-agent.md` | Posts por plataforma, adaptacao cross-platform, hashtags, timing |
+| Social Agent | `subagents/social-agent.md` | Posts por plataforma, adaptacao cross-platform, hashtags, timing, algoritmos |
 | Video Agent | `subagents/video-agent.md` | Scripts YouTube (long-form), Reels/TikTok/Shorts, VSL, hooks de retencao |
-| AI Tools Agent | `subagents/ai-tools-agent.md` | Prompts para imagem (Midjourney, DALL-E) e video (Veo 3.1, Sora 2, Kling) |
+| AI Tools Agent | `subagents/ai-tools-agent.md` | Prompts para imagem (Midjourney, DALL-E, Flux) e video (Veo 3.1, Sora 2, Kling) |
 | Analytics Agent | `subagents/analytics-agent.md` | Metricas por plataforma, relatorios, analise de performance, testes A/B |
 | Audio Agent | `subagents/audio-agent.md` | Roteiros de podcast (solo, entrevista, co-host), spots, audiobooks |
 | Email Agent | `subagents/email-agent.md` | Sequencias de email, newsletters, automacoes de marketing |
 | Ads Agent | `subagents/ads-agent.md` | Copy de anuncios Meta/Google/TikTok/LinkedIn, estrategia de ads |
+| Design Agent | `subagents/design-agent.md` | Design visual, paletas de cores, identidade de marca, layouts |
 
-## :page_facing_up: Templates Disponiveis
+## :page_facing_up: Templates Disponiveis (27 templates)
+
+### Redes Sociais
+
+| Template | Arquivo | Descricao |
+|----------|---------|-----------|
+| Post Instagram Carrossel | `assets/templates/post-instagram-carrossel.md` | Template de carrossel Instagram |
+| Instagram Feed Post | `assets/templates/instagram-feed-post.md` | Posts para feed do Instagram |
+| Instagram Stories | `assets/templates/instagram-stories.md` | Templates de stories interativos |
+| Carrossel Thumbnail Mastery | `assets/templates/carrossel-thumbnail-mastery.md` | Capas de carrossel de alto impacto |
+| Card Unico por Nicho | `assets/templates/card-unico-niche-templates.md` | Templates de card unico por nicho |
+| Post LinkedIn | `assets/templates/post-linkedin.md` | Estrutura de post para LinkedIn |
+| Twitter Thread | `assets/templates/twitter-thread.md` | Threads virais para Twitter/X |
+| Pinterest Pins | `assets/templates/pinterest-pins.md` | Pins e Idea Pins otimizados |
+
+### Video
+
+| Template | Arquivo | Descricao |
+|----------|---------|-----------|
+| YouTube Script | `assets/templates/youtube-script.md` | Roteiros completos para videos longos |
+| YouTube Shorts | `assets/templates/youtube-shorts.md` | Scripts para Shorts otimizados |
+| Reels/TikTok Script | `assets/templates/reels-tiktok-script.md` | Scripts para videos curtos (15s, 30s, 60s) |
+| Reels Audio Strategy | `assets/templates/reels-audio-strategy.md` | Estrategia de audio para Reels virais |
+| VSL Script | `assets/templates/vsl-script.md` | Video Sales Letter completo |
+| Pesquisa TikTok Trends | `assets/templates/pesquisa-tiktok-trends.md` | Metodologia de pesquisa de trends |
+
+### Audio e Podcast
+
+| Template | Arquivo | Descricao |
+|----------|---------|-----------|
+| Podcast Episode | `assets/templates/podcast-episode.md` | Estrutura de episodio de podcast |
+| Podcast Ad Reads | `assets/templates/podcast-ad-reads.md` | Scripts de anuncios para podcasts |
+
+### Conteudo Escrito
 
 | Template | Arquivo | Descricao |
 |----------|---------|-----------|
 | Artigo SEO | `assets/templates/artigo-seo.md` | Estrutura completa para artigos otimizados |
 | Email Newsletter | `assets/templates/email-newsletter.md` | Template de newsletter por email |
-| Post LinkedIn | `assets/templates/post-linkedin.md` | Estrutura de post para LinkedIn |
-| Post Instagram Carrossel | `assets/templates/post-instagram-carrossel.md` | Template de carrossel Instagram |
-| YouTube Script | `assets/templates/youtube-script.md` | Roteiros completos para videos longos |
-| Reels/TikTok Script | `assets/templates/reels-tiktok-script.md` | Scripts para videos curtos (15s, 30s, 60s) |
-| VSL Script | `assets/templates/vsl-script.md` | Video Sales Letter completo |
-| Podcast Episode | `assets/templates/podcast-episode.md` | Estrutura de episodio de podcast |
-| Twitter Thread | `assets/templates/twitter-thread.md` | Threads virais para Twitter/X |
 | Press Release | `assets/templates/press-release.md` | Comunicados de imprensa |
 | Case Study | `assets/templates/case-study.md` | Estudos de caso |
 | Whitepaper | `assets/templates/whitepaper.md` | Conteudo B2B aprofundado |
+
+### Vendas e Conversao
+
+| Template | Arquivo | Descricao |
+|----------|---------|-----------|
 | Webinar Script | `assets/templates/webinar-script.md` | Roteiro completo de webinar/live de vendas |
 | Sales Page | `assets/templates/sales-page.md` | Estrutura de pagina de vendas |
 | Lead Magnet | `assets/templates/lead-magnet.md` | Templates de iscas digitais |
 | UGC Brief | `assets/templates/ugc-brief.md` | Briefing para criadores UGC |
 
-## :wrench: Scripts de Automacao (19 scripts)
+### Personalizados
+
+| Template | Arquivo | Descricao |
+|----------|---------|-----------|
+| Meus Templates | `assets/templates/meus-templates.md` | Templates personalizados do usuario |
+
+## :wrench: Scripts de Automacao (20 scripts)
 
 ### Analise e Otimizacao
 
@@ -294,7 +370,7 @@ python scripts/hook_generator.py "produtividade com IA" reels 10
 python scripts/content_idea_generator.py tecnologia 20
 ```
 
-## :bar_chart: Workflows
+## :bar_chart: Workflows (7 workflows)
 
 | Workflow | Arquivo | Descricao |
 |----------|---------|-----------|
@@ -303,6 +379,32 @@ python scripts/content_idea_generator.py tecnologia 20
 | Campanha de Conversao | `workflows/campanha-conversao.md` | Flash sale, promocoes, geracao de leads |
 | Funil de Vendas | `workflows/funil-vendas.md` | Processo completo TOFU -> MOFU -> BOFU |
 | Parceria com Influencer | `workflows/parceria-influencer.md` | Prospeccao, briefing e gestao de influenciadores |
+| Batch Production | `workflows/batch-production-workflow.md` | Producao em lote para escalar conteudo |
+| TikTok Trends Chrome | `workflows/tiktok-trends-chrome.md` | Monitoramento de trends do TikTok via Chrome |
+
+## :card_file_box: Swipe Files (9 arquivos)
+
+Banco de referencias e exemplos prontos para uso:
+
+| Arquivo | Descricao |
+|---------|-----------|
+| `assets/swipe-files/headlines-virais.md` | Colecao de headlines de alto impacto |
+| `assets/swipe-files/hooks-reels.md` | Hooks testados para Reels e TikTok |
+| `assets/swipe-files/ctas-conversao.md` | CTAs otimizados para conversao |
+| `assets/swipe-files/emails-conversao.md` | Modelos de emails que convertem |
+| `assets/swipe-files/copy-carrossel.md` | Copys para carrosseis de Instagram |
+| `assets/swipe-files/bios-instagram.md` | Modelos de bio para Instagram |
+| `assets/swipe-files/transicoes-reels.md` | Transicoes criativas para Reels |
+| `assets/swipe-files/trends-adaptaveis.md` | Trends adaptaveis para diferentes nichos |
+| `assets/swipe-files/paletas-cores.md` | Paletas de cores por nicho e emocao |
+
+## :sparkles: Prompts para IA (3 arquivos)
+
+| Arquivo | Descricao |
+|---------|-----------|
+| `assets/prompts/prompt-biblioteca.md` | Biblioteca completa de prompts |
+| `assets/prompts/prompts-imagem-ia.md` | Prompts para geracao de imagens com IA |
+| `assets/prompts/prompts-post-pronto.md` | Prompts para criar posts completos |
 
 ## :clipboard: Frameworks de Copywriting
 
@@ -314,6 +416,34 @@ O agente utiliza os seguintes frameworks conforme o contexto:
 - **4Ps** - Promessa -> Imagem -> Prova -> Empurrao
 - **QUEST** - Qualificar -> Entender -> Educar -> Estimular -> Transicionar
 
+## :books: Documentacao
+
+| Arquivo | Descricao |
+|---------|-----------|
+| `GUIA-DE-USO.md` | Guia completo de uso do agente com exemplos praticos |
+| `INSTALACAO-SKILL.md` | Instrucoes detalhadas para instalar a skill no Claude Code |
+| `CONTRIBUTING.md` | Guia para contribuicao no projeto |
+| `CHANGELOG.md` | Historico de alteracoes e versoes |
+| `references/design-specs.md` | Especificacoes de design e dimensoes por plataforma |
+
+## :package: Instalacao Rapida
+
+### Opcao 1: Skill Empacotada
+
+1. Baixe o arquivo `content-creator-v2.skill`
+2. Importe no Claude Code como skill
+3. Comece a usar!
+
+### Opcao 2: Via Repositorio
+
+```bash
+git clone https://github.com/rilnermucio/Agents.git
+cd "Agente Criador de Conteudo"
+pip install -r requirements.txt
+```
+
+Para instrucoes detalhadas, consulte `INSTALACAO-SKILL.md`.
+
 ## :handshake: Contribuicao
 
 Contribuicoes sao bem-vindas! Para contribuir:
@@ -323,6 +453,8 @@ Contribuicoes sao bem-vindas! Para contribuir:
 3. Commit suas alteracoes (`git commit -m 'Adiciona nova feature'`)
 4. Push para a branch (`git push origin feature/nova-feature`)
 5. Abra um Pull Request
+
+Para mais detalhes, consulte `CONTRIBUTING.md`.
 
 ### Areas para contribuicao
 
