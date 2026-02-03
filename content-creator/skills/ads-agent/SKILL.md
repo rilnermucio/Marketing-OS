@@ -1,332 +1,788 @@
----
-name: ads-agent
-description: Elite Performance Marketing Agent - Create high-converting ad campaigns across Meta, Google, TikTok, LinkedIn, YouTube, Pinterest, Amazon and Microsoft Ads. Use for ad copy creation, campaign strategy, audience targeting, creative testing, ROAS optimization, and full-funnel paid media architecture.
-whenToUse: |
-  - Creating ad copy for any paid platform
-  - Designing full-funnel campaign structures
-  - Optimizing campaigns for better ROAS/CPA
-  - Building A/B testing frameworks for creative
-  - Developing audience targeting strategies
-  - Writing video ad scripts (UGC, demo, testimonial)
-  - Diagnosing performance issues
-  - Planning budget allocation across channels
-  - Creating retargeting sequences
-  - Applying conversion psychology to ads
----
+# 🎯 Ads Agent - Subagente de Anúncios Pagos
 
-# Ads Agent - Axel the Optimizer
-
-**Elite Performance Marketing Architect & Conversion Optimization Specialist**
-
-The most advanced paid advertising agent, combining behavioral psychology, data science, and creative excellence to maximize ROAS across all major advertising platforms.
-
-> "Cada clique, uma oportunidade de conversao!"
+Subagente especializado em criação de copy e estratégia para anúncios pagos (Meta Ads, Google Ads, TikTok Ads).
 
 ---
 
-## Activation
+## 🎯 Quando Usar
 
-Activate the full AIOS Ads Agent:
-```
-@ads
-```
-
-Or use directly for quick tasks via this skill.
-
----
-
-## Core Capabilities
-
-### Platforms Supported
-| Platform | Expertise Level | Key Strengths |
-|----------|-----------------|---------------|
-| **Meta Ads** | Expert | Full-funnel, Advantage+, Creative velocity |
-| **Google Ads** | Expert | RSA optimization, Performance Max, YouTube |
-| **TikTok Ads** | Expert | UGC scripts, Trending hooks, Native content |
-| **LinkedIn Ads** | Expert | ABM strategy, B2B lead gen, Message Ads |
-| **YouTube Ads** | Advanced | Skippable scripts, Bumpers, Shorts |
-| **Pinterest Ads** | Advanced | Visual commerce, Seasonal content |
-| **Amazon Ads** | Advanced | Sponsored Products, DSP, ACOS optimization |
-| **Microsoft Ads** | Advanced | LinkedIn targeting, Import optimization |
-
-### Frameworks Applied
-- **Copy:** PADS, AIDA, PAS, BAB, FAB, QUEST, Hook-Story-Offer
-- **Testing:** Concept > Format > Hook > Copy > CTA hierarchy
-- **Funnel:** TOFU (awareness) > MOFU (consideration) > BOFU (conversion)
-- **Psychology:** Cialdini's 7 principles, Cognitive biases
-- **Scaling:** Horizontal, Vertical, Creative velocity
+- Criar copy de anúncios
+- Desenvolver estratégia de campanha
+- Otimizar headlines e CTAs
+- Criar variações para testes A/B
+- Definir públicos e segmentações
+- Estruturar funis de tráfego pago
 
 ---
 
-## Quick Commands
+## 📊 Plataformas Suportadas
 
-### Core Creation
-```
-*create-ad {platform} {funnel_stage} {product}
-*create-hooks {platform} {product} {angle}
-*create-campaign {platform} {objective} {budget}
-*create-video-script {platform} {duration} {style}
-*create-headlines {platform} {keyword}
-```
-
-### Strategy & Optimization
-```
-*strategy {budget} {goals} {timeline}
-*optimize {metrics: CTR, CPA, ROAS}
-*diagnose {problem: low CTR, high CPA}
-*scale {current_budget} {target_budget}
-*audit {platform}
-```
-
-### Audiences & Testing
-```
-*audiences {platform} {product} {funnel_stage}
-*ab-test {variable: hook, creative, audience}
-*retargeting-sequence {product} {funnel_stage}
-*lookalike-strategy {source_audience}
-```
-
-### Templates & Resources
-```
-*templates {platform}
-*checklist {platform}
-*swipe-file {industry} {format}
-*metrics-guide {platform}
-*best-practices {platform or tactic}
-```
+| Plataforma | Formatos Principais | Objetivo Principal |
+|------------|---------------------|-------------------|
+| **Meta Ads** | Imagem, Vídeo, Carrossel, Stories | Awareness, Conversão, Leads |
+| **Google Ads** | Search, Display, YouTube | Intenção, Remarketing |
+| **TikTok Ads** | Vídeo nativo, Spark Ads | Awareness, Engajamento |
+| **LinkedIn Ads** | Sponsored Content, InMail | B2B, Leads qualificados |
 
 ---
 
-## Platform Specifications
+## 🎨 Meta Ads (Facebook/Instagram)
 
-### Meta Ads (Facebook/Instagram)
+### Especificações Técnicas
 
-| Placement | Primary Text | Headline | Description | Dimensions |
-|-----------|--------------|----------|-------------|------------|
-| Feed | 125 visible (2200 max) | 40 (27 visible) | 30 | 1:1 or 4:5 |
-| Stories/Reels | 125 | 40 | — | 9:16 |
-| Carousel | 125 | 40/card | 20/card | 1:1 |
+| Formato | Dimensão | Texto Primário | Headline | Descrição |
+|---------|----------|----------------|----------|-----------|
+| **Feed Imagem** | 1080x1080 | 125 chars | 40 chars | 30 chars |
+| **Feed Vídeo** | 1080x1080 | 125 chars | 40 chars | 30 chars |
+| **Stories** | 1080x1920 | 125 chars | 40 chars | - |
+| **Carrossel** | 1080x1080 | 125 chars | 40 chars | 20 chars |
+| **Reels** | 1080x1920 | 72 chars | 40 chars | - |
 
-**Best Practices:**
-- Hook in first line (before truncation)
-- Mobile-first design (80%+ traffic)
-- Lead with benefit, not feature
-- Creative is the new targeting
-- Test Advantage+ for scale
+### Estrutura de Copy - Meta Ads
 
-### Google Ads
-
-| Ad Type | Headlines | Descriptions | Key Specs |
-|---------|-----------|--------------|-----------|
-| RSA | 30 chars x 15 | 90 chars x 4 | Pin critical headlines |
-| Performance Max | 30 chars x 5 | 90 chars x 5 | Multiple asset groups |
-| YouTube Skippable | — | — | First 5s critical |
-
-**Best Practices:**
-- Include keywords in headlines
-- Use all 15 RSA headlines
-- Separate brand vs non-brand campaigns
-- Performance Max needs conversion data
-
-### TikTok Ads
-
-| Element | Specification |
-|---------|---------------|
-| Ad Text | 100 chars (150 max) |
-| Video | 9:16, 15-30s optimal |
-| Style | Native > Polished (3x better) |
-
-**Best Practices:**
-- First 3 seconds MUST hook
-- UGC style outperforms branded
-- Trending sounds when possible
-- Text overlays essential
-- Fast pace - cut every 2-3s
-
-### LinkedIn Ads
-
-| Ad Type | Intro Text | Headline | Description |
-|---------|------------|----------|-------------|
-| Sponsored Content | 600 (150 visible) | 70 | 100 |
-| Message Ads | 1500 body | 60 subject | 20 CTA |
-
-**Best Practices:**
-- Professional but not boring
-- Lead with business outcome
-- Use specific numbers/data
-- Pre-filled forms boost 30%
-- Min R$3000/month for results
-
----
-
-## Copy Frameworks
-
-### PADS (Direct Response)
 ```
-P — PROBLEM: Start with pain point
-A — AGITATE: Expand consequences
-D — DESIRE: Paint transformation
-S — SOLUTION: Present with CTA
+┌─────────────────────────────────────────┐
+│ TEXTO PRIMÁRIO (acima da imagem)        │
+│ ├── Hook: Primeira linha impactante     │
+│ ├── Problema/Oportunidade               │
+│ ├── Solução/Benefício                   │
+│ └── CTA textual                         │
+├─────────────────────────────────────────┤
+│ [CRIATIVO: Imagem/Vídeo]                │
+├─────────────────────────────────────────┤
+│ HEADLINE: Promessa clara                │
+│ DESCRIÇÃO: Complemento + urgência       │
+│ [BOTÃO CTA]                             │
+└─────────────────────────────────────────┘
 ```
 
-### Hook → Story → Offer (Video/Social)
+### Templates de Copy - Meta Ads
+
+#### Template TOFU (Awareness)
 ```
-HOOK (0-3s): Pattern interrupt, curiosity
-STORY (3-20s): Relatable situation, tension
-OFFER (20-30s): Solution + urgency + CTA
+TEXTO PRIMÁRIO:
+{Hook de identificação}
+
+Se você é {persona} e quer {desejo}, precisa ver isso.
+
+{Breve explicação do valor}
+
+👉 {CTA}
+
+HEADLINE: {Benefício principal}
+DESCRIÇÃO: {Complemento + diferencial}
+CTA: Saiba Mais
 ```
 
-### QUEST (B2B/High-ticket)
+#### Template MOFU (Consideração)
 ```
-Q — QUALIFY: Filter to ideal audience
-U — UNDERSTAND: Validate their situation
-E — EDUCATE: Provide insight
-S — STIMULATE: Vision the outcome
-T — TRANSITION: Move to next step
+TEXTO PRIMÁRIO:
+{Hook de problema}
+
+Você já tentou {solução comum} e não funcionou?
+
+O problema é: {insight}
+
+Descobri um método que {resultado} sem {objeção}.
+
+{Prova social ou dado}
+
+HEADLINE: {Método/Solução}
+DESCRIÇÃO: Veja como funciona
+CTA: Saiba Mais
+```
+
+#### Template BOFU (Conversão)
+```
+TEXTO PRIMÁRIO:
+🔥 {Oferta/Promoção}
+
+{Benefício 1}
+{Benefício 2}
+{Benefício 3}
+
+{Urgência/Escassez}
+
+👉 {CTA direto}
+
+HEADLINE: {Oferta + Desconto/Bônus}
+DESCRIÇÃO: {Urgência}
+CTA: Comprar Agora / Inscrever-se
 ```
 
 ---
 
-## Conversion Psychology
+## 🔍 Google Ads
 
-### Cialdini's 7 Principles
+### Especificações - Search Ads
 
-| Principle | Ad Application | Example |
-|-----------|----------------|---------|
-| **Reciprocity** | Free value first | "Download FREE guide" |
-| **Scarcity** | Limited offers | "Only 24 hours left" |
-| **Authority** | Credentials | "Featured in Forbes" |
-| **Consistency** | Micro-commitments | "Take 2-min quiz" |
-| **Liking** | UGC, relatable | "Hey! I was like you" |
-| **Social Proof** | Numbers | "Join 50,000+ who..." |
-| **Unity** | Tribe identity | "Built by marketers, for marketers" |
+| Elemento | Limite | Quantidade |
+|----------|--------|------------|
+| **Headline** | 30 chars | Até 15 |
+| **Description** | 90 chars | Até 4 |
+| **Display Path** | 15 chars | 2 |
 
-### Cognitive Biases
+### Estrutura RSA (Responsive Search Ads)
 
-| Bias | Application |
-|------|-------------|
-| **Anchoring** | Show high price first, then discount |
-| **Loss Aversion** | Frame as what they'll lose |
-| **Bandwagon** | Show popularity/trending |
-| **Framing** | "95% success" vs "5% fail" |
-
----
-
-## Creative Testing Framework
-
-### Testing Hierarchy (Impact Order)
-
-1. **CONCEPT** (Highest) - What angle? Testimonial vs Demo vs Educational
-2. **FORMAT** (High) - Video vs Image vs Carousel
-3. **HOOK** (High) - First 3 seconds/line
-4. **COPY** (Medium) - Body text, tone
-5. **CTA** (Medium-Low) - Button text
-
-### Testing Rules
-- ONE variable per test
-- Minimum 1,000 impressions per variation
-- Wait for 95% statistical significance
-- Document hypothesis BEFORE test
-- Winner becomes new control
-
----
-
-## Campaign Structure Templates
-
-### Full-Funnel Meta Ads
 ```
-TOFU (20-30% budget):
-├── Broad targeting
-├── Interest stacks
-└── Lookalike 5-10%
+HEADLINES (criar 10-15):
+├── Com keyword exata
+├── Com benefício principal
+├── Com número/estatística
+├── Com pergunta
+├── Com CTA
+├── Com marca
+├── Com diferencial
+├── Com urgência
+└── Com prova social
 
-MOFU (30-40% budget):
-├── Video viewers 50%+
-├── Website visitors 30-90d
+DESCRIPTIONS (criar 4):
+├── Benefícios expandidos
+├── Features + diferenciais
+├── Prova social + credibilidade
+└── CTA + urgência
+```
+
+### Templates Google Search
+
+#### Template Informacional
+```
+HEADLINES:
+• Como {Ação} em {Tempo}
+• Guia Completo de {Tema}
+• {Tema}: Tudo que Você Precisa Saber
+• Aprenda {Tema} do Zero
+• {Número} Dicas de {Tema}
+
+DESCRIPTIONS:
+• Descubra como {benefício} de forma simples e prática. Guia completo com passo a passo.
+• Aprenda {tema} com especialistas. Método testado por +{número} alunos. Comece hoje!
+```
+
+#### Template Transacional
+```
+HEADLINES:
+• {Produto} com {Desconto}% OFF
+• Compre {Produto} Online
+• {Produto} - Frete Grátis
+• Oferta: {Produto} por R${Preço}
+• {Produto} Original - Site Oficial
+
+DESCRIPTIONS:
+• {Produto} com até {X}% de desconto. Parcelamos em até 12x. Entrega rápida para todo Brasil.
+• Compre {produto} no site oficial. Garantia de {X} anos. Troca grátis em {X} dias.
+```
+
+---
+
+## 🎬 TikTok Ads
+
+### Especificações
+
+| Elemento | Limite |
+|----------|--------|
+| **Nome do Anúncio** | 512 chars |
+| **Texto do Anúncio** | 100 chars |
+| **Vídeo** | 5-60s (9:16) |
+| **CTA** | Pré-definidos |
+
+### Estrutura de Vídeo TikTok Ads
+
+```
+0-3s: HOOK FORTE
+├── Texto na tela impactante
+├── Movimento/ação visual
+└── Áudio que prende
+
+3-15s: PROBLEMA/CONTEXTO
+├── Identificação com persona
+├── Dor ou desejo
+└── Setup para solução
+
+15-40s: SOLUÇÃO/DEMONSTRAÇÃO
+├── Mostrar produto/serviço
+├── Benefícios visuais
+├── Prova de funcionamento
+└── Depoimentos curtos
+
+40-50s: PROVA SOCIAL
+├── Resultados
+├── Reviews
+└── Números
+
+50-60s: CTA
+├── Oferta clara
+├── Urgência
+└── Instrução específica
+```
+
+### Hooks para TikTok Ads
+
+```
+CURIOSIDADE:
+"POV: você descobriu {benefício}"
+"O que ninguém te conta sobre {tema}"
+"Eu testei {produto} e olha isso..."
+
+IDENTIFICAÇÃO:
+"Se você é {persona}, isso é pra você"
+"Todo mundo que {situação} precisa ver isso"
+"Você também passa por isso?"
+
+CHOQUE:
+"Isso deveria ser ilegal"
+"Não acredito que funcionou"
+"Eu estava fazendo tudo errado"
+
+TENDÊNCIA:
+"Essa trend de {tema}..."
+"Todo mundo está falando de {produto}"
+"Finalmente testei {viral}"
+```
+
+---
+
+## 📊 Estrutura de Campanha
+
+### Funil de Tráfego Pago
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    TOFU (AWARENESS)                      │
+│  Objetivo: Alcance, Vídeo Views, Engajamento            │
+│  Público: Amplo, Interesses, Lookalike                  │
+│  Copy: Educativo, Valor, Sem venda                      │
+│  CTA: Saiba Mais, Assista                               │
+├─────────────────────────────────────────────────────────┤
+│                 MOFU (CONSIDERAÇÃO)                      │
+│  Objetivo: Tráfego, Leads, Mensagens                    │
+│  Público: Engajou TOFU, Site visitors                   │
+│  Copy: Problema-Solução, Autoridade                     │
+│  CTA: Baixar, Inscrever, Ver mais                       │
+├─────────────────────────────────────────────────────────┤
+│                  BOFU (CONVERSÃO)                        │
+│  Objetivo: Conversões, Compras, Leads                   │
+│  Público: Remarketing quente, Leads, Carrinho           │
+│  Copy: Oferta, Urgência, Prova social                   │
+│  CTA: Comprar, Garantir, Inscrever-se                   │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Orçamento Sugerido por Fase
+
+| Fase | % do Budget | Objetivo |
+|------|-------------|----------|
+| **TOFU** | 20-30% | Aquecer público frio |
+| **MOFU** | 30-40% | Educar e qualificar |
+| **BOFU** | 40-50% | Converter |
+
+---
+
+## 🎯 Segmentação e Públicos
+
+### Tipos de Público
+
+```
+PÚBLICOS FRIOS:
+├── Interesses relacionados
+├── Comportamentos de compra
+├── Dados demográficos
 └── Lookalike 1-3%
 
-BOFU (40-50% budget):
-├── Product viewers 14d
-├── Cart abandoners 7d
-├── Checkout abandoners 3d
-└── Purchasers (upsell)
-```
+PÚBLICOS MORNOS:
+├── Engajou com conteúdo (30-90 dias)
+├── Visitou site (30-90 dias)
+├── Lookalike de compradores
+└── Lista de leads
 
-### Google Ads Structure
-```
-Campaign: Brand
-├── Brand terms
-
-Campaign: Non-Brand
-├── Problem-aware keywords
-├── Solution-aware keywords
-└── Competitor terms
-
-Campaign: Performance Max
-└── Asset groups by product
+PÚBLICOS QUENTES:
+├── Visitou página de produto (7-14 dias)
+├── Adicionou ao carrinho (7 dias)
+├── Iniciou checkout (3 dias)
+└── Compradores para upsell
 ```
 
 ---
 
-## Metrics & Benchmarks
+## ✅ Checklist de Anúncio
 
-| Platform | CTR Good | CTR Excellent | ROAS Target |
-|----------|----------|---------------|-------------|
-| Meta Feed | >1% | >2% | >3x |
-| Google Search | >3% | >5% | >4x |
-| TikTok | >1% | >2% | >2x |
-| LinkedIn | >0.4% | >0.6% | — |
-| YouTube | 30% view rate | 50% view rate | — |
+### Antes de Publicar
 
----
-
-## Output Standards
-
-Every ad delivery includes:
-1. **3-5 copy variations** with different angles
-2. **Character counts** verified per platform
-3. **Psychology triggers** identified
-4. **Creative direction** for visuals
-5. **A/B test recommendations**
-6. **Audience suggestions**
+- [ ] Copy dentro dos limites de caracteres
+- [ ] Hook nos primeiros 3 segundos (vídeo)
+- [ ] CTA claro e específico
+- [ ] Criativo de alta qualidade
+- [ ] Texto legível no mobile
+- [ ] Sem muito texto na imagem (<20%)
+- [ ] Landing page consistente com anúncio
+- [ ] UTMs configurados
+- [ ] Pixel/conversões configurados
+- [ ] Público correto selecionado
+- [ ] Orçamento adequado
+- [ ] Variações para teste A/B
 
 ---
 
-## Resources (AIOS)
+## 📈 Métricas de Performance
 
-### Tasks
-- `create-ad-copy.md` - Full ad copy creation workflow
-- `create-hooks-variations.md` - Hook generation for testing
-- `create-video-script.md` - Video ad scripts with timing
-- `create-campaign-structure.md` - Campaign architecture design
+### KPIs por Objetivo
 
-### Templates
-- `ad-copy-meta-tmpl.yaml` - Meta Ads templates by funnel stage
-- `ad-copy-google-tmpl.yaml` - Google Ads RSA templates
-- `ad-copy-tiktok-tmpl.yaml` - TikTok native templates
-- `ad-copy-linkedin-tmpl.yaml` - LinkedIn B2B templates
+| Objetivo | Métrica Principal | Benchmark |
+|----------|-------------------|-----------|
+| **Awareness** | CPM, Alcance | CPM < R$20 |
+| **Tráfego** | CPC, CTR | CTR > 1%, CPC < R$2 |
+| **Leads** | CPL, Taxa Conversão | CPL < R$15 |
+| **Vendas** | ROAS, CPA | ROAS > 3x |
 
-### Checklists
-- `pre-launch-checklist.md` - Complete pre-launch verification
-- `creative-testing-checklist.md` - A/B testing workflow
+### Diagnóstico de Problemas
 
-### Data
-- `hooks-library.md` - 100+ hook formulas by type
-- `platform-specs.yaml` - All platform specifications
-- `benchmarks-by-industry.yaml` - Performance benchmarks
+```
+CTR BAIXO (<1%):
+├── Criativo fraco
+├── Hook não prende
+├── Público errado
+└── Copy genérica
 
----
+CPC ALTO:
+├── Concorrência alta
+├── Relevância baixa
+├── Segmentação ampla demais
+└── Criativo saturado
 
-## Agent Collaboration
-
-| Need | Delegate To |
-|------|-------------|
-| Deep copywriting | @copy (Cleo) |
-| Video production | @video (Vince) |
-| Data analysis | @analytics (Ana) |
-| Market research | @research (Rex) |
-| Visual design | @design (Diego) |
+CPL/CPA ALTO:
+├── Landing page não converte
+├── Promessa diferente do anúncio
+├── Formulário muito longo
+└── Público frio demais
+```
 
 ---
 
-*Axel, transformando cliques em resultados*
+## 🔄 Testes A/B
+
+### O que Testar
+
+```
+PRIORIDADE ALTA:
+├── Hook/primeira linha
+├── Criativo (imagem vs vídeo)
+├── CTA button
+└── Público
+
+PRIORIDADE MÉDIA:
+├── Headline
+├── Descrição
+├── Formato (carrossel vs single)
+└── Posicionamento
+
+PRIORIDADE BAIXA:
+├── Cores do criativo
+├── Horário de veiculação
+├── Ordem do carrossel
+└── Extensões
+```
+
+### Regras de Teste
+
+```
+• Testar 1 variável por vez
+• Mínimo 1.000 impressões por variação
+• Significância estatística > 95%
+• Documentar hipótese antes do teste
+• Implementar vencedor e testar próxima variável
+```
+
+---
+
+## 🔄 Sequências de Retargeting
+
+### Estrutura de Sequência de 7 Dias
+
+```
+DIA 1 - LEMBRETE
+├── Objetivo: Relembrar o interesse
+├── Tom: Amigável e leve
+├── Foco: Produto/serviço que foi visualizado
+└── CTA: Volte e veja mais
+
+DIA 3 - PROVA SOCIAL
+├── Objetivo: Gerar confiança
+├── Tom: Inspirador e confiável
+├── Foco: Depoimentos, avaliações, casos de sucesso
+└── CTA: Veja o que estão dizendo
+
+DIA 5 - TRATAMENTO DE OBJEÇÕES
+├── Objetivo: Eliminar barreiras
+├── Tom: Empático e esclarecedor
+├── Foco: FAQ, garantias, comparações
+└── CTA: Tire suas dúvidas / Sem risco
+
+DIA 7 - URGÊNCIA / ÚLTIMA CHANCE
+├── Objetivo: Gerar ação imediata
+├── Tom: Urgente e direto
+├── Foco: Oferta limitada, bônus expirando
+└── CTA: Garanta agora / Última chance
+```
+
+### Templates por Touchpoint
+
+**Dia 1 - Lembrete:**
+```
+TEXTO PRIMÁRIO:
+Ei, notamos que você deu uma olhada em {produto/serviço}! 👀
+
+Ainda está pensando? A gente entende — decisões importantes merecem tempo.
+
+Mas enquanto decide, que tal dar mais uma olhada?
+
+HEADLINE: {Produto} está te esperando
+CTA: Voltar ao Site
+```
+
+**Dia 3 - Prova Social:**
+```
+TEXTO PRIMÁRIO:
+Mais de {número} pessoas já escolheram {produto/serviço}.
+
+"{Depoimento real de cliente}" — {Nome do cliente}
+
+Descubra por que tantas pessoas confiam em {marca}.
+
+HEADLINE: +{número} clientes satisfeitos
+CTA: Ver Depoimentos
+```
+
+**Dia 5 - Tratamento de Objeções:**
+```
+TEXTO PRIMÁRIO:
+Talvez você esteja se perguntando:
+
+❓ "E se não funcionar para mim?"
+→ {Resposta com garantia}
+
+❓ "É caro demais?"
+→ {Resposta com valor/parcelamento}
+
+❓ "Não tenho tempo"
+→ {Resposta com praticidade}
+
+HEADLINE: Sem risco. Garantia de {X} dias.
+CTA: Saiba Mais
+```
+
+**Dia 7 - Urgência / Última Chance:**
+```
+TEXTO PRIMÁRIO:
+⏰ Última chance!
+
+{Oferta/desconto/bônus} expira HOJE.
+
+Depois disso, o preço volta ao normal.
+
+Não deixe pra depois o que pode mudar sua {resultado} agora.
+
+HEADLINE: Oferta encerra hoje — {desconto}% OFF
+CTA: Garantir Agora
+```
+
+### Boas Práticas de Frequency Capping
+
+| Fase do Funil | Frequência Máxima | Período |
+|---------------|-------------------|---------|
+| TOFU (Awareness) | 2-3 impressões | Por semana |
+| MOFU (Consideração) | 3-5 impressões | Por semana |
+| BOFU (Conversão) | 5-7 impressões | Por semana |
+| Retargeting intensivo | 1-2 impressões | Por dia |
+
+**Sinais de excesso de frequência:**
+- CTR caindo consistentemente
+- Aumento de comentários negativos
+- CPC subindo sem motivo aparente
+- Taxa de ocultação do anúncio aumentando
+
+### Públicos de Exclusão
+
+- Pessoas que já compraram (últimos 30-180 dias)
+- Leads já convertidos na campanha atual
+- Funcionários e parceiros (lista de emails)
+- Pessoas que ocultaram o anúncio
+- Público de frequência acima do limite (quando possível)
+
+---
+
+## 🧪 Creative Testing Framework
+
+### Hierarquia de Testes
+
+```
+1. CONCEITO (maior impacto)
+│  Qual a ideia central do anúncio?
+│  Ex: Educativo vs Testemunho vs Demo
+│
+2. FORMATO
+│  Qual formato funciona melhor?
+│  Ex: Vídeo vs Imagem vs Carrossel
+│
+3. HOOK
+│  Qual abertura prende mais atenção?
+│  Ex: Pergunta vs Afirmação vs Estatística
+│
+4. COPY
+│  Qual texto converte mais?
+│  Ex: Longa vs Curta, Formal vs Informal
+│
+5. CTA (menor impacto individual)
+   Qual chamada gera mais ação?
+   Ex: "Comprar" vs "Garantir" vs "Testar grátis"
+```
+
+### Como Estruturar Testes de Criativos
+
+1. **Definir hipótese clara** - "Acredito que {variação B} terá melhor {métrica} porque {razão}"
+2. **Isolar uma variável** - Mudar apenas um elemento por teste
+3. **Usar mesmo público** - Para comparação justa
+4. **Definir métrica de sucesso** - CTR, CPA, ROAS ou outra
+5. **Definir prazo** - Mínimo de 3-5 dias de veiculação
+
+### Orçamento Mínimo por Teste
+
+| Plataforma | Budget Mínimo por Variação | Duração Mínima |
+|------------|---------------------------|----------------|
+| Meta Ads | R$ 50-100/dia | 3-5 dias |
+| Google Ads (Search) | R$ 30-50/dia | 5-7 dias |
+| TikTok Ads | R$ 50-80/dia | 3-5 dias |
+| LinkedIn Ads | R$ 80-150/dia | 5-7 dias |
+
+**Regra geral:** cada variação precisa de pelo menos 1.000 impressões ou 50 conversões para ter significância mínima.
+
+### Quando Pausar um Anúncio vs Deixar Rodando
+
+**Pausar quando:**
+- CPA está 2x acima da meta após 1.000 impressões
+- CTR abaixo de 0,5% após 2.000 impressões (Meta)
+- Zero conversões após gastar 3x o CPA meta
+- Feedback negativo acima de 5%
+
+**Deixar rodando quando:**
+- Ainda não atingiu volume mínimo de dados
+- CPA está dentro de 1,5x da meta e melhorando
+- Anúncio tem menos de 3 dias de veiculação
+- Está em fase de aprendizado da plataforma
+
+### Sinais de Fadiga Criativa
+
+| Sinal | O que Observar | Ação |
+|-------|----------------|------|
+| CTR caindo | Queda de >20% em 7 dias | Atualizar criativo |
+| Frequência alta | Acima de 3-4 na semana | Expandir público ou pausar |
+| CPA subindo | Aumento de >30% sem mudança externa | Testar novo conceito |
+| Engajamento negativo | Comentários de "já vi isso" | Rotacionar criativos |
+| CPM subindo | Aumento sem sazonalidade | Renovar criativos ou públicos |
+
+### Processo de Iteração
+
+1. Rodar 3-5 variações de conceito
+2. Identificar conceito vencedor
+3. Criar 3-5 variações de formato com o conceito vencedor
+4. Identificar formato vencedor
+5. Testar 3-5 hooks diferentes no formato e conceito vencedores
+6. Repetir para copy e CTA
+7. Combinar todos os elementos vencedores no "anúncio campeão"
+8. Usar o campeão como controle para novos testes
+
+### Template: Log de Testes de Criativos
+
+```markdown
+# LOG DE TESTES - [CAMPANHA]
+
+## Teste #[Número]
+- **Data:** [DD/MM/AAAA]
+- **Variável testada:** [Conceito/Formato/Hook/Copy/CTA]
+- **Hipótese:** [Se X, então Y, porque Z]
+
+| Variação | Descrição | Spend | Impressões | CTR | CPA | ROAS |
+|----------|-----------|-------|------------|-----|-----|------|
+| A (Controle) | [Desc] | R$[X] | [Y] | [Z%] | R$[W] | [V]x |
+| B | [Desc] | R$[X] | [Y] | [Z%] | R$[W] | [V]x |
+| C | [Desc] | R$[X] | [Y] | [Z%] | R$[W] | [V]x |
+
+- **Vencedor:** [Variação]
+- **Melhoria:** [+X% em métrica principal]
+- **Aprendizado:** [O que aprendemos]
+- **Próximo teste:** [O que testar a seguir]
+```
+
+---
+
+## 💼 LinkedIn Ads (Expandido)
+
+### Sponsored Content - Especificações e Templates
+
+**Especificações:**
+| Formato | Imagem | Texto Introdutório | Headline | Descrição |
+|---------|--------|---------------------|----------|-----------|
+| Imagem Única | 1200x627 | 600 chars (150 visíveis) | 70 chars | 100 chars |
+| Carrossel | 1080x1080 | 255 chars | 45 chars por card | - |
+| Vídeo | 16:9 ou 1:1 | 600 chars | 70 chars | 100 chars |
+| Documento (PDF) | - | 600 chars | 70 chars | - |
+
+**Template - Sponsored Content (Geração de Leads B2B):**
+```
+TEXTO INTRODUTÓRIO:
+{Estatística ou dado impactante do setor}
+
+{Problema que o público-alvo enfrenta}
+
+Criamos um {material/guia/relatório} com {número} {estratégias/insights/passos} para {resultado desejado}.
+
+📥 Baixe gratuitamente.
+
+HEADLINE: {Material} Gratuito: {Benefício Principal}
+DESCRIÇÃO: {Complemento} para {cargo/setor}
+CTA: Baixar
+```
+
+**Template - Sponsored Content (Thought Leadership):**
+```
+TEXTO INTRODUTÓRIO:
+{Opinião forte ou insight contraintuitivo sobre o setor}
+
+{Desenvolvimento do argumento em 2-3 frases}
+
+Na {empresa}, vemos isso na prática: {exemplo ou dado interno}
+
+Concorda? Comente abaixo 👇
+
+HEADLINE: {Tema}: {Perspectiva Única}
+CTA: Saiba Mais
+```
+
+### Sponsored InMail / Message Ads - Templates
+
+**Especificações:**
+| Elemento | Limite |
+|----------|--------|
+| Assunto | 60 chars |
+| Corpo da mensagem | 1.500 chars |
+| CTA Button | 20 chars |
+| Banner (opcional) | 300x250 |
+
+**Template - Convite para Webinar/Evento:**
+```
+ASSUNTO: {Nome}, convite exclusivo: {Tema do Webinar}
+
+CORPO:
+Olá {Nome},
+
+Estamos organizando um webinar exclusivo sobre {tema} e achei que seria relevante para você, considerando sua atuação em {setor/cargo}.
+
+📅 Data: {dia e horário}
+⏱ Duração: {X} minutos
+🎯 O que você vai aprender:
+• {Tópico 1}
+• {Tópico 2}
+• {Tópico 3}
+
+Vagas limitadas a {número} participantes.
+
+CTA: Garantir Minha Vaga
+```
+
+**Template - Oferta de Conteúdo/Demo:**
+```
+ASSUNTO: {Solução} para {desafio do cargo/setor}
+
+CORPO:
+Olá {Nome},
+
+Sei que profissionais de {cargo} frequentemente enfrentam {desafio específico}.
+
+Na {empresa}, ajudamos empresas como {exemplo de cliente/setor} a {resultado alcançado}.
+
+Preparamos um {material/demo} que mostra como {benefício principal} em {prazo}.
+
+Sem compromisso — apenas {X} minutos do seu tempo.
+
+CTA: Agendar Demo / Baixar Material
+```
+
+### Lead Gen Forms - Boas Práticas
+
+- **Máximo de 3-4 campos** para taxas de conversão mais altas
+- Campos recomendados: Nome, Email, Empresa, Cargo
+- Usar campos pré-preenchidos do LinkedIn (aumenta conversão em até 30%)
+- Incluir mensagem de agradecimento com link para o material
+- Configurar integração automática com CRM (HubSpot, Salesforce, etc.)
+- Testar formulários com e sem campo de telefone
+
+### Opções de Segmentação B2B
+
+| Critério | Exemplos | Quando Usar |
+|----------|----------|-------------|
+| **Cargo** | Diretor de Marketing, CEO, Head de Vendas | Quando o decisor é claro |
+| **Senioridade** | VP, Diretor, Gerente | Para filtrar nível hierárquico |
+| **Tamanho da empresa** | 1-50, 51-200, 201-500, 500+ | Para adequar oferta ao porte |
+| **Setor/Indústria** | Tecnologia, Saúde, Financeiro | Para mensagem segmentada |
+| **Habilidades** | Marketing Digital, Gestão de Projetos | Para perfis técnicos |
+| **Grupos do LinkedIn** | Grupos específicos do setor | Para nichos bem definidos |
+| **Empresa específica** | Lista de empresas-alvo (ABM) | Account-Based Marketing |
+
+### Account-Based Marketing (ABM) no LinkedIn
+
+**Estratégia em 3 Camadas:**
+
+```
+CAMADA 1 - AWARENESS (Semanas 1-2)
+├── Sponsored Content com thought leadership
+├── Segmentação: lista de empresas-alvo + cargos decisores
+├── Objetivo: Impressões e engajamento
+└── Orçamento: 30% do total
+
+CAMADA 2 - CONSIDERAÇÃO (Semanas 3-4)
+├── Conteúdo aprofundado (cases, whitepapers)
+├── Segmentação: engajaram com Camada 1
+├── Objetivo: Cliques e downloads
+└── Orçamento: 40% do total
+
+CAMADA 3 - CONVERSÃO (Semanas 5-6)
+├── Message Ads com oferta direta (demo/reunião)
+├── Segmentação: engajaram com Camada 2
+├── Objetivo: Leads qualificados / reuniões agendadas
+└── Orçamento: 30% do total
+```
+
+**Lista de empresas-alvo:**
+- Fazer upload de lista CSV com nomes de empresas (mín. 300 recomendado)
+- Combinar com filtro de cargo para atingir decisores
+- Atualizar lista mensalmente com novas contas
+
+### Recomendações de Orçamento para B2B
+
+| Objetivo | Budget Diário Mínimo | CPL Esperado | CPC Médio |
+|----------|----------------------|--------------|-----------|
+| Awareness (Conteúdo) | R$ 80-150/dia | - | R$ 8-20 |
+| Geração de Leads | R$ 150-300/dia | R$ 50-200 | R$ 15-35 |
+| Message Ads | R$ 100-200/dia | R$ 80-250 | - |
+| ABM (campanha completa) | R$ 300-500/dia | R$ 100-300 | R$ 20-50 |
+
+**Observações importantes:**
+- LinkedIn Ads tem CPC significativamente maior que Meta/Google Display
+- Compensado pela qualidade superior dos leads B2B
+- Recomendado mínimo de R$ 3.000/mês para resultados consistentes
+- Ciclo de aprendizado mais longo: planejar campanhas de no mínimo 30 dias
+
+---
+
+## 🔗 Integração com Outros Subagentes
+
+| Subagente | Integração |
+|-----------|------------|
+| **Copy Agent** | Headlines, CTAs, persuasão |
+| **Video Agent** | Scripts para video ads |
+| **AI Tools Agent** | Criativos com IA |
+| **Analytics Agent** | Métricas, otimização |
+| **Research Agent** | Públicos, concorrência |
+
+---
+
+*Última atualização: Janeiro 2026*

@@ -1,540 +1,827 @@
+# 📊 Analytics Agent - Subagente de Análise e Métricas
+
+Subagente especializado em análise de performance, métricas e otimização baseada em dados.
+
 ---
-name: analytics-agent
-description: Advanced data intelligence and analytics. Analyze marketing performance across all platforms, create comprehensive reports, run cohort and funnel analysis, design dashboards, perform RFM segmentation, calculate LTV/CAC, and optimize based on data-driven insights.
+
+## 🎯 Quando Usar
+
+- Análise de performance de conteúdo
+- Relatórios de métricas
+- Identificação de padrões
+- Otimização baseada em dados
+- Definição de KPIs
+- Testes A/B
+- Benchmarking
+
 ---
 
-# Analytics Agent Skill - Nova
+## 📈 Métricas por Plataforma
 
-**"Numbers reveal truth, patterns predict success."**
+### Instagram
 
-Advanced data intelligence skill powered by Nova, the Oracle. Comprehensive marketing analytics focused on multi-platform performance analysis, cohort tracking, RFM segmentation, statistical testing, and actionable business intelligence.
+**Métricas de Alcance:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| Alcance | >30% seguidores | Saúde do perfil |
+| Impressões | 1.5x alcance | Frequência de visualização |
+| Alcance não-seguidor | >20% | Descoberta/viralização |
 
-## Agent Reference
+**Métricas de Engajamento:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| Taxa de engajamento | >3% | Relevância geral |
+| Salvamentos | >2% do alcance | Valor percebido |
+| Compartilhamentos | >1% do alcance | Viralidade |
+| Comentários | >0.5% do alcance | Engajamento profundo |
 
-**Primary Agent:** `.aios-core/development/agents/analytics.md`
-**Persona:** Nova, the Oracle (INTJ-A, Capricorn)
-**Archetype:** The Data Whisperer
+**Métricas de Stories:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| Taxa de conclusão | >70% | Interesse sustentado |
+| Taxa de saída | <30% | Conteúdo relevante |
+| Respostas | >2% | Engajamento direto |
+| Toques para avançar | Baixo | Conteúdo consumido |
 
-## When to Use This Skill
+**Métricas de Reels:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| Plays | >100% seguidores | Alcance viral |
+| Watch time médio | >50% | Retenção |
+| Shares | Alto | Viralidade |
+| Saves | Alto | Valor para revisitar |
 
-- Analyzing content performance across platforms
-- Creating performance reports and dashboards
-- Setting up and interpreting A/B tests
-- Defining KPIs and success metrics
-- Benchmarking against industry standards
-- Making data-driven content decisions
-- Optimizing based on analytics insights
+---
 
-## Metrics Framework by Platform
+### YouTube
 
-### Instagram Metrics
+**Métricas de Desempenho:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| CTR (Thumbnail) | >5% | Atratividade |
+| Retenção média | >50% | Qualidade do conteúdo |
+| Watch time | Alto | Valor para algoritmo |
+| Likes ratio | >95% | Satisfação |
 
-| Metric | Definition | Benchmark | Priority |
-|--------|------------|-----------|----------|
-| **Reach** | Unique accounts that saw content | Varies by size | High |
-| **Impressions** | Total views (including repeats) | 1.5-2x reach | Medium |
-| **Engagement Rate** | (Likes+Comments+Saves+Shares)/Reach | 3-6% | Critical |
-| **Save Rate** | Saves/Reach | 2-5% | Critical |
-| **Share Rate** | Shares/Reach | 0.5-2% | High |
-| **Profile Visits** | Clicks to profile from content | 1-3% of reach | Medium |
-| **Follower Growth** | New followers from content | Varies | High |
+**Métricas de Crescimento:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| Inscritos/vídeo | >2% views | Conversão de audiência |
+| Views externas | >30% | Descoberta |
+| Impressões | Crescente | Alcance do canal |
+| Taxa de cliques impressões | >4% | Eficácia de título/thumb |
 
-**Engagement Rate Formula:**
-```
-Engagement Rate = (Likes + Comments + Saves + Shares) / Reach × 100
-```
+**Métricas de Retenção:**
+| Métrica | Ponto | O que indica |
+|---------|-------|--------------|
+| Retenção 30s | >70% | Hook efetivo |
+| Retenção 50% vídeo | >50% | Conteúdo engajante |
+| Retenção final | >40% | Valor completo entregue |
+| Picos de replay | N/A | Momentos de alto valor |
 
-### YouTube Metrics
+---
 
-| Metric | Definition | Benchmark | Priority |
-|--------|------------|-----------|----------|
-| **CTR (Click-Through Rate)** | Clicks/Impressions | 4-10% | Critical |
-| **AVD (Average View Duration)** | Mean watch time | 50%+ of video | Critical |
-| **Retention Rate** | % watched at each point | 50%+ average | Critical |
-| **Subscriber Conversion** | Subs gained/Views | 1-4% | High |
-| **RPM (Revenue per Mille)** | Revenue per 1000 views | $2-10 | Medium |
-| **Watch Time** | Total minutes watched | Platform metric | High |
+### LinkedIn
 
-**Key YouTube Signals:**
-```
-High CTR + High AVD = Algorithm boost
-High CTR + Low AVD = Clickbait penalty
-Low CTR + High AVD = Thumbnail/title issue
-Low CTR + Low AVD = Content issue
-```
+**Métricas de Post:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| Impressões | Alto | Alcance |
+| Taxa de engajamento | >2% | Relevância profissional |
+| Comentários | >10 | Discussão gerada |
+| Compartilhamentos | Alto | Valor para network |
 
-### LinkedIn Metrics
+**Métricas de Perfil:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| Visualizações perfil | Crescente | Interesse pessoal |
+| Aparições em busca | Crescente | SEO de perfil |
+| SSI (Social Selling Index) | >70 | Autoridade geral |
 
-| Metric | Definition | Benchmark | Priority |
-|--------|------------|-----------|----------|
-| **Impressions** | Total views | Varies by network | Medium |
-| **Engagement Rate** | Interactions/Impressions | 2-5% | High |
-| **Dwell Time** | Time spent reading | N/A (internal) | Critical |
-| **Click-Through Rate** | Clicks/Impressions | 1-3% | High |
-| **Comment Quality** | Meaningful comments vs. emoji | Qualitative | High |
-| **Profile Views** | Post-content profile visits | Track trend | Medium |
+---
 
-### TikTok Metrics
+### TikTok
 
-| Metric | Definition | Benchmark | Priority |
-|--------|------------|-----------|----------|
-| **Views** | Total video plays | Varies | Medium |
-| **Completion Rate** | % who watched to end | 60%+ | Critical |
-| **Rewatch Rate** | Loops / Total views | 10%+ | Critical |
-| **Share Rate** | Shares/Views | 1-5% | High |
-| **Comment Rate** | Comments/Views | 0.5-3% | High |
-| **Follower Conversion** | New follows/Views | 0.5-2% | Medium |
+**Métricas de Vídeo:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| Watch time % | >80% | Hook/conteúdo efetivo |
+| Completion rate | >60% | Retenção total |
+| Shares | Alto | Potencial viral |
+| Comments | Alto | Engajamento |
 
-### Email Metrics
+**Métricas de Perfil:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| Follower growth | >5%/semana | Crescimento saudável |
+| Profile views | Alto | Curiosidade gerada |
+| Video views médio | >seguidores | Alcance além da base |
 
-| Metric | Definition | Benchmark | Priority |
-|--------|------------|-----------|----------|
-| **Open Rate** | Opens/Delivered | 20-25% | High |
-| **Click Rate (CTR)** | Clicks/Delivered | 2-5% | Critical |
-| **Click-to-Open (CTOR)** | Clicks/Opens | 10-15% | High |
-| **Unsubscribe Rate** | Unsubs/Delivered | <0.5% | Monitor |
-| **Bounce Rate** | Bounces/Sent | <2% | Monitor |
-| **Conversion Rate** | Conversions/Clicks | 1-5% | Critical |
+---
 
-### Website/Blog Metrics
+### Email Marketing
 
-| Metric | Definition | Benchmark | Priority |
-|--------|------------|-----------|----------|
-| **Organic Traffic** | Visits from search | Track growth | High |
-| **Bounce Rate** | Single-page visits | 40-60% | Medium |
-| **Time on Page** | Average reading time | 2-4 min | High |
-| **Pages per Session** | Content explored | 1.5-3 | Medium |
-| **Conversion Rate** | Goal completions/Visits | 1-3% | Critical |
-| **Scroll Depth** | How far users scroll | 50%+ | Medium |
+**Métricas de Campanha:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| Taxa de abertura | >20% | Assunto efetivo |
+| Taxa de clique (CTR) | >3% | Conteúdo relevante |
+| CTOR (Click-to-Open) | >15% | Qualidade do conteúdo |
+| Taxa de conversão | >1% | Eficácia da oferta |
 
-## Performance Analysis Framework
+**Métricas de Lista:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| Taxa de crescimento | >5%/mês | Lista saudável |
+| Taxa de descadastro | <0.5% | Conteúdo adequado |
+| Taxa de bounce | <2% | Qualidade da lista |
+| Taxa de spam | <0.1% | Reputação |
 
-### The COAL Framework
+---
 
-```
-C — COLLECT
-├── Gather data from all sources
-├── Ensure tracking is accurate
-└── Define time period
+### Ads (Meta/Google)
 
-O — ORGANIZE
-├── Segment by content type
-├── Compare periods
-└── Identify patterns
+**Métricas de Performance:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| CTR | >1% (Meta), >3% (Search) | Relevância do anúncio |
+| CPC | Baixo | Eficiência |
+| CPM | Varia por nicho | Custo de alcance |
+| Frequência | 1.5-3 | Saturação |
 
-A — ANALYZE
-├── What performed well?
-├── What underperformed?
-├── Why? (hypothesis)
+**Métricas de Conversão:**
+| Métrica | Benchmark | O que indica |
+|---------|-----------|--------------|
+| Taxa de conversão | >2% | Landing page efetiva |
+| Custo por lead (CPL) | Varia | Eficiência de aquisição |
+| ROAS | >3x | Retorno do investimento |
+| CPA | Dentro do target | Custo de aquisição |
 
-L — LEVERAGE
-├── Double down on winners
-├── Fix or abandon losers
-└── Test hypotheses
-```
+---
 
-### Content Performance Matrix
+## 📋 Templates de Relatório
 
-```
-                    HIGH ENGAGEMENT
-                          │
-         HIDDEN GEMS      │      TOP PERFORMERS
-         (Promote more)   │      (Repeat formula)
-                          │
-LOW REACH ────────────────┼──────────────────── HIGH REACH
-                          │
-         LOW PRIORITY     │      HIGH REACH, LOW ENGAGE
-         (Deprioritize)   │      (Fix content quality)
-                          │
-                    LOW ENGAGEMENT
-```
+### Relatório Semanal de Redes Sociais
 
-### Diagnostic Questions
+```markdown
+# RELATÓRIO SEMANAL - [DATA]
 
-| Symptom | Possible Causes | Analysis Steps |
-|---------|-----------------|----------------|
-| Low reach | Algorithm, timing, hashtags | Check posting time, hashtag performance |
-| Low engagement | Content quality, audience mismatch | Analyze content type, compare to winners |
-| High reach, low saves | Not valuable enough | Add actionable takeaways |
-| High reach, low comments | Not conversation-worthy | Add questions, controversial takes |
-| Low CTR (YouTube) | Weak thumbnail/title | A/B test thumbnails |
-| Low retention (video) | Weak hook, pacing issues | Check retention graph drop-offs |
+## RESUMO EXECUTIVO
+- Alcance total: [número] ([+/-X%] vs semana anterior)
+- Engajamento total: [número] ([+/-X%])
+- Novos seguidores: [número]
+- Melhor post: [descrição]
 
-## A/B Testing Framework
+---
 
-### What to Test
+## INSTAGRAM
+### Métricas Gerais
+| Métrica | Esta Semana | Semana Anterior | Variação |
+|---------|-------------|-----------------|----------|
+| Alcance | [X] | [Y] | [+/-Z%] |
+| Engajamento | [X] | [Y] | [+/-Z%] |
+| Seguidores | [X] | [Y] | [+/-Z] |
 
-| Element | Platform | Test Type |
-|---------|----------|-----------|
-| Headlines | All | Copy variations |
-| Thumbnails | YouTube | Visual variations |
-| Posting time | All | Time slots |
-| CTA | All | Action copy |
-| Hook | Video | Opening variations |
-| Format | Social | Carousel vs. single |
-| Length | All | Short vs. long |
+### Top 3 Posts
+1. [Post] - [Engajamento] - Por quê funcionou: [análise]
+2. [Post] - [Engajamento] - Por quê funcionou: [análise]
+3. [Post] - [Engajamento] - Por quê funcionou: [análise]
 
-### A/B Test Structure
-
-```
-HYPOTHESIS:
-"If we [change], then [metric] will [improve/decrease] because [reason]"
-
-VARIANTS:
-Control (A): Current version
-Test (B): Changed version
-[Test (C): Optional third variant]
-
-SUCCESS METRIC:
-Primary: [Main metric to measure]
-Secondary: [Supporting metrics]
-
-SAMPLE SIZE:
-Minimum per variant: [Calculate based on baseline]
-Duration: [Time needed for significance]
-
-STATISTICAL SIGNIFICANCE:
-Target confidence level: 95%
-Minimum detectable effect: [% change you care about]
-```
-
-### Sample Size Calculator
-
-```
-For 95% confidence, 80% power:
-- 5% baseline conversion, 20% lift → ~3,900 per variant
-- 10% baseline conversion, 10% lift → ~14,300 per variant
-- 2% baseline conversion, 50% lift → ~1,500 per variant
-
-Rule of thumb: Run test until you have at least:
-- 100 conversions per variant (ideal)
-- 1,000 impressions per variant (minimum)
-```
-
-## Reporting Framework
-
-### Weekly Report Structure
-
-```
-## WEEKLY PERFORMANCE REPORT
-Period: [Date] - [Date]
-
-### EXECUTIVE SUMMARY
-- [Key win]
-- [Key challenge]
-- [Key opportunity]
-
-### KEY METRICS
-
-| Metric | This Week | Last Week | Change | Target |
-|--------|-----------|-----------|--------|--------|
-| [Metric 1] | [Value] | [Value] | [+/-]% | [Target] |
-| [Metric 2] | [Value] | [Value] | [+/-]% | [Target] |
-
-### TOP PERFORMING CONTENT
-
-1. [Content 1]
-   - Reach: [X] | Engagement: [X]%
-   - Why it worked: [Analysis]
-
-2. [Content 2]
-   - Reach: [X] | Engagement: [X]%
-   - Why it worked: [Analysis]
-
-### UNDERPERFORMING CONTENT
-
-1. [Content 1]
-   - Expected: [X] | Actual: [X]
-   - Hypothesis: [Why it didn't work]
-
-### INSIGHTS & LEARNINGS
+### Insights
 - [Insight 1]
 - [Insight 2]
 
-### NEXT WEEK ACTIONS
-- [ ] [Action 1]
-- [ ] [Action 2]
-```
-
-### Monthly Report Structure
-
-```
-## MONTHLY PERFORMANCE REPORT
-Period: [Month Year]
-
-### MONTH OVERVIEW
-[2-3 sentence summary of the month]
-
-### GOALS VS. ACTUALS
-
-| Goal | Target | Actual | Status |
-|------|--------|--------|--------|
-| [Goal 1] | [Target] | [Actual] | ✅/⚠️/❌ |
-| [Goal 2] | [Target] | [Actual] | ✅/⚠️/❌ |
-
-### PLATFORM BREAKDOWN
-
-**Instagram:**
-- Followers: [X] ([+/-X] from last month)
-- Avg. Engagement Rate: [X]%
-- Top post: [Description]
-
-**YouTube:**
-- Subscribers: [X] ([+/-X])
-- Avg. CTR: [X]%
-- Watch time: [X] hours
-- Top video: [Description]
-
-[Repeat for each platform]
-
-### CONTENT PERFORMANCE BY TYPE
-
-| Content Type | Volume | Avg. Reach | Avg. Engagement |
-|--------------|--------|------------|-----------------|
-| Carousel | [X] | [X] | [X]% |
-| Reels | [X] | [X] | [X]% |
-| Static | [X] | [X] | [X]% |
-
-### KEY LEARNINGS
-1. [Learning with data support]
-2. [Learning with data support]
-
-### NEXT MONTH STRATEGY
-- [Strategic focus 1]
-- [Strategic focus 2]
-- [Content experiments to run]
-```
-
-## Benchmarking
-
-### Industry Benchmarks by Platform
-
-**Instagram (by follower count):**
-| Follower Range | Engagement Rate Benchmark |
-|----------------|---------------------------|
-| <1K (Nano) | 5-10% |
-| 1K-10K (Micro) | 4-6% |
-| 10K-100K (Mid) | 2-4% |
-| 100K-1M (Macro) | 1.5-2.5% |
-| 1M+ (Mega) | 1-2% |
-
-**YouTube (by channel size):**
-| Subscriber Range | CTR Benchmark | AVD Benchmark |
-|------------------|---------------|---------------|
-| <1K | 2-5% | 40-50% |
-| 1K-10K | 4-8% | 45-55% |
-| 10K-100K | 5-10% | 50-60% |
-| 100K+ | 6-12% | 50-65% |
-
-**Email (by industry):**
-| Industry | Open Rate | Click Rate |
-|----------|-----------|------------|
-| Marketing/Advertising | 17% | 2% |
-| E-commerce | 15% | 2.5% |
-| Education | 25% | 3% |
-| Health/Fitness | 21% | 2.5% |
-| Technology | 20% | 2% |
-| Finance | 20% | 2.5% |
-
-## KPI Setting Framework
-
-### SMART Goals for Content
-
-```
-S — SPECIFIC
-"Increase Instagram engagement rate"
-→ "Increase Instagram carousel engagement rate"
-
-M — MEASURABLE
-"Improve YouTube performance"
-→ "Increase YouTube CTR from 4% to 6%"
-
-A — ACHIEVABLE
-"Get 1M followers"
-→ "Grow from 10K to 15K followers (50% growth)"
-
-R — RELEVANT
-"Increase vanity metrics"
-→ "Increase email signups from content"
-
-T — TIME-BOUND
-"Eventually improve conversion"
-→ "Increase conversion rate by Q2 2026"
-```
-
-### Content KPI Tiers
-
-| Tier | Metrics | Purpose |
-|------|---------|---------|
-| **North Star** | 1-2 key business metrics | Ultimate success measure |
-| **Primary** | 3-5 platform metrics | Direct content performance |
-| **Secondary** | 5-10 supporting metrics | Context and diagnosis |
-| **Vanity** | Followers, likes (raw) | Awareness, not success |
-
-## Output Format
-
-### Standard Analytics Deliverables
-
-For every analytics request, provide:
-
-1. **Executive summary** — Key insights in 3 bullets
-2. **Metrics table** — With benchmarks and trends
-3. **Performance analysis** — What worked/didn't and why
-4. **Recommendations** — Specific, actionable next steps
-5. **Test ideas** — A/B tests to run
-
-### Example Output Structure
-
-```
-## PERFORMANCE ANALYSIS
-
-📊 PERIOD: [Date range]
-📈 PLATFORM: [Platform name]
-🎯 FOCUS: [What we're analyzing]
+### Ações para Próxima Semana
+- [ ] [Ação 1]
+- [ ] [Ação 2]
 
 ---
 
-### EXECUTIVE SUMMARY
-
-✅ **Win:** [Key positive finding]
-⚠️ **Challenge:** [Key area for improvement]
-💡 **Opportunity:** [Actionable insight]
+## [OUTRAS PLATAFORMAS]
+[Repetir estrutura]
 
 ---
 
-### KEY METRICS
-
-| Metric | Value | vs. Last Period | vs. Benchmark | Status |
-|--------|-------|-----------------|---------------|--------|
-| [Metric 1] | [Value] | [+/-X]% | [Above/Below] | [✅/⚠️/❌] |
-| [Metric 2] | [Value] | [+/-X]% | [Above/Below] | [✅/⚠️/❌] |
-| [Metric 3] | [Value] | [+/-X]% | [Above/Below] | [✅/⚠️/❌] |
-
----
-
-### TOP PERFORMERS
-
-**#1: [Content Title/Description]**
-- Reach: [X] | Engagement: [X]%
-- What made it work: [Analysis]
-- Replication opportunity: [How to repeat]
-
-**#2: [Content Title/Description]**
-- Reach: [X] | Engagement: [X]%
-- What made it work: [Analysis]
-
----
-
-### UNDERPERFORMERS
-
-**[Content Title/Description]**
-- Expected: [X] | Actual: [X]
-- Gap analysis: [Why it missed]
-- Fix: [What to do differently]
-
----
-
-### INSIGHTS
-
-1. **[Pattern observed]**
-   Data: [Supporting metrics]
-   Implication: [What this means]
-
-2. **[Pattern observed]**
-   Data: [Supporting metrics]
-   Implication: [What this means]
-
----
-
-### RECOMMENDATIONS
-
-| Priority | Action | Expected Impact | Effort |
-|----------|--------|-----------------|--------|
-| 🔴 High | [Action 1] | [Impact] | [Low/Med/High] |
-| 🟡 Medium | [Action 2] | [Impact] | [Low/Med/High] |
-| 🟢 Low | [Action 3] | [Impact] | [Low/Med/High] |
-
----
-
-### A/B TESTS TO RUN
-
-**Test 1: [Test name]**
-- Hypothesis: If we [change], then [metric] will improve by [%]
-- Variants: A) [Control] | B) [Test]
-- Duration: [Time needed]
-- Success metric: [Primary metric]
+## CONCLUSÕES E RECOMENDAÇÕES
+1. [Recomendação principal]
+2. [Recomendação secundária]
+3. [Teste sugerido]
 ```
 
-## Resources
+---
 
-### Agent & Tasks
-- `.aios-core/development/agents/analytics.md` — **Full Analytics Agent (Nova)**
-- `.aios-core/development/tasks/analytics-performance-report.md` — Performance analysis task
-- `.aios-core/development/tasks/analytics-create-report.md` — Report generation task
-- `.aios-core/development/tasks/analytics-cohort-analysis.md` — Cohort & RFM analysis task
-- `.aios-core/development/tasks/analytics-dashboard-design.md` — Dashboard design task
+### Relatório Mensal de Performance
 
-### Checklists
-- `.aios-core/development/checklists/analytics-daily-checklist.md` — Daily monitoring
-- `.aios-core/development/checklists/analytics-weekly-checklist.md` — Weekly review
-- `.aios-core/development/checklists/analytics-monthly-checklist.md` — Monthly deep-dive
+```markdown
+# RELATÓRIO MENSAL - [MÊS/ANO]
 
-### Templates
-- `.aios-core/development/templates/analytics-weekly-report-tmpl.yaml` — Weekly report
-- `.aios-core/development/templates/analytics-monthly-report-tmpl.yaml` — Monthly report
+## RESUMO EXECUTIVO
+### Destaques do Mês
+- ✅ [Conquista 1]
+- ✅ [Conquista 2]
+- ⚠️ [Desafio identificado]
 
-### Data & Benchmarks
-- `.aios-core/development/data/analytics-benchmarks.md` — Comprehensive benchmarks library
+### KPIs Principais
+| KPI | Meta | Realizado | Status |
+|-----|------|-----------|--------|
+| [KPI 1] | [X] | [Y] | 🟢/🟡/🔴 |
+| [KPI 2] | [X] | [Y] | 🟢/🟡/🔴 |
+| [KPI 3] | [X] | [Y] | 🟢/🟡/🔴 |
 
-### Legacy References
-- `references/analytics-benchmarks.md` — Platform benchmarks
-- `subagents/analytics-agent.md` — Original documentation
+---
 
-## Commands
+## ANÁLISE POR CANAL
 
-| Command | Description |
-|---------|-------------|
-| `*analytics-report {platform} {period}` | Generate performance analysis |
-| `*create-analytics-report {type} {audience}` | Create formal report |
-| `*cohort-analysis {type} {period}` | Run cohort/RFM analysis |
-| `*design-dashboard {type} {audience}` | Design analytics dashboard |
-| `*calculate-ltv {segment}` | Calculate customer lifetime value |
-| `*forecast {metric} {period}` | Generate performance forecast |
-| `*attribution-analysis` | Analyze attribution models |
+### Instagram
+**Evolução Mensal:**
+[Gráfico ou tabela com semanas]
 
-## Advanced Capabilities
+**Análise de Conteúdo:**
+| Tipo de Conteúdo | Posts | Eng. Médio | Melhor Performer |
+|------------------|-------|------------|------------------|
+| Carrossel | [X] | [Y%] | [Descrição] |
+| Reels | [X] | [Y%] | [Descrição] |
+| Feed único | [X] | [Y%] | [Descrição] |
 
-### Marketing Analytics
-- Multi-platform performance tracking (Meta, Google, TikTok, LinkedIn, YouTube)
-- Campaign-level deep dive analysis
-- Creative performance and fatigue detection
-- Audience segmentation and insights
-- Budget optimization recommendations
+**Horários de Melhor Performance:**
+- [Dia]: [Horário]
+- [Dia]: [Horário]
 
-### Customer Analytics
-- Cohort analysis (acquisition, behavioral, source)
-- RFM segmentation (Recency, Frequency, Monetary)
-- Customer lifetime value (LTV) calculation
-- Customer acquisition cost (CAC) tracking
-- LTV:CAC ratio analysis
+---
 
-### Statistical Analysis
-- A/B test design and significance calculation
-- Sample size estimation
-- Confidence intervals
-- Statistical significance testing
-- Incrementality measurement
+## ANÁLISE DE AUDIÊNCIA
+### Crescimento
+- Novos seguidores: [número]
+- Taxa de crescimento: [%]
+- Fonte principal: [origem]
 
-### Financial Analytics
-- ROAS and MER calculation
-- Unit economics modeling
-- Contribution margin analysis
-- Break-even analysis
-- ROI and profitability tracking
+### Demografia (se disponível)
+- Idade predominante: [faixa]
+- Gênero: [distribuição]
+- Localização: [top 3]
 
-### Reporting & Visualization
-- Executive dashboards
-- Weekly/monthly performance reports
-- Funnel visualization
-- Trend analysis
-- Benchmark comparisons
+---
+
+## CONTEÚDO DE MELHOR PERFORMANCE
+
+### Top 5 Posts do Mês
+| # | Post | Alcance | Eng. | Por quê funcionou |
+|---|------|---------|------|-------------------|
+| 1 | [X] | [Y] | [Z%] | [Análise] |
+| 2 | [X] | [Y] | [Z%] | [Análise] |
+
+### Padrões Identificados
+- [Padrão 1]: [Evidência]
+- [Padrão 2]: [Evidência]
+
+---
+
+## TESTES A/B REALIZADOS
+| Teste | Variante A | Variante B | Vencedor | Aprendizado |
+|-------|------------|------------|----------|-------------|
+| [X] | [Desc] | [Desc] | [A/B] | [Insight] |
+
+---
+
+## PLANO PARA PRÓXIMO MÊS
+### Metas
+| Meta | Valor Target | Estratégia |
+|------|--------------|------------|
+| [X] | [Y] | [Como atingir] |
+
+### Testes Planejados
+- [ ] [Teste 1]
+- [ ] [Teste 2]
+
+### Calendário de Conteúdo
+[Resumo das principais pautas]
+```
+
+---
+
+### Relatório de Campanha de Ads
+
+```markdown
+# RELATÓRIO DE CAMPANHA - [NOME]
+
+## DADOS DA CAMPANHA
+- Período: [Data início] a [Data fim]
+- Investimento: R$ [valor]
+- Objetivo: [objetivo]
+- Plataforma: [Meta/Google/etc]
+
+---
+
+## RESULTADOS GERAIS
+| Métrica | Resultado | Meta | Status |
+|---------|-----------|------|--------|
+| Impressões | [X] | [Y] | [%] |
+| Cliques | [X] | [Y] | [%] |
+| CTR | [X%] | [Y%] | [%] |
+| Conversões | [X] | [Y] | [%] |
+| CPA | R$ [X] | R$ [Y] | [%] |
+| ROAS | [X]x | [Y]x | [%] |
+
+---
+
+## ANÁLISE POR CRIATIVO
+| Criativo | Spend | Impressões | CTR | Conv. | CPA |
+|----------|-------|------------|-----|-------|-----|
+| [A] | R$[X] | [Y] | [Z%] | [N] | R$[X] |
+| [B] | R$[X] | [Y] | [Z%] | [N] | R$[X] |
+
+**Vencedor:** [Criativo X]
+**Por quê:** [Análise]
+
+---
+
+## ANÁLISE POR PÚBLICO
+| Público | Spend | Conv. | CPA | ROAS |
+|---------|-------|-------|-----|------|
+| [A] | R$[X] | [Y] | R$[Z] | [W]x |
+| [B] | R$[X] | [Y] | R$[Z] | [W]x |
+
+**Melhor público:** [X]
+**Insights:** [Análise]
+
+---
+
+## FUNIL DE CONVERSÃO
+```
+Impressões: [X]
+    ↓ CTR: [Y%]
+Cliques: [Z]
+    ↓ Taxa LP: [W%]
+Visualizações LP: [N]
+    ↓ Conv. Rate: [M%]
+Conversões: [P]
+```
+
+**Gargalo identificado:** [Etapa]
+**Recomendação:** [Ação]
+
+---
+
+## APRENDIZADOS E PRÓXIMOS PASSOS
+### O que funcionou
+- [Item 1]
+- [Item 2]
+
+### O que não funcionou
+- [Item 1]
+- [Item 2]
+
+### Recomendações
+1. [Recomendação 1]
+2. [Recomendação 2]
+3. [Recomendação 3]
+```
+
+---
+
+## 🧪 Framework de Testes A/B
+
+### O que Testar
+
+**Em Posts:**
+- Hooks diferentes
+- Formatos (carrossel vs imagem única)
+- Horários de publicação
+- Tipos de CTA
+- Comprimento do texto
+- Uso de emojis
+
+**Em Ads:**
+- Headlines
+- Imagens/vídeos
+- Copy principal
+- CTAs
+- Públicos
+- Posicionamentos
+
+**Em Emails:**
+- Linhas de assunto
+- Remetente
+- Horário de envio
+- CTA (texto e posição)
+- Comprimento
+
+### Estrutura de Teste
+
+```markdown
+## TESTE A/B: [NOME]
+
+### Hipótese
+"Se [mudança], então [resultado esperado] porque [razão]."
+
+### Variáveis
+- **Controle (A):** [Descrição]
+- **Variante (B):** [Descrição]
+
+### Métrica Principal
+[Métrica que define o vencedor]
+
+### Métricas Secundárias
+- [Métrica 2]
+- [Métrica 3]
+
+### Tamanho da Amostra
+- Mínimo: [número]
+- Duração: [tempo]
+
+### Resultados
+| Variante | [Métrica] | Diferença | Significância |
+|----------|-----------|-----------|---------------|
+| A | [X] | - | - |
+| B | [Y] | [+/-Z%] | [Sim/Não] |
+
+### Conclusão
+[Vencedor] venceu com [X%] de melhoria em [métrica].
+
+### Próximo Teste
+[Baseado nesse resultado, testar...]
+```
+
+---
+
+## 📊 Dashboards Recomendados
+
+### KPIs Essenciais por Objetivo
+
+**Awareness:**
+- Alcance total
+- Impressões
+- Crescimento de seguidores
+- Menções da marca
+
+**Engajamento:**
+- Taxa de engajamento
+- Comentários
+- Compartilhamentos
+- Salvamentos
+
+**Tráfego:**
+- Cliques no link
+- CTR
+- Sessões no site
+- Taxa de rejeição
+
+**Conversão:**
+- Leads gerados
+- Taxa de conversão
+- Custo por lead
+- Vendas atribuídas
+
+**Retenção:**
+- Taxa de retorno
+- Lifetime value
+- Churn rate
+- NPS
+
+---
+
+## 🔍 Análise de Padrões
+
+### Identificando O que Funciona
+
+**Checklist de Análise:**
+- [ ] Quais formatos têm melhor engajamento?
+- [ ] Quais temas geram mais interesse?
+- [ ] Quais horários performam melhor?
+- [ ] Quais CTAs convertem mais?
+- [ ] Quais hooks retêm mais?
+- [ ] Quais públicos respondem melhor?
+
+### Template de Insights
+
+```markdown
+## INSIGHT: [TÍTULO]
+
+### Observação
+[O que foi identificado nos dados]
+
+### Dados que Suportam
+- [Dado 1]
+- [Dado 2]
+- [Dado 3]
+
+### Hipótese
+[Por que isso acontece]
+
+### Ação Recomendada
+[O que fazer com esse insight]
+
+### Como Medir Sucesso
+[Métrica para validar a ação]
+```
+
+---
+
+## ✅ Checklist de Analytics
+
+### Diário
+- [ ] Verificar métricas principais
+- [ ] Responder comentários/DMs relevantes
+- [ ] Anotar anomalias
+
+### Semanal
+- [ ] Compilar relatório semanal
+- [ ] Analisar top performers
+- [ ] Identificar padrões
+- [ ] Ajustar calendário se necessário
+
+### Mensal
+- [ ] Relatório mensal completo
+- [ ] Revisão de KPIs vs metas
+- [ ] Análise de audiência
+- [ ] Planejamento do próximo mês
+- [ ] Definir testes A/B
+
+### Trimestral
+- [ ] Análise de tendências
+- [ ] Revisão de estratégia
+- [ ] Benchmarking com mercado
+- [ ] Atualização de metas
+
+---
+
+## 📐 Modelagem de Atribuição
+
+### Modelos de Atribuição
+
+**Last-Click (Último Clique):**
+- Atribui 100% do crédito ao último ponto de contato antes da conversão
+- Mais simples de implementar
+- Padrão na maioria das plataformas
+
+**First-Click (Primeiro Clique):**
+- Atribui 100% do crédito ao primeiro ponto de contato
+- Útil para entender quais canais geram descoberta
+- Valoriza o topo do funil
+
+**Linear:**
+- Distribui o crédito igualmente entre todos os pontos de contato
+- Visão equilibrada do funil
+- Bom para jornadas com poucos touchpoints
+
+**Time Decay (Decaimento Temporal):**
+- Atribui mais crédito aos pontos de contato mais recentes
+- Bom para ciclos de venda curtos
+- Valoriza ações próximas da conversão
+
+**Data-Driven (Baseado em Dados):**
+- Utiliza machine learning para distribuir crédito
+- Modelo mais preciso, mas exige volume alto de dados
+- Disponível no GA4 e Google Ads com dados suficientes
+
+### Quando Usar Cada Modelo
+
+| Modelo | Melhor Para | Prós | Contras |
+|--------|-------------|------|---------|
+| **Last-Click** | Campanhas de conversão direta | Simples, fácil de medir | Ignora topo de funil |
+| **First-Click** | Estratégias de awareness | Valoriza descoberta | Ignora influência posterior |
+| **Linear** | Funis equilibrados | Visão completa | Pode diluir importância real |
+| **Time Decay** | Ciclos de venda curtos | Prioriza ações recentes | Subestima awareness |
+| **Data-Driven** | Contas com alto volume | Mais preciso e adaptativo | Exige muitos dados (mín. 300 conversões/mês) |
+
+### Como a Atribuição Afeta Decisões de Orçamento
+
+- **Last-click** tende a concentrar budget em retargeting e busca paga
+- **First-click** justifica mais investimento em awareness e redes sociais
+- **Linear** distribui budget mais uniformemente entre canais
+- **Data-driven** otimiza budget com base em contribuição real de cada canal
+- Recomendação: sempre analisar mais de um modelo antes de realocar verba
+
+---
+
+## 📊 Google Analytics 4 (GA4)
+
+### Diferenças Principais do Universal Analytics
+
+| Aspecto | Universal Analytics | GA4 |
+|---------|---------------------|-----|
+| Modelo de dados | Sessões e pageviews | Eventos e parâmetros |
+| Rastreamento | Por sessão | Por usuário e eventos |
+| Relatórios | Pré-definidos | Exploração customizável |
+| Retenção de dados | Ilimitada | 2 ou 14 meses (padrão) |
+| Integração com BigQuery | Paga (360) | Gratuita |
+| Machine Learning | Limitado | Insights automáticos e previsões |
+
+### Eventos Essenciais para Rastrear
+
+| Evento | Descrição | Quando Usar |
+|--------|-----------|-------------|
+| `page_view` | Visualização de página | Automático (enhanced measurement) |
+| `scroll` | Rolagem até 90% da página | Automático (enhanced measurement) |
+| `click` | Clique em link externo | Automático (enhanced measurement) |
+| `form_submit` | Envio de formulário | Automático ou customizado |
+| `purchase` | Compra concluída | Configuração manual (e-commerce) |
+| `generate_lead` | Lead gerado | Configuração manual |
+| `sign_up` | Cadastro realizado | Configuração manual |
+| `add_to_cart` | Produto adicionado ao carrinho | Configuração manual (e-commerce) |
+
+### Configuração de Eventos Customizados
+
+```
+Estrutura de evento GA4:
+├── Nome do evento: snake_case, máx. 40 caracteres
+├── Parâmetros: até 25 por evento
+│   ├── Chave: máx. 40 caracteres
+│   └── Valor: máx. 100 caracteres (texto) ou número
+└── Propriedades do usuário: até 25 customizadas
+```
+
+**Exemplos de eventos customizados para criadores de conteúdo:**
+- `video_started` - Usuário iniciou reprodução de vídeo
+- `ebook_downloaded` - Download de material rico
+- `cta_clicked` - Clique em botão de CTA específico
+- `pricing_viewed` - Visualização da página de preços
+
+### Configuração de Eventos de Conversão
+
+1. Acessar Admin > Eventos > Marcar como conversão
+2. Máximo de 30 eventos de conversão por propriedade
+3. Conversões essenciais: `purchase`, `generate_lead`, `sign_up`
+4. Testar com Relatórios em Tempo Real antes de publicar
+
+### Construtor de Públicos (Audience Builder)
+
+**Públicos recomendados:**
+- Visitantes que visualizaram página de produto (últimos 7 dias)
+- Usuários que iniciaram checkout mas não compraram
+- Leitores frequentes do blog (3+ visitas em 30 dias)
+- Leads que não converteram em 14 dias
+- Compradores recorrentes (2+ compras em 90 dias)
+
+### Relatórios de Exploração
+
+| Tipo de Exploração | Uso Principal |
+|--------------------|---------------|
+| **Funil (Funnel)** | Visualizar etapas da jornada e onde há abandono |
+| **Caminho (Path)** | Entender trajetos comuns dos usuários no site |
+| **Sobreposição de Segmentos** | Comparar comportamento entre grupos de usuários |
+| **Exploração Livre** | Análises ad hoc com arrastar e soltar |
+| **Coorte** | Analisar retenção ao longo do tempo |
+| **Lifetime** | Receita e valor acumulado por usuário |
+
+### Boas Práticas de UTM
+
+| Parâmetro | Obrigatório | Exemplo | Descrição |
+|-----------|-------------|---------|-----------|
+| `utm_source` | Sim | `instagram`, `google`, `newsletter` | Origem do tráfego |
+| `utm_medium` | Sim | `cpc`, `social`, `email` | Tipo de mídia |
+| `utm_campaign` | Sim | `lancamento_curso_jan26` | Nome da campanha |
+| `utm_term` | Não | `marketing_digital` | Palavra-chave (para search) |
+| `utm_content` | Não | `banner_azul`, `cta_topo` | Diferenciação de criativos |
+
+**Convenções recomendadas:**
+- Sempre usar letras minúsculas
+- Separar palavras com underline (_)
+- Manter nomenclatura padronizada e documentada
+- Nunca usar UTM em links internos do próprio site
+
+### Integração GA4 + Google Ads
+
+- Vincular contas para importar conversões automaticamente
+- Compartilhar públicos do GA4 para remarketing no Google Ads
+- Usar sinais de conversão do GA4 para otimização de lances
+- Relatórios de aquisição com dados de custo do Google Ads
+
+### Relatórios Essenciais para Criadores de Conteúdo
+
+1. **Aquisição de Tráfego** - De onde vêm os visitantes
+2. **Engajamento > Páginas e Telas** - Conteúdos mais acessados
+3. **Monetização** - Receita por produto/campanha
+4. **Retenção** - Usuários novos vs retornantes
+5. **Demografia** - Perfil de idade, gênero e localização
+6. **Conversões** - Taxa e volume por evento de conversão
+
+---
+
+## 💰 ROI e Métricas Financeiras
+
+### Fórmula de Cálculo do ROI
+
+```
+ROI = ((Receita - Investimento) / Investimento) x 100
+
+Exemplo:
+- Investimento em ads: R$ 5.000
+- Receita gerada: R$ 20.000
+- ROI = ((20.000 - 5.000) / 5.000) x 100 = 300%
+```
+
+### Cálculo do ROAS (Return on Ad Spend)
+
+```
+ROAS = Receita Gerada / Investimento em Ads
+
+Exemplo:
+- Investimento em ads: R$ 5.000
+- Receita gerada: R$ 20.000
+- ROAS = 20.000 / 5.000 = 4x (ou 400%)
+
+Benchmarks:
+- ROAS mínimo viável: 2x (para margens altas)
+- ROAS bom: 3x-5x
+- ROAS excelente: >5x
+```
+
+### Customer Lifetime Value (CLV/LTV)
+
+```
+LTV = Ticket Médio x Frequência de Compra x Tempo de Retenção
+
+Exemplo:
+- Ticket médio: R$ 200
+- Compras por ano: 4
+- Tempo médio de cliente: 2 anos
+- LTV = 200 x 4 x 2 = R$ 1.600
+```
+
+### Customer Acquisition Cost (CAC)
+
+```
+CAC = Total Investido em Aquisição / Número de Novos Clientes
+
+Exemplo:
+- Investimento total (ads + time + ferramentas): R$ 10.000/mês
+- Novos clientes no mês: 50
+- CAC = 10.000 / 50 = R$ 200
+```
+
+### Relação CAC/LTV
+
+| Relação CAC:LTV | Interpretação | Ação Recomendada |
+|-----------------|---------------|------------------|
+| 1:1 | Prejuízo (custo = receita) | Reduzir CAC ou aumentar LTV urgentemente |
+| 1:2 | Sustentável, mas apertado | Otimizar canais e melhorar retenção |
+| 1:3 | Saudável (benchmark ideal) | Manter e escalar com cautela |
+| 1:4 ou mais | Excelente | Investir mais em aquisição para crescer |
+
+### Análise de Break-Even para Campanhas
+
+```
+Break-Even = Custo Total da Campanha / Margem de Lucro por Unidade
+
+Exemplo:
+- Custo da campanha: R$ 3.000
+- Preço do produto: R$ 150
+- Custo do produto: R$ 50
+- Margem por unidade: R$ 100
+- Break-even: 3.000 / 100 = 30 vendas necessárias
+```
+
+### Template de Relatório de ROI
+
+```markdown
+# RELATÓRIO DE ROI - [CAMPANHA/PERÍODO]
+
+## INVESTIMENTO
+| Item | Valor |
+|------|-------|
+| Anúncios pagos | R$ [X] |
+| Ferramentas | R$ [X] |
+| Produção de conteúdo | R$ [X] |
+| **Total investido** | **R$ [X]** |
+
+## RECEITA GERADA
+| Fonte | Valor |
+|-------|-------|
+| Vendas diretas (ads) | R$ [X] |
+| Vendas orgânicas atribuídas | R$ [X] |
+| **Total receita** | **R$ [X]** |
+
+## MÉTRICAS FINANCEIRAS
+| Métrica | Valor |
+|---------|-------|
+| ROI | [X]% |
+| ROAS | [X]x |
+| CAC | R$ [X] |
+| LTV estimado | R$ [X] |
+| Relação CAC:LTV | 1:[X] |
+| Break-even | [X] vendas |
+| Vendas realizadas | [X] |
+
+## ANÁLISE
+- [Insight sobre eficiência dos canais]
+- [Comparação com período anterior]
+- [Oportunidades de otimização]
+
+## RECOMENDAÇÕES
+1. [Ação para melhorar ROI]
+2. [Realocação de verba sugerida]
+3. [Próximo teste planejado]
+```
+
+---
+
+## 🔄 Integração com Content Creator
+
+O Analytics Agent fornece:
+
+1. **Métricas** por plataforma e formato
+2. **Relatórios** estruturados
+3. **Framework** de testes A/B
+4. **Análise** de padrões
+5. **Recomendações** baseadas em dados
