@@ -1,6 +1,6 @@
 # Plano de Expansão: Subagentes Avançados do Content Creator
 
-> **Objetivo:** Criar o sistema de criação de conteúdo mais completo do planeta com 35 subagentes especializados cobrindo 100% das necessidades de marketing digital.
+> **Objetivo:** Criar o sistema de criação de conteúdo mais completo do planeta com 32 subagentes especializados cobrindo 100% das necessidades de marketing digital.
 
 ---
 
@@ -29,16 +29,21 @@
 **Total atual:** 40.461 linhas em 15 agentes
 **Média atual:** 2.697 linhas/agente
 
-### Estado Futuro (35 Subagentes)
+### Estado Futuro (32 Subagentes)
 
 **Agentes para expandir:** 4
 **Agentes para criar (plano original):** 10
-**Agentes NOVOS adicionados:** 10
-**Total de trabalho:** 24 agentes (4 expansões + 20 criações)
+**Agentes NOVOS adicionados:** 7 (3 removidos por redundância)
+**Total de trabalho:** 21 agentes (4 expansões + 17 criações)
 
 **Meta por agente:** 2.500 - 4.000 linhas
-**Meta total:** ~98.000 linhas em 35 agentes
+**Meta total:** ~90.000 linhas em 32 agentes
 **Cobertura de marketing:** 100%
+
+**Agentes removidos por redundância:**
+- ~~Competitive Intelligence Agent~~ → Já coberto pelo Research Agent (343 linhas dedicadas)
+- ~~Trend Agent~~ → Já coberto pelo Research Agent (277 linhas dedicadas)
+- ~~UGC Agent~~ → Fundido com Influencer Agent
 
 ---
 
@@ -132,7 +137,7 @@ Cada subagente seguirá esta estrutura científica:
 | # | Agente | Descrição | Linhas | Status |
 |---|--------|-----------|--------|--------|
 | 6 | **Community Agent** | Discord, Telegram, grupos, engajamento | 3.500+ | ❌ Criar |
-| 7 | **Influencer Agent** | Parcerias, creators, collabs | 3.000+ | ❌ Criar |
+| 7 | **Influencer Agent** | Parcerias, creators, collabs, UGC, conteúdo gerado por usuários | 3.500+ | ❌ Criar |
 | 8 | **CRM Agent** | Segmentação, lifecycle, retenção | 2.500+ | ❌ Criar |
 
 ---
@@ -208,27 +213,28 @@ Cada subagente seguirá esta estrutura científica:
 | # | Agente | Descrição | Linhas | Prioridade |
 |---|--------|-----------|--------|------------|
 | 23 | **Reputation Agent** | Reviews, Google Meu Negócio, gestão de crise, NPS | 3.000+ | ALTO |
-| 24 | **UGC Agent** | User-generated content, depoimentos em escala, social proof | 2.500+ | ALTO |
 
-**Por que importantes?**
+**Nota:** UGC Agent foi fundido com Influencer Agent (Fase 3)
+
+**Por que importante?**
 - 93% dos consumidores leem reviews antes de comprar
-- UGC tem 4x mais conversão que conteúdo de marca
 
 ---
 
-### FASE 10: Autoridade e Inteligência 🆕 NOVA
-**Foco:** Posicionamento como expert e inteligência de mercado
+### FASE 10: Autoridade 🆕 NOVA
+**Foco:** Posicionamento como expert
 
 | # | Agente | Descrição | Linhas | Prioridade |
 |---|--------|-----------|--------|------------|
-| 25 | **Thought Leadership Agent** | Autoridade, artigos opinativos, LinkedIn, palestras | 2.500+ | MÉDIO |
-| 26 | **Competitive Intelligence Agent** | Análise de concorrência, benchmarks, oportunidades | 2.500+ | MÉDIO |
-| 27 | **Trend Agent** | Newsjacking, tendências, timing, viral | 2.000+ | MÉDIO |
+| 24 | **Thought Leadership Agent** | Autoridade, artigos opinativos, LinkedIn, palestras, speaker kit | 2.500+ | MÉDIO |
 
-**Por que importantes?**
+**Agentes REMOVIDOS por redundância:**
+- ~~Competitive Intelligence Agent~~ → Research Agent já tem 343 linhas de análise competitiva
+- ~~Trend Agent~~ → Research Agent já tem 277 linhas de trend spotting
+
+**Por que importante?**
 - Diferenciação no mercado saturado
-- Decisões baseadas em dados, não intuição
-- Surfar ondas virais multiplica alcance
+- Autoridade permite cobrar preços premium
 
 ---
 
@@ -237,7 +243,7 @@ Cada subagente seguirá esta estrutura científica:
 
 | # | Agente | Descrição | Linhas | Prioridade |
 |---|--------|-----------|--------|------------|
-| 28 | **Legal/Compliance Agent** | LGPD, disclaimers, termos, contratos, direitos autorais | 2.000+ | MÉDIO |
+| 25 | **Legal/Compliance Agent** | LGPD, disclaimers, termos, contratos, direitos autorais | 2.000+ | MÉDIO |
 
 **Por que importante?**
 - LGPD pode gerar multas de até 2% do faturamento
@@ -271,7 +277,7 @@ Cada subagente seguirá esta estrutura científica:
 | 9 | Webinar Agent | 3.000+ | 5 |
 | 10 | Launch Agent | 3.000+ | 5 |
 
-### Agentes para CRIAR - Novos (10)
+### Agentes para CRIAR - Novos (7)
 
 | # | Agente | Linhas | Fase | Prioridade |
 |---|--------|--------|------|------------|
@@ -280,11 +286,13 @@ Cada subagente seguirá esta estrutura científica:
 | 3 | **PR Agent** | 3.000+ | 7 | ALTO |
 | 4 | **Infoproduct Builder Agent** | 4.500+ | 8 | CRÍTICO |
 | 5 | **Reputation Agent** | 3.000+ | 9 | ALTO |
-| 6 | **UGC Agent** | 2.500+ | 9 | ALTO |
-| 7 | **Thought Leadership Agent** | 2.500+ | 10 | MÉDIO |
-| 8 | **Competitive Intelligence Agent** | 2.500+ | 10 | MÉDIO |
-| 9 | **Trend Agent** | 2.000+ | 10 | MÉDIO |
-| 10 | **Legal/Compliance Agent** | 2.000+ | 11 | MÉDIO |
+| 6 | **Thought Leadership Agent** | 2.500+ | 10 | MÉDIO |
+| 7 | **Legal/Compliance Agent** | 2.000+ | 11 | MÉDIO |
+
+**Agentes REMOVIDOS por redundância (não criar):**
+- ~~UGC Agent~~ → Fundido com Influencer Agent (Fase 3)
+- ~~Competitive Intelligence Agent~~ → Research Agent já tem 343 linhas dedicadas
+- ~~Trend Agent~~ → Research Agent já tem 277 linhas dedicadas
 
 ---
 
@@ -1012,84 +1020,7 @@ TEMPLATES:
 └── Monitoring setup guide
 ```
 
-### 24. UGC Agent v3.0
-
-```
-ESTRUTURA:
-
-PARTE I: A CIÊNCIA DO UGC
-├── Por que UGC converte 4x mais
-├── Autenticidade e confiança
-├── FOMO e social proof
-└── UGC vs Branded content
-
-PARTE II: TIPOS DE UGC
-├── Reviews e depoimentos
-├── Unboxing
-├── Before/After
-├── How I use it
-├── Testimonials em vídeo
-├── User photos
-└── Community content
-
-PARTE III: COLETA DE UGC
-├── Pedindo para clientes
-├── Hashtags de marca
-├── Concursos e desafios
-├── Incentivos para criação
-├── Programa de embaixadores
-└── Ferramentas de coleta
-
-PARTE IV: CURADORIA E DIREITOS
-├── Seleção de conteúdo
-├── Pedindo permissão
-├── Termos de uso
-├── Créditos e atribuição
-├── Direitos de imagem
-└── Compliance legal
-
-PARTE V: USO DE UGC
-├── UGC em ads (Meta, TikTok)
-├── UGC em landing pages
-├── UGC em email marketing
-├── UGC em social media
-├── UGC em produto
-└── UGC em testimonials
-
-PARTE VI: UGC CREATORS
-├── Diferença UGC Creator vs Influencer
-├── Encontrando UGC Creators
-├── Brief para UGC
-├── Precificação
-├── Contratos
-└── Feedback e iteração
-
-PARTE VII: PLATAFORMAS E FERRAMENTAS
-├── TINT
-├── Yotpo
-├── Bazaarvoice
-├── Billo
-├── Insense
-└── Showcase
-
-PARTE VIII: MÉTRICAS DE UGC
-├── Volume de UGC gerado
-├── Engagement rate do UGC
-├── Conversion rate com UGC
-├── Custo por UGC
-├── ROI de campanhas UGC
-└── Sentiment analysis
-
-TEMPLATES:
-├── UGC request email
-├── Creator brief template
-├── Rights request template
-├── Contest rules template
-├── UGC performance report
-└── Ambassador program guide
-```
-
-### 25. Thought Leadership Agent v3.0
+### 24. Thought Leadership Agent v3.0
 
 ```
 ESTRUTURA:
@@ -1163,162 +1094,7 @@ TEMPLATES:
 └── Authority content calendar
 ```
 
-### 26. Competitive Intelligence Agent v3.0
-
-```
-ESTRUTURA:
-
-PARTE I: FUNDAMENTOS DE INTELIGÊNCIA COMPETITIVA
-├── O que é CI (Competitive Intelligence)
-├── Inteligência vs Espionagem
-├── Ética em CI
-└── ROI de CI
-
-PARTE II: MAPEAMENTO DE CONCORRENTES
-├── Concorrentes diretos
-├── Concorrentes indiretos
-├── Substitutos
-├── Novos entrantes
-├── Priorização de monitoramento
-└── Competitor profiles
-
-PARTE III: COLETA DE DADOS
-├── Websites e landing pages
-├── Redes sociais
-├── Ads Library (Meta, Google)
-├── SEO e keywords
-├── Pricing e ofertas
-├── Conteúdo e messaging
-├── Reviews de clientes
-└── Job postings
-
-PARTE IV: FERRAMENTAS DE CI
-├── SEMrush
-├── SimilarWeb
-├── SpyFu
-├── Ahrefs
-├── Meta Ads Library
-├── BuiltWith
-└── Owler
-
-PARTE V: ANÁLISE COMPETITIVA
-├── SWOT analysis
-├── Positioning maps
-├── Feature comparison
-├── Pricing analysis
-├── Content gap analysis
-├── Channel analysis
-└── Customer perception
-
-PARTE VI: BATTLECARDS
-├── O que são battlecards
-├── Estrutura de battlecard
-├── Objeções e respostas
-├── Win/Loss analysis
-├── Atualização contínua
-└── Distribuição para equipe
-
-PARTE VII: OPORTUNIDADES E AMEAÇAS
-├── Gaps de mercado
-├── Fraquezas dos concorrentes
-├── Movimentos estratégicos
-├── Tendências do setor
-├── Early warning signals
-└── Scenario planning
-
-PARTE VIII: REPORTS E APRESENTAÇÕES
-├── Competitive landscape report
-├── Monthly competitor update
-├── Quarterly strategy review
-├── Ad hoc alerts
-└── Executive summaries
-
-TEMPLATES:
-├── Competitor profile template
-├── SWOT template
-├── Battlecard template
-├── Win/Loss analysis template
-├── Monthly CI report
-└── Competitive dashboard
-```
-
-### 27. Trend Agent v3.0
-
-```
-ESTRUTURA:
-
-PARTE I: A CIÊNCIA DAS TENDÊNCIAS
-├── Ciclo de adoção de tendências
-├── Viral mechanics
-├── Timing e relevância
-└── Risco de trend-jacking
-
-PARTE II: IDENTIFICAÇÃO DE TENDÊNCIAS
-├── Google Trends
-├── Twitter/X Trending
-├── TikTok Discover
-├── Reddit
-├── Exploding Topics
-├── Trend Hunter
-└── Newsletters de tendências
-
-PARTE III: TIPOS DE TENDÊNCIAS
-├── Macro trends (anos)
-├── Micro trends (meses)
-├── Viral moments (dias/horas)
-├── Seasonal trends
-├── Industry trends
-└── Cultural moments
-
-PARTE IV: NEWSJACKING
-├── O que é newsjacking
-├── Quando fazer (timing)
-├── Como conectar à marca
-├── Riscos e cuidados
-├── Exemplos de sucesso
-└── Exemplos de fracasso
-
-PARTE V: TREND ADAPTATION
-├── Adaptar para seu nicho
-├── Manter autenticidade
-├── Velocidade de execução
-├── Qualidade vs Rapidez
-└── When NOT to trend-jack
-
-PARTE VI: CALENDÁRIO DE TRENDS
-├── Datas comemorativas
-├── Eventos do setor
-├── Lançamentos previsíveis
-├── Sazonalidade
-├── Planejamento antecipado
-└── Conteúdo evergreen vs trendy
-
-PARTE VII: FERRAMENTAS E MONITORAMENTO
-├── Google Alerts
-├── TweetDeck
-├── Feedly
-├── Trend monitoring tools
-├── Social listening
-└── Competitor trend tracking
-
-PARTE VIII: MÉTRICAS DE TREND CONTENT
-├── Velocidade de publicação
-├── Engagement vs evergreen
-├── Reach amplification
-├── Brand mention increase
-├── Virality coefficient
-└── ROI de trends
-
-TEMPLATES:
-├── Trend monitoring dashboard
-├── Newsjacking checklist
-├── Seasonal calendar
-├── Trend evaluation framework
-├── Quick-response workflow
-└── Trend content templates
-```
-
-### 28. Legal/Compliance Agent v3.0
+### 25. Legal/Compliance Agent v3.0
 
 ```
 ESTRUTURA:
@@ -1417,7 +1193,7 @@ TEMPLATES:
                   │             │                 │             │
                   └──────┬──────┴────────┬────────┴──────┬──────┘
                          ↓               ↓               ↓
-                    CRM AGENT      INFLUENCER      UGC AGENT
+                    CRM AGENT      INFLUENCER+UGC   REPUTATION
                          │               │               │
                          └───────┬───────┴───────┬───────┘
                                  ↓               ↓
@@ -1429,15 +1205,18 @@ TEMPLATES:
                   │              │               │              │
                   └──────┬───────┴───────┬───────┴──────┬───────┘
                          ↓               ↓              ↓
-                   COURSE AGENT    EVENT AGENT    PR AGENT
-                         │               │              │
-              ┌──────────┼───────────────┼──────────────┼──────────┐
-              ↓          ↓               ↓              ↓          ↓
-         WEBINAR    LAUNCH AGENT   REPUTATION    COMPETITIVE    TREND
-              │          │               │         INTEL           │
-              └────┬─────┴───────┬───────┴────────────┬────────────┘
-                   ↓             ↓                    ↓
-             LOCALIZATION   LEGAL/COMPLIANCE    AI TOOLS + RESEARCH
+                 INFOPRODUCT       EVENT AGENT    PR AGENT
+                   BUILDER              │              │
+                         │              │              │
+              ┌──────────┼──────────────┼──────────────┼──────────┐
+              ↓          ↓              ↓              ↓          ↓
+         WEBINAR    LAUNCH AGENT   RESEARCH*    LOCALIZATION   LEGAL
+              │          │          (CI+Trend)        │       COMPLIANCE
+              └────┬─────┴───────────────┬────────────┴──────────┘
+                   ↓                     ↓
+             AI TOOLS AGENT        ALL AGENTS
+
+* Research Agent já inclui Competitive Intelligence (343 linhas) e Trend Spotting (277 linhas)
 ```
 
 ---
@@ -1493,11 +1272,13 @@ TEMPLATES:
 
 | Métrica | Atual | Meta Original | Nova Meta |
 |---------|-------|---------------|-----------|
-| Total de Subagentes | 15 | 25 | **35** |
-| Linhas Totais | 40.461 | 70.000+ | **98.000+** |
+| Total de Subagentes | 15 | 25 | **32** |
+| Linhas Totais | 40.461 | 70.000+ | **~90.000** |
 | Média por Agente | 2.697 | 2.800+ | **2.800+** |
-| Agentes v3.0 (3000+ linhas) | 11 | 20+ | **30+** |
+| Agentes v3.0 (3000+ linhas) | 11 | 20+ | **27+** |
 | Cobertura de Marketing | 75% | 95%+ | **100%** |
+
+**Nota:** Reduzido de 35 para 32 após análise de redundância. 3 agentes removidos já estavam cobertos por agentes existentes.
 
 ---
 
@@ -1523,29 +1304,28 @@ TEMPLATES:
 ### Prioridade 3: Completude
 ```
 10. Community Agent
-11. UGC Agent
-12. Influencer Agent
-13. Affiliate Agent
-14. CRM Agent
-15. Automation Agent
+11. Influencer Agent (inclui UGC)
+12. Affiliate Agent
+13. CRM Agent
+14. Automation Agent
 ```
 
 ### Prioridade 4: Diferenciais
 ```
-16. Thought Leadership Agent
-17. Competitive Intelligence Agent
-18. Event Agent
-19. Webinar Agent
-20. Launch Agent
+15. Thought Leadership Agent
+16. Event Agent
+17. Webinar Agent
+18. Launch Agent
 ```
 
 ### Prioridade 5: Finalizações
 ```
-21. Expandir Storytelling
-22. Localization Agent
-23. Trend Agent
-24. Legal/Compliance Agent
+19. Expandir Storytelling
+20. Localization Agent
+21. Legal/Compliance Agent
 ```
+
+**Nota:** Competitive Intelligence e Trend já estão no Research Agent. UGC foi fundido com Influencer Agent.
 
 ---
 
@@ -1568,13 +1348,19 @@ O agente será criado seguindo este plano e sincronizado automaticamente.
 | Agentes completos (v3.0) | 11 |
 | Agentes para expandir | 4 |
 | Agentes para criar (plano original) | 10 |
-| Agentes NOVOS adicionados | 10 |
-| **TOTAL FINAL** | **35 subagentes** |
-| **LINHAS PROJETADAS** | **~98.000** |
+| Agentes NOVOS adicionados | 7 |
+| **TOTAL FINAL** | **32 subagentes** |
+| **LINHAS PROJETADAS** | **~90.000** |
+
+**Agentes REMOVIDOS por redundância (3):**
+- ~~UGC Agent~~ → Fundido com Influencer Agent
+- ~~Competitive Intelligence Agent~~ → Research Agent (343 linhas dedicadas)
+- ~~Trend Agent~~ → Research Agent (277 linhas dedicadas)
 
 ---
 
-*Plano de Expansão v2.0*
+*Plano de Expansão v2.1*
 *Meta: O Sistema de Criação de Conteúdo Mais Completo do Planeta*
-*Total Projetado: 35 Subagentes | ~98.000 Linhas de Documentação*
+*Total Projetado: 32 Subagentes | ~90.000 Linhas de Documentação*
 *Cobertura: 100% das necessidades de marketing digital*
+*Sem redundâncias: Cada funcionalidade em apenas um agente*
