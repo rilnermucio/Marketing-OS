@@ -160,7 +160,7 @@ Cada subagente seguirá esta estrutura científica:
 |---|--------|-----------|--------|--------|
 | 12 | **Event Agent** | Lives, workshops, lançamentos | 3.500+ | ❌ Criar |
 | 13 | **Webinar Agent** | Scripts, apresentações, follow-up | 3.000+ | ❌ Criar |
-| 14 | **Launch Agent** | Lançamentos de produtos, campanhas, hype | 3.000+ | ❌ Criar |
+| 14 | **Launch Agent** | Lançamentos (semente, meteórico, perpétuo), PLF, tráfego pago, estratégias por ticket | 4.000+ | ❌ Criar |
 
 ---
 
@@ -275,7 +275,7 @@ Cada subagente seguirá esta estrutura científica:
 | 7 | Localization Agent | 2.500+ | 4 |
 | 8 | Event Agent | 3.500+ | 5 |
 | 9 | Webinar Agent | 3.000+ | 5 |
-| 10 | Launch Agent | 3.000+ | 5 |
+| 10 | Launch Agent | 4.000+ | 5 |
 
 ### Agentes para CRIAR - Novos (7)
 
@@ -944,7 +944,696 @@ APÊNDICE I: CHECKLISTS DE PRODUÇÃO
 └── I.6 Checklist: Qualidade Final
 ```
 
-### 23. Reputation Agent v3.0
+### 23. Launch Agent v3.0
+
+```
+ESTRUTURA:
+
+PARTE I: A CIÊNCIA DOS LANÇAMENTOS
+├── Psicologia do lançamento
+│   ├── Escassez e urgência (Cialdini)
+│   ├── FOMO (Fear of Missing Out)
+│   ├── Antecipação e dopamina
+│   ├── Prova social em tempo real
+│   └── Efeito manada (todo mundo comprando)
+├── Por que lançamentos funcionam
+│   ├── Concentração de atenção
+│   ├── Evento vs rotina
+│   ├── Comunidade em torno do momento
+│   └── Deadline força decisão
+├── Lançamento vs Perpétuo
+│   ├── Quando usar cada modelo
+│   ├── Vantagens e desvantagens
+│   ├── Híbrido: lançamento + perpétuo
+│   └── Transição de lançamento para perpétuo
+├── Números do mercado brasileiro
+│   ├── Lançamentos de 6 dígitos (R$ 100k+)
+│   ├── Lançamentos de 7 dígitos (R$ 1M+)
+│   ├── Lançamentos de 8 dígitos (R$ 10M+)
+│   └── Benchmarks por nicho
+└── A matemática do lançamento
+    ├── CPL (Custo por Lead)
+    ├── Taxa de comparecimento
+    ├── Taxa de conversão
+    ├── Ticket médio
+    └── ROI de lançamento
+
+PARTE II: TIPOS DE LANÇAMENTO
+├── Lançamento Semente
+│   ├── O que é (primeiro lançamento, validação)
+│   ├── Quando usar (produto novo, audiência pequena)
+│   ├── Estrutura simplificada
+│   ├── Meta realista (R$ 10-50k)
+│   ├── Vantagens (feedback, ajustes, cases)
+│   └── Template de lançamento semente
+├── Lançamento Interno
+│   ├── O que é (para lista própria)
+│   ├── Quando usar (lista aquecida, produto validado)
+│   ├── Estrutura completa
+│   ├── Meta (R$ 50-500k)
+│   └── Template de lançamento interno
+├── Lançamento Externo
+│   ├── O que é (afiliados + lista)
+│   ├── Quando usar (escala, produto provado)
+│   ├── Gestão de afiliados
+│   ├── Comissões e incentivos
+│   ├── Meta (R$ 500k - 5M+)
+│   └── Template de lançamento externo
+├── Lançamento Relâmpago
+│   ├── O que é (48-72 horas)
+│   ├── Quando usar (oportunidade, urgência real)
+│   ├── Estrutura mínima
+│   ├── Gatilhos de urgência
+│   └── Template de lançamento relâmpago
+├── Lançamento Meteórico (Desafio)
+│   ├── O que é (challenge de 5-21 dias)
+│   ├── Estrutura de desafio
+│   ├── Engajamento diário
+│   ├── Gamificação
+│   ├── Conversão no final
+│   └── Template de lançamento meteórico
+├── Lançamento Perpétuo (Evergreen)
+│   ├── O que é (automatizado, sempre aberto)
+│   ├── Quando usar (produto validado, escala)
+│   ├── Estrutura de webinar gravado
+│   ├── Urgência artificial (deadline funnel)
+│   ├── Automações necessárias
+│   └── Template de perpétuo
+├── Lançamento de Aplicação
+│   ├── O que é (high ticket com candidatura)
+│   ├── Quando usar (produtos R$ 5k+)
+│   ├── Funil de aplicação
+│   ├── Qualificação de leads
+│   ├── Call de vendas
+│   └── Template de lançamento de aplicação
+└── Lançamento de Livro
+    ├── O que é (livro como front-end)
+    ├── Estrutura de lançamento editorial
+    ├── Best-seller strategy
+    └── Backend de infoprodutos
+
+PARTE III: FÓRMULA DE LANÇAMENTO (PLF)
+├── Origem e história
+│   ├── Jeff Walker (criador)
+│   ├── Erico Rocha (Brasil)
+│   ├── Evolução do método
+│   └── Adaptações brasileiras
+├── As 4 fases do PLF
+│   ├── PPL (Pré-Pré-Lançamento)
+│   │   ├── Objetivo: aquecimento
+│   │   ├── Duração: 2-4 semanas
+│   │   ├── Conteúdo: antecipação
+│   │   └── Métricas: engajamento
+│   ├── PL (Pré-Lançamento)
+│   │   ├── Objetivo: educar e criar desejo
+│   │   ├── Duração: 7-14 dias
+│   │   ├── CPL1, CPL2, CPL3, CPL4
+│   │   └── Métricas: leads, comparecimento
+│   ├── L (Lançamento/Carrinho Aberto)
+│   │   ├── Objetivo: converter
+│   │   ├── Duração: 5-7 dias
+│   │   ├── Emails de carrinho
+│   │   └── Métricas: vendas, conversão
+│   └── PL (Pós-Lançamento)
+│       ├── Objetivo: entrega e retenção
+│       ├── Onboarding de clientes
+│       ├── Coleta de depoimentos
+│       └── Preparação próximo lançamento
+├── Os 4 CPLs (Conteúdos de Pré-Lançamento)
+│   ├── CPL1 - A Oportunidade
+│   │   ├── Objetivo: criar interesse
+│   │   ├── Estrutura do conteúdo
+│   │   ├── Duração ideal
+│   │   └── Template completo
+│   ├── CPL2 - A Transformação
+│   │   ├── Objetivo: mostrar possibilidade
+│   │   ├── Cases e provas
+│   │   ├── Estrutura do conteúdo
+│   │   └── Template completo
+│   ├── CPL3 - A Experiência
+│   │   ├── Objetivo: dar amostra
+│   │   ├── Conteúdo prático
+│   │   ├── Quick win para audiência
+│   │   └── Template completo
+│   └── CPL4 - A Oferta
+│       ├── Objetivo: apresentar produto
+│       ├── Estrutura da oferta
+│       ├── Bônus e garantias
+│       └── Template completo
+├── Sequência de emails PLF
+│   ├── Emails de aquecimento (PPL)
+│   ├── Emails de convite (PL)
+│   ├── Emails de lembrete
+│   ├── Emails de carrinho aberto
+│   ├── Emails de urgência
+│   └── Email de encerramento
+└── Lives de lançamento
+    ├── Estrutura de live de conteúdo
+    ├── Estrutura de live de vendas
+    ├── Interação com audiência
+    └── Técnicas de fechamento ao vivo
+
+PARTE IV: LANÇAMENTO POR TICKET
+├── Low Ticket (R$ 47-197)
+│   ├── Características
+│   │   ├── Compra por impulso
+│   │   ├── Sem call de vendas
+│   │   ├── Volume alto necessário
+│   │   └── Margens menores
+│   ├── Modelo ideal: Perpétuo
+│   │   ├── VSL (Video Sales Letter)
+│   │   ├── Funil automatizado
+│   │   ├── Tráfego constante
+│   │   └── Escala com ads
+│   ├── Modelo alternativo: Lançamento Relâmpago
+│   │   ├── Flash sales
+│   │   ├── Black Friday
+│   │   └── Promoções pontuais
+│   ├── Métricas de sucesso
+│   │   ├── CPL: R$ 3-15
+│   │   ├── Conversão: 2-5%
+│   │   ├── ROAS: 2-4x
+│   │   └── LTV projetado
+│   └── Templates e exemplos
+├── Mid Ticket (R$ 297-997)
+│   ├── Características
+│   │   ├── Decisão mais consciente
+│   │   ├── Precisa de mais educação
+│   │   ├── Pode ou não ter call
+│   │   └── Margens saudáveis
+│   ├── Modelo ideal: Lançamento ou Perpétuo
+│   │   ├── Webinar (ao vivo ou gravado)
+│   │   ├── Série de vídeos
+│   │   ├── Desafio/Challenge
+│   │   └── Mini-curso gratuito
+│   ├── Funil típico
+│   │   ├── Lead magnet → Webinar → Oferta
+│   │   ├── Challenge → Oferta
+│   │   └── VSL longo (30-60 min)
+│   ├── Métricas de sucesso
+│   │   ├── CPL: R$ 10-50
+│   │   ├── Taxa comparecimento: 30-50%
+│   │   ├── Conversão: 3-10%
+│   │   └── ROAS: 3-6x
+│   └── Templates e exemplos
+├── High Ticket (R$ 2.000-10.000)
+│   ├── Características
+│   │   ├── Decisão racional
+│   │   ├── Precisa de confiança
+│   │   ├── Geralmente requer call
+│   │   └── Margens altas
+│   ├── Modelo ideal: Lançamento com Aplicação
+│   │   ├── Conteúdo de autoridade
+│   │   ├── Formulário de aplicação
+│   │   ├── Call de qualificação
+│   │   └── Call de fechamento
+│   ├── Funil típico
+│   │   ├── Webinar → Aplicação → Call
+│   │   ├── VSL → Aplicação → Call
+│   │   └── Conteúdo → DM → Call
+│   ├── Métricas de sucesso
+│   │   ├── CPL: R$ 30-150
+│   │   ├── Taxa aplicação: 5-15%
+│   │   ├── Taxa show call: 60-80%
+│   │   ├── Taxa fechamento: 20-40%
+│   │   └── ROAS: 5-15x
+│   └── Templates e exemplos
+└── Ultra High Ticket (R$ 10.000+)
+    ├── Características
+    │   ├── Transformação profunda
+    │   ├── Acesso direto ao expert
+    │   ├── Processo de venda consultivo
+    │   └── Margens muito altas
+    ├── Modelo ideal: Lançamento de Aplicação
+    │   ├── Autoridade estabelecida
+    │   ├── Conteúdo exclusivo
+    │   ├── Aplicação rigorosa
+    │   ├── Múltiplas calls
+    │   └── Contrato/proposta
+    ├── Funil típico
+    │   ├── Evento ao vivo → Aplicação → Call
+    │   ├── Masterclass → Aplicação → Call → Call
+    │   └── Indicação → Call → Proposta
+    ├── Métricas de sucesso
+    │   ├── CPL: R$ 100-500
+    │   ├── Taxa aplicação: 2-5%
+    │   ├── Taxa qualificação: 30-50%
+    │   ├── Taxa fechamento: 30-50%
+    │   └── ROAS: 10-30x
+    └── Templates e exemplos
+
+PARTE V: TRÁFEGO PAGO PARA LANÇAMENTO
+├── Estratégia de mídia para lançamento
+│   ├── Fase 1: Aquecimento (PPL)
+│   │   ├── Objetivo: construir audiência
+│   │   ├── Campanhas de engajamento
+│   │   ├── Remarketing de conteúdo
+│   │   └── Budget: 10-20% do total
+│   ├── Fase 2: Captação (PL)
+│   │   ├── Objetivo: gerar leads
+│   │   ├── Campanhas de conversão
+│   │   ├── Lookalike de compradores
+│   │   ├── Interesses do nicho
+│   │   └── Budget: 50-60% do total
+│   ├── Fase 3: Carrinho
+│   │   ├── Objetivo: converter leads
+│   │   ├── Remarketing agressivo
+│   │   ├── Sequência de urgência
+│   │   └── Budget: 20-30% do total
+│   └── Fase 4: Pós-lançamento
+│       ├── Pausar campanhas de captação
+│       ├── Remarketing de não-compradores
+│       └── Preparar próximo ciclo
+├── Estrutura de campanhas Meta Ads
+│   ├── Campanha de Aquecimento
+│   │   ├── Objetivo: Video Views / Engagement
+│   │   ├── Públicos: Frio (interesses)
+│   │   ├── Criativos: Conteúdo de valor
+│   │   └── Budget diário sugerido
+│   ├── Campanha de Captação
+│   │   ├── Objetivo: Leads / Conversões
+│   │   ├── Públicos: Lookalike, Interesses, Remarketing
+│   │   ├── Criativos: Problema → Solução
+│   │   └── Budget diário sugerido
+│   ├── Campanha de Remarketing
+│   │   ├── Objetivo: Conversões
+│   │   ├── Públicos: Visitantes, Leads, Engajados
+│   │   ├── Criativos: Urgência, Depoimentos
+│   │   └── Budget diário sugerido
+│   └── Campanha de Carrinho
+│       ├── Objetivo: Conversões
+│       ├── Públicos: Leads que não compraram
+│       ├── Criativos: Escassez, Bônus, Garantia
+│       └── Budget diário sugerido
+├── Estrutura de campanhas Google Ads
+│   ├── Search (marca + keywords)
+│   ├── YouTube Ads
+│   │   ├── In-stream para aquecimento
+│   │   ├── Discovery para captação
+│   │   └── Remarketing
+│   └── Display remarketing
+├── Orçamento de lançamento
+│   ├── Lançamento Semente: R$ 1-5k
+│   ├── Lançamento Interno: R$ 5-30k
+│   ├── Lançamento Externo: R$ 30-200k+
+│   └── Distribuição por fase
+├── Métricas e otimização
+│   ├── CPL por público
+│   ├── Custo por comparecimento
+│   ├── Custo por venda
+│   ├── ROAS em tempo real
+│   └── Quando escalar vs pausar
+└── Criativos de lançamento
+    ├── Criativos de aquecimento
+    ├── Criativos de captação
+    ├── Criativos de remarketing
+    └── Criativos de urgência
+
+PARTE VI: PERPÉTUO (EVERGREEN) DETALHADO
+├── O que é perpétuo
+│   ├── Definição
+│   ├── Diferença de lançamento
+│   ├── Vantagens (previsibilidade, escala)
+│   └── Desvantagens (menos urgência)
+├── Tipos de perpétuo
+│   ├── VSL Funnel
+│   │   ├── Estrutura
+│   │   ├── Duração ideal
+│   │   ├── Elementos obrigatórios
+│   │   └── Template completo
+│   ├── Webinar Evergreen
+│   │   ├── Estrutura
+│   │   ├── Simulação de ao vivo
+│   │   ├── Chat automatizado
+│   │   └── Template completo
+│   ├── Email Sequence Evergreen
+│   │   ├── Estrutura de 7-14 dias
+│   │   ├── Automação de urgência
+│   │   └── Template completo
+│   └── Challenge Evergreen
+│       ├── Estrutura automatizada
+│       ├── Comunidade self-service
+│       └── Template completo
+├── Deadline Funnel (urgência artificial)
+│   ├── Como funciona
+│   ├── Ferramentas (Deadline Funnel, etc.)
+│   ├── Tipos de deadline
+│   │   ├── Por lead (cookie-based)
+│   │   ├── Por coorte (semanal, mensal)
+│   │   └── Por evento (data fixa)
+│   └── Ética e transparência
+├── Automações de perpétuo
+│   ├── Sequência de emails
+│   ├── Remarketing automatizado
+│   ├── Notificações push
+│   └── WhatsApp automation
+├── Métricas de perpétuo
+│   ├── Leads diários
+│   ├── Vendas diárias
+│   ├── Receita recorrente
+│   ├── CAC (Custo de Aquisição)
+│   ├── LTV (Lifetime Value)
+│   └── Payback period
+└── Transição lançamento → perpétuo
+    ├── Quando fazer a transição
+    ├── Como estruturar
+    ├── Mantendo a urgência
+    └── Híbrido (perpétuo + launches pontuais)
+
+PARTE VII: SEQUÊNCIAS DE LANÇAMENTO
+├── Sequência PPL (2-4 semanas antes)
+│   ├── Email 1: Teaser
+│   ├── Email 2: Antecipação
+│   ├── Email 3: Curiosidade
+│   ├── Email 4: Convite para lista VIP
+│   └── Templates completos
+├── Sequência PL - Captação (7-14 dias)
+│   ├── Email 1: Convite CPL1
+│   ├── Email 2: Lembrete CPL1
+│   ├── Email 3: Convite CPL2
+│   ├── Email 4: Lembrete CPL2
+│   ├── Email 5: Convite CPL3
+│   ├── Email 6: Lembrete CPL3
+│   ├── Email 7: Convite CPL4
+│   ├── Email 8: Lembrete CPL4
+│   └── Templates completos
+├── Sequência Carrinho Aberto (5-7 dias)
+│   ├── Email 1: Carrinho aberto
+│   ├── Email 2: FAQ + Objeções
+│   ├── Email 3: Depoimentos
+│   ├── Email 4: Bônus expira
+│   ├── Email 5: Última chance
+│   ├── Email 6: Últimas horas
+│   ├── Email 7: Fechando
+│   └── Templates completos
+├── Sequência WhatsApp
+│   ├── Broadcast de captação
+│   ├── Lembretes de lives
+│   ├── Mensagens de carrinho
+│   └── Templates completos
+├── Scripts de Lives
+│   ├── Live de conteúdo (CPL)
+│   │   ├── Abertura (5 min)
+│   │   ├── Conteúdo principal (30-45 min)
+│   │   ├── Q&A (15 min)
+│   │   └── CTA final (5 min)
+│   └── Live de vendas
+│       ├── Abertura e conexão (10 min)
+│       ├── Problema e solução (15 min)
+│       ├── Apresentação da oferta (20 min)
+│       ├── Objeções (15 min)
+│       ├── Urgência e CTA (10 min)
+│       └── Q&A e fechamento (20 min)
+└── Scripts de Vídeos (CPLs)
+    ├── CPL1 - A Oportunidade (15-25 min)
+    ├── CPL2 - A Transformação (20-30 min)
+    ├── CPL3 - A Experiência (25-40 min)
+    └── CPL4 - A Oferta (30-60 min)
+
+PARTE VIII: ELEMENTOS DO LANÇAMENTO
+├── Página de Captura
+│   ├── Estrutura otimizada
+│   ├── Headlines que convertem
+│   ├── Elementos de prova social
+│   ├── Formulário otimizado
+│   └── Templates por tipo de lançamento
+├── Páginas de CPL
+│   ├── Estrutura de página de vídeo
+│   ├── Elementos de engajamento
+│   ├── Comentários e interação
+│   └── Templates
+├── Página de Vendas
+│   ├── Estrutura completa
+│   ├── Above the fold
+│   ├── Problema e solução
+│   ├── Apresentação do produto
+│   ├── Bônus e garantia
+│   ├── Preço e CTA
+│   ├── FAQ
+│   └── Template completo
+├── Checkout
+│   ├── Otimização de checkout
+│   ├── Order bump
+│   ├── Upsell/Downsell
+│   └── Abandono de carrinho
+├── Thank You Pages
+│   ├── Confirmação de lead
+│   ├── Confirmação de compra
+│   ├── Upsell imediato
+│   └── Templates
+└── Área de Membros
+    ├── Onboarding de novos alunos
+    ├── Estrutura de conteúdo
+    └── Engajamento inicial
+
+PARTE IX: MÉTRICAS E KPIs DE LANÇAMENTO
+├── Métricas por fase
+│   ├── PPL
+│   │   ├── Crescimento de lista
+│   │   ├── Engajamento
+│   │   └── Taxa de abertura
+│   ├── PL (Captação)
+│   │   ├── Leads captados
+│   │   ├── CPL (Custo por Lead)
+│   │   ├── Taxa de opt-in
+│   │   └── Taxa de comparecimento
+│   ├── Carrinho
+│   │   ├── Vendas totais
+│   │   ├── Faturamento
+│   │   ├── Taxa de conversão
+│   │   ├── Ticket médio
+│   │   └── ROAS
+│   └── Pós-lançamento
+│       ├── Taxa de reembolso
+│       ├── NPS
+│       └── Depoimentos coletados
+├── Benchmarks por tipo de lançamento
+│   ├── Lançamento Semente
+│   │   ├── Leads: 500-2.000
+│   │   ├── Conversão: 1-3%
+│   │   └── Faturamento: R$ 10-50k
+│   ├── Lançamento Interno
+│   │   ├── Leads: 2.000-10.000
+│   │   ├── Conversão: 2-5%
+│   │   └── Faturamento: R$ 50-500k
+│   └── Lançamento Externo
+│       ├── Leads: 10.000-100.000+
+│       ├── Conversão: 1-3%
+│       └── Faturamento: R$ 500k-10M+
+├── Dashboard de lançamento
+│   ├── Métricas em tempo real
+│   ├── Comparativo com lançamentos anteriores
+│   ├── Projeções
+│   └── Template de dashboard
+└── Análise pós-lançamento
+    ├── O que deu certo
+    ├── O que melhorar
+    ├── Comparativo de CPLs
+    ├── Análise de funil
+    └── Documentação para próximo lançamento
+
+PARTE X: FERRAMENTAS DE LANÇAMENTO
+├── Plataformas de hospedagem
+│   ├── Hotmart
+│   ├── Kiwify
+│   ├── Eduzz
+│   ├── Monetizze
+│   └── Comparativo
+├── Ferramentas de página
+│   ├── ClickFunnels
+│   ├── Leadlovers
+│   ├── RD Station
+│   ├── Elementor
+│   └── Carrd
+├── Ferramentas de email
+│   ├── ActiveCampaign
+│   ├── Mailchimp
+│   ├── ConvertKit
+│   ├── RD Station
+│   └── Leadlovers
+├── Ferramentas de automação
+│   ├── Zapier
+│   ├── Make (Integromat)
+│   ├── n8n
+│   └── Pluga
+├── Ferramentas de webinar
+│   ├── Zoom
+│   ├── StreamYard
+│   ├── WebinarJam
+│   ├── EverWebinar
+│   └── YouTube Live
+├── Ferramentas de urgência
+│   ├── Deadline Funnel
+│   ├── Thrive Ultimatum
+│   └── Plugins de countdown
+├── Ferramentas de WhatsApp
+│   ├── WhatsApp Business
+│   ├── Letalk
+│   ├── Manychat
+│   └── Take Blip
+└── Ferramentas de análise
+    ├── Google Analytics
+    ├── Hotjar
+    ├── ClickMagick
+    └── Hyros
+
+PARTE XI: GESTÃO DE EQUIPE DE LANÇAMENTO
+├── Papéis em um lançamento
+│   ├── Estrategista/Produtor
+│   ├── Copywriter
+│   ├── Designer
+│   ├── Gestor de tráfego
+│   ├── Social media
+│   ├── Suporte
+│   └── Closer (high ticket)
+├── Cronograma de lançamento
+│   ├── 8 semanas antes
+│   ├── 4 semanas antes
+│   ├── 2 semanas antes
+│   ├── Semana de captação
+│   ├── Semana de carrinho
+│   └── Pós-lançamento
+├── Checklists por área
+│   ├── Checklist de copy
+│   ├── Checklist de design
+│   ├── Checklist de tráfego
+│   ├── Checklist técnico
+│   └── Checklist de suporte
+└── Gestão de crise
+    ├── Problemas técnicos
+    ├── Queda de vendas
+    ├── Críticas e haters
+    └── Protocolo de resposta
+
+PARTE XII: CASES E EXEMPLOS REAIS
+├── Case 1: Lançamento Semente
+│   ├── Contexto
+│   ├── Estratégia
+│   ├── Números
+│   └── Lições
+├── Case 2: Lançamento de 6 Dígitos
+│   ├── Contexto
+│   ├── Estratégia
+│   ├── Números
+│   └── Lições
+├── Case 3: Lançamento de 7 Dígitos
+│   ├── Contexto
+│   ├── Estratégia
+│   ├── Números
+│   └── Lições
+├── Case 4: Perpétuo Escalado
+│   ├── Contexto
+│   ├── Estratégia
+│   ├── Números
+│   └── Lições
+└── Case 5: High Ticket
+    ├── Contexto
+    ├── Estratégia
+    ├── Números
+    └── Lições
+
+PARTE XIII: ERROS COMUNS E COMO EVITAR
+├── Erros de estratégia
+│   ├── Lançar sem audiência
+│   ├── Oferta não validada
+│   ├── Ticket errado para o público
+│   └── Timing ruim
+├── Erros de execução
+│   ├── CPLs fracos
+│   ├── Emails genéricos
+│   ├── Tráfego mal segmentado
+│   └── Falta de urgência real
+├── Erros técnicos
+│   ├── Página lenta
+│   ├── Checkout quebrado
+│   ├── Emails não chegando
+│   └── Pixels mal configurados
+├── Erros de pós-lançamento
+│   ├── Não entregar o prometido
+│   ├── Suporte ruim
+│   ├── Não coletar depoimentos
+│   └── Não analisar dados
+└── Como se recuperar de um lançamento ruim
+    ├── Análise honesta
+    ├── Comunicação com leads
+    ├── Ajustes para próximo
+    └── Quando pivotar
+
+APÊNDICE A: TEMPLATES DE LANÇAMENTO
+├── A.1 Template: Lançamento Semente Completo
+├── A.2 Template: Lançamento Interno Completo
+├── A.3 Template: Lançamento Externo Completo
+├── A.4 Template: Lançamento Relâmpago
+├── A.5 Template: Lançamento Meteórico (Desafio)
+├── A.6 Template: Perpétuo VSL
+├── A.7 Template: Perpétuo Webinar
+└── A.8 Template: Lançamento High Ticket
+
+APÊNDICE B: SEQUÊNCIAS DE EMAIL
+├── B.1 Sequência PPL (5 emails)
+├── B.2 Sequência Captação (8 emails)
+├── B.3 Sequência Carrinho (7 emails)
+├── B.4 Sequência Perpétuo (14 emails)
+└── B.5 Sequência High Ticket (10 emails)
+
+APÊNDICE C: SCRIPTS
+├── C.1 Script: CPL1 - A Oportunidade
+├── C.2 Script: CPL2 - A Transformação
+├── C.3 Script: CPL3 - A Experiência
+├── C.4 Script: CPL4 - A Oferta
+├── C.5 Script: Live de Vendas
+├── C.6 Script: Webinar Evergreen
+├── C.7 Script: VSL Low Ticket
+├── C.8 Script: VSL Mid Ticket
+└── C.9 Script: Call High Ticket
+
+APÊNDICE D: CRIATIVOS DE ADS
+├── D.1 Criativos de Aquecimento
+├── D.2 Criativos de Captação
+├── D.3 Criativos de Remarketing
+├── D.4 Criativos de Carrinho
+└── D.5 Criativos de Perpétuo
+
+APÊNDICE E: PÁGINAS
+├── E.1 Template: Página de Captura
+├── E.2 Template: Página de CPL
+├── E.3 Template: Página de Vendas
+├── E.4 Template: Checkout Otimizado
+├── E.5 Template: Thank You Page
+└── E.6 Template: Página de Aplicação (High Ticket)
+
+APÊNDICE F: DASHBOARDS E RELATÓRIOS
+├── F.1 Dashboard: Métricas de Captação
+├── F.2 Dashboard: Métricas de Vendas
+├── F.3 Relatório: Análise de Lançamento
+├── F.4 Relatório: Comparativo de Lançamentos
+└── F.5 Template: Documentação de Lançamento
+
+APÊNDICE G: CHECKLISTS
+├── G.1 Checklist: 8 Semanas Antes
+├── G.2 Checklist: 4 Semanas Antes
+├── G.3 Checklist: 2 Semanas Antes
+├── G.4 Checklist: Semana de Captação
+├── G.5 Checklist: Semana de Carrinho
+├── G.6 Checklist: Dia do Lançamento
+├── G.7 Checklist: Pós-Lançamento
+└── G.8 Checklist: Perpétuo
+
+APÊNDICE H: CALCULADORAS
+├── H.1 Calculadora: Projeção de Lançamento
+├── H.2 Calculadora: Break-even de Tráfego
+├── H.3 Calculadora: ROAS Necessário
+├── H.4 Calculadora: Ticket Ideal
+└── H.5 Calculadora: Budget de Lançamento
+
+APÊNDICE I: GLOSSÁRIO
+├── Termos de lançamento
+├── Termos de tráfego
+├── Termos de conversão
+└── Termos de perpétuo
+```
+
+### 25. Reputation Agent v3.0
 
 ```
 ESTRUTURA:
@@ -1020,7 +1709,7 @@ TEMPLATES:
 └── Monitoring setup guide
 ```
 
-### 24. Thought Leadership Agent v3.0
+### 26. Thought Leadership Agent v3.0
 
 ```
 ESTRUTURA:
@@ -1094,7 +1783,7 @@ TEMPLATES:
 └── Authority content calendar
 ```
 
-### 25. Legal/Compliance Agent v3.0
+### 27. Legal/Compliance Agent v3.0
 
 ```
 ESTRUTURA:
@@ -1273,12 +1962,15 @@ TEMPLATES:
 | Métrica | Atual | Meta Original | Nova Meta |
 |---------|-------|---------------|-----------|
 | Total de Subagentes | 15 | 25 | **32** |
-| Linhas Totais | 40.461 | 70.000+ | **~90.000** |
-| Média por Agente | 2.697 | 2.800+ | **2.800+** |
+| Linhas Totais | 40.461 | 70.000+ | **~92.000** |
+| Média por Agente | 2.697 | 2.800+ | **2.875** |
 | Agentes v3.0 (3000+ linhas) | 11 | 20+ | **27+** |
 | Cobertura de Marketing | 75% | 95%+ | **100%** |
 
-**Nota:** Reduzido de 35 para 32 após análise de redundância. 3 agentes removidos já estavam cobertos por agentes existentes.
+**Notas:**
+- Reduzido de 35 para 32 após análise de redundância
+- Launch Agent expandido de 3.000 para 4.000+ linhas (especificação completa adicionada)
+- Cobertura completa: perpétuo, low/mid/high ticket, lançamento pago
 
 ---
 
