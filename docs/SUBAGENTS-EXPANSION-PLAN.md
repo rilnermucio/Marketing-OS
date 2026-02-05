@@ -10,7 +10,7 @@
 
 | Agente | Linhas | Status |
 |--------|--------|--------|
-| Ads Agent | 3.670 | ✅ v3.0 |
+| Ads Agent | 3.670 | ⚠️ Expandir para 5.500+ |
 | SEO Agent | 3.529 | ✅ v3.0 |
 | Email Agent | 3.437 | ✅ v3.0 |
 | Copy Agent | 3.396 | ✅ v3.0 |
@@ -31,10 +31,10 @@
 
 ### Estado Futuro (32 Subagentes)
 
-**Agentes para expandir:** 4
+**Agentes para expandir:** 5
 **Agentes para criar (plano original):** 10
 **Agentes NOVOS adicionados:** 7 (3 removidos por redundância)
-**Total de trabalho:** 21 agentes (4 expansões + 17 criações)
+**Total de trabalho:** 22 agentes (5 expansões + 17 criações)
 
 **Meta por agente:** 2.500 - 4.000 linhas
 **Meta total:** ~90.000 linhas em 32 agentes
@@ -164,15 +164,21 @@ Cada subagente seguirá esta estrutura científica:
 
 ---
 
-### FASE 6: Expansão dos Existentes ✅ COMPLETA
-**Status:** Todos expandidos para v3.0
+### FASE 6: Expansão dos Existentes 🔄 PARCIAL
+**Status:** 3 completos, 1 requer expansão adicional
 
 | # | Agente | De | Para | Status |
 |---|--------|----|----|--------|
 | 15 | **Copy Agent** | 1.226 | 3.396 | ✅ Completo |
 | 16 | **Analytics Agent** | 827 | 3.084 | ✅ Completo |
-| 17 | **Ads Agent** | 788 | 3.670 | ✅ Completo |
+| 17 | **Ads Agent** | 788 | 3.670 → 5.500+ | ⚠️ Expandir (faltam ~2.000 linhas) |
 | 18 | **Email Agent** | 403 | 3.437 | ✅ Completo |
+
+**Ads Agent - Gaps identificados:**
+- Gestão Operacional (Business Manager, contingência de contas, múltiplas contas)
+- Escala Avançada (horizontal/vertical scaling, R$ 50k-500k+/mês)
+- Tracking Avançado (CAPI, server-side, attribution, Hyros/TripleWhale)
+- Relatórios e Gestão (dashboards para clientes, comunicação de resultados)
 
 ---
 
@@ -253,10 +259,11 @@ Cada subagente seguirá esta estrutura científica:
 
 ## Resumo: O Que Falta Fazer
 
-### Agentes para EXPANDIR (4)
+### Agentes para EXPANDIR (5)
 
 | Agente | Atual | Meta | Faltam |
 |--------|-------|------|--------|
+| **Ads Agent** | 3.670 | 5.500+ | ~1.830 linhas |
 | Funnel Agent | 2.228 | 4.000+ | ~1.800 linhas |
 | Brand Agent | 2.114 | 3.500+ | ~1.400 linhas |
 | Growth Agent | 2.036 | 3.500+ | ~1.500 linhas |
@@ -1863,6 +1870,389 @@ TEMPLATES:
 
 ---
 
+## Especificações de Expansão - Agentes Existentes
+
+### Ads Agent v3.1 - Expansão (3.670 → 5.500+ linhas)
+
+**Gaps identificados no agente atual:**
+- Não cobre gestão de Business Manager e contingência
+- Falta scaling avançado (R$ 50k-500k+/mês)
+- Tracking incompleto (CAPI, attribution)
+- Sem templates de relatórios para clientes
+
+```
+NOVAS SEÇÕES A ADICIONAR:
+
+PARTE XIV: GESTÃO OPERACIONAL DE TRÁFEGO
+├── Business Manager
+│   ├── Estrutura organizacional
+│   │   ├── 1 BM por empresa vs múltiplos
+│   │   ├── Hierarquia de permissões
+│   │   ├── Usuários e funções
+│   │   └── Parceiros e agências
+│   ├── Gestão de assets
+│   │   ├── Contas de anúncio
+│   │   ├── Páginas
+│   │   ├── Pixels
+│   │   └── Catálogos
+│   ├── Políticas e compliance
+│   │   ├── Evitando bloqueios
+│   │   ├── Políticas de anúncios Meta
+│   │   ├── Apelações e suporte
+│   │   └── Quality score de conta
+│   └── Troubleshooting comum
+│       ├── Conta restrita
+│       ├── Anúncio reprovado
+│       └── Pagamento recusado
+├── Contingência de Contas
+│   ├── Por que ter contingência
+│   │   ├── Risco de bloqueio
+│   │   ├── Continuidade de operação
+│   │   └── Diversificação de risco
+│   ├── Estrutura de contingência
+│   │   ├── Múltiplos BMs (mínimo 3)
+│   │   ├── Múltiplas contas de anúncio
+│   │   ├── Múltiplos pixels
+│   │   ├── Domínios alternativos
+│   │   └── Formas de pagamento diversas
+│   ├── Aquecimento de contas
+│   │   ├── Processo de warm-up
+│   │   ├── Gastos progressivos
+│   │   ├── Timeline recomendado
+│   │   └── Quando está pronta
+│   ├── Perfis de anunciante
+│   │   ├── Perfis aquecidos
+│   │   ├── Verificação de identidade
+│   │   └── Histórico de conta
+│   └── Plano de disaster recovery
+│       ├── Protocolo de ativação
+│       ├── Migração de campanhas
+│       └── Comunicação com equipe
+├── Gestão de Múltiplas Contas
+│   ├── Quando escalar contas
+│   ├── Estrutura de nomenclatura
+│   ├── Distribuição de budget
+│   ├── Evitando sobreposição
+│   └── Consolidação de dados
+├── Automação de Regras
+│   ├── Regras automáticas Meta
+│   │   ├── Desligar por CPA alto
+│   │   ├── Aumentar budget por performance
+│   │   ├── Pausar por frequência alta
+│   │   └── Alertas de gastos
+│   ├── Regras automáticas Google
+│   │   ├── Scripts de automação
+│   │   ├── Bid strategies
+│   │   └── Alertas
+│   └── Ferramentas de automação
+│       ├── Revealbot
+│       ├── Adespresso
+│       ├── Smartly.io
+│       └── Custom scripts
+└── SOPs de Tráfego
+    ├── SOP: Criação de campanha
+    ├── SOP: Otimização diária
+    ├── SOP: Análise semanal
+    ├── SOP: Troubleshooting
+    └── SOP: Escalada de problemas
+
+PARTE XV: ESCALA AVANÇADA DE TRÁFEGO
+├── Níveis de Escala
+│   ├── Iniciante (R$ 1-10k/mês)
+│   │   ├── Foco: validação
+│   │   ├── Estrutura simples
+│   │   └── Métricas-chave
+│   ├── Intermediário (R$ 10-50k/mês)
+│   │   ├── Foco: otimização
+│   │   ├── Testes estruturados
+│   │   └── Diversificação de canais
+│   ├── Avançado (R$ 50-200k/mês)
+│   │   ├── Foco: eficiência em escala
+│   │   ├── Múltiplas contas
+│   │   ├── Automações avançadas
+│   │   └── Tracking robusto
+│   └── Expert (R$ 200k-1M+/mês)
+│       ├── Foco: previsibilidade
+│       ├── Operação estruturada
+│       ├── Equipe dedicada
+│       └── Infraestrutura completa
+├── Scaling Horizontal
+│   ├── O que é (mais públicos, mais campanhas)
+│   ├── Quando usar
+│   ├── Como implementar
+│   │   ├── Duplicação de campanhas
+│   │   ├── Novos públicos
+│   │   ├── Novos criativos
+│   │   └── Novos canais
+│   ├── Evitando sobreposição
+│   └── Métricas de acompanhamento
+├── Scaling Vertical
+│   ├── O que é (mais budget na mesma campanha)
+│   ├── Quando usar
+│   ├── Regras de aumento
+│   │   ├── 20-30% a cada 3 dias
+│   │   ├── Monitoramento de learning phase
+│   │   └── Pontos de saturação
+│   ├── Sinais de saturação
+│   │   ├── CPA subindo
+│   │   ├── Frequência alta
+│   │   └── CTR caindo
+│   └── O que fazer quando satura
+├── Gestão de Budget Alto
+│   ├── Distribuição de verba
+│   │   ├── Por canal (Meta, Google, TikTok)
+│   │   ├── Por objetivo (aquisição, retargeting)
+│   │   └── Por produto/oferta
+│   ├── Previsibilidade de resultados
+│   │   ├── Modelagem histórica
+│   │   ├── Sazonalidade
+│   │   └── Projeções
+│   ├── Controle de cashflow
+│   │   ├── Prazos de pagamento
+│   │   ├── Limites de crédito
+│   │   └── Múltiplas formas de pagamento
+│   └── Relatórios executivos
+│       ├── Dashboard de C-level
+│       ├── Métricas que importam
+│       └── Comunicação de resultados
+├── Estrutura de Equipe para Escala
+│   ├── Funções necessárias
+│   │   ├── Gestor de tráfego sênior
+│   │   ├── Criativos (designer + copywriter)
+│   │   ├── Analista de dados
+│   │   └── Suporte técnico
+│   ├── Processos
+│   │   ├── Fluxo de criação de campanhas
+│   │   ├── Fluxo de otimização
+│   │   ├── Fluxo de criativos
+│   │   └── Fluxo de aprovação
+│   └── Ferramentas para equipe
+│       ├── Gestão de tarefas
+│       ├── Comunicação
+│       └── Documentação
+└── Cases de Escala
+    ├── Case: R$ 10k → R$ 100k/mês
+    ├── Case: R$ 100k → R$ 500k/mês
+    └── Lições e padrões
+
+PARTE XVI: TRACKING AVANÇADO
+├── Conversions API (CAPI)
+│   ├── O que é CAPI
+│   │   ├── Server-side vs browser-side
+│   │   ├── Por que é necessário (iOS 14+)
+│   │   └── Complemento ao pixel, não substituição
+│   ├── Implementação CAPI
+│   │   ├── Via plataforma (Hotmart, Kiwify, etc.)
+│   │   ├── Via integração nativa
+│   │   ├── Via Zapier/Make
+│   │   └── Via código customizado
+│   ├── Eventos CAPI
+│   │   ├── Purchase
+│   │   ├── Lead
+│   │   ├── InitiateCheckout
+│   │   ├── AddToCart
+│   │   └── Eventos customizados
+│   ├── Deduplicação
+│   │   ├── Event ID matching
+│   │   ├── Configuração correta
+│   │   └── Verificação
+│   ├── Troubleshooting CAPI
+│   │   ├── Events Manager
+│   │   ├── Test events
+│   │   └── Diagnóstico de qualidade
+│   └── CAPI para Google Ads
+│       ├── Enhanced Conversions
+│       ├── Offline Conversions
+│       └── Implementação
+├── Attribution (Atribuição)
+│   ├── Modelos de atribuição
+│   │   ├── Last click
+│   │   ├── First click
+│   │   ├── Linear
+│   │   ├── Time decay
+│   │   ├── Position-based
+│   │   └── Data-driven
+│   ├── Attribution no Meta
+│   │   ├── Janelas de atribuição
+│   │   ├── 1-day click, 7-day click
+│   │   ├── View-through attribution
+│   │   └── Settings recomendados
+│   ├── Attribution no Google
+│   │   ├── Google Attribution
+│   │   ├── Cross-device
+│   │   └── Cross-channel
+│   ├── Limitações pós-iOS 14
+│   │   ├── SKAdNetwork
+│   │   ├── Aggregated Event Measurement
+│   │   └── Modelagem estatística
+│   └── Multi-touch attribution
+│       ├── Jornada do cliente
+│       ├── Touchpoints
+│       └── Crédito por canal
+├── Ferramentas de Tracking Avançado
+│   ├── Hyros
+│   │   ├── O que é
+│   │   ├── Como funciona
+│   │   ├── Implementação
+│   │   ├── Quando vale a pena
+│   │   └── Custos
+│   ├── TripleWhale
+│   │   ├── O que é
+│   │   ├── E-commerce focused
+│   │   ├── Pixel + server tracking
+│   │   └── Dashboards
+│   ├── Wicked Reports
+│   │   ├── B2B focused
+│   │   ├── Long sales cycle
+│   │   └── Attribution avançado
+│   ├── Northbeam
+│   │   ├── Media mix modeling
+│   │   ├── Incrementality testing
+│   │   └── Enterprise
+│   └── Comparativo de ferramentas
+│       ├── Por preço
+│       ├── Por funcionalidade
+│       └── Por caso de uso
+├── UTM Parameters
+│   ├── Estrutura padrão
+│   │   ├── utm_source
+│   │   ├── utm_medium
+│   │   ├── utm_campaign
+│   │   ├── utm_content
+│   │   └── utm_term
+│   ├── Nomenclatura consistente
+│   │   ├── Padrões recomendados
+│   │   ├── Evitando erros comuns
+│   │   └── Templates
+│   ├── UTM builder
+│   │   ├── Google Campaign URL Builder
+│   │   ├── Ferramentas customizadas
+│   │   └── Automação
+│   └── Análise de UTMs
+│       ├── Google Analytics
+│       ├── Relatórios
+│       └── Insights
+└── Data Warehouse para Ads
+    ├── Por que centralizar dados
+    ├── Ferramentas (BigQuery, Snowflake)
+    ├── Conectores (Supermetrics, Funnel.io)
+    └── Dashboards unificados
+
+PARTE XVII: RELATÓRIOS E GESTÃO DE CLIENTES
+├── Dashboards de Performance
+│   ├── Dashboards para gestão interna
+│   │   ├── Métricas diárias
+│   │   ├── Alertas automáticos
+│   │   └── Visão consolidada
+│   ├── Dashboards para clientes
+│   │   ├── O que mostrar
+│   │   ├── O que não mostrar
+│   │   ├── Frequência
+│   │   └── Nível de detalhe
+│   ├── Ferramentas de dashboard
+│   │   ├── Google Data Studio (Looker)
+│   │   ├── Power BI
+│   │   ├── Tableau
+│   │   ├── Databox
+│   │   └── ReportGarden
+│   └── Templates de dashboard
+│       ├── Dashboard Meta Ads
+│       ├── Dashboard Google Ads
+│       ├── Dashboard multi-canal
+│       └── Dashboard executivo
+├── KPIs por Tipo de Cliente
+│   ├── E-commerce
+│   │   ├── ROAS
+│   │   ├── CPA
+│   │   ├── AOV
+│   │   ├── LTV
+│   │   └── Margem de contribuição
+│   ├── Infoprodutos
+│   │   ├── CPL
+│   │   ├── CPA
+│   │   ├── Taxa de conversão
+│   │   ├── Ticket médio
+│   │   └── ROI de lançamento
+│   ├── Lead Generation
+│   │   ├── CPL
+│   │   ├── Custo por SQL
+│   │   ├── Taxa de qualificação
+│   │   └── Custo por cliente
+│   └── Apps/SaaS
+│       ├── CPI (Custo por Install)
+│       ├── CAC
+│       ├── ARPU
+│       └── Payback period
+├── Comunicação de Resultados
+│   ├── Relatórios semanais
+│   │   ├── Estrutura
+│   │   ├── Destaques
+│   │   ├── Próximos passos
+│   │   └── Template
+│   ├── Relatórios mensais
+│   │   ├── Estrutura completa
+│   │   ├── Análise de tendências
+│   │   ├── Insights e recomendações
+│   │   └── Template
+│   ├── Calls de alinhamento
+│   │   ├── Pauta
+│   │   ├── Frequência
+│   │   ├── Documentação
+│   │   └── Follow-up
+│   └── Gestão de expectativas
+│       ├── Definindo metas realistas
+│       ├── Comunicando resultados ruins
+│       ├── Celebrando vitórias
+│       └── Educando o cliente
+├── Precificação de Serviços de Tráfego
+│   ├── Modelos de cobrança
+│   │   ├── Fee fixo
+│   │   ├── % de investimento
+│   │   ├── Performance-based
+│   │   └── Híbrido
+│   ├── Tabela de preços sugerida
+│   │   ├── Por faixa de investimento
+│   │   ├── Por complexidade
+│   │   └── Por canal
+│   ├── Escopo de trabalho
+│   │   ├── O que está incluso
+│   │   ├── O que é extra
+│   │   └── SLA
+│   └── Contratos
+│       ├── Cláusulas importantes
+│       ├── Tempo mínimo
+│       └── Rescisão
+└── Templates de Relatórios
+    ├── Template: Relatório Semanal
+    ├── Template: Relatório Mensal
+    ├── Template: Relatório de Lançamento
+    ├── Template: Apresentação de Resultados
+    └── Template: Proposta Comercial
+
+APÊNDICE J: CHECKLISTS DE OPERAÇÃO
+├── J.1 Checklist: Setup de Business Manager
+├── J.2 Checklist: Contingência de Contas
+├── J.3 Checklist: Implementação CAPI
+├── J.4 Checklist: Setup de Tracking Avançado
+├── J.5 Checklist: Scaling de Campanhas
+└── J.6 Checklist: Onboarding de Cliente
+
+APÊNDICE K: TEMPLATES DE GESTÃO
+├── K.1 Template: SOP de Criação de Campanha
+├── K.2 Template: SOP de Otimização Diária
+├── K.3 Template: Nomenclatura de Campanhas
+├── K.4 Template: Plano de Contingência
+├── K.5 Template: Contrato de Gestão de Tráfego
+└── K.6 Template: Proposta Comercial
+```
+
+**Resultado esperado:**
+- Ads Agent: 3.670 → 5.500+ linhas (+1.830 linhas)
+- Cobertura completa de gestão operacional de tráfego
+- O agente mais completo do mercado para gestores de tráfego
+
+---
+
 ## Dependências Entre Agentes (Atualizado)
 
 ```
@@ -1962,15 +2352,16 @@ TEMPLATES:
 | Métrica | Atual | Meta Original | Nova Meta |
 |---------|-------|---------------|-----------|
 | Total de Subagentes | 15 | 25 | **32** |
-| Linhas Totais | 40.461 | 70.000+ | **~92.000** |
-| Média por Agente | 2.697 | 2.800+ | **2.875** |
-| Agentes v3.0 (3000+ linhas) | 11 | 20+ | **27+** |
+| Linhas Totais | 40.461 | 70.000+ | **~94.000** |
+| Média por Agente | 2.697 | 2.800+ | **2.940** |
+| Agentes v3.0 (3000+ linhas) | 11 | 20+ | **28+** |
 | Cobertura de Marketing | 75% | 95%+ | **100%** |
 
 **Notas:**
 - Reduzido de 35 para 32 após análise de redundância
 - Launch Agent expandido de 3.000 para 4.000+ linhas (especificação completa adicionada)
-- Cobertura completa: perpétuo, low/mid/high ticket, lançamento pago
+- Ads Agent expandido de 3.670 para 5.500+ linhas (gestão operacional, escala, tracking avançado)
+- Cobertura completa: perpétuo, low/mid/high ticket, lançamento pago, tráfego avançado
 
 ---
 
@@ -2037,12 +2428,12 @@ O agente será criado seguindo este plano e sincronizado automaticamente.
 
 | Categoria | Quantidade |
 |-----------|------------|
-| Agentes completos (v3.0) | 11 |
-| Agentes para expandir | 4 |
+| Agentes completos (v3.0) | 10 |
+| Agentes para expandir | 5 |
 | Agentes para criar (plano original) | 10 |
 | Agentes NOVOS adicionados | 7 |
 | **TOTAL FINAL** | **32 subagentes** |
-| **LINHAS PROJETADAS** | **~90.000** |
+| **LINHAS PROJETADAS** | **~94.000** |
 
 **Agentes REMOVIDOS por redundância (3):**
 - ~~UGC Agent~~ → Fundido com Influencer Agent
@@ -2051,8 +2442,9 @@ O agente será criado seguindo este plano e sincronizado automaticamente.
 
 ---
 
-*Plano de Expansão v2.1*
+*Plano de Expansão v2.2*
 *Meta: O Sistema de Criação de Conteúdo Mais Completo do Planeta*
-*Total Projetado: 32 Subagentes | ~90.000 Linhas de Documentação*
+*Total Projetado: 32 Subagentes | ~94.000 Linhas de Documentação*
 *Cobertura: 100% das necessidades de marketing digital*
 *Sem redundâncias: Cada funcionalidade em apenas um agente*
+*Ads Agent: O agente de tráfego pago mais completo do mercado*
