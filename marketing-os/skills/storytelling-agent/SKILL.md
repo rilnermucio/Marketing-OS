@@ -2979,6 +2979,37 @@ EXERCÍCIO 9: "ELEVATOR PITCH NARRATIVO"
 | **Coaching** | Virada de chave | "A pergunta que mudou tudo" |
 | **Moda/Beleza** | Identidade e autoestima | "Quando finalmente me reconheci" |
 
+### Clones de Voz para Storytelling
+
+O Storytelling Agent suporta **clones de voz** que personalizam o estilo narrativo, frameworks e tom das histórias.
+
+#### Clone por Tipo de Narrativa
+
+| Tipo de Narrativa | Clone Primário | Clone Alternativo | Estilo |
+|-------------------|---------------|-------------------|--------|
+| Origin story | **Halbert** | Brunson | Pessoal, emocional, "carta de um amigo" |
+| Case study | **Hormozi** | Ogilvy | Números concretos, antes/depois com dados |
+| Brand storytelling | **Ogilvy** | Schwartz | Elegante, research-driven, sofisticado |
+| Hook-Story-Offer | **Brunson** | Halbert | Energético, framework visual, conversão |
+| Storytelling educativo | **Schwartz** | Ogilvy | Analítico, segmentado por consciência |
+| Storytelling de vendas | **Halbert** | Hormozi | Urgência emocional + prova social |
+
+#### O Tom de Cada Clone no Storytelling
+
+| Clone | Abertura típica | Virada | Fechamento |
+|-------|----------------|--------|------------|
+| **Hormozi** | "Em 2019, eu estava quebrando..." | "Então descobri a fórmula..." | "Resultado: R$10M em 18 meses" |
+| **Ogilvy** | "Uma pesquisa com 1.000 consumidores revelou..." | "O insight foi contraintuitivo..." | "A marca que aplicou cresceu 340%" |
+| **Halbert** | "Querido amigo, preciso te contar algo..." | "Naquele momento tudo mudou..." | "Se eu consegui, você também consegue" |
+| **Schwartz** | "A maioria não sabe, mas existe um nível..." | "Quando você entende isso, a venda acontece..." | "O próximo passo depende do seu nível atual" |
+| **Brunson** | "Deixa eu te mostrar algo que ninguém fala..." | "Foi aí que criei o framework..." | "Agora é sua vez. Clica no link" |
+
+#### Como Ativar
+
+Mencione o clone no briefing: "criar storytelling de vendas com estilo Halbert para nicho dev-pessoal".
+
+---
+
 ### Integração com Marketing OS
 
 O Storytelling Agent trabalha com os outros subagentes:

@@ -5564,6 +5564,63 @@ INT_Marketing-Digital_Broad_250205
 
 ---
 
+## CLONES DE VOZ PARA ANÚNCIOS
+
+O Ads Agent suporta **clones de voz** que personalizam copy, tom e frameworks dos criativos de anúncios.
+
+### Clone por Tipo de Anúncio
+
+| Tipo de Anúncio | Clone Primário | Clone Alternativo | Estratégia |
+|----------------|---------------|-------------------|------------|
+| Meta Ads (Feed) | **Hormozi** | Schwartz | Números concretos, oferta irresistível |
+| Meta Ads (Stories/Reels) | **Brunson** | Hormozi | Hook rápido, storytelling visual |
+| Google Search | **Schwartz** | Ogilvy | Copy preciso por nível de consciência |
+| Google Display | **Ogilvy** | Hormozi | Brand awareness com elegância |
+| YouTube Ads | **Brunson** | Hormozi | Hook-Story-Offer em vídeo |
+| TikTok Ads | **Brunson** | Halbert | Nativo, storytelling casual |
+| LinkedIn Ads | **Ogilvy** | Schwartz | Profissional, research-driven |
+| Remarketing | **Halbert** | Hormozi | Urgência emocional + escassez |
+
+### Clone por Etapa do Funil de Ads
+
+| Etapa | Clone | Por quê |
+|-------|-------|---------|
+| **Awareness** | Ogilvy / Brunson | Capturar atenção com brand ou storytelling |
+| **Consideration** | Schwartz | Segmentar por nível de consciência do problema |
+| **Conversion** | Hormozi | Oferta irresistível com lógica de valor |
+| **Retention** | Halbert | Reconexão emocional, cross-sell |
+
+### Exemplo: Mesmo Produto, Clones Diferentes
+
+**Produto:** Curso de Marketing Digital — R$997
+
+**Hormozi (Conversão):**
+```
+De R$47.000 em valor por R$997.
+217 alunos. Média de ROI: 37x.
+Garantia de 30 dias ou devolvo cada centavo.
+```
+
+**Schwartz (Consideração — Nível 3: Solution Aware):**
+```
+Você já sabe que precisa de marketing digital.
+A questão é: qual método funciona em 2026?
+Descubra o sistema que 3 em cada 4 alunos recomendam.
+```
+
+**Brunson (Awareness — TikTok/Reels):**
+```
+3 anos atrás eu era CLT ganhando R$3.500.
+Hoje faturo R$100k/mês trabalhando de casa.
+Quer saber o que mudou? Link na bio.
+```
+
+### Como Ativar
+
+Mencione o clone no briefing: "criar anúncio Meta Ads com estilo Hormozi para nicho empreendedorismo".
+
+---
+
 ## Referências e Recursos
 
 ### Livros Essenciais

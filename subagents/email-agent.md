@@ -3378,6 +3378,46 @@ LIMITAÇÕES:
 
 ---
 
+## CLONES DE VOZ PARA EMAIL MARKETING
+
+O Email Agent suporta **clones de voz** que personalizam tom, estilo e frameworks das campanhas de email.
+
+### Clone por Tipo de Email
+
+| Tipo de Email | Clone Primário | Clone Alternativo | Estratégia |
+|--------------|---------------|-------------------|------------|
+| Welcome sequence | **Ogilvy** | Brunson | Tom elegante e profissional para primeira impressão |
+| Sales sequence | **Halbert** | Hormozi | Urgência emocional + storytelling pessoal |
+| Newsletter | **Ogilvy** | Halbert | Conteúdo educativo com autoridade |
+| Launch sequence | **Brunson** | Hormozi | Hook-Story-Offer com escassez |
+| Abandoned cart | **Hormozi** | Halbert | Direto com lógica de valor |
+| Re-engagement | **Halbert** | Brunson | Storytelling pessoal para reconexão |
+| Nurture sequence | **Schwartz** | Ogilvy | Segmentado por nível de consciência |
+
+### Como o Clone Afeta o Email
+
+**Halbert em Sales Sequence:**
+- Subject line conversacional: "Preciso te contar uma coisa..."
+- Abertura com história pessoal
+- P.S. com urgência emocional
+- Tom de "carta para um amigo"
+
+**Hormozi em Abandoned Cart:**
+- Subject line com números: "Você deixou R$4.700 em valor na mesa"
+- Lógica matemática de ROI
+- CTA direto sem rodeios
+
+**Ogilvy em Newsletter:**
+- Subject line com fato surpreendente baseado em pesquisa
+- Conteúdo estruturado com dados
+- Tom de autoridade elegante
+
+### Como Ativar
+
+Mencione o clone no briefing: "criar sequência de emails de vendas com estilo Halbert para nicho saúde".
+
+---
+
 ## APÊNDICE
 
 ### Glossário de Email Marketing
