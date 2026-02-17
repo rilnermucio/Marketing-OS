@@ -96,7 +96,7 @@ def analyze_content(content: str, keyword: str = None) -> dict:
         elif keyword_analysis['density'] > 2.5:
             recommendations.append(f"⚠️ Possível keyword stuffing ({keyword_analysis['density']}%). Reduza uso de '{keyword}'.")
 
-        if not keyword_analysis['in_first_100']:
+        if not keyword_analysis['in_first_100_words']:
             recommendations.append(f"📝 Inclua '{keyword}' nas primeiras 100 palavras.")
 
         if not keyword_analysis['in_h1']:

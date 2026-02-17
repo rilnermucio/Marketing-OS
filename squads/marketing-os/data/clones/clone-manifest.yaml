@@ -93,6 +93,62 @@ clones:
     tone: "analítico, ensaístico, baseado em cases, reflexivo"
     path: "chen/"
 
+  gadzhi:
+    name: "Iman Gadzhi"
+    specialty: "Agency building, high-ticket services, education business"
+    best_for: ["copy_vendas", "anuncio", "roteiro_video", "curso"]
+    niches: ["empreendedorismo", "marketing-digital", "agencias"]
+    tone: "confiante, direto, lifestyle-driven, sem filtro"
+    path: "gadzhi/"
+
+  leila-hormozi:
+    name: "Leila Hormozi"
+    specialty: "Operations, team building, scaling, leadership"
+    best_for: ["copy_vendas", "post_linkedin", "email", "curso"]
+    niches: ["empreendedorismo", "lideranca", "operacoes", "scaling"]
+    tone: "estruturado, operacional, data-driven, empoderador"
+    path: "leila-hormozi/"
+
+  patel:
+    name: "Neil Patel"
+    specialty: "SEO, digital marketing, content marketing, analytics"
+    best_for: ["artigo_seo", "newsletter", "post_linkedin", "curso"]
+    niches: ["marketing-digital", "seo", "tech", "saas"]
+    tone: "educativo, acessível, data-driven, passo a passo"
+    path: "patel/"
+
+  garyvee:
+    name: "Gary Vaynerchuk"
+    specialty: "Social media, personal branding, attention economy, content creation"
+    best_for: ["social_media", "reels", "tiktok", "post_linkedin", "roteiro_video"]
+    niches: ["empreendedorismo", "marketing-digital", "dev-pessoal", "social-media"]
+    tone: "energético, direto, sem filtro, motivacional com substância"
+    path: "garyvee/"
+
+  abraham:
+    name: "Jay Abraham"
+    specialty: "Os três pilares de crescimento, ativos ocultos, cross-industry strategy, LTV"
+    best_for: ["estrategia_crescimento", "copy_vendas", "post_linkedin", "email"]
+    niches: ["empreendedorismo", "consultoria", "financas", "marketing-digital"]
+    tone: "consultivo, reflexivo, cross-industry, baseado em princípios"
+    path: "abraham/"
+
+  kennedy:
+    name: "Dan Kennedy"
+    specialty: "Marketing de resposta direta, sales letters, magnetismo de clientes ideais"
+    best_for: ["copy_vendas", "sales_letter", "email", "landing_page", "anuncio"]
+    niches: ["empreendedorismo", "negocios-locais", "consultoria", "saude", "financas"]
+    tone: "sem conversa fiada, direto, provocador, anti-branding"
+    path: "kennedy/"
+
+  suby:
+    name: "Sabri Suby"
+    specialty: "Sell Like Crazy, funis de alta conversão, geração de leads em escala"
+    best_for: ["funil_vendas", "anuncio", "copy_vendas", "landing_page", "roteiro_video"]
+    niches: ["empreendedorismo", "marketing-digital", "ecommerce", "infoprodutos", "saas"]
+    tone: "energético, irreverente, orientado a sistemas, prova-heavy"
+    path: "suby/"
+
 matching_rules:
   - content_type: "copy_vendas"
     primary: "hormozi"
@@ -161,5 +217,47 @@ matching_rules:
     primary: "chen"
     alternatives: ["ellis"]
   - content_type: "social_media"
-    primary: "howell"
-    alternatives: ["ogilvy", "hormozi"]
+    primary: "garyvee"
+    alternatives: ["howell", "ogilvy", "hormozi"]
+  - content_type: "agency"
+    primary: "gadzhi"
+    alternatives: ["hormozi"]
+  - content_type: "high_ticket"
+    primary: "gadzhi"
+    alternatives: ["hormozi", "brunson"]
+  - content_type: "operacoes"
+    primary: "leila-hormozi"
+    alternatives: ["hormozi"]
+  - content_type: "lideranca"
+    primary: "leila-hormozi"
+    alternatives: ["garyvee"]
+  - content_type: "seo"
+    primary: "patel"
+    alternatives: ["ogilvy"]
+  - content_type: "content_marketing"
+    primary: "patel"
+    alternatives: ["abdaal", "chen"]
+  - content_type: "personal_branding"
+    primary: "garyvee"
+    alternatives: ["gadzhi", "abdaal"]
+  - content_type: "estrategia_crescimento"
+    primary: "abraham"
+    alternatives: ["hormozi", "kennedy"]
+  - content_type: "sales_letter"
+    primary: "kennedy"
+    alternatives: ["halbert", "schwartz"]
+  - content_type: "funil_vendas"
+    primary: "suby"
+    alternatives: ["brunson", "kennedy"]
+  - content_type: "reativacao_clientes"
+    primary: "abraham"
+    alternatives: ["kennedy", "halbert"]
+  - content_type: "joint_venture"
+    primary: "abraham"
+    alternatives: ["kennedy"]
+  - content_type: "negocios_locais"
+    primary: "kennedy"
+    alternatives: ["hormozi", "abraham"]
+  - content_type: "geracao_leads"
+    primary: "suby"
+    alternatives: ["kennedy", "hormozi"]

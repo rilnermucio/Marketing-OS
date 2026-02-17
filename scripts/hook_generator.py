@@ -34,7 +34,7 @@ HOOK_TEMPLATES = {
         "A maior mentira sobre {tema}",
         "Por que eu ODEIO a maioria dos conselhos sobre {tema}",
         "Unpopular opinion sobre {tema}",
-        "Isso vai irritar muita gente, mas...",
+        "Isso sobre {tema} vai irritar muita gente, mas...",
     ],
     "numero": [
         "3 coisas sobre {tema} que mudaram minha vida",

@@ -18,8 +18,9 @@ Subagente especializado em criação, otimização e viralização de conteúdo 
 8. [Hooks por Plataforma](#hooks-por-plataforma)
 9. [Calendário de Publicação](#calendário-de-publicação)
 10. [Métricas e Analytics Avançados](#métricas-e-analytics-avançados)
-11. [Gestão de Crise](#gestão-de-crise-nas-redes)
-12. [Community Management](#community-management)
+11. [WhatsApp Business e Messaging](#whatsapp-business-e-messaging)
+12. [Gestão de Crise](#gestão-de-crise-nas-redes)
+13. [Community Management](#community-management)
 
 ---
 
@@ -36,6 +37,9 @@ Subagente especializado em criação, otimização e viralização de conteúdo 
 - **Estratégias de viralização**
 - **Análise de métricas e performance**
 - **Crescimento orgânico**
+- **WhatsApp Business** (listas, automação, templates)
+- **Telegram** (canais e grupos)
+- **DM automation** (estratégia de mensagens diretas)
 
 ---
 
@@ -1656,6 +1660,288 @@ PÁGINA 10: CTA (seguir, salvar)
 - Pins evergreen performam por meses/anos
 - Repinar conteúdo próprio em diferentes boards
 
+## WhatsApp Business e Messaging
+
+### WhatsApp Business: O Canal de Maior Conversão
+
+```
+POR QUE WHATSAPP É ESSENCIAL
+
+📊 DADOS (Brasil, 2024-2025):
+- 197 milhões de usuários no Brasil
+- 99% dos smartphones têm WhatsApp instalado
+- Taxa de abertura: 98% (vs 20-30% email)
+- Taxa de resposta: 40-60% (vs 2-5% email)
+- 80% dos brasileiros já compraram via WhatsApp
+
+POSICIONAMENTO NO FUNIL:
+├── TOPO: Listas de transmissão com conteúdo
+├── MEIO: Grupos de comunidade temáticos
+├── FUNDO: Atendimento 1:1 e vendas diretas
+└── PÓS-VENDA: Suporte e relacionamento
+```
+
+### Estratégia de WhatsApp Business
+
+#### Configuração do Perfil Business
+
+```
+PERFIL OTIMIZADO:
+├── Foto: Logo ou foto profissional
+├── Nome: Nome da marca/negócio
+├── Descrição: Proposta de valor em 1 frase
+├── Categoria: Selecionar a mais relevante
+├── Horário: Definir horários de atendimento
+├── Endereço: Se aplicável
+├── Catálogo: Produtos/serviços com preços
+└── Link curto: wa.me/55XXXXXXXXXXX
+```
+
+#### Mensagens Automáticas
+
+```
+MENSAGEM DE SAUDAÇÃO (quando alguém envia primeira mensagem):
+"Olá! 👋 Bem-vindo(a) à [Marca].
+Como posso te ajudar hoje?
+
+1️⃣ Conhecer nossos produtos/serviços
+2️⃣ Falar com um consultor
+3️⃣ Suporte/dúvidas
+4️⃣ Parcerias
+
+Digite o número da opção desejada."
+
+---
+
+MENSAGEM DE AUSÊNCIA:
+"Olá! No momento estamos fora do horário de atendimento
+(Seg-Sex, 9h-18h). Deixe sua mensagem que responderemos
+assim que possível. Para urgências, acesse [link]."
+
+---
+
+RESPOSTAS RÁPIDAS:
+/preco    → Tabela de preços atualizada
+/horario  → Horários de funcionamento
+/catalogo → Link do catálogo completo
+/suporte  → Direcionamento para suporte
+/pix      → Dados para pagamento
+```
+
+#### Listas de Transmissão
+
+```
+ESTRATÉGIA DE LISTAS
+
+SEGMENTAÇÃO:
+├── Lista VIP: Clientes fiéis (ofertas exclusivas)
+├── Lista Leads: Interessados ainda não compraram
+├── Lista Conteúdo: Querem receber dicas e valor
+└── Lista Parceiros: Outros profissionais do nicho
+
+FREQUÊNCIA:
+├── VIP: 2-3x por semana
+├── Leads: 1-2x por semana
+├── Conteúdo: 1x por semana
+└── Parceiros: 1x por mês
+
+REGRAS:
+1. NUNCA enviar sem permissão (opt-in obrigatório)
+2. Sempre dar opção de sair ("digite SAIR")
+3. Variar entre valor e oferta (80/20)
+4. Personalizar com nome quando possível
+5. Horários: 9h-11h ou 18h-20h (evitar madrugada)
+```
+
+#### Templates de Mensagem por Objetivo
+
+```
+TEMPLATE: LANÇAMENTO
+"🚀 [Nome], temos novidade!
+
+[Descrição curta do produto/serviço em 2 linhas]
+
+✅ [Benefício 1]
+✅ [Benefício 2]
+✅ [Benefício 3]
+
+🎁 Condição especial para você que está nessa lista:
+[Oferta exclusiva]
+
+Válido até [data]. Quer saber mais? Responda SIM."
+
+---
+
+TEMPLATE: CONTEÚDO DE VALOR
+"💡 Dica do dia, [Nome]:
+
+[Dica prática em 3-4 linhas]
+
+Aplica isso hoje e me conta o resultado!
+
+PS: Se conhece alguém que precisa ouvir isso,
+encaminha essa mensagem. 🙏"
+
+---
+
+TEMPLATE: FOLLOW-UP PÓS-VENDA
+"Olá, [Nome]! Tudo bem?
+
+Faz [X] dias que você [comprou/contratou] o [produto].
+Queria saber: como está sua experiência?
+
+Se tiver qualquer dúvida, estou aqui para ajudar!"
+
+---
+
+TEMPLATE: RECUPERAÇÃO DE CARRINHO
+"[Nome], percebi que você se interessou por [produto]
+mas não finalizou.
+
+Aconteceu alguma coisa? Posso te ajudar com:
+- Dúvidas sobre o produto
+- Formas de pagamento
+- Condição especial
+
+É só responder esta mensagem. 😊"
+```
+
+### Telegram para Marketing
+
+#### Canais do Telegram
+
+```
+CANAL DO TELEGRAM (broadcast)
+
+VANTAGENS:
+├── Sem limite de membros
+├── Posts com formatação rica (bold, italic, links)
+├── Enquetes nativas
+├── Agendamento de posts
+├── Sem algoritmo (todos veem tudo)
+└── Conteúdo pesquisável
+
+ESTRATÉGIA DE CONTEÚDO:
+├── Conteúdo exclusivo (não publicado em redes)
+├── Bastidores e making-of
+├── Links e recursos curados
+├── Ofertas antecipadas
+├── Insights e opiniões rápidas
+└── Atualizações em tempo real
+
+FREQUÊNCIA: 1-3 posts por dia (não exagerar)
+```
+
+#### Grupos do Telegram
+
+```
+GRUPO DO TELEGRAM (comunidade)
+
+TIPOS:
+├── Grupo de alunos (curso/mentoria)
+├── Grupo de networking (profissional)
+├── Grupo de suporte (produto/serviço)
+└── Grupo temático (nicho específico)
+
+BOAS PRÁTICAS:
+1. Regras claras fixadas no topo
+2. Admins ativos para moderar
+3. Tópicos organizados (se grupo grande)
+4. Bots para FAQ e boas-vindas
+5. Conteúdo exclusivo para manter valor
+6. Eventos periódicos (AMAs, desafios)
+```
+
+### DM Automation e Estratégia de Mensagens Diretas
+
+#### Framework para DMs
+
+```
+ESTRATÉGIA DE DM (Instagram, LinkedIn, Twitter)
+
+PRINCÍPIO: DM é conversa, não spam.
+
+ABORDAGEM CORRETA:
+1. Engajar com conteúdo público primeiro (2-3 interações)
+2. Responder stories ou posts de forma genuína
+3. Iniciar conversa sobre tema em comum
+4. Construir relacionamento antes de vender
+5. Oferecer valor antes de pedir qualquer coisa
+
+ABORDAGEM ERRADA:
+❌ DM fria vendendo produto
+❌ Mensagem copiada e colada para todos
+❌ "Oi, tudo bem?" sem contexto
+❌ Link sem explicação
+❌ Pitching sem relacionamento prévio
+```
+
+#### Templates de DM por Plataforma
+
+```
+INSTAGRAM DM — Início de conversa:
+"[Nome], adorei seu post sobre [tema específico].
+Especialmente a parte sobre [detalhe].
+Você já experimentou [insight relacionado]?"
+
+LINKEDIN DM — Networking:
+"[Nome], acompanho seu conteúdo sobre [tema] há um tempo.
+Seu post sobre [post específico] foi muito alinhado com
+o que estou trabalhando em [área]. Adoraria trocar ideias."
+
+TWITTER DM — Colaboração:
+"Oi [Nome]! Vi sua thread sobre [tema] e achei brilhante.
+Estou trabalhando em algo complementar.
+Faria sentido uma conversa rápida?"
+```
+
+#### Automação de DMs (com cuidado)
+
+```
+AUTOMAÇÃO RESPONSÁVEL
+
+O QUE AUTOMATIZAR:
+├── Mensagem de boas-vindas para novos seguidores
+├── Entrega de lead magnets (digitou palavra-chave)
+├── FAQ automático (perguntas frequentes)
+└── Agendamento de calls (link Calendly)
+
+O QUE NUNCA AUTOMATIZAR:
+├── Conversas de venda (precisa ser humano)
+├── Respostas a perguntas complexas
+├── Follow-ups de relacionamento
+└── Mensagens que parecem pessoais mas não são
+
+FERRAMENTAS:
+├── ManyChat (Instagram, Facebook, WhatsApp)
+├── Chatfuel (Facebook, Instagram)
+├── MobileMonkey (multi-plataforma)
+└── Fluxo nativo do WhatsApp Business API
+```
+
+### Métricas de Messaging
+
+```
+MÉTRICAS WHATSAPP/MESSAGING
+
+| Métrica | Benchmark Bom | Benchmark Ótimo |
+|---------|---------------|-----------------|
+| Taxa de abertura | >80% | >95% |
+| Taxa de resposta | >30% | >50% |
+| Tempo de resposta | <2h | <30min |
+| Taxa de opt-out | <5% | <2% |
+| Conversão de lista | >5% | >15% |
+| Satisfação (NPS) | >50 | >70 |
+| Taxa de resolução | >80% | >95% |
+
+FÓRMULAS:
+Taxa de conversão = Vendas via WhatsApp / Total de conversas × 100
+Custo por conversa = Investimento em tráfego / Conversas iniciadas
+ROI WhatsApp = (Receita - Custo) / Custo × 100
+```
+
+---
+
 ## Gestão de Crise nas Redes
 
 ### Framework HEAR
@@ -2153,5 +2439,5 @@ SEMANAL
 
 ---
 
-> **Social Agent v2.0** - O agente mais completo para dominar redes sociais
+> **Social Agent v3.0** - O agente mais completo para dominar redes sociais e messaging
 > Combinando ciência, psicologia e estratégias testadas pelos maiores criadores do mundo.

@@ -8,16 +8,20 @@ Marketing OS — sistema operacional completo de marketing digital. Projetado pa
 
 ## :clipboard: Visão Geral
 
-O **Marketing OS** é um sistema operacional de marketing digital composto por 16 subagentes especializados que trabalham em conjunto para criar conteúdo estratégico de alta qualidade. Ele cobre:
+O **Marketing OS** é um sistema operacional de marketing digital composto por **17 subagentes especializados**, **23 comandos**, **15 clones de voz**, **8 workflows** e **23 scripts** que trabalham em conjunto para criar conteúdo estratégico de alta qualidade. Ele cobre:
 
 - **Redes sociais**: Instagram (feed, carrossel, reels, stories), LinkedIn, Twitter/X, TikTok, YouTube, Pinterest, Facebook
-- **Marketing**: Email marketing, newsletters, sequências de automação
+- **Messaging**: WhatsApp Business, Telegram, DM automation
+- **Marketing**: Email marketing, newsletters, sequências de automação multi-canal
 - **SEO**: Artigos otimizados, blog posts, meta tags, featured snippets
-- **Video**: Scripts YouTube, Reels/TikTok/Shorts, VSL (Video Sales Letter)
-- **Audio**: Roteiros de podcast, spots publicitários
-- **Anúncios**: Copy para Meta Ads, Google Ads, TikTok Ads, LinkedIn Ads
-- **Landing pages**: Páginas de vendas, captura de leads
+- **Vídeo**: Scripts YouTube, Reels/TikTok/Shorts, VSL, webinars
+- **Áudio**: Roteiros de podcast, spots publicitários
+- **Anúncios**: Copy para Meta Ads, Google Ads, TikTok Ads, LinkedIn Ads + publicação direta via MCP
+- **Landing pages**: Páginas de vendas, captura de leads, webinar registration
+- **Funis**: Lead gen, product launch, webinar, tripwire, evergreen
+- **Infoprodutos**: Ebooks, cursos, memberships, workshops, mentorias
 - **IA generativa**: Prompts para geração de imagens e vídeos com IA
+- **Integrações MCP**: Notion, Meta Ads, Playwright (screenshots), Figma (design briefs)
 
 Suporta **10+ nichos** com personas, pilares de conteúdo, hooks e hashtags específicos para cada um.
 
@@ -42,6 +46,7 @@ MARKETING OS (Agente Principal)
 +-- :funnel_web: FUNNEL AGENT          - Funis de vendas, jornada do cliente
 +-- :chart_with_upwards_trend: GROWTH AGENT          - Crescimento, growth hacking, aquisição
 +-- :rocket: LAUNCH AGENT          - Lançamentos de produtos e campanhas
++-- :package: INFOPRODUCT BUILDER  - Infoprodutos, cursos, ebooks, memberships
 ```
 
 ## :open_file_folder: Estrutura do Projeto
@@ -62,7 +67,7 @@ Marketing OS/
 |       +-- SKILL.md                  # Definição da skill
 |       +-- (symlinks para pastas)
 |
-+-- subagents/                        # 16 subagentes especializados
++-- subagents/                        # 17 subagentes especializados
 |   +-- research-agent.md
 |   +-- copy-agent.md
 |   +-- seo-agent.md
@@ -79,8 +84,9 @@ Marketing OS/
 |   +-- funnel-agent.md
 |   +-- growth-agent.md
 |   +-- launch-agent.md
+|   +-- infoproduct-builder-agent.md
 |
-+-- scripts/                          # 19 scripts Python de automação
++-- scripts/                          # 23 scripts de automação
 |   +-- seo_analyzer.py
 |   +-- hashtag_generator.py
 |   +-- content_calendar.py
@@ -100,6 +106,9 @@ Marketing OS/
 |   +-- trend_tracker.py
 |   +-- trend_adapter.py
 |   +-- tiktok_trends_scraper.py
+|   +-- project_manager.py               # NOVO: Gerenciador de projetos
+|   +-- quality_gate.py                   # NOVO: Quality gate para outputs
+|   +-- mos.py                            # NOVO: CLI unificado
 |
 +-- assets/
 |   +-- templates/                    # 26 templates de conteúdo
@@ -163,14 +172,15 @@ Marketing OS/
 |   +-- ads-copy.md
 |   +-- design-specs.md               # NOVO: Especificações de design
 |
-+-- workflows/                        # 7 workflows de campanha
-|   +-- lançamento-produto.md
-|   +-- calendário-mensal.md
-|   +-- campanha-conversão.md
++-- workflows/                        # 8 workflows de campanha
+|   +-- lancamento-produto.md
+|   +-- calendario-mensal.md
+|   +-- campanha-conversao.md
 |   +-- funil-vendas.md
 |   +-- parceria-influencer.md
-|   +-- batch-production-workflow.md  # NOVO: Produção em lote
-|   +-- tiktok-trends-chrome.md       # NOVO: Monitoramento TikTok
+|   +-- batch-production-workflow.md
+|   +-- tiktok-trends-chrome.md
+|   +-- content-pipeline.md             # NOVO: Pipeline de conteúdo
 |
 +-- outputs/                          # Conteúdo gerado
 |
@@ -198,6 +208,93 @@ Marketing OS/
 | Funnel Agent | `subagents/funnel-agent.md` | Funis de vendas, jornada do cliente |
 | Growth Agent | `subagents/growth-agent.md` | Crescimento, growth hacking, aquisição |
 | Launch Agent | `subagents/launch-agent.md` | Lançamentos de produtos e campanhas |
+| Infoproduct Builder Agent | `subagents/infoproduct-builder-agent.md` | Infoprodutos, cursos, ebooks, memberships, workshops |
+
+## :speech_balloon: Comandos (23 comandos)
+
+Comandos invocáveis via `/comando` ou linguagem natural:
+
+### Criação de Conteúdo
+
+| Comando | Descrição |
+|---------|-----------|
+| `/criar-post` | Posts para Instagram, LinkedIn, Twitter/X, TikTok |
+| `/criar-carrossel` | Carrosséis de Instagram com estrutura completa |
+| `/criar-artigo` | Artigos SEO otimizados para blog |
+| `/criar-email` | Sequências de email marketing e newsletters |
+| `/criar-video` | Scripts de vídeo para YouTube, Reels, TikTok, VSL |
+| `/criar-podcast` | Roteiros de podcast (solo, entrevista, co-host) |
+| `/criar-anuncio` | Copy para anúncios Meta/Google/TikTok/LinkedIn |
+| `/criar-calendario` | Calendários editoriais multi-plataforma |
+| `/gerar-imagem` | Prompts para geração de imagens com IA |
+| `/criar-landing-page` | Landing pages (vendas, captura, webinar, waitlist) |
+| `/criar-webinar` | Scripts de webinar + emails + slides outline |
+| `/criar-sequencia` | Sequências multi-canal coordenadas |
+
+### Estratégia e Análise
+
+| Comando | Descrição |
+|---------|-----------|
+| `/criar-funil` | Funis de vendas completos (lead gen, launch, evergreen) |
+| `/criar-infoproduto` | Infoprodutos (ebook, curso, membership, workshop) |
+| `/analisar-video` | Análise de vídeos (hooks, retenção, CTAs, engagement) |
+| `/analisar-concorrencia` | Análise competitiva e benchmarking |
+| `/clonar-estrategia` | Reverse-engineering de estratégias de marketing |
+| `/batch` | Produção em lote de conteúdo |
+
+### Clones e Marca
+
+| Comando | Descrição |
+|---------|-----------|
+| `/criar-clone` | Criar clone de voz de um expert |
+| `/criar-brief-design` | Briefs de design para Figma (cores, tipografia, specs) |
+
+### Integrações e Publicação
+
+| Comando | Descrição |
+|---------|-----------|
+| `/publicar-notion` | Publicar calendários e conteúdo no Notion via MCP |
+| `/publicar-anuncio` | Criar e publicar campanhas no Meta Ads via MCP |
+| `/capturar-tela` | Capturar screenshots de sites via Playwright MCP |
+
+## :speaking_head: Sistema de Clones de Voz (15 clones)
+
+Clones de voz que adaptam tom, hooks e CTAs para diferentes estilos:
+
+### Copywriters Clássicos
+
+| Clone | Especialidade |
+|-------|--------------|
+| Alex Hormozi | Business offers, lead generation, scaling |
+| David Ogilvy | Brand advertising, headlines, research-driven copy |
+| Gary Halbert | Direct response, sales letters, emotional copy |
+| Eugene Schwartz | Market awareness, sophistication levels |
+| Russell Brunson | Funnels, webinars, storytelling frameworks |
+
+### Storytellers
+
+| Clone | Especialidade |
+|-------|--------------|
+| Donald Miller | StoryBrand framework, narrativa centrada no cliente |
+| Park Howell | ABT framework, business storytelling |
+
+### Criadores de Conteúdo
+
+| Clone | Especialidade |
+|-------|--------------|
+| MrBeast | Conteúdo viral, retenção extrema, thumbnails |
+| Ali Abdaal | Conteúdo educativo, produtividade, lifestyle |
+| Gary Vaynerchuk | Social media, personal branding, attention economy |
+| Iman Gadzhi | Agency building, high-ticket, education business |
+
+### Growth e Marketing
+
+| Clone | Especialidade |
+|-------|--------------|
+| Sean Ellis | Growth hacking, experimentação, product-market fit |
+| Andrew Chen | Network effects, viral loops, marketplace growth |
+| Neil Patel | SEO, digital marketing, content marketing, analytics |
+| Leila Hormozi | Operations, team building, scaling, leadership |
 
 ## :page_facing_up: Templates Disponíveis (26 templates)
 
@@ -257,7 +354,7 @@ Marketing OS/
 |----------|---------|-----------|
 | Meus Templates | `assets/templates/meus-templates.md` | Templates personalizados do usuário |
 
-## :wrench: Scripts de Automação (19 scripts)
+## :wrench: Scripts de Automação (23 scripts)
 
 ### Análise e Otimização
 
@@ -303,6 +400,31 @@ Marketing OS/
 | `trend_adapter.py` | Adapta trends virais para diferentes nichos | `python scripts/trend_adapter.py "get ready with me" marketing` |
 | `tiktok_trends_scraper.py` | Busca videos virais do TikTok por hashtag | `python scripts/tiktok_trends_scraper.py --hashtag "marketing" --min-views 1000000` |
 
+### Projetos e Qualidade
+
+| Script | Descrição | Comando |
+|--------|-----------|---------|
+| `project_manager.py` | Gerencia projetos e campanhas com estado persistente | `python scripts/project_manager.py create "Nome" --type launch` |
+| `quality_gate.py` | Verifica qualidade de outputs (hook, CTA, SEO, readability) | `python scripts/quality_gate.py output.md --type post` |
+
+### CLI Unificado
+
+| Script | Descrição | Comando |
+|--------|-----------|---------|
+| `mos.py` | CLI unificado para todos os scripts do Marketing OS | `python scripts/mos.py seo analyze artigo.md "keyword"` |
+
+**Comandos do CLI `mos`:**
+```bash
+python scripts/mos.py seo analyze artigo.md "keyword"     # Análise SEO
+python scripts/mos.py headlines score "Sua headline"       # Pontuar headline
+python scripts/mos.py hooks generate "tema" reels 10       # Gerar hooks
+python scripts/mos.py hashtags generate nicho instagram    # Gerar hashtags
+python scripts/mos.py calendar create 2026-03-01 4         # Calendário editorial
+python scripts/mos.py quality check output.md --type post  # Quality gate
+python scripts/mos.py project create "Nome" --type launch  # Criar projeto
+python scripts/mos.py project list                         # Listar projetos
+```
+
 ## :iphone: Plataformas Suportadas
 
 - **Instagram** - Feed, Carrossel, Reels, Stories
@@ -312,6 +434,8 @@ Marketing OS/
 - **YouTube** - Vídeos long-form, Shorts
 - **Pinterest** - Pins, Idea Pins
 - **Facebook** - Posts, Stories, Grupos
+- **WhatsApp Business** - Listas de transmissão, automação, templates
+- **Telegram** - Canais e grupos
 - **Email** - Newsletters, Sequências, Automações
 - **Blog/SEO** - Artigos otimizados, Landing pages
 - **Podcast** - Episódios, Show notes
@@ -388,17 +512,18 @@ python scripts/hook_generator.py "produtividade com IA" reels 10
 python scripts/content_idea_generator.py tecnologia 20
 ```
 
-## :bar_chart: Workflows (7 workflows)
+## :bar_chart: Workflows (8 workflows)
 
 | Workflow | Arquivo | Descrição |
 |----------|---------|-----------|
-| Lançamento de Produto | `workflows/lançamento-produto.md` | Campanha completa de lançamento com timeline de 30 dias |
-| Calendário Mensal | `workflows/calendário-mensal.md` | Planejamento editorial mensal completo |
-| Campanha de Conversão | `workflows/campanha-conversão.md` | Flash sale, promoções, geração de leads |
+| Lançamento de Produto | `workflows/lancamento-produto.md` | Campanha completa de lançamento com timeline de 30 dias |
+| Calendário Mensal | `workflows/calendario-mensal.md` | Planejamento editorial mensal completo |
+| Campanha de Conversão | `workflows/campanha-conversao.md` | Flash sale, promoções, geração de leads |
 | Funil de Vendas | `workflows/funil-vendas.md` | Processo completo TOFU -> MOFU -> BOFU |
 | Parceria com Influencer | `workflows/parceria-influencer.md` | Prospecção, briefing e gestão de influenciadores |
 | Batch Production | `workflows/batch-production-workflow.md` | Produção em lote para escalar conteúdo |
 | TikTok Trends Chrome | `workflows/tiktok-trends-chrome.md` | Monitoramento de trends do TikTok via Chrome |
+| Content Pipeline | `workflows/content-pipeline.md` | Pipeline de conteúdo: Research → Copy → Design → Review |
 
 ## :card_file_box: Swipe Files (9 arquivos)
 

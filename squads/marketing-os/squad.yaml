@@ -2,9 +2,9 @@
 # Schema: .aios-core/schemas/squad-schema.json
 
 name: "marketing-os"
-version: "4.0.0"
+version: "5.0.0"
 short-title: "Marketing OS"
-description: "Sistema operacional completo de marketing digital com 17 subagentes especializados em SEO, copy, social media, ads, email, video, audio, analytics, design, AI tools, research, brand, storytelling, funnel, growth, launch e infoprodutos."
+description: "Sistema operacional completo de marketing digital com 17 subagentes, 23 comandos, 15 clones de voz, 8 workflows e 23 scripts. Cobre SEO, copy, social media, ads, email, vídeo, áudio, analytics, design, AI tools, research, brand, storytelling, funnel, growth, launch, infoprodutos, WhatsApp Business e integrações MCP (Notion, Meta Ads, Playwright, Figma)."
 author: "rilner"
 license: "ISC"
 
@@ -36,6 +36,12 @@ tags:
   - growth
   - launch
   - infoproduct
+  - whatsapp
+  - messaging
+  - notion
+  - figma
+  - meta-ads
+  - clones
 
 components:
   agents:

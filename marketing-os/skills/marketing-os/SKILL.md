@@ -1,6 +1,6 @@
 ---
 name: marketing-os
-description: "Marketing OS — sistema operacional completo de marketing digital com 17 subagentes especializados. Use para: posts Instagram/LinkedIn/TikTok/Twitter, artigos SEO, email marketing, landing pages, anúncios Meta/Google Ads, calendários editoriais, vídeos YouTube/Reels/VSL, podcasts, geração de imagens e vídeos com IA, infoprodutos (cursos, ebooks, memberships, workshops, mentorias). NICHOS: Marketing Digital, IA, Dev Pessoal/Profissional, Tech, Empreendedorismo, Finanças, Saúde, Educação, Produtividade. TRIGGERS: conteúdo, post, blog, SEO, newsletter, copy, landing page, campanha, anúncio, carrossel, stories, reels, vídeo, podcast, design, imagem IA, infoproduto, curso online, ebook, membership, mentoria."
+description: "Marketing OS v5.0 — sistema operacional completo de marketing digital com 17 subagentes, 23 comandos, 15 clones de voz, 8 workflows e 23 scripts. Use para: posts Instagram/LinkedIn/TikTok/Twitter, artigos SEO, email marketing, landing pages, anúncios Meta/Google Ads, calendários editoriais, vídeos YouTube/Reels/VSL, podcasts, geração de imagens e vídeos com IA, infoprodutos, funis de venda, webinars, sequências multi-canal, WhatsApp Business, briefings de design. Integrações MCP: Notion, Meta Ads, Playwright, Figma. NICHOS: Marketing Digital, IA, Dev Pessoal/Profissional, Tech, Empreendedorismo, Finanças, Saúde, Educação, Produtividade. TRIGGERS: conteúdo, post, blog, SEO, newsletter, copy, landing page, campanha, anúncio, carrossel, stories, reels, vídeo, podcast, design, imagem IA, infoproduto, curso online, ebook, membership, mentoria, funil, webinar, WhatsApp, clone, brief design."
 argument-hint: "[tipo-conteúdo] [nicho] [plataforma]"
 ---
 
@@ -110,9 +110,34 @@ Consultar pasta `assets/swipe-files/` para:
 
 Detalhes em `references/niches.md`.
 
+## Comandos Disponíveis (23)
+
+Invoque via `/comando` ou linguagem natural:
+
+**Criação:** `/criar-post`, `/criar-carrossel`, `/criar-artigo`, `/criar-email`, `/criar-video`, `/criar-podcast`, `/criar-anuncio`, `/criar-calendario`, `/gerar-imagem`, `/criar-landing-page`, `/criar-webinar`, `/criar-sequencia`
+
+**Estratégia:** `/criar-funil`, `/criar-infoproduto`, `/analisar-video`, `/analisar-concorrencia`, `/clonar-estrategia`, `/batch`
+
+**Clones e Design:** `/criar-clone`, `/criar-brief-design`
+
+**Integrações MCP:** `/publicar-notion`, `/publicar-anuncio`, `/capturar-tela`
+
+Detalhes em `marketing-os/commands/`.
+
+## Clones de Voz (15)
+
+Sistema de clones que adaptam tom, hooks e CTAs:
+
+- **Copywriters:** Hormozi, Ogilvy, Halbert, Schwartz, Brunson
+- **Storytellers:** Miller, Howell
+- **Criadores:** MrBeast, Abdaal, Gary Vee, Gadzhi
+- **Growth:** Ellis, Chen, Patel, Leila Hormozi
+
+Ativar com `clone: nome` no briefing. Detalhes em `squads/marketing-os/data/clones/`.
+
 ## Scripts Python
 
-Pasta `scripts/` contém 19 ferramentas:
+Pasta `scripts/` contém 23 ferramentas + CLI unificado `mos.py`:
 - `seo_analyzer.py` - Análise SEO
 - `hashtag_generator.py` - Geração de hashtags
 - `hook_generator.py` - Hooks virais
@@ -120,16 +145,22 @@ Pasta `scripts/` contém 19 ferramentas:
 - `carousel_structure_generator.py` - Estruturas de carrossel
 - `caption_generator.py` - Legendas por objetivo
 - `trend_tracker.py` - Monitoramento de tendências
-- E mais 12 scripts especializados
+- `project_manager.py` - Gerenciador de projetos
+- `quality_gate.py` - Quality gate para outputs
+- `mos.py` - CLI unificado para todos os scripts
+- E mais 13 scripts especializados
 
 ## Workflows Completos
 
-Pasta `workflows/`:
+Pasta `workflows/` contém 8 workflows:
 - `lancamento-produto.md` - Campanha de lançamento
 - `calendario-mensal.md` - Planejamento editorial
 - `funil-vendas.md` - TOFU → MOFU → BOFU
 - `batch-production-workflow.md` - Produção em lote
 - `parceria-influencer.md` - Gestão de influencers
+- `content-pipeline.md` - Pipeline: Research → Copy → Design → Review
+- `campanha-conversao.md` - Flash sale, promoções
+- `tiktok-trends-chrome.md` - Monitoramento TikTok
 
 ## Checklist de Qualidade
 
