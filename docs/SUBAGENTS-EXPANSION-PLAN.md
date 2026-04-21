@@ -2339,10 +2339,9 @@ APÊNDICE K: TEMPLATES DE GESTÃO
 - [ ] Sem repetição de conteúdo
 
 ### Sincronização (Pós-Escrita)
-- [ ] Salvo em subagents/{nome}.md
+- [ ] Salvo em subagents/{nome}.md (canonical)
 - [ ] Copiado para skill-package/marketing-os/subagents/
-- [ ] Copiado para marketing-os/skills/{nome}/SKILL.md
-- [ ] Verificado contagem de linhas igual nas 3 localizações
+- [ ] Verificado contagem de linhas igual nas 2 localizações
 - [ ] Commit e push realizados
 ```
 

@@ -1,303 +1,175 @@
 ---
-description: Create a complete video script with hook, structure, visual directions, and thumbnail concept for YouTube, Reels, TikTok, Shorts, or VSL.
-argument-hint: "<format and topic, e.g., 'YouTube tutorial on email marketing' or 'TikTok about morning routine'>"
+description: Cria roteiro completo de vídeo com hook, estrutura, direções visuais e conceito de thumbnail para YouTube, Reels, TikTok, Shorts ou VSL. Ativa o Video Agent completo com ciência de retenção, clones de voz e regras de qualidade do Marketing OS.
+argument-hint: "<formato e tema, ex: 'Reels 90s viral sobre produtividade' ou 'YouTube tutorial email marketing'>"
 ---
 
-# Create Video Script
+# Criar Vídeo — Video Agent Completo
 
-> See [CONNECTORS.md](../CONNECTORS.md) for connected services that can provide brand voice and content guidelines.
+> Este comando ativa o **Video Agent** completo do Marketing OS (`../subagents/video-agent.md`) com todos os seus frameworks de retenção, clones de voz e regras de qualidade. NÃO execute por conta própria — siga o protocolo abaixo.
 
-Create a complete video script optimized for retention and engagement, tailored to the specific platform and format.
+## Delegação ao Video Agent
+
+Ao receber este comando, você DEVE:
+
+1. Carregar e seguir `../subagents/video-agent.md` como seu guia principal
+2. Aplicar as **Regras de Qualidade do Marketing OS** (seção abaixo)
+3. Selecionar o **clone de voz** conforme a intenção do vídeo
+4. Entregar o roteiro no **Formato de Output Padrão** (seção abaixo)
 
 ## Trigger
 
-This command is invoked when the user says `/criar-video` followed by a format and topic, or when they ask to create a video script, YouTube video, Reels, TikTok, Shorts, or VSL.
+Este comando é invocado quando o usuário diz `/criar-video`, ou pede para criar roteiro de vídeo, YouTube, Reels, TikTok, Shorts ou VSL.
 
 ## Inputs
 
-Gather the following information. If any required field is missing, ask the user before proceeding:
+Se algum campo obrigatório estiver faltando, pergunte antes de prosseguir:
 
-1. **Format** (required) — YouTube long-form, YouTube Shorts, Instagram Reels, TikTok, or VSL
-2. **Topic** (required) — What the video is about
-3. **Goal** (required) — Educate, entertain, inspire, or convert
-4. **Duration** (optional) — Target length in minutes/seconds
-5. **Audience** (optional) — Who this is for
-6. **Tone** (optional) — Professional, casual, energetic, or authoritative
-7. **CTA** (optional) — Desired action from viewers
+1. **Formato** (obrigatório) — YouTube long-form, YouTube Shorts, Instagram Reels, TikTok, ou VSL
+2. **Tema** (obrigatório) — Assunto do vídeo
+3. **Objetivo** (obrigatório) — Viral/entretenimento, educar, inspirar, ou converter/vender
+4. **Duração** (obrigatório para Reels) — 15s, 30s, 60s, 90s, ou outro
+5. **Nicho** (obrigatório) — Marketing Digital, IA, Dev Pessoal, Empreendedorismo, Saúde, etc.
+6. **Público-alvo** (opcional) — Para quem é o vídeo
+7. **Clone de voz** (opcional) — Se não informado, aplicar regra de seleção automática abaixo
+8. **CTA** (opcional) — Ação desejada do espectador
 
-## Format Specifications
+## Seleção Automática de Clone de Voz
 
-### YouTube Long-Form (8-20 minutes)
+Se o usuário não especificar um clone, aplicar esta regra:
 
-**Structure:**
-```
-HOOK (0-30s)
-├── Pattern interrupt (0-3s)
-├── Promise/hook statement (3-10s)
-├── Credibility (10-20s)
-└── Roadmap (20-30s)
+| Objetivo do vídeo | Clone ativado | Por quê |
+|---|---|---|
+| Viral / entretenimento / crescimento de audiência | **MrBeast** | Retenção extrema, energia épica, challenge-driven |
+| Venda / funil / conversão | **Brunson** | Hook-story-offer, escassez, CTA de conversão |
+| Educativo / lifestyle / produtividade | **Abdaal** | Evidence-based, acessível, calmo |
+| VSL / oferta de alto valor | **Hormozi** | Números concretos, lógica matemática, urgência |
+| YouTube long-form / brand | **Abdaal** ou **Ogilvy** | Research-driven, storytelling elegante |
 
-CONTENT (80% of video)
-├── Section 1 + retention bump
-├── Section 2 + retention bump
-├── Section 3 + retention bump
-└── Continue as needed...
+Após selecionar o clone, carregar o perfil em `squads/marketing-os/data/clones/{nome-clone}/` para aplicar voz, tom e frameworks específicos.
 
-CONCLUSION (1-2 min)
-├── Summary of key points
-├── Main takeaway
-├── CTA (subscribe, comment, link)
-└── Tease next video
-```
+## Estruturas por Formato
 
-**Retention strategies:**
-- Open loop every 2-3 minutes
-- Pattern interrupt every 60-90 seconds
-- B-roll at attention dips
-- Direct address to camera
+Usar as estruturas completas definidas em `../subagents/video-agent.md`. Resumo de referência rápida:
 
-### YouTube Shorts / Instagram Reels / TikTok (15-60s)
+### Reels / TikTok / Shorts
 
-**Structure:**
-```
-HOOK (0-3s)
-├── Visual pattern interrupt
-└── Curiosity/promise statement
+| Duração | Estrutura |
+|---------|-----------|
+| 15s | Hook (0-3s) → Ponto único (3-12s) → CTA (12-15s) |
+| 30s | Hook (0-3s) → Contexto (3-8s) → Conteúdo (8-25s) → CTA (25-30s) |
+| 60s | Hook (0-3s) → Promessa (3-8s) → Ponto 1+2+3 (8-50s) → CTA (50-60s) |
+| 90s | Hook (0-3s) → Promessa (3-8s) → Ponto 1 (8-28s) → Re-hook (28-32s) → Ponto 2 (32-52s) → Ponto 3 (52-72s) → CTA + Loop (72-90s) |
 
-CONTENT (3s-50s)
-├── Point 1 (with text overlay)
-├── Point 2 (with text overlay)
-├── Point 3 (with text overlay)
-└── Quick transitions between
+**Regra dos 90s:** inserir re-hook entre 25-30s para recuperar atenção. Estrutura completa em `../subagents/video-agent.md` seção "Formatos de Vídeo".
 
-CTA (last 5-10s)
-├── Clear call to action
-└── Loop opportunity (end connects to start)
-```
+### YouTube Long-Form (8-20 min)
 
-**Platform nuances:**
-- **TikTok**: Native feel, trending sounds, text on screen
-- **Reels**: Polished but authentic, music-driven
-- **Shorts**: Information-dense, fast-paced
+Ver estrutura detalhada em `../subagents/video-agent.md`.
 
-### VSL (Video Sales Letter) (5-45 minutes)
+### VSL (5-45 min)
 
-**Structure:**
-```
-HOOK (0-2 min)
-├── Pattern interrupt
-├── Big promise
-├── Identify audience and pain
-└── Credibility hint
+Ver estrutura detalhada em `../subagents/video-agent.md`.
 
-PROBLEM (2-8 min)
-├── Describe pain in detail
-├── Common solutions that fail
-├── Why it's not their fault
-└── Agitate consequences
+## Regras de Qualidade Obrigatórias (Marketing OS)
 
-SOLUTION (8-15 min)
-├── Introduce your solution
-├── Why it's different
-├── The mechanism (how it works)
-└── Proof and results
+**NUNCA usar em nenhum roteiro ou conteúdo gerado:**
 
-OFFER (15-25 min)
-├── What they get
-├── Bonuses (stack value)
-├── Price reveal (anchor higher first)
-├── Guarantee
-└── Scarcity/urgency
+| Proibido | Alternativa |
+|----------|-------------|
+| `—` (travessão longo) | Use `.` `,` `:` ou quebre a frase |
+| `brutal` | intenso, forte, impactante, poderoso |
+| PALAVRAS EM MAIÚSCULA | Escreva em minúscula normalmente |
+| Aspas para delimitar falas no roteiro | Escreva o texto direto, sem aspas |
+| Emojis em excesso | Máximo 1-2 por conteúdo |
+| Texto sem acentos | SEMPRE usar acentuação correta em português |
 
-CLOSE (25-30+ min)
-├── Summary of transformation
-├── Final objection handling
-├── Clear CTA
-└── Consequence of inaction
-```
+**Verificação de fatos:** Ao citar pessoas famosas, estatísticas ou dados, usar WebSearch para verificar antes de incluir. Nunca inventar dados.
 
-## Hook Framework
+**Verificar sempre antes de entregar:** acentuação, aspas, caps, emojis, fatos.
 
-Generate 3-5 hook options based on the content:
+## Formato de Output Padrão
 
-### Hook Categories
-
-**Curiosity hooks:**
-- "This changed everything about how I [topic]..."
-- "Nobody's talking about this, but..."
-- "I just discovered why [common thing] doesn't work..."
-
-**Controversy hooks:**
-- "Unpopular opinion: [bold statement]..."
-- "Everyone's doing [thing] wrong..."
-- "Stop [common advice] immediately..."
-
-**Result hooks:**
-- "How I [achieved result] in [timeframe]..."
-- "This [method] got me [specific result]..."
-- "[Number] [result] with just [simple method]..."
-
-**Tutorial hooks:**
-- "Here's exactly how to [achieve thing]..."
-- "3 steps to [result] (that actually work)..."
-- "Watch me [do thing] in real time..."
-
-**Story hooks:**
-- "I was [relatable situation] when [unexpected thing happened]..."
-- "Last week, something crazy happened..."
-- "You won't believe what I found out..."
-
-## Script Writing Guidelines
-
-### For YouTube Long-Form
-
-Use the three-column format:
+Entregar o roteiro neste formato:
 
 ```
-TIMESTAMP | VISUAL | AUDIO/SCRIPT
-----------|--------|-------------
-0:00-0:03 | [B-roll description] | "[Word-for-word script]"
-0:03-0:10 | [Face to camera] | "[Script continues]"
-```
+## ROTEIRO DE VÍDEO
 
-Include:
-- Exact dialogue/narration
-- Visual direction (b-roll, screen recording, graphics)
-- On-screen text callouts
-- Music/sound effect cues
-- Retention notes (where to add pattern interrupts)
-
-### For Short-Form (Reels/TikTok/Shorts)
-
-```
-[SECOND] VISUAL | TEXT ON SCREEN | VOICEOVER
---------|----------------|----------
-[0-1s] Close-up face | | "POV:"
-[1-3s] Reaction | "When you discover..." | "...you just discovered"
-[3-8s] Tutorial | "Step 1: Do this" | "First, you need to..."
-```
-
-### For VSL
-
-Full word-for-word script with:
-- Slide/visual direction for each section
-- Emphasis markers for key phrases
-- Pause indicators [PAUSE]
-- Emotional beat notes
-
-## Output Structure
-
-Deliver the script in this format:
-
-```
-## VIDEO SCRIPT
-
-📹 FORMAT: [YouTube Long-form / Reels / TikTok / Shorts / VSL]
-⏱️ ESTIMATED DURATION: [XX:XX]
-🎯 GOAL: [Educate / Entertain / Inspire / Convert]
-👥 AUDIENCE: [Target description]
+Dados do Vídeo:
+- Formato: [YouTube / Reels / TikTok / Shorts / VSL]
+- Plataforma: [Instagram / YouTube / TikTok / etc.]
+- Duração: [XX segundos / XX minutos]
+- Objetivo: [Viral / Educar / Converter / Inspirar]
+- Nicho: [nicho]
+- Clone de Voz: [nome do clone ativado]
+- Público-alvo: [descrição]
 
 ---
 
-### HOOK OPTIONS
+Variações A/B do Hook (escolha uma para gravar):
 
-**Option A (Recommended):**
-"[Word-for-word hook]"
-Why it works: [Brief explanation]
+Opção A (Recomendada):
+[hook sem aspas, direto]
+Por que funciona: [explicação breve]
 
-**Option B:**
-"[Alternative hook]"
+Opção B:
+[hook alternativo]
 
-**Option C:**
-"[Alternative hook]"
-
----
-
-### FULL SCRIPT
-
-#### SECTION 1: [TITLE] (0:00-X:XX)
-
-[TIMESTAMP] VISUAL: [Description]
-SCRIPT: "[Word-for-word dialogue]"
-
-💡 RETENTION NOTE: [Tip for maintaining attention]
-
-[Continue for all sections...]
+Opção C:
+[hook alternativo]
 
 ---
 
-### VISUAL DIRECTION
+Roteiro Completo:
 
-**B-roll needed:**
-- [Scene 1 description]
-- [Scene 2 description]
-- [Scene 3 description]
+[TIMECODE] VISUAL: [descrição da cena]
+TEXTO NA TELA: [texto se aplicável]
+FALA: texto direto sem aspas aqui
 
-**On-screen text:**
-- [Text callout 1]
-- [Text callout 2]
-
-**Graphics/animations:**
-- [Description]
+[continuar para todas as seções com timecodes...]
 
 ---
 
-### TITLE OPTIONS
-
-1. "[Title 1]" — [Character count]
-2. "[Title 2]" — [Character count]
-3. "[Title 3]" — [Character count]
-
----
-
-### THUMBNAIL CONCEPT
-
-**Visual:** [Description of image composition]
-**Text:** [2-3 words max]
-**Emotion:** [Expression if face is shown]
-**Colors:** [Suggested palette]
+Especificações Técnicas:
+- Proporção: [9:16 para Reels/TikTok | 16:9 para YouTube]
+- Resolução: [1080x1920 | 1920x1080]
+- Ritmo de corte: [descrição]
+- Música: [gênero/mood sugerido]
 
 ---
 
-### CTA SCRIPT
+Caption / Legenda:
+[legenda completa com CTA e hashtags]
 
-"[Word-for-word closing CTA]"
-
----
-
-### RETENTION STRATEGY
-
-| Timestamp | Technique | Description |
-|-----------|-----------|-------------|
-| [X:XX] | [Technique] | [What to do] |
-| [X:XX] | [Technique] | [What to do] |
+Hashtags: [6-10 hashtags relevantes]
 
 ---
 
-### DESCRIPTION/CAPTION
-
-[For YouTube: Full description with timestamps]
-[For Short-form: Caption with hashtags]
+Métricas-alvo:
+- Watch time: [%]
+- Saves/Compartilhamentos: [meta]
+- Comentários: [tipo de engajamento esperado]
 
 ---
 
-### MUSIC/SOUND
+Enquete para Stories (obrigatório para Reels):
+Pergunta: [pergunta relacionada ao conteúdo]
+Opção A: [resposta]
+Opção B: [resposta]
 
-**Suggested tracks:**
-- [Genre/mood 1]
-- [Genre/mood 2]
+---
 
-**Sound effects:**
-- [SFX 1 at timestamp]
-- [SFX 2 at timestamp]
+Próximos passos:
+1. [ação de produção]
+2. [ação de produção]
+3. [ação de publicação]
 ```
 
-## Final Ask
+## Após Entregar
 
-After delivering the script, ask:
+Perguntar:
 
-"Would you like me to:
-1. Expand any section with more detail or examples?
-2. Create alternative hooks for A/B testing?
-3. Generate additional thumbnail concepts?
-4. Adapt this script for a different platform or duration?"
+Quer que eu:
+1. Expanda alguma seção com mais detalhes ou exemplos?
+2. Crie variações adicionais do hook para testes A/B?
+3. Adapte este roteiro para outra plataforma ou duração?
+4. Gere um brief de design para a thumbnail?
