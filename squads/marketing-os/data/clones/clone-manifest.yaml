@@ -313,10 +313,17 @@ matching_rules:
     alternatives: ["abdaal"]
   - content_type: "reels"
     primary: "mrbeast"
-    alternatives: ["abdaal"]
+    alternatives: ["brunson", "abdaal"]
+    # mrbeast → reels virais, entretenimento, desafios, crescimento de audiência
+    # brunson → reels de venda, funil, conversão (mencionar no briefing para ativar)
+    # abdaal → reels educativos, produtividade, lifestyle
+  - content_type: "reels_venda"
+    primary: "brunson"
+    alternatives: ["hormozi", "garyvee"]
+    # Reels com foco em conversão, CTA de venda, funil de vendas
   - content_type: "tiktok"
     primary: "mrbeast"
-    alternatives: ["abdaal"]
+    alternatives: ["garyvee", "abdaal"]
   - content_type: "thumbnails"
     primary: "mrbeast"
     alternatives: []
