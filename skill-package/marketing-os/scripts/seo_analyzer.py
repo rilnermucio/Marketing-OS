@@ -8,8 +8,11 @@ import json
 import re
 import sys
 from collections import Counter
+from typing import Dict, List, Optional
 
-def analyze_content(content: str, keyword: str = None) -> dict:
+from validators import ValidationError, validar_arquivo, validar_texto, handle_validation_error
+
+def analyze_content(content: str, keyword: Optional[str] = None) -> Dict:
     """Analisa conteúdo para SEO."""
 
     # Métricas básicas
@@ -25,7 +28,7 @@ def analyze_content(content: str, keyword: str = None) -> dict:
     avg_word_length = sum(len(w) for w in words) / max(word_count, 1)
 
     # Headers (H1-H6)
-    headers = {
+    headers: Dict[str, int] = {
         'h1': len(re.findall(r'^#\s', content, re.MULTILINE)),
         'h2': len(re.findall(r'^##\s', content, re.MULTILINE)),
         'h3': len(re.findall(r'^###\s', content, re.MULTILINE)),
@@ -36,7 +39,7 @@ def analyze_content(content: str, keyword: str = None) -> dict:
     external_links = len(re.findall(r'\[.*?\]\(https?://[^)]+\)', content))
 
     # Keyword analysis
-    keyword_analysis = None
+    keyword_analysis: Optional[Dict] = None
     if keyword:
         keyword_lower = keyword.lower()
         content_lower = content.lower()
@@ -67,7 +70,7 @@ def analyze_content(content: str, keyword: str = None) -> dict:
     readability_score = max(0, min(100, readability_score))
 
     # Recomendações
-    recommendations = []
+    recommendations: List[str] = []
 
     if word_count < 300:
         recommendations.append("⚠️ Conteúdo curto (<300 palavras). Para SEO, considere expandir para 1000+ palavras.")
@@ -96,7 +99,7 @@ def analyze_content(content: str, keyword: str = None) -> dict:
         elif keyword_analysis['density'] > 2.5:
             recommendations.append(f"⚠️ Possível keyword stuffing ({keyword_analysis['density']}%). Reduza uso de '{keyword}'.")
 
-        if not keyword_analysis['in_first_100']:
+        if not keyword_analysis['in_first_100_words']:
             recommendations.append(f"📝 Inclua '{keyword}' nas primeiras 100 palavras.")
 
         if not keyword_analysis['in_h1']:
@@ -121,7 +124,12 @@ def analyze_content(content: str, keyword: str = None) -> dict:
         'seo_score': calculate_seo_score(word_count, headers, keyword_analysis, external_links)
     }
 
-def calculate_seo_score(word_count, headers, keyword_analysis, external_links):
+def calculate_seo_score(
+    word_count: int,
+    headers: Dict[str, int],
+    keyword_analysis: Optional[Dict],
+    external_links: int
+) -> int:
     """Calcula score SEO de 0-100."""
     score = 0
 
@@ -160,14 +168,25 @@ def calculate_seo_score(word_count, headers, keyword_analysis, external_links):
 
     return score
 
-def main():
+USO = (
+    "Uso: python seo_analyzer.py <arquivo.md> [keyword]\n"
+    "Exemplo: python seo_analyzer.py artigo.md 'marketing digital'"
+)
+
+
+def main() -> None:
     if len(sys.argv) < 2:
-        print("Uso: python seo_analyzer.py <arquivo.md> [keyword]")
-        print("Exemplo: python seo_analyzer.py artigo.md 'marketing digital'")
+        print(USO)
         sys.exit(1)
 
-    filepath = sys.argv[1]
-    keyword = sys.argv[2] if len(sys.argv) > 2 else None
+    try:
+        filepath = validar_arquivo(sys.argv[1], extensoes=[".md", ".txt"], campo="arquivo")
+        keyword = None
+        if len(sys.argv) > 2:
+            keyword = validar_texto(sys.argv[2], campo="keyword", max_len=100)
+    except ValidationError as e:
+        handle_validation_error(e, mostrar_uso=USO)
+        return
 
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()

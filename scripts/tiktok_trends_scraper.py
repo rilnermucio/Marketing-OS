@@ -33,11 +33,9 @@ try:
     TIKTOK_API_AVAILABLE = True
 except ImportError:
     TIKTOK_API_AVAILABLE = False
-    print("⚠️  TikTok-Api não instalada. Instale com: pip install TikTok-Api playwright --break-system-packages")
 
-# Configurações
+# Configurações (diretório criado apenas quando necessário)
 OUTPUT_DIR = Path(__file__).parent.parent / "outputs" / "tiktok-trends"
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 # ============================================================
@@ -232,7 +230,7 @@ def calcular_engagement(stats: Any) -> float:
         if stats.play_count > 0:
             return round((total_engajamento / stats.play_count) * 100, 2)
         return 0
-    except:
+    except Exception:
         return 0
 
 
@@ -245,7 +243,7 @@ def calcular_viral_score(stats: Any) -> float:
         shares_score = min(stats.share_count / 100000, 1) * 20
         comments_score = min(stats.comment_count / 50000, 1) * 15
         return round(views_score + likes_score + shares_score + comments_score, 1)
-    except:
+    except Exception:
         return 0
 
 
@@ -381,6 +379,8 @@ def gerar_relatorio(videos: List[Dict], analise: Dict, params: Dict) -> Tuple[st
 # ============================================================
 
 async def main() -> None:
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
     parser = argparse.ArgumentParser(
         description="Busca vídeos virais do TikTok por nicho/hashtag",
         formatter_class=argparse.RawDescriptionHelpFormatter,

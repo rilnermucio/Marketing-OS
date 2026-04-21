@@ -78,7 +78,7 @@ def analisar_instagram(username: str) -> dict:
                     if isinstance(dados, dict):
                         resultado["metricas"]["nome"] = dados.get("name", "")
                         resultado["metricas"]["descricao"] = dados.get("description", "")[:200] if dados.get("description") else ""
-                except:
+                except Exception:
                     pass
 
             # Extrair seguidores se disponível
@@ -696,7 +696,7 @@ def formatar_markdown(analises: List[dict], comparacao: Optional[dict] = None) -
     return "\n".join(linhas)
 
 
-def mostrar_ajuda():
+def mostrar_ajuda() -> None:
     """Mostra ajuda de uso."""
     ajuda = """
 COMPETITOR ANALYZER - Análise de Concorrentes
@@ -745,7 +745,7 @@ NOTAS:
     print(ajuda)
 
 
-def main():
+def main() -> None:
     if len(sys.argv) < 2 or sys.argv[1] in ['-h', '--help', 'help']:
         mostrar_ajuda()
         return

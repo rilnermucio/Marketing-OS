@@ -408,7 +408,7 @@ def obter_trending_geral(regiao: str = "BR") -> dict:
                     "score": post_data.get("score", 0)
                 })
             resultados["fontes"]["reddit_popular"] = posts
-        except:
+        except Exception:
             pass
 
     # Hacker News top
@@ -430,7 +430,7 @@ def obter_trending_geral(regiao: str = "BR") -> dict:
                         "url": story.get("url", "")
                     })
             resultados["fontes"]["hacker_news"] = hn_posts
-        except:
+        except Exception:
             pass
 
     return resultados

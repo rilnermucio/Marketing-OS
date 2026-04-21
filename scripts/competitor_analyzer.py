@@ -78,7 +78,7 @@ def analisar_instagram(username: str) -> dict:
                     if isinstance(dados, dict):
                         resultado["metricas"]["nome"] = dados.get("name", "")
                         resultado["metricas"]["descricao"] = dados.get("description", "")[:200] if dados.get("description") else ""
-                except:
+                except Exception:
                     pass
 
             # Extrair seguidores se disponível

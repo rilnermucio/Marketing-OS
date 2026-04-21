@@ -408,7 +408,7 @@ def obter_trending_geral(regiao: str = "BR") -> dict:
                     "score": post_data.get("score", 0)
                 })
             resultados["fontes"]["reddit_popular"] = posts
-        except:
+        except Exception:
             pass
 
     # Hacker News top
@@ -430,7 +430,7 @@ def obter_trending_geral(regiao: str = "BR") -> dict:
                         "url": story.get("url", "")
                     })
             resultados["fontes"]["hacker_news"] = hn_posts
-        except:
+        except Exception:
             pass
 
     return resultados
@@ -624,7 +624,7 @@ def formatar_resultado_markdown(dados: dict) -> str:
     return "\n".join(linhas)
 
 
-def mostrar_ajuda():
+def mostrar_ajuda() -> None:
     """Mostra ajuda de uso."""
     ajuda = """
 TREND TRACKER - Monitorador de Tendências
@@ -673,7 +673,7 @@ NOTAS:
     print(ajuda)
 
 
-def main():
+def main() -> None:
     if len(sys.argv) < 2 or sys.argv[1] in ['-h', '--help', 'help']:
         mostrar_ajuda()
         return

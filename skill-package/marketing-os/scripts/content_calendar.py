@@ -7,7 +7,9 @@ Gera calendário editorial para múltiplas plataformas.
 import json
 import sys
 from datetime import datetime, timedelta
-from typing import List, Dict
+from typing import List, Dict, Optional
+
+from validators import ValidationError, validar_data, validar_inteiro, validar_lista_plataformas, handle_validation_error
 
 # Templates de conteúdo por dia da semana
 CONTENT_THEMES = {
@@ -84,7 +86,7 @@ FREQUENCY = {
 def generate_calendar(
     start_date: str,
     weeks: int = 4,
-    platforms: List[str] = None,
+    platforms: Optional[List[str]] = None,
     nicho: str = 'geral'
 ) -> Dict:
     """Gera calendário editorial."""
@@ -158,16 +160,26 @@ def generate_calendar(
         ],
     }
 
-def main():
+USO = (
+    "Uso: python content_calendar.py <data_inicio> [semanas] [plataformas...]\n"
+    "Exemplo: python content_calendar.py 2025-02-01 4 instagram linkedin\n"
+    "Plataformas: instagram, linkedin, twitter, tiktok, facebook"
+)
+
+
+def main() -> None:
     if len(sys.argv) < 2:
-        print("Uso: python content_calendar.py <data_inicio> [semanas] [plataformas...]")
-        print("Exemplo: python content_calendar.py 2025-02-01 4 instagram linkedin")
-        print("\nPlataformas: instagram, linkedin, twitter, tiktok, facebook")
+        print(USO)
         sys.exit(1)
 
-    start_date = sys.argv[1]
-    weeks = int(sys.argv[2]) if len(sys.argv) > 2 else 4
-    platforms = sys.argv[3:] if len(sys.argv) > 3 else ['instagram']
+    try:
+        data_obj = validar_data(sys.argv[1], campo="data_inicio")
+        start_date = data_obj.strftime("%Y-%m-%d")
+        weeks = validar_inteiro(sys.argv[2], campo="semanas", min_val=1, max_val=52) if len(sys.argv) > 2 else 4
+        platforms = validar_lista_plataformas(sys.argv[3:], campo="plataformas") if len(sys.argv) > 3 else ["instagram"]
+    except ValidationError as e:
+        handle_validation_error(e, mostrar_uso=USO)
+        return
 
     result = generate_calendar(start_date, weeks, platforms)
 

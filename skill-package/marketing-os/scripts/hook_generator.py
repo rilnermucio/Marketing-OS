@@ -14,6 +14,8 @@ import json
 import random
 from typing import List, Dict
 
+from validators import ValidationError, validar_texto, validar_inteiro, validar_plataforma, handle_validation_error
+
 # Estruturas de hooks virais por categoria
 HOOK_TEMPLATES = {
     "curiosidade": [
@@ -34,7 +36,7 @@ HOOK_TEMPLATES = {
         "A maior mentira sobre {tema}",
         "Por que eu ODEIO a maioria dos conselhos sobre {tema}",
         "Unpopular opinion sobre {tema}",
-        "Isso vai irritar muita gente, mas...",
+        "Isso sobre {tema} vai irritar muita gente, mas...",
     ],
     "numero": [
         "3 coisas sobre {tema} que mudaram minha vida",
@@ -154,8 +156,8 @@ PLATFORM_SPECS = {
 def generate_hooks(tema: str, plataforma: str = "reels", quantidade: int = 10) -> Dict:
     """Gera hooks virais para o tema especificado."""
 
-    hooks = []
-    categorias_usadas = []
+    hooks: List[Dict] = []
+    categorias_usadas: List[str] = []
 
     # Gerar hooks de diferentes categorias
     all_categories = list(HOOK_TEMPLATES.keys())
@@ -197,7 +199,7 @@ def generate_hooks(tema: str, plataforma: str = "reels", quantidade: int = 10) -
     }
 
 
-def print_results(results: Dict):
+def print_results(results: Dict) -> None:
     """Imprime os resultados formatados."""
 
     print("=" * 70)
@@ -235,19 +237,27 @@ def print_results(results: Dict):
     print("=" * 70)
 
 
-def main():
+USO = (
+    'Uso: python hook_generator.py "tema" [plataforma] [quantidade]\n'
+    "Plataformas: reels, tiktok, youtube, shorts, linkedin, twitter\n"
+    'Exemplo: python hook_generator.py "produtividade" reels 10'
+)
+
+
+def main() -> None:
     if len(sys.argv) < 2:
-        print("Uso: python hook_generator.py \"tema\" [plataforma] [quantidade]")
-        print("Plataformas: reels, tiktok, youtube, shorts, linkedin, twitter")
-        print("Exemplo: python hook_generator.py \"produtividade\" reels 10")
+        print(USO)
         sys.exit(1)
 
-    tema = sys.argv[1]
-    plataforma = sys.argv[2] if len(sys.argv) > 2 else "reels"
-    quantidade = int(sys.argv[3]) if len(sys.argv) > 3 else 10
+    try:
+        tema = validar_texto(sys.argv[1], campo="tema", max_len=200)
+        plataforma = validar_plataforma(sys.argv[2], campo="plataforma") if len(sys.argv) > 2 else "reels"
+        quantidade = validar_inteiro(sys.argv[3], campo="quantidade", min_val=1, max_val=50) if len(sys.argv) > 3 else 10
+    except ValidationError as e:
+        handle_validation_error(e, mostrar_uso=USO)
+        return
 
     if plataforma not in PLATFORM_SPECS:
-        print(f"⚠️  Plataforma '{plataforma}' não reconhecida. Usando 'reels'.")
         plataforma = "reels"
 
     results = generate_hooks(tema, plataforma, quantidade)

@@ -6,6 +6,9 @@ Gera hashtags relevantes por nicho e plataforma.
 
 import json
 import sys
+from typing import List, Dict, Optional
+
+from validators import ValidationError, validar_texto, validar_plataforma, handle_validation_error
 
 # Base de hashtags por nicho
 HASHTAG_DATABASE = {
@@ -60,7 +63,7 @@ PLATFORM_LIMITS = {
     'facebook': {'max': 3, 'recommended': 2, 'note': 'Hashtags opcionais, foco no conteúdo'},
 }
 
-def get_hashtags(nicho: str, platform: str = 'instagram', custom_keywords: list = None) -> dict:
+def get_hashtags(nicho: str, platform: str = 'instagram', custom_keywords: Optional[List[str]] = None) -> Dict:
     """Gera hashtags para um nicho e plataforma."""
 
     nicho_lower = nicho.lower().replace(' ', '_').replace('-', '_')
@@ -78,7 +81,7 @@ def get_hashtags(nicho: str, platform: str = 'instagram', custom_keywords: list 
     platform_config = PLATFORM_LIMITS.get(platform.lower(), PLATFORM_LIMITS['instagram'])
 
     # Montar lista de hashtags
-    all_hashtags = []
+    all_hashtags: List[str] = []
     all_hashtags.extend(hashtags['core'][:3])  # Top 3 core
     all_hashtags.extend(hashtags['engagement'][:3])  # Top 3 engagement
     all_hashtags.extend(hashtags['trending'][:4])  # Top 4 trending
@@ -122,19 +125,30 @@ def get_hashtags(nicho: str, platform: str = 'instagram', custom_keywords: list 
         ]
     }
 
-def main():
+def _uso_hashtag() -> str:
+    linhas = [
+        "Uso: python hashtag_generator.py <nicho> [plataforma] [keywords...]",
+        "Exemplo: python hashtag_generator.py marketing_digital instagram ia chatgpt",
+        "\nNichos disponíveis:",
+    ]
+    for nicho in HASHTAG_DATABASE.keys():
+        linhas.append(f"  • {nicho}")
+    linhas.append("\nPlataformas: instagram, linkedin, twitter, tiktok, facebook")
+    return "\n".join(linhas)
+
+
+def main() -> None:
     if len(sys.argv) < 2:
-        print("Uso: python hashtag_generator.py <nicho> [plataforma] [keywords...]")
-        print("Exemplo: python hashtag_generator.py marketing_digital instagram ia chatgpt")
-        print("\nNichos disponíveis:")
-        for nicho in HASHTAG_DATABASE.keys():
-            print(f"  • {nicho}")
-        print("\nPlataformas: instagram, linkedin, twitter, tiktok, facebook")
+        print(_uso_hashtag())
         sys.exit(1)
 
-    nicho = sys.argv[1]
-    platform = sys.argv[2] if len(sys.argv) > 2 else 'instagram'
-    custom_keywords = sys.argv[3:] if len(sys.argv) > 3 else None
+    try:
+        nicho = validar_texto(sys.argv[1], campo="nicho", max_len=100)
+        platform = validar_plataforma(sys.argv[2], campo="plataforma") if len(sys.argv) > 2 else "instagram"
+        custom_keywords = [validar_texto(k, campo="keyword", max_len=50) for k in sys.argv[3:]] if len(sys.argv) > 3 else None
+    except ValidationError as e:
+        handle_validation_error(e, mostrar_uso=_uso_hashtag())
+        return
 
     result = get_hashtags(nicho, platform, custom_keywords)
 

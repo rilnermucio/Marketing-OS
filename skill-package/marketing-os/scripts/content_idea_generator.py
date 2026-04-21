@@ -15,6 +15,8 @@ import random
 from typing import List, Dict
 from datetime import datetime
 
+from validators import ValidationError, validar_texto, validar_inteiro, handle_validation_error
+
 # Pilares de conteúdo por nicho
 PILARES = {
     "tecnologia": {
@@ -166,7 +168,7 @@ def generate_ideas(nicho: str, quantidade: int = 20) -> Dict:
         nicho = "tecnologia"
 
     nicho_data = PILARES[nicho]
-    ideas = []
+    ideas: List[Dict] = []
     ano = datetime.now().year
 
     for i in range(quantidade):
@@ -210,7 +212,7 @@ def generate_ideas(nicho: str, quantidade: int = 20) -> Dict:
         })
 
     # Organizar por pilar
-    ideas_por_pilar = {}
+    ideas_por_pilar: Dict[str, List[Dict]] = {}
     for idea in ideas:
         pilar = idea["pilar"]
         if pilar not in ideas_por_pilar:
@@ -227,7 +229,7 @@ def generate_ideas(nicho: str, quantidade: int = 20) -> Dict:
     }
 
 
-def print_results(results: Dict):
+def print_results(results: Dict) -> None:
     """Imprime os resultados formatados."""
 
     print("=" * 70)
@@ -257,7 +259,7 @@ def print_results(results: Dict):
     print()
 
     # Contar por formato
-    formato_count = {}
+    formato_count: Dict[str, int] = {}
     for idea in results['ideias']:
         fmt = idea['formato']
         formato_count[fmt] = formato_count.get(fmt, 0) + 1
@@ -277,19 +279,28 @@ def print_results(results: Dict):
     print("=" * 70)
 
 
-def main():
+def _uso_ideias() -> str:
+    linhas = [
+        "Uso: python content_idea_generator.py [nicho] [quantidade]",
+        "\nNichos disponíveis:",
+    ]
+    for n in PILARES.keys():
+        linhas.append(f"   • {n}")
+    linhas.append("\nExemplo: python content_idea_generator.py tecnologia 20")
+    return "\n".join(linhas)
+
+
+def main() -> None:
     if len(sys.argv) < 2:
-        print("Uso: python content_idea_generator.py [nicho] [quantidade]")
-        print()
-        print("Nichos disponíveis:")
-        for n in PILARES.keys():
-            print(f"   • {n}")
-        print()
-        print("Exemplo: python content_idea_generator.py tecnologia 20")
+        print(_uso_ideias())
         sys.exit(1)
 
-    nicho = sys.argv[1]
-    quantidade = int(sys.argv[2]) if len(sys.argv) > 2 else 20
+    try:
+        nicho = validar_texto(sys.argv[1], campo="nicho", max_len=100)
+        quantidade = validar_inteiro(sys.argv[2], campo="quantidade", min_val=1, max_val=100) if len(sys.argv) > 2 else 20
+    except ValidationError as e:
+        handle_validation_error(e, mostrar_uso=_uso_ideias())
+        return
 
     if nicho not in PILARES:
         print(f"⚠️  Nicho '{nicho}' não encontrado.")
