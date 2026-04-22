@@ -61,7 +61,7 @@ references/design/                         # 10 companions (domain depth)
   09-handoff-to-code.md
   10-orchestration-routes.md
 
-templates/design/                          # 8 executable templates
+assets/templates/design/                   # 8 executable templates (follows existing convention)
   tokens.json.template
   theme.css.template
   component-spec.md.template
