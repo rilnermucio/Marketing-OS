@@ -676,5 +676,5 @@ graph TD
 
 ---
 
-*Gerado por Orion (aios-master) · 2026-02-18*
+*Última atualização: 2026-05-06 (plugin-first refactor)*
 *Renderizar com Markdown Preview Enhanced (VSCode)*

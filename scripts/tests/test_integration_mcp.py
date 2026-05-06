@@ -10,10 +10,8 @@ Cobre:
 5. Integrações de API: módulos importáveis e constantes presentes
 """
 
-import json
 import os
 import sys
-import subprocess
 import pytest
 from pathlib import Path
 from unittest.mock import patch, MagicMock
@@ -28,8 +26,6 @@ from mos import COMMAND_MAP, SPECIAL_ARGS, SCRIPTS_DIR, run_script
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 SCRIPTS_PATH = Path(SCRIPTS_DIR)
-CLAUDE_DIR = PROJECT_ROOT / ".claude"
-RULES_DIR = CLAUDE_DIR / "rules"
 
 
 # ===========================================================================
@@ -261,6 +257,7 @@ class TestCoberturaDeSscripts:
         "project_manager.py",   # registrado via subcomandos no MOS
         "notion_api.py",        # integração de API (não CLI direto)
         "tiktok_trends_scraper.py",  # scraper assíncrono (não CLI direto)
+        "validate_agents.py",   # utilitário de validação de infra (não CLI MOS)
     }
 
     def test_scripts_relevantes_estao_no_command_map(self):
@@ -292,56 +289,13 @@ class TestCoberturaDeSscripts:
 
 
 # ===========================================================================
-# 5. CONFIGURAÇÃO MCP: ESTRUTURA E REGRAS
+# 5. INTEGRAÇÕES DE API: MÓDULOS IMPORTÁVEIS
 # ===========================================================================
-
-class TestConfiguracaoMCP:
-    """Valida a estrutura de configuração e regras de uso do MCP."""
-
-    def test_arquivo_regras_mcp_existe(self):
-        regras_path = RULES_DIR / "mcp-usage.md"
-        assert regras_path.exists(), f"Arquivo de regras MCP não encontrado: {regras_path}"
-
-    def test_regras_mcp_tem_conteudo(self):
-        regras_path = RULES_DIR / "mcp-usage.md"
-        conteudo = regras_path.read_text(encoding="utf-8")
-        assert len(conteudo) > 100, "Arquivo de regras MCP parece vazio"
-
-    def test_regras_mcp_menciona_mcps_principais(self):
-        regras_path = RULES_DIR / "mcp-usage.md"
-        conteudo = regras_path.read_text(encoding="utf-8")
-        mcps_esperados = ["playwright", "docker-gateway", "EXA", "Context7", "Apify"]
-        for mcp in mcps_esperados:
-            assert mcp in conteudo, f"MCP '{mcp}' não mencionado nas regras"
-
-    def test_regras_mcp_define_prioridade_ferramentas_nativas(self):
-        regras_path = RULES_DIR / "mcp-usage.md"
-        conteudo = regras_path.read_text(encoding="utf-8")
-        # Deve ter seção sobre quando NÃO usar docker-gateway
-        assert "NEVER" in conteudo or "NUNCA" in conteudo, \
-            "Regras devem proibir uso incorreto de docker-gateway"
-
-    def test_settings_json_existe(self):
-        settings_path = CLAUDE_DIR / "settings.json"
-        assert settings_path.exists(), f"settings.json não encontrado em {CLAUDE_DIR}"
-
-    def test_settings_json_valido(self):
-        settings_path = CLAUDE_DIR / "settings.json"
-        conteudo = settings_path.read_text(encoding="utf-8")
-        data = json.loads(conteudo)  # não deve lançar exceção
-        assert isinstance(data, dict)
-
-    def test_diretorio_commands_existe(self):
-        commands_dir = CLAUDE_DIR / "commands"
-        assert commands_dir.exists(), f"Diretório de commands não encontrado: {commands_dir}"
-
-    def test_marketing_os_command_existe(self):
-        cmd_path = CLAUDE_DIR / "commands" / "marketing-os.md"
-        assert cmd_path.exists(), f"Comando marketing-os.md não encontrado"
-
-
-# ===========================================================================
-# 6. INTEGRAÇÕES DE API: MÓDULOS IMPORTÁVEIS
+#
+# Note: TestConfiguracaoMCP was removed in Phase 3 (refactor/plugin-first).
+# It tested .claude/rules/mcp-usage.md, .claude/settings.json, and
+# .claude/commands/ — all gitignored paths that cannot exist in the worktree.
+# Plugin-first architecture validates MCP config via plugin.json instead.
 # ===========================================================================
 
 class TestIntegracoesDiAPI:

@@ -1,11 +1,47 @@
 """Fixtures compartilhadas para testes do Marketing OS."""
+from __future__ import annotations
 
 import os
 import sys
 import json
 import shutil
 import tempfile
+from pathlib import Path
+
 import pytest
+
+
+# --- Plugin-structure fixtures (added by plugin-first refactor) ---
+
+@pytest.fixture(scope="session")
+def project_root() -> Path:
+    """Absolute path to the project root."""
+    return Path(__file__).resolve().parent.parent.parent
+
+
+@pytest.fixture(scope="session")
+def plugin_dirs(project_root: Path) -> dict[str, Path]:
+    """Plugin-side directories that ship with the distributable plugin."""
+    return {
+        "skills": project_root / "skills",
+        "subagents": project_root / "subagents",
+        "commands": project_root / "commands",
+        "workflows": project_root / "workflows",
+        "assets": project_root / "assets",
+        "references": project_root / "references",
+        "scripts": project_root / "scripts",
+        "docs": project_root / "docs",
+        "claude_agents": project_root / ".claude" / "agents",
+    }
+
+
+@pytest.fixture(scope="session")
+def workspace_root(project_root: Path) -> Path:
+    """User-side workspace directory (gitignored)."""
+    return project_root / "workspace"
+
+
+# --- Existing content fixtures (preserved) ---
 
 # Adicionar diretório de scripts ao path
 SCRIPTS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

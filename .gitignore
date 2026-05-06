@@ -1,16 +1,27 @@
 # macOS
 **/.DS_Store
 
-# Claude Code
+# Claude Code & other AI CLIs (local configs)
 .claude/
-
-# Other AI CLIs (local configs, equivalent to .claude/)
 .aios/
+.aios-core/
 .antigravity/
 .codex/
 .cursor/
 
-# Outputs gerados
+# Workspace pessoal (não distribuído pelo plugin)
+workspace/**
+!workspace/
+!workspace/*/
+!workspace/.gitkeep
+!workspace/*/.gitkeep
+
+# Secrets
+.env
+.env.backup.*
+.env.local
+
+# Outputs gerados (legacy paths, não usar mais — workspace/ é o lugar)
 outputs/
 output/
 Roteiro_*.md
@@ -18,16 +29,20 @@ Roteiro_*.md
 # Python
 __pycache__/
 *.pyc
-.env
-.env.backup*
+.pytest_cache/
+
+# Node
+node_modules/
+
+# Backups de migração
+*.pre-migration.backup
+*.bak
 
 # Arquivos temporários
 *.tmp
 *.log
 
 # AIOS-FullStack Framework Files (auto-managed - do not edit)
-.aios-core/
-node_modules/
 outputs/minds/
 .aios-installation-config.yaml
 .aios-pm-config.yaml
@@ -36,13 +51,9 @@ package-lock.json
 # End AIOS-FullStack auto-managed section
 
 # Environment & Secrets (AIOS)
-.env.local
 .env.*.local
 *.key
 *.pem
-
-# Dependencies (AIOS)
-node_modules
 
 # Build & Logs (AIOS)
 dist/
@@ -50,7 +61,6 @@ build/
 logs/
 
 # IDE & OS (AIOS)
-.DS_Store
 Thumbs.db
 .idea/
 *.swp

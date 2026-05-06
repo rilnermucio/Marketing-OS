@@ -7,13 +7,75 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
-## [Unreleased]
+## [6.0.0] — 2026-05-06 (refactor/plugin-first)
+
+### Added
+- `workspace/` structure (gitignored) — personal content area separated from distributed plugin
+- Tier 1 pytest suite in `scripts/tests/`:
+  - `test_plugin_manifest.py` — validates `plugin.json` schema and required fields
+  - `test_skill_md.py` — validates `skills/marketing-os/SKILL.md` frontmatter
+  - `test_subagents.py` — validates all 18 subagent knowledge base files
+  - `test_native_agents.py` — wraps `validate_agents.py` (skips if `.claude/agents/` absent)
+  - `test_no_dangling_symlinks.py` — enforces no orphan symlinks in tracked paths
+  - `test_workspace_separation.py` — asserts personal content is not committed
+  - `test_no_aios_residue.py` — asserts AIOS-framed dirs/files are not tracked
+  - `test_agents_smoke.py` — stub for Tier 2 smoke tests (deferred, requires live Claude)
+- `scripts/validate_agents.py` — dev-infra utility to validate `.claude/agents/` native agents
+- `assets/clones/` — 35 voice clone profiles (Halbert, Hopkins, Kennedy, Ogilvy, Schwartz,
+  Sugarman, Caples, Cialdini, Brunson, Hormozi, Leila Hormozi, GaryVee, MrBeast, Codie Sanchez,
+  Abdaal, Abraham, Joel Jota, Conrado, Mel Robbins, Patel, Provost, Rachitsky, Suby, Welsh,
+  Cole, Collier, Ellis, Ezra Firestone, Flavio Augusto, Gadzhi, Godin, Howell, Chen, Miller)
+
+### Changed
+- Consolidated `marketing-os/` to single canonical location: `skills/marketing-os/` (SKILL.md
+  entrypoint) + root-level resources (`subagents/`, `commands/`, `assets/`, `references/`,
+  `workflows/`)
+- `commands/` now lives at repo root (was `marketing-os/commands/`)
+- `CONNECTORS.md` moved to `docs/`
+- README completely rewritten (~121 lines, plugin-focused, PT-BR, v5.1.0)
+- Removed `GUIA-DE-USO.md` and `INSTALACAO-SKILL.md` (content superseded by new README)
+
+### Removed (BREAKING)
+- `AGENTS.md` (root) — AIOS-framed Codex CLI instructions, no longer relevant
+- `marketing-os/` (root duplicate) — redundant copy, canonical location is `skills/marketing-os/`
+- `skill-package/` — frozen export artifact, stale and unmaintained
+- `squads/` — AIOS packaging format, superseded by plugin-first architecture
+- `TestConfiguracaoMCP` test class — targeted gitignored paths invalid in plugin-first worktree
+
+### Migration Note — Manual cleanup required after merge
+
+When merging `refactor/plugin-first` into `main`, the following paths exist **only in your
+local `main` checkout** (they are gitignored and were never committed). They are **not**
+removed by this branch merge — you must delete them manually:
+
+```
+.aios/
+.aios-core/
+.antigravity/
+.codex/
+.cursor/
+.aios-installation-config.yaml
+.aios-pm-config.yaml
+```
+
+After merging, run in your `main` checkout:
+```bash
+rm -rf .aios .aios-core .antigravity .codex .cursor
+rm -f .aios-installation-config.yaml .aios-pm-config.yaml
+```
+
+Also review and optionally clean `.claude/rules/` (story-lifecycle, ids-principles,
+agent-authority, workflow-execution, coderabbit-integration) — these are AIOS rules
+that no longer apply to the plugin-first architecture.
+
+---
+
+## [Unreleased] — Legacy entries
 
 ### Added
 - Estrutura de stories para desenvolvimento agil (`docs/stories/`)
 - CHANGELOG.md para rastreamento de versoes
 - CONTRIBUTING.md com guia de contribuicao
-- Integracao com AIOS-Core para desenvolvimento organizado
 
 ### Changed
 - (Pendente) Atualizacao do README com todos os 19 scripts
