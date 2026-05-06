@@ -2,7 +2,7 @@
 
 > Plugin Claude Code com **18 subagentes especializados** em marketing digital.
 
-[![Version](https://img.shields.io/badge/version-5.1.0-blue.svg)](./CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-6.0.0-blue.svg)](./CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 ## O que é
@@ -57,14 +57,14 @@ Invoque qualquer um via `@<agente>` no Claude Code:
 | `@mos-funnel` | Funis de conversão, jornada do cliente |
 | `@mos-growth` | Growth hacking, experimentação, retention |
 | `@mos-launch` | Lançamentos (PLF, escassez, urgência) |
-| `@mos-infoproduct-builder` | Estrutura e curadoria de infoprodutos |
+| `@mos-infoproduct` | Estrutura e curadoria de infoprodutos |
 | `@mos-ab-testing` | A/B testing, multivariate, análise estatística |
 
 ## Slash commands
 
 Comandos rápidos pra fluxos comuns (`/comando`):
 
-- `/criar-post`, `/criar-carrossel`, `/criar-reel`, `/criar-video`, `/criar-podcast`
+- `/criar-post`, `/criar-carrossel`, `/criar-video`, `/criar-podcast`
 - `/criar-anuncio`, `/criar-email`, `/criar-sequencia`, `/criar-funil`
 - `/criar-artigo`, `/criar-landing-page`, `/criar-webinar`, `/criar-infoproduto`
 - `/criar-clone` (usa voice clones em `assets/clones/`)
@@ -72,7 +72,7 @@ Comandos rápidos pra fluxos comuns (`/comando`):
 - `/criar-brief-design`, `/criar-calendario`, `/gerar-imagem`, `/capturar-tela`
 - `/publicar-anuncio`, `/publicar-notion`, `/campanha`, `/batch`
 
-Ver `commands/` para a lista completa e detalhes de cada um.
+Ver `commands/` para a lista completa e detalhes de cada um. Para um guia de descoberta orientado a "o que voce quer fazer", veja [`docs/DISCOVERY.md`](./docs/DISCOVERY.md).
 
 ## Estrutura
 

@@ -32,7 +32,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   `workflows/`)
 - `commands/` now lives at repo root (was `marketing-os/commands/`)
 - `CONNECTORS.md` moved to `docs/`
-- README completely rewritten (~121 lines, plugin-focused, PT-BR, v5.1.0)
+- README completely rewritten (~121 lines, plugin-focused, PT-BR, v6.0.0)
 - Removed `GUIA-DE-USO.md` and `INSTALACAO-SKILL.md` (content superseded by new README)
 
 ### Removed (BREAKING)
