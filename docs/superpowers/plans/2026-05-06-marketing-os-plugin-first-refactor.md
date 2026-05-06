@@ -12,6 +12,59 @@
 
 ---
 
+## Pre-Execution Discovery (2026-05-06, post-worktree creation)
+
+After creating the worktree and inspecting actual git tracking state, several plan assumptions need adjustment. These do not invalidate the plan but require concrete corrections per phase:
+
+### Discovery 1: AIOS infrastructure is **gitignored**, not tracked
+
+`.gitignore` excludes `.claude/`, `.aios/`, `.antigravity/`, `.codex/`, `.cursor/`. This means:
+
+- `.aios/`, `.aios-core/`, `.antigravity/`, `.codex/`, `.aios-installation-config.yaml`, `.aios-pm-config.yaml` — **NOT tracked**, exist only locally on user's main checkout. Removing them from `refactor/plugin-first` is a no-op (they don't exist in worktree). User can manually clean these from main after refactor merge.
+- `.claude/CLAUDE.md`, `.claude/agents/`, `.claude/rules/`, `.claude/commands/`, `.claude/hooks/`, `.claude/settings.json`, `.claude/settings.local.json` — also gitignored. Plan's "rewrite `.claude/CLAUDE.md`" applies to user's local main, not to the branch.
+- The worktree's `.claude/` contains only `settings.local.json` (auto-copied by EnterWorktree).
+
+**Phase 3 implication:** the only tracked items to delete are `AGENTS.md`, `squads/` (with content migration first), `skill-package/`, `marketing-os/` (with content migration), and AIOS string residue in tracked `.md`/`.yaml`/`.yml`/`.json` files. The actual `.aios/`, `.codex/` etc dirs are untouched by the branch. Document this in CHANGELOG so the user knows to clean them manually after merge.
+
+### Discovery 2: `squads/marketing-os/data/clones/` is valuable plugin content
+
+Despite `squads/` being an AIOS-style packaging concept, `squads/marketing-os/data/clones/` contains **35 voice clone profiles** (Halbert, Hopkins, Hormozi, Kennedy, Ogilvy, Schwartz, Sugarman, Cialdini, Ogilvy, Caples, Brunson, GaryVee, MrBeast, Codie Sanchez, Abdaal, Abraham, Joel Jota, Conrado, Mel Robbins, Miller, Patel, Provost, Rachitsky, Suby, Welsh, Cole, Collier, Ellis, Ezra Firestone, Flavio Augusto, Gadzhi, Godin, Halbert, Howell, Chen, Leila Hormozi). Each has `profile.md`, `frameworks.md`, `voice.md`, `examples.md`. Plus `clone-manifest.yaml`. **141 tracked files** total in `squads/marketing-os/`.
+
+These are real marketing data referenced by the `@mos-clone` agent (or similar workflow). **Must preserve.** Migrate to `assets/clones/` (alongside personas, frameworks, swipe-files).
+
+`squads/marketing-os/squad.yaml` (AIOS manifest) and `squads/marketing-os/README.md` (AIOS-flavored description) → discard or salvage migration-relevant bits.
+
+`squads/marketing-os/config/marketing-mcp.yaml` references `.aios-core/` paths — strip AIOS path refs or discard.
+
+`squads/marketing-os/docs/` → check unique content, migrate to `docs/clones/` if applicable.
+
+### Discovery 3: Existing 9 test failures in `test_integration_mcp.py`
+
+Pre-existing test file at `scripts/tests/test_integration_mcp.py` has 9 failing tests that look for files gitignored:
+- `.claude/rules/mcp-usage.md`
+- `.claude/settings.json`
+- `.claude/commands/marketing-os.md`
+
+These tests assume AIOS-style local config exists. After Phase 3 (AIOS removal context), these tests have no chance of passing. **Phase 4 task added:** delete `test_integration_mcp.py` entirely OR rewrite to test what actually exists in the plugin (e.g., root `.mcp.json`, `plugin.json`, `commands/` after migration).
+
+Also discovered: `test_integration_mcp.py::test_scripts_relevantes_estao_no_command_map` fails because new `validate_agents.py` isn't in COMMAND_MAP. Either add it or delete this test.
+
+### Discovery 4: `.claude-plugin/` root contains only `marketplace.json` (not `plugin.json`)
+
+The root `.claude-plugin/` directory has `marketplace.json` (951 bytes), not `plugin.json`. The plugin.json is at repo root. So:
+- Plan's reference to `.claude-plugin/plugin.json` (in Section 3 boundary table) is wrong — it should say `plugin.json` at root + `.claude-plugin/marketplace.json`.
+- Phase 2's diff between `.claude-plugin/plugin.json` and `marketing-os/.claude-plugin/plugin.json` becomes: only `marketing-os/.claude-plugin/plugin.json` exists (no root counterpart). Compare it against root `plugin.json`.
+
+### Discovery 5: `output/` (singular) tracked, contains `roteiro-video-consciencia-scan.md` and `reports/`
+
+Plan said to handle both `outputs/` and `output/`. Confirmed both forms used historically, only `output/` (singular) has tracked content currently. Plan Phase 1 already handles this.
+
+### Discovery 6: Subagents don't reference `squads/clones/` directly
+
+`grep -rli "squads\|clones/" subagents/` returns empty. So the connection between the clone profiles and any agent is via slash command (`marketing-os/commands/criar-clone.md`) or external mechanism, not via subagent definition. After clones migration to `assets/clones/`, update `criar-clone.md` (now at root `commands/`) to reference new path.
+
+---
+
 ## File Structure
 
 ### New files to create
@@ -1053,39 +1106,185 @@ git add skills/marketing-os/SKILL.md
 
 ---
 
-### Task 2.3: Delete duplicate marketing-os/, skill-package/, backups
+### Task 2.3: Migrate real content out of `marketing-os/` (root) before deletion
+
+**⚠️ Pre-execution finding (2026-05-06):** `marketing-os/` (root) is NOT just symlinks. It contains real content that must be preserved before deletion:
+- `marketing-os/commands/` — 25 slash commands (`criar-post.md`, `criar-anuncio.md`, etc) — **must move to root `commands/`**
+- `marketing-os/CONNECTORS.md` — connectors documentation — **must move to root or `docs/`**
+- `marketing-os/README.md` — diverges from root README — **diff and merge or discard**
+- `marketing-os/.claude-plugin/plugin.json` — diverges from root manifest — **diff and merge or discard (root canonical)**
+- `marketing-os/.mcp.json` — diverges from root — **diff and merge or discard**
+- `marketing-os/LICENSE` — same as root — **discard**
+- `marketing-os/skills/marketing-os/SKILL.md` — symlink to canonical — **discard**
+
+The architecture in Section 1 of the design spec lists `commands/` at root, so the move target is `commands/`.
 
 **Files:**
-- Delete: `marketing-os/` (root)
-- Delete: `skill-package/`
+- Create/update at root: `commands/` (move from `marketing-os/commands/`)
+- Move: `marketing-os/CONNECTORS.md` → `docs/CONNECTORS.md`
+- Compare: `marketing-os/README.md` vs `README.md`, `marketing-os/.claude-plugin/plugin.json` vs `.claude-plugin/plugin.json`, `marketing-os/.mcp.json` vs `.mcp.json`
+
+- [ ] **Step 1: Move 25 commands from `marketing-os/commands/` to root `commands/`**
+
+```bash
+mkdir -p commands
+ls marketing-os/commands/*.md | wc -l   # confirm count (~25)
+mv marketing-os/commands/*.md commands/
+ls commands/ | wc -l                     # verify moved
+```
+
+Expected: ~25 .md files in root `commands/`.
+
+- [ ] **Step 2: Move CONNECTORS.md to docs/**
+
+```bash
+mkdir -p docs
+mv marketing-os/CONNECTORS.md docs/CONNECTORS.md
+```
+
+- [ ] **Step 3: Diff and resolve duplicate manifests**
+
+```bash
+diff -u .claude-plugin/plugin.json marketing-os/.claude-plugin/plugin.json
+diff -u .mcp.json marketing-os/.mcp.json
+diff -u README.md marketing-os/README.md
+```
+
+For each diff:
+- If root version is the keeper (canonical, more complete): no action needed; `marketing-os/` copy will be deleted in Task 2.4
+- If `marketing-os/` version has unique content worth preserving: use Edit tool on root version to merge, then proceed
+
+The root `plugin.json` is the canonical (referenced by Claude Code plugin loader). Keep root.
+
+The root `README.md` will be rewritten in Phase 4 anyway. If `marketing-os/README.md` has unique migration-relevant content, capture it now in a temp note; otherwise discard.
+
+- [ ] **Step 4: Verify content moved is intact**
+
+```bash
+ls commands/ | head -10
+ls docs/CONNECTORS.md
+```
+
+- [ ] **Step 5: Quick test that nothing is broken**
+
+```bash
+pytest scripts/tests/ -v -m "not smoke"
+```
+
+Expected: all pass.
+
+- [ ] **Step 6: Stage moves (don't commit yet — Task 2.4 batch-commits Phase 2)**
+
+```bash
+git add -A
+git status --short | head -30
+```
+
+---
+
+### Task 2.4 (NEW): Migrate `squads/marketing-os/data/clones/` to `assets/clones/`
+
+**⚠️ Pre-execution discovery:** `squads/marketing-os/data/clones/` contains 35 voice clone profiles (legendary copywriters/marketers) with `profile.md`, `frameworks.md`, `voice.md`, `examples.md` per clone, plus a `clone-manifest.yaml`. Total ~141 tracked files. This is real plugin content, not AIOS framework cruft.
+
+**Files:**
+- Move: `squads/marketing-os/data/clones/` → `assets/clones/` (preserve all 35 subdirs)
+- Move: `squads/marketing-os/data/clones/clone-manifest.yaml` → `assets/clones/clone-manifest.yaml`
+- Evaluate: `squads/marketing-os/docs/` — migrate unique content to `docs/clones/` if applicable
+- Discard: `squads/marketing-os/squad.yaml` (AIOS manifest), `squads/marketing-os/README.md` (AIOS-flavored)
+- Discard or strip: `squads/marketing-os/config/marketing-mcp.yaml` (references `.aios-core/` paths)
+- Update: `commands/criar-clone.md` (after Phase 2.3 migration) to reference new `assets/clones/` path
+
+- [ ] **Step 1: Confirm migration target structure**
+
+```bash
+ls assets/   # should already have checklists, frameworks, personas, prompts, swipe-files, templates
+ls squads/marketing-os/data/clones/ | wc -l   # confirm ~36 entries (35 clones + clone-manifest.yaml)
+```
+
+- [ ] **Step 2: Migrate clones**
+
+```bash
+mkdir -p assets/clones
+git mv squads/marketing-os/data/clones/* assets/clones/
+ls assets/clones/ | head -10
+ls assets/clones/ | wc -l
+```
+
+Expected: 35 subdirs + `clone-manifest.yaml` in `assets/clones/`.
+
+- [ ] **Step 3: Evaluate `squads/marketing-os/docs/` for migration**
+
+```bash
+ls squads/marketing-os/docs/
+cat squads/marketing-os/docs/*.md 2>/dev/null | head -30
+```
+
+If unique content (not AIOS-specific), migrate:
+```bash
+mkdir -p docs/clones
+git mv squads/marketing-os/docs/*.md docs/clones/ 2>/dev/null
+```
+
+If AIOS-specific or trivial, leave for deletion in Task 2.5.
+
+- [ ] **Step 4: Update `commands/criar-clone.md` reference paths**
+
+Use Read to inspect `commands/criar-clone.md` (which was migrated in Task 2.3 from `marketing-os/commands/criar-clone.md`). Look for any `squads/marketing-os/data/clones/` path refs and update to `assets/clones/`.
+
+```bash
+grep -n "squads/.*clones" commands/criar-clone.md 2>&1
+```
+
+If matches found: use Edit tool to replace `squads/marketing-os/data/clones/` with `assets/clones/`.
+
+- [ ] **Step 5: Stage moves**
+
+```bash
+git add -A
+git status --short | head -20
+```
+
+---
+
+### Task 2.5: Delete duplicate marketing-os/, skill-package/, squads/, backups
+
+**Files:**
+- Delete: `marketing-os/` (root) — now empty of unique content (Task 2.3 migrated)
+- Delete: `skill-package/` (111 files, redundant frozen export)
+- Delete: `squads/` (after Task 2.4 migrated clones; squad.yaml + README + config + docs are AIOS-flavored or empty)
 - Delete: `skills/marketing-os/SKILL.md.pre-migration.backup`
 - Delete: any `*.pre-migration.backup`
 
-- [ ] **Step 1: Verify these are safe to delete**
+- [ ] **Step 1: Verify `marketing-os/` is now safe to delete (only symlinks + LICENSE remain)**
 
 ```bash
-# What's in marketing-os/ (root)?
+# After Task 2.3, marketing-os/ should only contain symlinks + LICENSE + emptied subdirs
 ls -la marketing-os/
-# Confirm symlinks resolve to root dirs we have
-ls -la marketing-os/{assets,references,scripts,subagents,workflows} 2>/dev/null
+find marketing-os -type f -not -name ".DS_Store"
+```
 
-# What's in skill-package/?
+Expected: only `marketing-os/LICENSE` and possibly empty `marketing-os/skills/marketing-os/` (which contains a symlink). No `commands/*.md` or `CONNECTORS.md`.
+
+- [ ] **Step 2: Compare `skill-package/`**
+
+```bash
 ls -la skill-package/marketing-os/
 ```
 
-- [ ] **Step 2: Find any other backups**
+- [ ] **Step 3: Find any other backups**
 
 ```bash
 find . -name "*.pre-migration.backup" -not -path "./.git/*"
 find . -name "*.bak" -not -path "./.git/*"
 ```
 
-- [ ] **Step 3: Delete with git rm where tracked, plain rm where not**
+- [ ] **Step 4: Delete with git rm where tracked, plain rm where not**
 
 ```bash
-# Untracked dirs — plain rm
-rm -rf marketing-os/
-rm -rf skill-package/
+# Tracked dirs — git rm
+git rm -rf marketing-os/
+git rm -rf skill-package/
+git rm -rf squads/
 
 # Tracked file — git rm
 git rm skills/marketing-os/SKILL.md.pre-migration.backup 2>/dev/null || rm -f skills/marketing-os/SKILL.md.pre-migration.backup
@@ -1094,7 +1293,7 @@ git rm skills/marketing-os/SKILL.md.pre-migration.backup 2>/dev/null || rm -f sk
 find . -name "*.pre-migration.backup" -not -path "./.git/*" -delete
 ```
 
-- [ ] **Step 4: Verify dangling symlinks are gone**
+- [ ] **Step 5: Verify dangling symlinks are gone**
 
 ```bash
 find . -xtype l 2>&1 | grep -v "^find:" | head
@@ -1106,7 +1305,7 @@ Expected: empty (no broken symlinks). If any remain, inspect — they probably p
 find . -xtype l -not -path "./.git/*" -delete
 ```
 
-- [ ] **Step 5: Run all tests including symlink check**
+- [ ] **Step 6: Run all tests including symlink check**
 
 ```bash
 pytest scripts/tests/ -v -m "not smoke"
@@ -1114,7 +1313,7 @@ pytest scripts/tests/ -v -m "not smoke"
 
 Expected: all pass, including `test_no_dangling_symlinks`.
 
-- [ ] **Step 6: Run Tier 2 smoke tests and compare to baseline**
+- [ ] **Step 7: Run Tier 2 smoke tests and compare to baseline**
 
 ```bash
 pytest scripts/tests/test_agents_smoke.py -v -m smoke
@@ -1125,7 +1324,7 @@ Expected: all 5 smoke tests pass with structurally similar output to baseline. I
 2. Determine if structure changed (could indicate broken plugin loading) or content just naturally varied
 3. If structural break: investigate before committing
 
-- [ ] **Step 7: Commit Phase 2**
+- [ ] **Step 8: Commit Phase 2 (combined: Tasks 2.3 migration + 2.4 deletion)**
 
 ```bash
 git add -A
@@ -1133,9 +1332,13 @@ git status --short
 git commit -m "$(cat <<'EOF'
 refactor(phase-2): consolidate marketing-os into single canonical location
 
+- Migrate marketing-os/commands/ (25 slash commands) to root commands/
+- Migrate marketing-os/CONNECTORS.md to docs/CONNECTORS.md
+- Resolve duplicate manifests (.claude-plugin/plugin.json, .mcp.json) —
+  root version is canonical
 - Merge unique content from skill-package/marketing-os/SKILL.md into
   skills/marketing-os/SKILL.md (canonical, referenced in plugin.json)
-- Delete marketing-os/ (root, symlinked redundant copy)
+- Delete marketing-os/ (root, post-migration empty of unique content)
 - Delete skill-package/ (frozen export, stale jan/fev)
 - Delete skills/marketing-os/SKILL.md.pre-migration.backup
 - Single source of truth: root for shared resources, skills/marketing-os/

@@ -1,100 +1,131 @@
 ---
 name: marketing-os
-description: "Marketing OS — sistema operacional completo de marketing digital com 18 subagentes especializados. Use para: posts Instagram/LinkedIn/TikTok/Twitter, artigos SEO, email marketing, landing pages, anúncios Meta/Google Ads, calendários editoriais, vídeos YouTube/Reels/VSL, podcasts, geração de imagens e vídeos com IA, infoprodutos, testes A/B. NICHOS: Marketing Digital, IA, Dev Pessoal/Profissional, Tech, Empreendedorismo, Finanças, Saúde, Educação, Produtividade. TRIGGERS: conteúdo, post, blog, SEO, newsletter, copy, landing page, campanha, anúncio, carrossel, stories, reels, vídeo, podcast, design, imagem IA, infoproduto, teste A/B."
+description: "Marketing OS: sistema operacional completo de marketing digital com 18 subagentes nativos Claude Code. Use para posts Instagram/LinkedIn/TikTok/Twitter, artigos SEO, email marketing, landing pages, anúncios Meta/Google Ads, calendários editoriais, vídeos YouTube/Reels/VSL, podcasts, geração de imagens e vídeos com IA, infoprodutos, testes A/B. NICHOS: Marketing Digital, IA, Dev Pessoal/Profissional, Tech, Empreendedorismo, Finanças, Saúde, Educação, Produtividade. TRIGGERS: conteúdo, post, blog, SEO, newsletter, copy, landing page, campanha, anúncio, carrossel, stories, reels, vídeo, podcast, design, imagem IA, infoproduto, teste A/B."
 argument-hint: "[tipo-conteúdo] [nicho] [plataforma]"
 ---
 
-# Marketing OS — Sistema Operacional de Marketing Digital
+# Marketing OS: Sistema Operacional de Marketing Digital
 
-Você é um agente especializado em criação de conteúdo estratégico, cobrindo múltiplos nichos, plataformas e formatos com foco em engajamento, conversão e SEO.
+Este skill é um **orquestrador** que dispara 18 subagents nativos do Claude Code, cada um com contexto isolado, tool access controlado e knowledge base profunda.
 
-## Arquitetura de Subagentes
+## Modo de Operação: Dispatch Nativo
 
-Você tem acesso a 18 subagentes especializados. Acione-os conforme a necessidade:
+**REGRA FUNDAMENTAL**: Para qualquer pedido de produção de marketing (copy, SEO, research, social, ads, etc.), **NÃO execute inline**. **Dispare o subagent especializado** via `Agent(subagent_type: "mos-*")`.
 
-| Subagente | Arquivo | Quando Usar |
-|-----------|---------|-------------|
-| Research Agent | `subagents/research-agent.md` | Novo nicho, tendências, concorrência, dados, estatísticas |
-| Copy Agent | `subagents/copy-agent.md` | Headlines, CTAs, copy persuasivo, variações A/B |
-| SEO Agent | `subagents/seo-agent.md` | Artigos, blog posts, otimização on-page, E-E-A-T |
-| Social Agent | `subagents/social-agent.md` | Posts sociais, adaptação cross-platform, hashtags, timing |
-| Video Agent | `subagents/video-agent.md` | YouTube, Reels, TikTok, Shorts, VSL, roteiros |
-| Audio Agent | `subagents/audio-agent.md` | Podcasts, roteiros de áudio, spots, audiobooks |
-| AI Tools Agent | `subagents/ai-tools-agent.md` | Prompts para geração de imagens e vídeos com IA |
-| Design Agent | `subagents/design-agent.md` | Direção criativa, paletas, tipografia, specs técnicos |
-| Analytics Agent | `subagents/analytics-agent.md` | Métricas, relatórios, análise de performance |
-| Email Agent | `subagents/email-agent.md` | Sequências de email, newsletters, automações |
-| Ads Agent | `subagents/ads-agent.md` | Copy de anúncios Meta/Google/TikTok Ads |
-| Brand Agent | `subagents/brand-agent.md` | Identidade de marca, posicionamento, tom de voz |
-| Storytelling Agent | `subagents/storytelling-agent.md` | Narrativas, storytelling, arcos de história |
-| Funnel Agent | `subagents/funnel-agent.md` | Funis de vendas, jornada do cliente |
-| Growth Agent | `subagents/growth-agent.md` | Crescimento, growth hacking, aquisição |
-| Launch Agent | `subagents/launch-agent.md` | Lançamentos de produtos e campanhas |
-| Infoproduct Builder Agent | `subagents/infoproduct-builder-agent.md` | Cursos online, ebooks, memberships, workshops, mentorias, templates, desafios |
-| AB Testing Agent | `subagents/ab-testing-agent.md` | Testes A/B, variações de copy, otimização de conversão, análise de resultados |
+Motivo: cada subagent tem contexto próprio (evita poluição do main), tools filtrados (segurança), knowledge base deep (qualidade), e output schema padronizado (handoff entre agents).
 
-## Workflow Principal
+### Quando dispatch vs execução inline
 
-1. **Entender o briefing** → Nicho, objetivo, público-alvo, tom de voz, CTAs
-2. **[RESEARCH AGENT]** → Pesquisar tendências, concorrência, keywords
-3. **Consultar referência do nicho** → `references/niches.md`
-4. **Selecionar subagente especializado** por tipo de conteúdo
-5. **[COPY AGENT]** → Copy persuasivo, headlines, CTAs
-6. **[DESIGN AGENT]** → Visual, cores, layout (quando aplicável)
-7. **Otimizar** → SEO, hashtags, horários, formatos
-8. **Entregar** → Conteúdo formatado + variações A/B
+| Situação | Ação |
+|----------|------|
+| Pedido claro de produção de peça (copy, post, artigo, anúncio, etc.) | Dispatch |
+| Pergunta conceitual sobre marketing (ex: "o que é AIDA?") | Responda inline (não precisa de agent) |
+| Briefing amplo ("cria campanha completa") | Dispatch em paralelo de múltiplos agents |
+| Pedido de informação sobre o próprio sistema | Inline |
 
-## Templates Disponíveis
+## Mapa de Dispatch (18 Agents)
 
-Consultar pasta `assets/templates/` para:
-- `youtube-script.md` - Roteiros YouTube long-form
-- `reels-tiktok-script.md` - Scripts vídeos curtos
-- `vsl-script.md` - Video Sales Letter
-- `podcast-episode.md` - Estrutura de episódio
-- `instagram-feed-post.md` - Posts de feed
-- `post-instagram-carrossel.md` - Carrosséis
-- `instagram-stories.md` - Stories estratégicos
-- `sales-page.md` - Páginas de vendas
-- `webinar-script.md` - Roteiros de webinar
-- `lead-magnet.md` - Iscas digitais
-- E mais 16 templates especializados
+| Briefing típico do usuário | Agent | Arquivo |
+|----|----|----|
+| "escreve headline / CTA / sales letter / microcopy" | `mos-copy` | `.claude/agents/mos-copy.md` |
+| "cria artigo SEO / keyword research / on-page" | `mos-seo` | `.claude/agents/mos-seo.md` |
+| "pesquisa tendências / concorrentes / audience / validar produto" | `mos-research` | `.claude/agents/mos-research.md` |
+| "post Instagram / LinkedIn / TikTok / Twitter / cross-platform" | `mos-social` | `.claude/agents/mos-social.md` |
+| "roteiro YouTube / Reels / VSL / Shorts" | `mos-video` | `.claude/agents/mos-video.md` |
+| "podcast / roteiro de áudio / spot / audiobook" | `mos-audio` | `.claude/agents/mos-audio.md` |
+| "prompt para IA gerar imagem / vídeo" | `mos-ai-tools` | `.claude/agents/mos-ai-tools.md` |
+| "direção criativa / paleta / tipografia / design spec" | `mos-design` | `.claude/agents/mos-design.md` |
+| "métricas / relatório / análise de performance / dashboard" | `mos-analytics` | `.claude/agents/mos-analytics.md` |
+| "sequência de email / newsletter / automação / subject line" | `mos-email` | `.claude/agents/mos-email.md` |
+| "campanha Meta Ads / Google Ads / TikTok Ads (completa)" | `mos-ads` | `.claude/agents/mos-ads.md` |
+| "identidade de marca / posicionamento / tom de voz" | `mos-brand` | `.claude/agents/mos-brand.md` |
+| "storytelling / narrativa / arco de história" | `mos-storytelling` | `.claude/agents/mos-storytelling.md` |
+| "funil / jornada do cliente / TOFU MOFU BOFU" | `mos-funnel` | `.claude/agents/mos-funnel.md` |
+| "growth hacking / aquisição / crescimento" | `mos-growth` | `.claude/agents/mos-growth.md` |
+| "lançamento de produto / campanha de lançamento / PLF" | `mos-launch` | `.claude/agents/mos-launch.md` |
+| "infoproduto / curso / ebook / membership / mentoria" | `mos-infoproduct` | `.claude/agents/mos-infoproduct.md` |
+| "teste A/B / variação / otimização de conversão" | `mos-ab-testing` | `.claude/agents/mos-ab-testing.md` |
 
-## Swipe Files
+## Padrões de Orquestração
 
-Consultar pasta `assets/swipe-files/` para:
-- `headlines-virais.md` - Estruturas de títulos testados
-- `hooks-reels.md` - Hooks para vídeos curtos
-- `ctas-conversao.md` - Chamadas para ação
-- `copy-carrossel.md` - Estruturas de carrosséis
-- `bios-instagram.md` - Bios otimizadas por nicho
-- `transicoes-reels.md` - Transições criativas
-- `paletas-cores.md` - Paletas por nicho e emoção
-- `emails-conversao.md` - Emails de conversão
-- `trends-adaptaveis.md` - Tendências adaptáveis por nicho
+### 1. Dispatch Simples (1 agent, caso mais comum)
 
-## Frameworks de Copy
-
-### AIDA
 ```
-[ATENÇÃO] Hook impactante
-[INTERESSE] Problema/oportunidade
-[DESEJO] Benefícios e transformação
-[AÇÃO] CTA claro e urgente
+Pedido: "escreve 5 headlines para curso de Python iniciante"
+Ação: Agent(subagent_type: "mos-copy", prompt: "5 headlines... contexto: curso Python iniciante, público: devs juniores")
 ```
 
-### PAS
+### 2. Dispatch Paralelo (múltiplos agents independentes)
+
+Quando o briefing envolve áreas que **não dependem uma da outra**, dispare em **paralelo** (um único message com múltiplas Agent calls):
+
 ```
-[PROBLEMA] Dor específica
-[AGITAR] Consequências
-[SOLUÇÃO] Alívio
+Pedido: "tenho um curso novo de IA para empreendedores, preciso de pesquisa + tom de marca + headlines iniciais"
+
+Ação (single message, 3 tool calls simultâneas):
+- Agent(subagent_type: "mos-research", prompt: "pesquisar nicho IA para empreendedores BR, concorrência, dores, trends")
+- Agent(subagent_type: "mos-brand", prompt: "definir tom de voz para curso IA para empreendedores BR")
+- Agent(subagent_type: "mos-copy", prompt: "5 headlines para curso IA para empreendedores BR")
 ```
 
-### BAB
+### 3. Dispatch Sequencial (quando há dependência real)
+
+Só sequencie quando output de um é **input necessário** do próximo:
+
 ```
-[ANTES] Situação atual
-[DEPOIS] Transformação
-[PONTE] Seu produto/serviço
+Workflow "artigo SEO completo":
+1. Agent(subagent_type: "mos-research", prompt: "research sobre [tema]")
+2. → (usa research) Agent(subagent_type: "mos-seo", prompt: "artigo sobre [tema], usando research: [colar research brief]")
+3. → (opcional) Agent(subagent_type: "mos-copy", prompt: "otimizar headline + CTA do artigo")
 ```
+
+### 4. Workflow Completo (content-pipeline)
+
+Para "criar conteúdo completo sobre X":
+
+```
+Fase 1 (paralelo): mos-research + mos-brand (se marca nova)
+Fase 2 (paralelo onde possível):
+  - mos-seo (se blog)  OU  mos-copy (se peça isolada)  OU  mos-social (se post)
+  - mos-design (direção visual)
+Fase 3: Quality gates + revisão humana
+```
+
+## Quality Gates Globais (aplicam SEMPRE)
+
+Mesmo os subagents já aplicarem seus próprios gates, valide sempre antes de entregar ao usuário:
+
+### Palavras e Símbolos Proibidos
+
+| Item | Ação |
+|------|------|
+| `—` (travessão longo) | substituir por `.` `,` `:` ou quebrar frase |
+| "brutal" | usar: intenso, forte, pesado, impactante, poderoso |
+| PALAVRAS EM CAPS | reescrever em minúscula |
+| Aspas em roteiros/falas | escrever direto |
+| Mais de 2 emojis | reduzir para 0-1 |
+| Texto sem acentos | SEMPRE usar acentuação PT-BR correta |
+
+### Verificação de Fatos Obrigatória
+
+Ao citar pessoas famosas, estatísticas, eventos históricos, resultados de empresas:
+
+1. Buscar fonte primária (entrevistas, biografias, documentários, fonte oficial)
+2. Verificar credibilidade (múltiplas fontes, sem desmentidos)
+3. Classificar: CONFIRMADO (múltiplas fontes) | PROVÁVEL (1 fonte) | NÃO CONFIRMADO (não usar) | DESMENTIDO (nunca usar)
+4. Usar WebSearch antes de publicar
+
+### Enquetes para Engajamento
+
+OBRIGATÓRIO para conteúdos de redes sociais (Reels, posts, carrosséis, stories). Sempre incluir sugestão de enquete relacionada.
+
+| Tipo | Quando usar |
+|------|-------------|
+| Escolha binária | Opinião simples |
+| Qual você faz | Identificação |
+| Escala 1-10 | Medir nível |
+| Desafio | Gerar compromisso |
+| Curiosidade | Gerar dados |
 
 ## Nichos Suportados
 
@@ -113,135 +144,52 @@ Consultar pasta `assets/swipe-files/` para:
 
 Detalhes em `references/niches.md`.
 
-## Scripts Python
+## Recursos Auxiliares (invocados sob demanda pelos agents)
 
-Pasta `scripts/` contém 29 ferramentas + CLI unificado `mos.py`:
-- `seo_analyzer.py` - Análise SEO
-- `hashtag_generator.py` - Geração de hashtags
-- `hook_generator.py` - Hooks virais
-- `reels_script_generator.py` - Scripts de Reels
-- `carousel_structure_generator.py` - Estruturas de carrossel
-- `caption_generator.py` - Legendas por objetivo
-- `trend_tracker.py` - Monitoramento de tendências
-- `project_manager.py` - Gerenciador de projetos
-- `quality_gate.py` - Quality gate para outputs
-- `mos.py` - CLI unificado para todos os scripts
-- E mais 20 scripts especializados
+### Templates (`assets/templates/`)
+- `youtube-script.md`, `reels-tiktok-script.md`, `vsl-script.md`, `podcast-episode.md`, `instagram-feed-post.md`, `post-instagram-carrossel.md`, `instagram-stories.md`, `sales-page.md`, `webinar-script.md`, `lead-magnet.md` e mais 16 especializados.
 
-## Workflows Completos
+### Swipe Files (`assets/swipe-files/`)
+- `headlines-virais.md`, `hooks-reels.md`, `ctas-conversao.md`, `copy-carrossel.md`, `bios-instagram.md`, `transicoes-reels.md`, `paletas-cores.md`, `emails-conversao.md`, `trends-adaptaveis.md`.
 
-Pasta `workflows/` contém 9 workflows:
-- `lancamento-produto.md` - Campanha de lançamento
-- `calendario-mensal.md` - Planejamento editorial
-- `funil-vendas.md` - TOFU → MOFU → BOFU
-- `batch-production-workflow.md` - Produção em lote
-- `parceria-influencer.md` - Gestão de influencers
-- `content-pipeline.md` - Pipeline: Research → Copy → Design → Review
-- `campanha-conversao.md` - Flash sale, promoções
-- `tiktok-trends-chrome.md` - Monitoramento TikTok
-- `end-to-end-campaign-workflow.md` - Campanha completa end-to-end
+### Scripts Python (`scripts/`)
+29 ferramentas + CLI unificado `mos.py`. Os agents com acesso a `Bash` podem invocar:
+- `seo_analyzer.py`, `hashtag_generator.py`, `hook_generator.py`, `reels_script_generator.py`, `carousel_structure_generator.py`, `caption_generator.py`, `trend_tracker.py`, `project_manager.py`, `quality_gate.py`, etc.
 
-## Palavras, Símbolos e Padrões Proibidos
+### Workflows (`workflows/`)
+9 workflows end-to-end documentados: `lancamento-produto.md`, `calendario-mensal.md`, `funil-vendas.md`, `batch-production-workflow.md`, `parceria-influencer.md`, `content-pipeline.md`, `campanha-conversao.md`, `tiktok-trends-chrome.md`, `end-to-end-campaign-workflow.md`.
 
-**NUNCA usar em nenhum conteúdo gerado:**
+### Referências (`references/`)
+- `social-media.md`, `blog-seo.md`, `email-marketing.md`, `landing-pages.md`, `ads-copy.md`, `design-specs.md`, `strategy.md`, `ux-writing-microcopy.md`, `niches.md`.
 
-| Proibido | Motivo | Alternativas |
-|----------|--------|--------------|
-| `—` (travessão longo) | Parece artificial | Use `.` `,` `:` ou quebre em frases |
-| `brutal` | Parece artificial | intenso, forte, pesado, impactante, poderoso |
-| PALAVRAS EM MAIÚSCULA | Parece artificial/gritado | Escreva normalmente em minúscula |
-| Aspas para delimitar falas em roteiros | Parece gerado por IA | Escreva o texto direto, sem aspas |
-| Aspas para dar ênfase | Parece gerado por IA | Use a estrutura da frase para enfatizar |
-| Emojis e emoticons em excesso | Parece gerado por IA | Máximo 1-2 por conteúdo, apenas se necessário |
-| Texto sem acentos | Parece descuidado/amador | SEMPRE usar acentuação correta em português |
+## Protocolo de Entrega ao Usuário
 
-### Regras de Formatação Natural
+Após o agent (ou agents em paralelo) retornar(em):
 
-1. **Evitar CAPS para ênfase**: Em vez de TODO DIA, escreva todo dia ou todos os dias
-2. **Sem aspas em roteiros**: Não use aspas para delimitar o que a pessoa vai falar. Escreva direto.
-3. **Aspas apenas para citações reais**: Use aspas SOMENTE quando estiver citando palavra por palavra o que alguém disse
-4. **Tom conversacional**: Escreva como uma pessoa real falaria
-5. **Ênfase natural**: Se precisar destacar, use a estrutura da frase
-6. **Emojis com moderação**: Máximo 1-2 por conteúdo, apenas quando realmente necessário. Preferir texto puro.
-7. **Acentuação correta**: SEMPRE usar acentos em português (é, á, ã, ç, etc.). Revisar antes de entregar.
-
-**Verificar SEMPRE antes de entregar qualquer conteúdo: acentuação, aspas, caps, emojis.**
-
-## Verificação de Fatos Obrigatória
-
-**OBRIGATÓRIO ao citar pessoas famosas, estatísticas ou dados:**
-
-```
-ANTES DE CITAR QUALQUER FATO:
-
-1. BUSCAR FONTE PRIMÁRIA
-   ├── Entrevistas oficiais
-   ├── Biografias autorizadas
-   ├── Documentários
-   └── Declarações públicas verificáveis
-
-2. VERIFICAR CREDIBILIDADE
-   ├── A fonte é confiável? (veículos reconhecidos)
-   ├── A informação foi confirmada por múltiplas fontes?
-   ├── Existem desmentidos dessa informação?
-   └── A história parece fabricada/viral demais?
-
-3. CLASSIFICAR CONFIABILIDADE
-   ├── CONFIRMADO: Múltiplas fontes confiáveis → USAR
-   ├── PROVÁVEL: Uma fonte confiável → Usar com ressalva
-   ├── NÃO CONFIRMADO: Sem fonte primária → NÃO USAR
-   └── DESMENTIDO: Informação falsa → NUNCA USAR
-
-4. SEMPRE usar WebSearch para verificar ANTES de incluir
-```
-
-## Enquetes para Engajamento
-
-**OBRIGATÓRIO para conteúdos de redes sociais (Reels, posts, carrosséis, stories).**
-
-Sempre incluir sugestão de enquete relacionada ao conteúdo para aumentar engajamento.
-
-| Tipo | Quando Usar | Exemplo |
-|------|-------------|---------|
-| **Escolha binária** | Opinião simples | Você prefere acordar cedo ou tarde? |
-| **Qual você faz** | Identificação | Qual desses hábitos você já pratica? |
-| **Escala** | Medir nível | De 1 a 10, quão produtivo você se considera? |
-| **Desafio** | Gerar compromisso | Qual hábito você vai começar essa semana? |
-| **Curiosidade** | Gerar dados | Quantas horas você dorme por noite? |
-
-## Checklist de Qualidade
-
-Antes de entregar:
-- [ ] Alinhado com objetivo e público-alvo
-- [ ] Tom de voz consistente
-- [ ] CTA claro e acionável
-- [ ] SEO otimizado (quando aplicável)
-- [ ] Sem erros gramaticais
-- [ ] Formatação correta para plataforma
-- [ ] Hook forte nos primeiros segundos/linhas
-- [ ] Hashtags relevantes
-- [ ] **SEM PALAVRAS/SÍMBOLOS PROIBIDOS** - Verificar lista
-- [ ] **FATOS VERIFICADOS** - Nenhuma informação não confirmada
-- [ ] **ACENTUAÇÃO CORRETA** - Revisar todos os acentos em português
+1. **Consolide** os outputs (se múltiplos agents): junte as peças em uma entrega única.
+2. **Rode Quality Gates Globais** acima (mesmo que os agents já tenham rodado).
+3. **Formate** em markdown clean, sem travessões, com acentos corretos.
+4. **Inclua enquete** (se conteúdo social).
+5. **Adicione próximos passos** acionáveis (ex: "testar variação B em 7 dias", "publicar em horário X").
 
 ## Entregáveis Padrão
 
-1. **Conteúdo principal** formatado
-2. **2-3 variações** A/B
-3. **Recomendações** de otimização
-4. **Métricas** sugeridas
-5. **Próximos passos** acionáveis
-6. **Hashtags/Keywords** relevantes
-7. **Prompts de IA** (quando aplicável)
-8. **Enquete para engajamento** (para conteúdos de redes sociais)
+1. Conteúdo principal formatado
+2. 2-3 variações A/B
+3. Recomendações de otimização
+4. Métricas sugeridas
+5. Próximos passos acionáveis
+6. Hashtags/Keywords relevantes
+7. Prompts de IA (quando aplicável)
+8. Enquete para engajamento (para conteúdos de redes sociais)
 
-## Referências
+## Arquitetura (two-tier)
 
-- `references/social-media.md` - Redes sociais
-- `references/blog-seo.md` - Blog e SEO
-- `references/email-marketing.md` - Email
-- `references/landing-pages.md` - Landing pages
-- `references/ads-copy.md` - Anúncios
-- `references/design-specs.md` - Especificações técnicas
-- `references/strategy.md` - Estratégia de marketing
-- `references/ux-writing-microcopy.md` - UX Writing e microcopy
+- **Tier 1** (`.claude/agents/mos-*.md`): system prompts enxutos (~250 linhas) com dispatch protocol, output schema, quality gates. Carregados pelo Claude Code automaticamente quando sessão abre.
+- **Tier 2** (`subagents/*-agent.md`): knowledge base profunda (~3500 linhas cada) com frameworks, cases, tabelas, exemplos. Lida sob demanda via Read pelos agents tier-1.
+
+Isso mantém contextos dos agents leves, carrega profundidade só quando precisa, e permite evoluir knowledge sem mexer no dispatch.
+
+## Versão
+
+Marketing OS v6.0.0 (native subagents). Migração documentada em `docs/architecture/subagents-migration.md`.
