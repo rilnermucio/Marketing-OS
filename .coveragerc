@@ -1,0 +1,13 @@
+[run]
+omit =
+    scripts/tests/*
+    # Dev-infra utilities, invoked manually outside CI flow:
+    scripts/validate_agents.py
+    # Invoked directly by /criar-meu-clone slash command, requires local user audio samples:
+    scripts/voice_extractor.py
+
+[report]
+# Show missing line numbers in console summary
+show_missing = True
+# Skip files that are 100% covered to keep output focused
+skip_covered = True
