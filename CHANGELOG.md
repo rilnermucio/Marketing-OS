@@ -7,6 +7,40 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [6.2.1] — 2026-05-07 (Onda C — orchestration polish + compliance)
+
+### Added (orchestration depth)
+- **Briefing técnico/estratégico** agora tem dispatch explícito (`mos-research` +
+  `mos-growth`/`mos-analytics`) na tabela "Quando dispatch vs inline"
+- **Protocolo de briefing vago**: 5 perguntas-chave (nicho/avatar/ticket/plataforma/
+  urgência) com regras de skip quando memory já tem resposta
+- **Memory automática documentada**: lista exata dos 8 agents com `memory: project`
+  (mos-copy, mos-funnel, mos-design, mos-brand, mos-launch, mos-research, mos-social,
+  mos-infoproduct, mos-ads) e protocolo "explicite no prompt"
+
+### Added (quality + compliance)
+- **Substância (peças de venda)**: novo bloco em Quality Gates Globais checa
+  promessas sem backup, comparativo competitivo sem fundamento, garantia sem
+  termo claro, linguagem absoluta sem qualificador, placeholders publicados
+- **Compliance regulatório**: tabela CFM/CONAR/ANVISA/CVM com disclaimers
+  obrigatórios por nicho (saúde, suplementos, finanças, cosméticos). Antes
+  vivia só em memory de cliente — agora é gate global do plugin
+
+### Added (delegation)
+- **Política de delegação a skills externas**: tabela explícita do que pode
+  ir pra `frontend-design`, `figma-*`, `docx/pptx/xlsx`, `claude-api` — sempre
+  DEPOIS dos workflows do marketing-os, nunca antes
+- **Slash commands rápidos**: tabela dos 25 commands organizados por categoria
+  + nota sobre invocação direta vs dispatch via linguagem natural
+
+### Changed
+- **Entregáveis padrão**: lista fixa de 8 itens → 9 entregáveis condicionais
+  (sempre / quando faz sentido testar / condicionais por tipo de output).
+  Hashtags só pra social/SEO, prompts IA só pra ai-tools, métricas só pra
+  conversão/campanha, etc.
+
+---
+
 ## [6.2.0] — 2026-05-07 (Onda B — composite workflows)
 
 ### Added (5 new orchestration patterns)

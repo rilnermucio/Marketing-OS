@@ -22,6 +22,30 @@ Motivo: cada subagent tem contexto próprio (evita poluição do main), tools fi
 | Pergunta conceitual sobre marketing (ex: "o que é AIDA?") | Responda inline (não precisa de agent) |
 | Briefing amplo ("cria campanha completa") | Dispatch em paralelo de múltiplos agents |
 | Pedido de informação sobre o próprio sistema | Inline |
+| Briefing técnico/estratégico que requer pesquisa antes (ex: "qual canal pra B2B SaaS?") | Dispatch `mos-research` + `mos-growth` ou `mos-analytics` mesmo sem produzir peça final |
+
+### Protocolo: briefing vago
+
+Quando o usuário não fornece contexto suficiente, **NÃO chute** — pergunte antes de dispatchar. As 5 perguntas-chave (em paralelo, lista numerada na mesma resposta):
+
+1. **Nicho** — qual área? (saúde, finanças, tech, educação, etc.)
+2. **Avatar** — quem é o público? (cargo/profissão, faixa de renda, dor principal)
+3. **Ticket** — preço do produto? (gratuito, low/mid/high-ticket)
+4. **Plataforma** — onde vai publicar? (Instagram, LinkedIn, email, página web, etc.)
+5. **Urgência** — publicar hoje, semana, planejamento futuro?
+
+**Pule perguntas que já têm resposta:**
+- Se há memory em `.claude/agent-memory/marketing-os-mos-*/` com briefing do cliente, use esse contexto
+- Se o user já mencionou alguma dessas 5 dimensões na mensagem inicial, não pergunte de novo
+- Se for óbvio do contexto (ex: pasta chamada "wellness-science" → nicho saúde)
+
+### Memory automática
+
+8 dos 18 agents têm `memory: project` no frontmatter — carregam automaticamente contexto persistente quando rodam em pasta com `.claude/agent-memory/marketing-os-<agent>/`:
+
+`mos-copy`, `mos-funnel`, `mos-design`, `mos-brand`, `mos-launch`, `mos-research`, `mos-social`, `mos-infoproduct`, `mos-ads`
+
+Quando dispatchar qualquer um desses, **explicite no prompt**: "considere memory existente do cliente neste projeto". Os outros 9 agents (`mos-analytics`, `mos-ai-tools`, `mos-audio`, `mos-email`, `mos-seo`, `mos-storytelling`, `mos-video`, `mos-growth`, `mos-ab-testing`) não persistem memory — passe todos os inputs no prompt.
 
 ## Mapa de Dispatch (18 Agents)
 
@@ -248,6 +272,31 @@ Ao citar pessoas famosas, estatísticas, eventos históricos, resultados de empr
 3. Classificar: CONFIRMADO (múltiplas fontes) | PROVÁVEL (1 fonte) | NÃO CONFIRMADO (não usar) | DESMENTIDO (nunca usar)
 4. Usar WebSearch antes de publicar
 
+### Substância (peças de venda/conversão)
+
+Para qualquer copy de venda, anúncio, sales letter, página de aplicação, VSL, email de oferta:
+
+| Item | Como verificar |
+|------|----------------|
+| Promessas sem backup | Tem prova social/case/dado citável? Senão, suavizar ou cortar |
+| Comparativo competitivo | Citou concorrente direto? Tem fundamento factual ou é especulativo? |
+| Garantia | Promessa de garantia tem termo claro (período, condições)? |
+| Linguagem absoluta | Evitar "garantido", "100%", "todos", "sempre" sem qualificador |
+| Placeholder publicado | Sem "XXX", "X reais", "Lorem ipsum" — checar antes de entregar |
+
+### Compliance regulatório (saúde / finanças / suplementos)
+
+Aplicar SEMPRE quando o nicho envolve. Detectar via memory do cliente, pasta atual, ou pergunta-chave #1.
+
+| Nicho | Órgão | Regras-chave |
+|-------|-------|--------------|
+| Saúde / médico / dental / nutrição | **CFM/CRM, CONAR** | Disclaimer "resultados variam" em depoimentos; proibido "cura"/"tratamento" sem registro; CRM visível em médicos |
+| Suplementos / produtos naturais | **ANVISA** | Não pode prometer cura, tratar doença, dosagem específica sem registro; só "auxilia/contribui" |
+| Finanças / investimentos | **CVM** | "Rentabilidade passada não garante futura" obrigatório; sem promessa de retorno; risco explícito |
+| Cosméticos / dermato | **ANVISA** | Sem prometer tratar doença de pele; "pode auxiliar" é o limite |
+
+Quando o briefing entrar nesses nichos, o orquestrador adiciona disclaimer apropriado em qualquer peça final, sem perguntar.
+
 ### Enquetes para Engajamento
 
 OBRIGATÓRIO para conteúdos de redes sociais (Reels, posts, carrosséis, stories). Sempre incluir sugestão de enquete relacionada.
@@ -305,16 +354,52 @@ Após o agent (ou agents em paralelo) retornar(em):
 4. **Inclua enquete** (se conteúdo social).
 5. **Adicione próximos passos** acionáveis (ex: "testar variação B em 7 dias", "publicar em horário X").
 
-## Entregáveis Padrão
+## Entregáveis Padrão (contextuais)
 
+**Sempre:**
 1. Conteúdo principal formatado
-2. 2-3 variações A/B
-3. Recomendações de otimização
-4. Métricas sugeridas
-5. Próximos passos acionáveis
-6. Hashtags/Keywords relevantes
-7. Prompts de IA (quando aplicável)
-8. Enquete para engajamento (para conteúdos de redes sociais)
+2. Próximos passos acionáveis (ex: "testar variação B em 7 dias", "publicar em horário X")
+
+**Quando faz sentido testar:**
+3. 2-3 variações A/B (copy, headlines, CTAs, hooks)
+
+**Condicionais:**
+4. **Hashtags / keywords** — apenas se for conteúdo de social ou SEO
+5. **Prompts de IA** — apenas se envolveu `mos-ai-tools` ou geração de imagem/vídeo
+6. **Métricas sugeridas** — apenas se é peça de conversão/campanha (não pra peça artística/branded)
+7. **Recomendações de otimização** — sempre que cabível
+8. **Enquete para engajamento** — OBRIGATÓRIO em conteúdos de redes sociais (Reels, posts, carrosséis, stories)
+9. **Disclaimer regulatório** — OBRIGATÓRIO em peças de saúde/finanças/suplementos (ver "Compliance regulatório")
+
+## Política de delegação a skills externas
+
+Quando os subagents do marketing-os terminam sua parte, alguns outputs podem precisar de skills externas pra produzir o entregável final. Política:
+
+| Saída do marketing-os | Skill externa válida pra delegar | Quando |
+|---|---|---|
+| Brief de página BOFU consolidado | `frontend-design` (plugin oficial Anthropic) | Quando user pediu HTML/CSS de fato |
+| Design spec | `figma-implement-design` ou `figma-generate-design` | Quando user quer Figma e não código |
+| Conteúdo final pra entregável Office | `docx` / `pptx` / `xlsx` (Anthropic Skills) | Quando user quer Word/PowerPoint/Excel pronto |
+| Código de integração API/SDK | `claude-api` | Quando user quer integrar produto com API Anthropic |
+
+**REGRA:** delegação acontece **DEPOIS** dos workflows do marketing-os, **nunca antes**. O marketing-os entrega brief estratégico/copy/design; skills externas executam o build técnico. Inverter a ordem é o bug que originou o workflow #5 (página de aplicação).
+
+## Slash commands rápidos
+
+25 commands em `commands/` são atalhos pra workflows comuns. Quando user invoca o command direto (ex: `/criar-carrossel`), segue a lógica do command file. Quando user pede em linguagem natural ("cria um carrossel sobre X"), este SKILL dispatcha conforme tabela e workflows acima.
+
+| Categoria | Commands |
+|---|---|
+| Conteúdo social | `/criar-post`, `/criar-carrossel`, `/criar-calendario` |
+| Vídeo/áudio | `/criar-video`, `/criar-podcast` |
+| Páginas/funis | `/criar-landing-page`, `/criar-funil`, `/criar-webinar` |
+| Email | `/criar-email`, `/criar-sequencia` |
+| Ads | `/criar-anuncio`, `/publicar-anuncio` |
+| Infoproduto | `/criar-infoproduto` |
+| Voice clones | `/criar-clone` (expert externo via web research), `/criar-meu-clone` (suas amostras locais em `workspace/`) |
+| Análise | `/analisar-concorrencia`, `/analisar-video`, `/clonar-estrategia` |
+| Visual | `/criar-brief-design`, `/gerar-imagem`, `/capturar-tela` |
+| Operação | `/campanha`, `/batch`, `/criar-artigo`, `/publicar-notion` |
 
 ## Arquitetura (two-tier)
 
