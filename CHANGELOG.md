@@ -7,6 +7,17 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [6.1.1] — 2026-05-07
+
+### Fixed
+- `.claude-plugin/marketplace.json`: relative path source must start with `./`
+  per Claude Code plugin spec. Changed `"source": "."` to `"source": "./"`.
+  Without this fix, `/plugin install marketing-os@marketing-os-marketplace`
+  failed with "This plugin uses a source type your Claude Code version does
+  not support".
+
+---
+
 ## [6.1.0] — 2026-05-07 (distribution-ready)
 
 ### Added
