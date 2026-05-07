@@ -7,6 +7,29 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [6.2.0] — 2026-05-07 (Onda B — composite workflows)
+
+### Added (5 new orchestration patterns)
+
+Briefings que requerem múltiplos `mos-*` agents agora têm workflow explícito
+em SKILL.md, evitando dispatch single-agent que perde camadas estratégicas.
+
+- **#6 Webinar (live ou perpetual)**: `mos-launch` + `mos-funnel` + `mos-video`
+  → `mos-copy` + `mos-email`. Sem o `mos-launch` o webinar vira aula sem venda.
+- **#7 Lançamento de Infoproduto**: 4 fases — research → estrutura+launch+funnel
+  → copy+email+ads → quality gates. Pular fase 1 é o erro #1 de quem lança
+  no escuro.
+- **#8 Carrossel Completo**: `mos-social` + `mos-copy` + `mos-design`
+  (+ `mos-ai-tools` opcional). Carrossel sofre quando feito por 1 agent só.
+- **#9 VSL Completa**: `mos-storytelling` + `mos-copy` + `mos-video` em paralelo,
+  consolidados em roteiro único. Inclui gates de substância (promessas com backup).
+- **#10 Análise de Concorrente + Clone**: `mos-research` + `mos-brand` →
+  `mos-copy` (voice clone usando assets/clones/). Clone sem research é cópia rasa.
+
+Cada workflow inclui seção "Por que essa ordem" explicando o trade-off.
+
+---
+
 ## [6.1.8] — 2026-05-07 (Onda A — orchestration P1 fixes)
 
 ### Added (dispatch coverage)

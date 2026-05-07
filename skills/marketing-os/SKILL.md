@@ -129,6 +129,101 @@ Fase 3: Quality gates globais sobre o output final + sugestões de teste A/B (mo
 
 **Quando usar memory de contexto:** se a pasta atual já tem `.claude/agent-memory/marketing-os-mos-copy/` ou `.claude/agent-memory/marketing-os-mos-funnel/` com briefings/feedback de cliente anteriores, esses contextos carregam automaticamente nos agents — explicite isso no prompt do Fase 1 ("considere memory existente do cliente").
 
+### 6. Workflow: Webinar (live ou perpetual)
+
+Triggers: "monta um webinar", "webinar de vendas pra X", "webinar funnel".
+
+```
+Fase 1 (paralelo, single message):
+  - Agent(subagent_type: "mos-launch", prompt: "estratégia de webinar [live/perpetual] para [produto]: posicionamento da oferta, pitch timing, escassez")
+  - Agent(subagent_type: "mos-funnel", prompt: "funil de webinar: registro → confirmação → reminder → live → reposicionamento → encerramento; pontos de queda esperados")
+  - Agent(subagent_type: "mos-video", prompt: "estrutura do webinar de [duração] minutos: hook, pitch, agenda, conteúdo de valor, transição pra oferta, garantia, FAQ ao vivo")
+
+Fase 2 (sequencial, depende dos 3 outputs):
+  - Agent(subagent_type: "mos-copy", prompt: "página de registro + headline + 3 emails (registro/reminder/no-show) com base no posicionamento da Fase 1")
+  - Agent(subagent_type: "mos-email", prompt: "sequência completa de webinar: 4 emails pré, 1 lembrete dia, 3 emails pós-webinar (replay → últimas vagas → encerramento)")
+
+Fase 3: Quality gates + recomendação de tracking (mos-analytics opcional pra setup de eventos)
+```
+
+**Por que essa ordem:** sem `mos-launch` o webinar não tem estratégia de oferta (vira aula sem venda). Sem `mos-funnel` cada step do funil sai isolado. Sem `mos-video` o roteiro não respeita ciência de retenção. Os Fase 2 (copy + email) dependem de saber QUAL é a oferta e onde está o pitch — por isso sequencial.
+
+### 7. Workflow: Lançamento de Infoproduto
+
+Triggers: "vou lançar um curso", "lançamento de infoproduto", "criar e lançar [produto digital]".
+
+```
+Fase 1 (paralelo):
+  - Agent(subagent_type: "mos-research", prompt: "validação de mercado: tamanho do nicho, concorrentes, ticket médio praticado, dores não atendidas")
+  - Agent(subagent_type: "mos-brand", prompt: "posicionamento e voz da marca/expert para o produto") — só se marca nova ou pivô
+  - Agent(subagent_type: "mos-infoproduct", prompt: "estrutura do infoproduto: módulos, formato (curso/membership/mentoria), pricing strategy, bônus")
+
+Fase 2 (sequencial — depende da estrutura definida na Fase 1):
+  - Agent(subagent_type: "mos-launch", prompt: "estratégia de lançamento (PLF / semente / relâmpago / perpétuo) baseada no produto e nicho")
+  - Agent(subagent_type: "mos-funnel", prompt: "funil completo: TOFU (CPL/anúncios) → MOFU (lead magnet/webinar) → BOFU (página de vendas/aplicação)")
+
+Fase 3 (paralelo, depende da estratégia de lançamento):
+  - Agent(subagent_type: "mos-copy", prompt: "página de vendas + headlines + CTAs alinhados com promessa do produto e estratégia de lançamento")
+  - Agent(subagent_type: "mos-email", prompt: "sequência completa de pré-lançamento + abertura de carrinho + última chamada")
+  - Agent(subagent_type: "mos-ads", prompt: "campanhas de tráfego pra cada fase do lançamento: pré (lista) + durante (conversão) + retargeting")
+
+Fase 4: Quality gates + setup de tracking + plano de teste A/B (mos-ab-testing)
+```
+
+**Por que esse encadeamento:** lançamento não é peça única — é orquestração de estratégia + estrutura + funil + execução. Pular fase 1 (research) é o erro #1 de quem lança no escuro. Pular fase 2 (escolha de modelo de lançamento) é o erro #2 de copiar PLF sem entender se cabe.
+
+### 8. Workflow: Carrossel Completo (Instagram / LinkedIn)
+
+Triggers: "cria carrossel sobre X", "carrossel Instagram pra [tema]".
+
+```
+Fase 1 (paralelo, single message):
+  - Agent(subagent_type: "mos-social", prompt: "estrutura de carrossel pra [plataforma]: número ideal de slides, hook na capa, padrão de retenção entre slides, CTA final")
+  - Agent(subagent_type: "mos-copy", prompt: "texto de cada slide: hook na capa, body com peso/leveza alternada, CTA específico — quality gates aplicados")
+  - Agent(subagent_type: "mos-design", prompt: "direção visual: paleta, tipografia, hierarquia, formato de capa vs body, consistência visual entre slides")
+
+Fase 2 (opcional, paralelo com Fase 1):
+  - Agent(subagent_type: "mos-ai-tools", prompt: "prompts pra IA gerar imagem da capa (Midjourney/Flux/Ideogram) com referência da Fase 1 design")
+
+Fase 3: Consolidação (texto + design spec + prompts) + caption + hashtags + sugestão de enquete obrigatória
+```
+
+**Por que: ** carrossel é o formato que mais sofre quando feito por 1 agent só. `mos-social` sem `mos-copy` = texto fraco. `mos-copy` sem `mos-design` = visual genérico. `mos-design` sem `mos-social` = sem entender ritmo de retenção da plataforma.
+
+### 9. Workflow: VSL Completa (Video Sales Letter)
+
+Triggers: "cria VSL pra [produto]", "roteiro de VSL", "video sales letter".
+
+```
+Fase 1 (paralelo):
+  - Agent(subagent_type: "mos-storytelling", prompt: "arco narrativo da VSL: hook → problema → vilão → solução → prova → oferta → urgência. Frameworks: hero's journey adaptado pra venda")
+  - Agent(subagent_type: "mos-copy", prompt: "estrutura de copy de venda no formato VSL: headline, big idea, mecanismo único, anti-avatar, stack value, garantia, FAQ falado")
+  - Agent(subagent_type: "mos-video", prompt: "ciência de retenção em VSL: timestamps de queda esperados, transições, B-roll, ritmo, duração ideal por nicho/ticket")
+
+Fase 2: Consolidação em roteiro único (texto narrado + cues visuais + timing de seções)
+
+Fase 3: Quality gates (incluindo gates de substância: promessas com backup, garantia clara) + sugestão de testes A/B em hook e mecanismo único
+```
+
+**Por que: ** VSL é o caso clássico de copy + storytelling + ciência de vídeo precisarem casar. Falta de qualquer um quebra a peça toda.
+
+### 10. Workflow: Análise de Concorrente + Clone de Estratégia
+
+Triggers: "analisa @fulano e clona", "engenharia reversa do [concorrente]", "como o [expert] vende?".
+
+```
+Fase 1 (paralelo):
+  - Agent(subagent_type: "mos-research", prompt: "mapeamento completo: produtos, ticket, posicionamento, fontes de tráfego, conteúdo orgânico, ads ativos, depoimentos. WebSearch + análise de perfis públicos")
+  - Agent(subagent_type: "mos-brand", prompt: "extrair positioning, arquétipo, voz/tom do concorrente analisado a partir de samples reais — gerar brand spec replicável")
+
+Fase 2 (sequencial, depende da Fase 1):
+  - Agent(subagent_type: "mos-copy", prompt: "voice clone: extrair padrões de copy do concorrente (estruturas de headline, padrões de CTA, vocabulário, ritmo). Aplicar nos assets/clones/ se for um copywriter conhecido (Halbert, Hopkins, etc.). Gerar samples adaptados pra cliente atual")
+
+Fase 3: Brief consolidado de "estratégia clonada e adaptada" + checklist de o-que-replicar / o-que-evitar / oportunidades de diferenciação
+```
+
+**Por que: ** clone sem `mos-research` é cópia rasa. Sem `mos-brand` é só pegar headlines (sem entender posicionamento). Sem `mos-copy` é análise sem aplicação prática.
+
 ## Quality Gates Globais (aplicam SEMPRE)
 
 Mesmo os subagents já aplicarem seus próprios gates, valide sempre antes de entregar ao usuário:
