@@ -7,6 +7,16 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [6.1.3] — 2026-05-07
+
+### Changed
+- `marketplace.json`: moved `description` and `version` from `metadata` block to
+  top-level (modern schema; `metadata` was backward-compat per docs). The strict
+  validator in Claude Desktop's "Adicionar marketplace" UI was rejecting the URL
+  with "Falha na sincronização do marketplace", possibly due to legacy structure.
+
+---
+
 ## [6.1.2] — 2026-05-07
 
 ### Fixed
