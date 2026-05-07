@@ -7,6 +7,16 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [6.2.2] — 2026-05-07 (test fix)
+
+### Fixed
+- `test_workspace_separation`: `skills/marketing-os/SKILL.md` was added to
+  the allowlist after Onda C (v6.2.1) introduced a legitimate documentation
+  reference to `workspace/` (explaining that `/criar-meu-clone` reads samples
+  from there). Suite back to 922/922 green.
+
+---
+
 ## [6.2.1] — 2026-05-07 (Onda C — orchestration polish + compliance)
 
 ### Added (orchestration depth)
