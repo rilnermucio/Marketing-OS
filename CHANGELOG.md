@@ -7,6 +7,28 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [6.1.8] — 2026-05-07 (Onda A — orchestration P1 fixes)
+
+### Added (dispatch coverage)
+- `mos-social` triggers expandidos: bio Instagram, about, calendário editorial,
+  planejamento de conteúdo, weekly plan
+- `mos-funnel` triggers expandidos: sales funnel, funil de vendas
+- `mos-email` triggers expandidos: drip
+- `mos-brand` triggers expandidos: manifesto da marca, arquétipo, brand guidelines
+- `mos-storytelling` triggers refinados: "hero's journey aplicado em peça"
+  (vs `mos-brand` que cuida de DEFINIR identidade)
+
+### Added (desambiguação)
+- Regra explícita `mos-brand` vs `mos-storytelling`:
+  - mos-brand = DEFINIR identidade (arquétipo, manifesto, tom)
+  - mos-storytelling = APLICAR narrativa numa peça (sales letter com arco, origin story)
+
+### Changed
+- Seção "Versão" do SKILL.md não cita mais hardcoded — aponta pra `plugin.json`
+  e `CHANGELOG.md` pra evitar drift a cada release
+
+---
+
 ## [6.1.7] — 2026-05-07
 
 ### Added

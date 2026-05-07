@@ -30,21 +30,27 @@ Motivo: cada subagent tem contexto próprio (evita poluição do main), tools fi
 | "escreve headline / CTA / sales letter / microcopy" | `mos-copy` | `agents/mos-copy.md` |
 | "cria artigo SEO / keyword research / on-page" | `mos-seo` | `agents/mos-seo.md` |
 | "pesquisa tendências / concorrentes / audience / validar produto" | `mos-research` | `agents/mos-research.md` |
-| "post Instagram / LinkedIn / TikTok / Twitter / cross-platform" | `mos-social` | `agents/mos-social.md` |
+| "post Instagram / LinkedIn / TikTok / Twitter / cross-platform / bio Instagram / about / calendário editorial / planejamento de conteúdo / weekly plan" | `mos-social` | `agents/mos-social.md` |
 | "roteiro YouTube / Reels / VSL / Shorts" | `mos-video` | `agents/mos-video.md` |
 | "podcast / roteiro de áudio / spot / audiobook" | `mos-audio` | `agents/mos-audio.md` |
 | "prompt para IA gerar imagem / vídeo" | `mos-ai-tools` | `agents/mos-ai-tools.md` |
 | "direção criativa / paleta / tipografia / design spec" | `mos-design` | `agents/mos-design.md` |
 | "métricas / relatório / análise de performance / dashboard" | `mos-analytics` | `agents/mos-analytics.md` |
-| "sequência de email / newsletter / automação / subject line" | `mos-email` | `agents/mos-email.md` |
+| "sequência de email / newsletter / automação / subject line / drip" | `mos-email` | `agents/mos-email.md` |
 | "campanha Meta Ads / Google Ads / TikTok Ads (completa)" | `mos-ads` | `agents/mos-ads.md` |
-| "identidade de marca / posicionamento / tom de voz" | `mos-brand` | `agents/mos-brand.md` |
-| "storytelling / narrativa / arco de história" | `mos-storytelling` | `agents/mos-storytelling.md` |
-| "funil / jornada do cliente / TOFU MOFU BOFU" | `mos-funnel` | `agents/mos-funnel.md` |
+| "identidade de marca / posicionamento / tom de voz / manifesto da marca / arquétipo / brand guidelines" | `mos-brand` | `agents/mos-brand.md` |
+| "storytelling / narrativa / arco de história / hero's journey aplicado em peça" | `mos-storytelling` | `agents/mos-storytelling.md` |
+| "funil de vendas / sales funnel / jornada do cliente / TOFU MOFU BOFU" | `mos-funnel` | `agents/mos-funnel.md` |
 | "growth hacking / aquisição / crescimento" | `mos-growth` | `agents/mos-growth.md` |
 | "lançamento de produto / campanha de lançamento / PLF" | `mos-launch` | `agents/mos-launch.md` |
 | "infoproduto / curso / ebook / membership / mentoria" | `mos-infoproduct` | `agents/mos-infoproduct.md` |
 | "teste A/B / variação / otimização de conversão" | `mos-ab-testing` | `agents/mos-ab-testing.md` |
+
+### Desempate: `mos-brand` vs `mos-storytelling`
+
+Ambos tocam em "narrativa de marca". Regra:
+- **`mos-brand`** quando o briefing é sobre **DEFINIR** a identidade — criar arquétipo, manifesto, voz/tom, brand book
+- **`mos-storytelling`** quando é sobre **APLICAR** narrativa numa peça — estruturar uma sales letter com hero's journey, escrever uma origin story específica, construir arco em um vídeo/post
 
 ### Caso composto: páginas (landing / aplicação / vendas)
 
@@ -224,4 +230,4 @@ Isso mantém contextos dos agents leves, carrega profundidade só quando precisa
 
 ## Versão
 
-Marketing OS v6.0.0 (native subagents). Migração documentada em `docs/architecture/subagents-migration.md`.
+Versão atual em `.claude-plugin/plugin.json`. Histórico em `CHANGELOG.md`. Migração da v5 (squad) → v6 (native subagents) documentada em `docs/architecture/subagents-migration.md`.
