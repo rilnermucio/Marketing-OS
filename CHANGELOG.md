@@ -7,6 +7,23 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [6.1.4] — 2026-05-07
+
+### Changed (BREAKING for existing installations)
+- Marketplace renamed from `marketing-os-marketplace` to `mos-marketplace`. Goal:
+  bypass any server-side cached state from the broken v6.1.0–v6.1.2 syncs that
+  was preventing Claude Desktop from adding the marketplace.
+- After upgrade, install command changes:
+  - Old: `/plugin install marketing-os@marketing-os-marketplace`
+  - New: `/plugin install marketing-os@mos-marketplace`
+
+### Migration for existing Claude Code users
+1. `/plugin marketplace remove marketing-os-marketplace`
+2. `/plugin marketplace add rilnermucio/Marketing-OS` (fetches new name)
+3. `/plugin install marketing-os@mos-marketplace`
+
+---
+
 ## [6.1.3] — 2026-05-07
 
 ### Changed
