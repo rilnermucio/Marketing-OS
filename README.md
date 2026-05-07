@@ -67,7 +67,8 @@ Comandos rápidos pra fluxos comuns (`/comando`):
 - `/criar-post`, `/criar-carrossel`, `/criar-video`, `/criar-podcast`
 - `/criar-anuncio`, `/criar-email`, `/criar-sequencia`, `/criar-funil`
 - `/criar-artigo`, `/criar-landing-page`, `/criar-webinar`, `/criar-infoproduto`
-- `/criar-clone` (usa voice clones em `assets/clones/`)
+- `/criar-clone` (clone de expert externo via web research)
+- `/criar-meu-clone` (clone da SUA voz via amostras locais)
 - `/analisar-concorrencia`, `/analisar-video`, `/clonar-estrategia`
 - `/criar-brief-design`, `/criar-calendario`, `/gerar-imagem`, `/capturar-tela`
 - `/publicar-anuncio`, `/publicar-notion`, `/campanha`, `/batch`

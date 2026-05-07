@@ -3773,6 +3773,78 @@ Quando o usuário diz qualquer um destes, ATIVE o protocolo de Read antes de ger
 - "quero algo bem [autor]"
 - Direto: "estilo Halbert", "Hormozi style", "Cialdini approach"
 
+### Voice Match Scoring (validação de fidelidade)
+
+Quando gerar copy "estilo X", **valide a fidelidade** comparando a saída contra `assets/clones/{nome}/examples.md`. Score em 4 dimensões:
+
+```
+DIMENSÃO 1: VOCABULÁRIO (0-25 pts)
+├── Palavras típicas do mestre presentes? (ex: Halbert usa "olha", "preciso te contar")
+├── Vocabulário banido (ex: corporativo formal em copy Halbert)?
+└── Score: % de matches em vocab típico - penalty de banidos
+
+DIMENSÃO 2: CADÊNCIA (0-25 pts)
+├── Pattern de tamanho de frase reconhecível?
+│   - Halbert: 60% < 8 palavras
+│   - Provost: alta variância intencional
+│   - Sugarman: cada frase puxa próxima
+│   - Ogilvy: longas e bem construídas
+└── Score: distribuição de tamanho match contra examples.md?
+
+DIMENSÃO 3: ESTRUTURA NARRATIVA (0-25 pts)
+├── Segue o padrão do mestre?
+│   - Halbert: gancho pessoal -> história -> lição -> oferta
+│   - Schwartz: nível de awareness identificado -> mecanismo único -> oferta
+│   - Sugarman: primeira frase ULTRA curta -> slippery slide
+└── Score: estrutura presente?
+
+DIMENSÃO 4: ANTI-PADRÕES (0-25 pts)
+├── A copy NÃO contém nenhum item da lista "NUNCA FAÇA" do voice.md?
+└── Score: 25 se zero violations, -5 por violation
+
+TOTAL: 0-100
+- 90+ → fidelidade alta, entregar
+- 70-89 → fidelidade ok, considerar refinamento
+- <70 → fidelidade baixa, reescrever (provavelmente pulou Read de voice.md)
+```
+
+**Workflow integrado:**
+
+1. Gerar copy estilo X
+2. Score voice match (mental ou via script futuro)
+3. Se < 70 → reler `voice.md` e `examples.md` do clone, refazer
+4. Se 70-89 → considerar 1 refinamento
+5. Se 90+ → entregar com score documentado em "Justificativa"
+
+### Feedback Loop e Swipe-files Vivos
+
+Os swipe-files em `assets/swipe-files/` são **arquivos vivos** que devem crescer com base em performance real.
+
+**Quando o usuário reporta resultados de A/B test ou performance de copy publicada:**
+
+1. **Identifique** qual variação ganhou e por qual margem
+2. **Sugira ao usuário** adicionar a variação vencedora ao swipe-file relevante:
+   - Headlines vencedoras → `assets/swipe-files/headlines-virais.md`
+   - Hooks Reels vencedores → `assets/swipe-files/hooks-reels.md`
+   - CTAs com alto CR → `assets/swipe-files/ctas-conversao.md`
+   - Email subject lines com alta open rate → `assets/swipe-files/emails-conversao.md`
+3. **Formato sugerido para append:**
+   ```markdown
+   ### [Tipo de copy] - [Data] - [Nicho]
+   "[Copy vencedora]"
+
+   - **Performance**: [métrica]: [valor] (vs variação B: [valor])
+   - **Contexto**: [breve descrição do projeto/campanha]
+   - **Por que funcionou**: [hipótese validada]
+   ```
+
+**Por que isso importa**: o swipe-file de hoje é genérico. Em 6 meses, com 30+ winners adicionados, vira **swipe-file proprietário** com headlines testadas no contexto/nicho específico do usuário. Cada projeto compounding.
+
+**Protocolo MEMORY persistence (Tier 1)**: registrar no MEMORY.md do agent (se memory: project ativo) os meta-aprendizados não-estruturados:
+- Patterns que funcionaram para nicho X
+- Voice patterns aprendidos da marca
+- Anti-padrões específicos do cliente
+
 ---
 
 ## A.4 Fórmulas Rápidas por Situação

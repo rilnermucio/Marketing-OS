@@ -128,9 +128,27 @@ O orquestrador (skill `marketing-os`) dispara os 3 agents simultaneamente, cada 
 
 Toda saída de conteúdo passa por gates automáticos via `scripts/hooks/quality_gate_hook.py`:
 
-- Em-dash `—` proibido
-- Palavra "brutal" proibida
-- Acentuação PT-BR obrigatória (validação no agent)
-- Fact-check obrigatório para citações de pessoas/estatísticas
+**HARD BLOCK (exit 2, refazer obrigatorio):**
+- Em-dash `—`
+- Palavra "brutal"
 
-Violações bloqueiam a escrita e pedem correção. Detalhes completos: `skills/marketing-os/SKILL.md` (Quality Gates Globais).
+**WARN (exit 0 + stderr, agent decide):**
+- Clichês PT-BR: "em um mundo onde", "sem mais delongas", "vamos mergulhar", "imagine se", "e se eu te dissesse", "preparados? vamos lá"
+- Fillers: "vale ressaltar", "é importante destacar", "em última análise", "na verdade", "basicamente", "simplesmente"
+- Superlativos vagos: "extraordinário", "revolucionário", "incrível", "o melhor do mundo"
+
+**COMPLIANCE WARN (exit 0 + stderr):**
+- Conteúdo financeiro sem disclaimer CVM
+- Conteúdo de saúde sem disclaimer ANVISA
+- Depoimento sem disclaimer CONAR
+- Link afiliado sem disclosure
+
+Violações HARD bloqueiam a escrita. WARNs aparecem no terminal mas não bloqueiam — agent decide se reescreve. Acentuação PT-BR e fact-check de citações são validados no agent (não no hook). Detalhes em `skills/marketing-os/SKILL.md` (Quality Gates Globais).
+
+## Voice clones (35 + custom)
+
+35 voice clones pré-construídos em `assets/clones/` (Halbert, Ogilvy, Hormozi, Schwartz, ...). Cada clone tem 4 arquivos profundos: `profile.md`, `voice.md`, `frameworks.md`, `examples.md`.
+
+**Para gerar copy "estilo X"**: o `mos-copy` agent é instruído a Read `assets/clones/{nome}/voice.md` ANTES de gerar (não usa só resumo inline).
+
+**Para criar SEU próprio clone**: use `/criar-meu-clone {slug}` com 10-20 amostras reais da sua escrita. O comando extrai vocabulário, cadência, estrutura narrativa e anti-padrões da sua voz e gera os 4 arquivos.
