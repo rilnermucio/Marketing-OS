@@ -1,6 +1,8 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents (Claude Code, Codex CLI, Cursor, Gemini CLI, etc.) when working with code in this repository.
+
+> Mirrored from `CLAUDE.md`. Keep both in sync when editing — Claude Code reads `CLAUDE.md`, Codex and tooling-agnostic agents read this file.
 
 ## O que é este repositório
 
