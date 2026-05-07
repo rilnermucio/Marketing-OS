@@ -1,290 +1,78 @@
 ---
-description: Create a complete webinar script with slides outline, registration page copy, email sequences, and follow-up strategy.
-argument-hint: "<topic and goal, e.g., 'webinar selling online course on marketing' or 'educational webinar about AI tools'>"
+description: Create a complete webinar (live or perpetual) — strategy, structure, registration page, email sequence. Dispatches mos-launch + mos-funnel + mos-video → mos-copy + mos-email (workflow #6).
+argument-hint: "<topic and goal, e.g., 'webinar de vendas pra meu curso de Python'>"
 ---
 
-# Create Webinar
+# /criar-webinar: Webinar Completo (Workflow #6)
 
-> See [CONNECTORS.md](../CONNECTORS.md) for connected services that can provide analytics and automation tools.
+Cria webinar (live ou perpetual) conforme **workflow #6** em `skills/marketing-os/SKILL.md`.
 
-Create a complete webinar package: full script, slides outline, registration page copy, pre/post email sequences, and follow-up strategy.
+## Required inputs (ask if missing)
 
-## Trigger
+1. **Modelo** (obrigatório): live (data específica) | perpetual (sob demanda)
+2. **Produto a vender** (obrigatório): nome, ticket, formato
+3. **Avatar** (obrigatório): cargo, dor, faixa de renda
+4. **Duração** (obrigatório): 45min, 60min, 90min
+5. **Pitch ou só conteúdo?** (obrigatório): vendas (pitch + oferta) | nutrição (sem pitch)
+6. **Nicho** (obrigatório): define disclaimers regulatórios
 
-This command is invoked when the user says `/criar-webinar` followed by a topic and goal, or when they ask to create a webinar, live, masterclass, or workshop script.
-
-## Inputs
-
-Gather the following information. If any required field is missing, ask the user before proceeding:
-
-1. **Topic** (required) — What the webinar teaches
-2. **Goal** (required) — Sell product, generate leads, educate audience, build authority
-3. **Product/Offer** (required if selling) — What will be pitched at the end
-4. **Duration** (optional) — 45 min, 60 min, 90 min (default: 60 min)
-5. **Audience** (optional) — Target attendees and their awareness level
-6. **Tone** (optional) — Educational, inspiring, urgent, conversational
-7. **Platform** (optional) — Zoom, YouTube Live, Instagram Live, StreamYard
-
-## Webinar Type Specifications
-
-### Sales Webinar (Pitch at the End)
-
-**Structure (60 min):**
-
-| Section | Time | Purpose |
-|---------|------|---------|
-| Abertura e promessa | 0-5 min | Hook + set expectations |
-| Credibilidade | 5-10 min | Why listen to you |
-| Conteúdo #1 (O quê) | 10-20 min | Framework/concept |
-| Conteúdo #2 (Por quê) | 20-30 min | Proof + case studies |
-| Conteúdo #3 (Como) | 30-40 min | Partial how-to (creates gap) |
-| Transição para oferta | 40-45 min | Bridge to pitch |
-| Apresentação da oferta | 45-55 min | Full pitch with stack |
-| Q&A + fechamento | 55-60 min | Handle objections live |
-
-**Key principle:** Deliver enough value to establish authority but create a "gap" that only the paid product fills.
-
-### Educational Webinar (No Pitch)
-
-**Structure (45-60 min):**
-
-| Section | Time | Purpose |
-|---------|------|---------|
-| Abertura e contexto | 0-5 min | Why this topic matters now |
-| Conteúdo principal | 5-35 min | Deep teaching with exercises |
-| Demonstração prática | 35-45 min | Live implementation |
-| Q&A | 45-55 min | Audience questions |
-| Próximos passos | 55-60 min | Resources + soft CTA |
-
-### Hybrid Webinar (Value + Soft Pitch)
-
-**Structure (75-90 min):**
-
-| Section | Time | Purpose |
-|---------|------|---------|
-| Abertura | 0-5 min | Hook and promise |
-| Conteúdo denso #1-3 | 5-45 min | Heavy value delivery |
-| Case study ao vivo | 45-55 min | Implementation demo |
-| "Para quem quer ir além" | 55-65 min | Natural transition to offer |
-| Oferta leve | 65-75 min | Low-pressure pitch |
-| Q&A | 75-90 min | Questions and closing |
-
-## Script Framework
-
-### Opening Script (First 5 Minutes)
+## Dispatch — Fase 1 (paralelo, single message)
 
 ```
-HOOK (30 seconds):
-"[Bold statement or question that creates curiosity]"
-"Today I'm going to show you [specific promise]..."
+- Agent(subagent_type: "mos-launch", prompt: "Estratégia de webinar [live/perpetual] para [produto]: posicionamento da oferta, pitch timing dentro da [duração], escassez/urgência, garantia, FAQ ao vivo. Modelo: [PLF perpetual / live launch].")
 
-PROMISE (60 seconds):
-"By the end of this [webinar/masterclass], you will:
-✓ [Outcome 1 — most desired result]
-✓ [Outcome 2 — secondary benefit]
-✓ [Outcome 3 — unexpected bonus]"
+- Agent(subagent_type: "mos-funnel", prompt: "Funil de webinar completo: registro → página confirmação → reminder emails → live/replay → reposicionamento → encerramento de carrinho. Mapear pontos de queda esperados em cada step e taxas benchmark.")
 
-CREDIBILITY (90 seconds):
-"My name is [Name], and [brief relevant credential].
-I've [specific results achieved].
-[Optional: social proof numbers]"
-
-RULES/ENGAGEMENT (60 seconds):
-"To get the most out of this:
-1. Close all other tabs
-2. Take notes
-3. Type questions in the chat
-4. Stay until the end for [bonus/surprise]"
+- Agent(subagent_type: "mos-video", prompt: "Estrutura do webinar de [duração] minutos: hook (0-5min), agenda (5-10min), conteúdo de valor (10-X min), transição pra oferta, pitch (Y-Z min), garantia, Q&A ao vivo. Aplicar ciência de retenção.")
 ```
 
-### Content Delivery Framework
-
-Each content block should follow:
+## Fase 2 (sequencial, depende dos 3 outputs da Fase 1)
 
 ```
-CONTENT BLOCK [N]: [Title]
+- Agent(subagent_type: "mos-copy", prompt: "Página de registro do webinar + headline atrativa + 3 emails: registro (confirmação), reminder dia anterior, reminder 1h antes. Baseado no posicionamento da Fase 1: [colar resumo mos-launch].")
 
-1. CONTEXT (2 min):
-   "Most people think [common belief]...
-   But the truth is [reframe]"
-
-2. FRAMEWORK (5 min):
-   [Present your method/system with clear steps]
-   Step 1: [Action]
-   Step 2: [Action]
-   Step 3: [Action]
-
-3. PROOF (3 min):
-   "Here's what happened when [client/case] applied this:
-   [Specific result with numbers]"
-
-4. TRANSITION:
-   "[Bridge to next content block or to the offer]"
+- Agent(subagent_type: "mos-email", prompt: "Sequência completa de webinar: 4 emails pré-webinar (registro/lembretes), 1 email dia (link), 3 emails pós-webinar (replay → últimas vagas → encerramento de carrinho). Aplicar quality gates.")
 ```
 
-### Pitch Transition Script
+## Fase 3: Quality Gates + Tracking
 
-```
-BRIDGE (2 minutes):
-"So at this point, you know:
-✓ [What they learned in content #1]
-✓ [What they learned in content #2]
-✓ [What they learned in content #3]
+- Gates globais aplicados em todo conteúdo
+- Compliance regulatório por nicho
+- Recomendar setup de tracking via `mos-analytics` (eventos: registro, no-show, live attendance, replay watch, conversion)
 
-Now the question is: HOW do you implement all of this?
+## Consolidação
 
-You have two options:
-1. Do it yourself — figure out the details, make mistakes, learn over months
-2. Follow a proven system that gives you [result] in [time]
+```markdown
+## Webinar: [Tema] — Modelo [live/perpetual]
 
-That's exactly why I created [Product Name]..."
-```
+### Estratégia (mos-launch)
+[Posicionamento + pitch timing + escassez]
 
-## Slides Outline Framework
+### Funil (mos-funnel)
+[Steps + pontos de queda + benchmarks]
 
-| Slide # | Content | Purpose |
-|---------|---------|---------|
-| 1 | Title + speaker name + date | Branding |
-| 2 | "What you will learn today" — 3 promises | Set expectations |
-| 3 | About the speaker — credibility | Authority |
-| 4-6 | Content Block 1 | Teaching |
-| 7 | Case study / result | Proof |
-| 8-10 | Content Block 2 | Teaching |
-| 11 | Before/After comparison | Visualization |
-| 12-14 | Content Block 3 | Teaching |
-| 15 | Recap — "what you've learned" | Summary |
-| 16 | Bridge to offer | Transition |
-| 17 | Product introduction | Pitch |
-| 18 | Value stack — everything included | Value |
-| 19 | Pricing + bonuses | Offer |
-| 20 | Guarantee | Risk reversal |
-| 21 | Urgency + CTA | Close |
-| 22 | FAQ | Objections |
-| 23 | Final CTA + link | Action |
+### Roteiro (mos-video, [duração]min)
+[Bloco a bloco com timestamps]
 
-## Email Sequences
+### Página de Registro + Headlines (mos-copy)
+[Página + headline + CTAs]
 
-### Pre-Webinar Sequence
+### Sequência de Emails (mos-email)
+**Pré-webinar:**
+1. Email confirmação registro
+2. Email reminder D-1
+3. Email reminder 1h antes
+4. Email "estamos ao vivo!"
 
-| Day | Email | Subject Line Pattern |
-|-----|-------|---------------------|
-| Registration | Confirmação + instruções | "Sua vaga está confirmada..." |
-| D-3 | Antecipação + o que esperar | "[Nome], prepare-se para..." |
-| D-1 | Lembrete + bônus por assistir | "Amanhã: não perca isso..." |
-| D-0 (manhã) | Último lembrete | "Começa em [X] horas..." |
-| D-0 (15 min) | Link de acesso | "Estamos ao vivo! Entre agora" |
+**Pós-webinar:**
+5. Email replay
+6. Email últimas vagas
+7. Email encerramento
 
-### Post-Webinar Sequence (Buyers)
-
-| Day | Email | Purpose |
-|-----|-------|---------|
-| D+0 | Boas-vindas + acesso | Onboarding imediato |
-| D+1 | Primeiros passos | Reduzir buyer's remorse |
-| D+3 | Dica rápida de implementação | Quick win |
-| D+7 | Check-in + suporte | Retenção |
-
-### Post-Webinar Sequence (Non-Buyers)
-
-| Day | Email | Purpose |
-|-----|-------|---------|
-| D+0 | Replay disponível | Segunda chance |
-| D+1 | Depoimento + resultado | Prova social |
-| D+2 | FAQ — objeções respondidas | Eliminar barreiras |
-| D+3 | Bônus extra (tempo limitado) | Incentivo |
-| D+4 | Último dia do replay | Urgência |
-| D+5 | Encerramento + próximos passos | Fechamento |
-
-## Output Structure
-
-Deliver the webinar in this format:
-
-```
-## WEBINAR PACKAGE
-
-🎤 TOPIC: [Webinar topic]
-🎯 GOAL: [Sell / Educate / Build authority]
-⏱️ DURATION: [X] minutes
-💰 OFFER: [Product being pitched, if applicable]
-📱 PLATFORM: [Recommended platform]
-
----
-
-### WEBINAR SCRIPT
-
-[Complete word-for-word script organized by section with timestamps]
-
-**[00:00-05:00] OPENING**
-[Full opening script]
-
-**[05:00-10:00] CREDIBILITY**
-[Full credibility section]
-
-**[10:00-20:00] CONTENT BLOCK 1: [Title]**
-[Full teaching script]
-
-[Continue for all sections...]
-
----
-
-### SLIDES OUTLINE
-
-[Numbered slide descriptions with key visual elements]
-
----
-
-### REGISTRATION PAGE COPY
-
-**Headline:** "[Headline]"
-**Subheadline:** "[Subheadline]"
-**What you will learn:**
-• [Bullet 1]
-• [Bullet 2]
-• [Bullet 3]
-**Speaker bio:** [Short bio]
-**CTA:** "[Registration button text]"
-
----
-
-### PRE-WEBINAR EMAIL SEQUENCE
-
-[Complete emails with subject lines, body copy, and timing]
-
----
-
-### POST-WEBINAR EMAIL SEQUENCE
-
-**For buyers:**
-[Complete sequence]
-
-**For non-buyers:**
-[Complete sequence with replay and urgency]
-
----
-
-### ENGAGEMENT TACTICS
-
-[Chat prompts, poll questions, exercises to keep audience engaged]
-
----
-
-### METRICS TO TRACK
-
-| Metric | Target |
-|--------|--------|
-| Registration rate | > 30% of traffic |
-| Attendance rate | > 35% of registrants |
-| Stay rate (until pitch) | > 60% |
-| Conversion rate | > 5-15% |
-| Replay conversion | > 3-5% |
+### Setup de tracking (sugestão)
+[Eventos pra GA4/Meta Pixel]
 ```
 
-## Final Ask
+## Por que essa orquestração
 
-After delivering the webinar package, ask:
-
-"Would you like me to:
-1. Expand the script for a specific section with more detail?
-2. Create the full registration landing page?
-3. Write ad copy to drive registrations?
-4. Generate the slide designs (visual direction for each slide)?
-5. Create a follow-up content strategy for attendees?"
+Sem `mos-launch`: webinar vira aula sem venda (não tem estratégia de oferta). Sem `mos-funnel`: cada step do funil sai isolado. Sem `mos-video`: roteiro não respeita ciência de retenção. Fase 2 (copy + email) depende de saber QUAL é a oferta e onde está o pitch — por isso sequencial.

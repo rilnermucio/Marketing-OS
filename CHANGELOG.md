@@ -7,6 +7,48 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [6.4.0] — 2026-05-07 (commands dispatch + release automation + Tier 2 audit)
+
+### Added (release automation)
+- `.github/workflows/release.yml`: tag push (`v*.*.*`) auto-creates GitHub Release
+  with notes extraídos da seção do CHANGELOG correspondente. Anexa CHANGELOG/README/AGENTS.
+
+### Added (commands dispatch — partial)
+6 commands prioritários reescritos no padrão dispatch-based, agora chamando
+os subagents nativos conforme workflows do SKILL.md:
+
+- `/criar-carrossel` → workflow #8 (`mos-social` + `mos-copy` + `mos-design` paralelo)
+- `/criar-landing-page` → workflow #5 (`mos-funnel` + `mos-copy` + `mos-design` → opt
+  handoff `frontend-design`)
+- `/criar-webinar` → workflow #6 (Fase 1 `mos-launch` + `mos-funnel` + `mos-video`,
+  Fase 2 `mos-copy` + `mos-email`)
+- `/criar-funil` → `mos-funnel` (+ `mos-research` se cliente novo)
+- `/criar-infoproduto` → workflow #7 completo (4 fases: research → structure+launch+funnel
+  → copy+email+ads → quality gates)
+- `/criar-video` → workflow #9 pra VSL (`mos-storytelling` + `mos-copy` + `mos-video`),
+  dispatch simples pros outros formatos
+- `/clonar-estrategia` → workflow #10 (`mos-research` + `mos-brand` → `mos-copy` voice clone)
+
+**Status commands:** 9 de 25 commands agora dispatcham `mos-*` corretamente
+(`/criar-post`, `/criar-meu-clone` já estavam + 7 novos). Os 16 restantes seguem
+como follow-up pra próximas releases — workaround documentado em TROUBLESHOOTING.
+
+### Documented (Tier 2 audit findings)
+Auditoria via grep dos 3 KBs mais críticos vs workflows novos:
+- `launch-agent.md` (5289 linhas) ✅ PLF, perpétuo, webinar, email lançamento — completo
+- `funnel-agent.md` (2287 linhas) ⚠️ webinar funnel (1 ref), página aplicação (2),
+  anti-avatar (3) — fraco pros workflows #5 e #6 → expansão pra v6.5.x
+- `copy-agent.md` (4203 linhas) ⚠️ "big idea" (0), "stack value" (0) — gaps reais
+  pro workflow #9 VSL → expansão pra v6.5.x
+
+### Deferred (v6.5.x)
+- 16 commands restantes pra dispatch-based pattern
+- Expansão Tier 2: `funnel-agent` (webinar funnel + BOFU page) e `copy-agent`
+  (big idea + stack value frameworks)
+- Validation real do orquestrador (rodar VALIDATION-GUIDE em sessão dedicada)
+
+---
+
 ## [6.3.1] — 2026-05-07 (CI threshold realistic)
 
 ### Fixed
