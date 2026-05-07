@@ -18,24 +18,24 @@
 2. [PARTE II: Master Frameworks](#parte-ii)
 3. [PARTE II-B: Estilos de Escrita dos Mestres](#parte-ii-b)
 4. [PARTE III: Headlines, Hooks e Leads](#parte-iii)
-4. [PARTE IV: Técnicas Avançadas de Persuasão](#parte-iv)
-5. [PARTE V: CTAs — Chamadas para Ação](#parte-v)
-6. [PARTE VI: AI-Assisted Copywriting](#parte-vi)
-7. [PARTE VII: UX Writing e Microcopy](#parte-vii)
-8. [PARTE VIII: Copy Conversacional](#parte-viii)
-9. [PARTE IX: Microformatos — SMS, Push, X/Twitter, Threads](#parte-ix)
-10. [PARTE X: Copy por Plataforma](#parte-x)
-11. [PARTE XI: Copy por Nicho](#parte-xi)
-12. [PARTE XII: Copy para E-Commerce](#parte-xii)
-13. [PARTE XIII: Tom de Voz e Adaptação](#parte-xiii)
-14. [PARTE XIV: Compliance e Legal](#parte-xiv)
-15. [PARTE XV: Copy Scoring System](#parte-xv)
-16. [PARTE XVI: Tendências de Copy 2026](#parte-xvi)
-17. [PARTE XVII: Erros Fatais de Copy](#parte-xvii)
-18. [PARTE XVIII: Diagnóstico e Checklists](#parte-xviii)
-19. [PARTE XIX: Case Studies](#parte-xix)
-20. [PARTE XX: Referências Cruzadas](#parte-xx)
-21. [APÊNDICE: Glossário, Power Words, Livros](#apêndice)
+5. [PARTE IV: Técnicas Avançadas de Persuasão](#parte-iv)
+6. [PARTE V: CTAs, Chamadas para Ação](#parte-v)
+7. [PARTE VI: AI-Assisted Copywriting](#parte-vi)
+8. [PARTE VII: UX Writing e Microcopy](#parte-vii)
+9. [PARTE VIII: Copy Conversacional](#parte-viii)
+10. [PARTE IX: Microformatos, SMS, Push, X/Twitter, Threads](#parte-ix)
+11. [PARTE X: Copy por Plataforma](#parte-x)
+12. [PARTE XI: Copy por Nicho](#parte-xi)
+13. [PARTE XII: Copy para E-Commerce](#parte-xii)
+14. [PARTE XIII: Tom de Voz e Adaptação](#parte-xiii)
+15. [PARTE XIV: Compliance e Legal](#parte-xiv)
+16. [PARTE XV: Copy Scoring System](#parte-xv)
+17. [PARTE XVI: Tendências de Copy 2026](#parte-xvi)
+18. [PARTE XVII: Erros Fatais de Copy](#parte-xvii)
+19. [PARTE XVIII: Diagnóstico e Checklists](#parte-xviii)
+20. [PARTE XIX: Case Studies](#parte-xix)
+21. [PARTE XX: Referências Cruzadas](#parte-xx)
+22. [APÊNDICE: Glossário, Power Words, Livros](#apêndice)
 
 ---
 
@@ -495,6 +495,8 @@ DEPOIS: "7 modelos para faturar R$5k/mês online em 90 dias (sem investir em ads
 ---
 
 # PARTE II-B: ESTILOS DE ESCRITA DOS MESTRES
+
+> **AVISO**: As 10 entradas abaixo são RESUMOS para consulta rápida. Para fidelidade real ao estilo, **SEMPRE leia primeiro** `assets/clones/{nome}/voice.md` (ver PARTE XV-B). Os resumos inline servem para identificação e seleção, NÃO para geração de copy fiel ao mestre. Há 35 clones disponíveis com dossiês profundos de 4 arquivos cada.
 
 ## Protocolo de Ativação de Estilo
 
@@ -1097,7 +1099,7 @@ ver como funciona."
 DNA DO ESTILO:
 ├── Tom: Acadêmico acessível, baseado em evidências, fascinante
 ├── Cadência: Evidência → explicação → aplicação prática
-├── Marca registrada: 7 princípios da persuasão com base científica
+├── Marca registrada: 7 princípios da persuasão com base científica (6 originais de "Influence" 1984 + Unidade adicionado em "Pre-Suasion" 2016)
 ├── Frase-chave: "A persuasão mais eficaz acontece antes da mensagem."
 └── Melhor para: Copy educativa, B2B, produtos complexos, autoridade
 
@@ -1251,6 +1253,12 @@ Acadêmico e baseado em evidência  → Robert Cialdini
 ---
 
 # PARTE III: HEADLINES, HOOKS E LEADS
+
+> **PROTOCOLO OBRIGATÓRIO antes de gerar headlines/hooks/CTAs:**
+> 1. Leia `assets/swipe-files/headlines-virais.md` para ancorar em fórmulas testadas
+> 2. Para hooks de Reels/TikTok/Shorts, leia `assets/swipe-files/hooks-reels.md`
+> 3. Para CTAs, leia `assets/swipe-files/ctas-conversao.md`
+> Use os arquivos como referência (não cópia). Geração do zero sem consulta = saída fraca.
 
 ## 3.1 As 10 Fórmulas de Headlines Universais
 
@@ -1529,7 +1537,9 @@ SUCESSO: "E finalmente viva fazendo o que ama"
 
 ---
 
-# PARTE V: CTAs — CHAMADAS PARA AÇÃO
+# PARTE V: CTAs, CHAMADAS PARA AÇÃO
+
+> **ANTES DE GERAR CTAs**: consulte `assets/swipe-files/ctas-conversao.md` para banco de CTAs testados em campanhas reais.
 
 ## 5.1 Anatomia do CTA Perfeito
 
@@ -1656,10 +1666,10 @@ se foi humano ou IA, porque o humano refinou.
 TIER 1: MODELOS DE LINGUAGEM (Para Copy)
 
 CLAUDE (Anthropic)
-├── Modelo: Claude Opus 4.6 / Sonnet 4.5
-├── Força: Nuance, tom de voz, copy longa
-├── Preço: Pay-per-use (API) ou $20/mês (Pro)
-├── Melhor para: Sales copy, emails, landing pages
+├── Modelo: Claude Opus 4.7 / Sonnet 4.6 / Haiku 4.5
+├── Força: Nuance, tom de voz, copy longa, contexto extenso (1M)
+├── Preço: Pay-per-use (API) ou $20/mês (Pro), $200/mês (Max)
+├── Melhor para: Sales copy, emails, landing pages, agentic workflows
 └── Dica: Excelente em entender contexto cultural PT-BR
 
 CHATGPT (OpenAI)
@@ -2583,6 +2593,217 @@ Prova: Reviews, fotos reais, unboxing
 Cuidado: Copy honesta sobre produto
 ```
 
+## 11.2 Verticais Especializados (Exemplos Aplicados)
+
+Os 10 nichos acima são generalistas. Para verticais com regras próprias, use os exemplos abaixo como referência de voz.
+
+### B2B SaaS / Enterprise
+
+```
+TOM: Sofisticado, ROI-driven, evidência > hype.
+Decisor é técnico ou C-level que avalia TCO.
+
+NÃO faça: "Aumente suas vendas 10x!"
+NÃO faça: "A solução definitiva para seu negócio"
+NÃO faça: Linguagem de info-produto BR
+
+FAÇA:
+"Sua integração de APIs está custando R$340K/ano em
+downtime evitável.
+
+Empresas com observability instrumentado reduzem MTTR
+de 4h para 18min em média (relatório DORA 2025).
+
+Veja como a Magazine Luiza cortou incidentes em 73%
+em 90 dias: [case study].
+
+Avaliação técnica em 30 dias, sem custo. POC com
+seu time de SRE."
+
+PALAVRAS-CHAVE: TCO, ARR, churn, MRR, MTTR, SLO, integration,
+deployment, observability, scalability, compliance.
+
+PROVA: cases nominais (Magazine Luiza, Nubank, iFood),
+métricas técnicas concretas, integrações listadas.
+
+CUIDADO: Decisor B2B não compra por hype. Compra por
+redução de risco percebido. Posicione como "aumento de
+certeza" mais do que "aumento de resultado".
+```
+
+### Premium / Luxury
+
+```
+TOM: Restraint. Exclusividade real, não fabricada.
+Menos é mais. O que NÃO está dito comunica.
+
+NÃO faça: Headlines longas explicando benefícios
+NÃO faça: Lista de features
+NÃO faça: Urgência fabricada ("últimas 3 vagas!")
+
+FAÇA:
+"Por convite.
+
+Lista de espera: 18 meses.
+
+[Aceitar convite]"
+
+OU:
+
+"Feito a mão por sete artesãos em Florença,
+durante onze semanas.
+
+Edição numerada de 24 unidades.
+
+Quem precisa, sabe.
+
+[Solicitar peça]"
+
+PALAVRAS-CHAVE: artesão, herança, atemporal, edição,
+numerado, único, feito sob medida, atelier.
+
+PROVA: Implícita. Cliente premium reconhece sinais
+sem precisar de "vendido em" ou "visto em".
+
+CUIDADO: Cliente premium recusa marca que vende
+"premium" abertamente. A copy precisa não soar
+vendedora. O produto se vende pela contenção.
+```
+
+### Healthtech / Saúde Regulada
+
+```
+TOM: Empático, evidence-based, regulado.
+ANVISA / CFM / CRM são pano de fundo de toda decisão.
+
+NÃO faça: "Cura definitiva para [condição]"
+NÃO faça: "Resultados garantidos em 30 dias"
+NÃO faça: Antes/depois com promessa milagrosa
+NÃO faça: Substituir consulta médica
+
+FAÇA:
+"Telemedicina aprovada pela CFM resolução 2.314/2022.
+
+Médicos especialistas em endocrinologia disponíveis
+em até 48h, com prescrição digital integrada à
+sua farmácia.
+
+Estudo clínico com 1.247 pacientes mostrou aderência
+terapêutica 41% maior em consultas digitais
+(publicado no JAMA Internal Medicine, agosto 2025).
+
+Sua primeira consulta: R$89.
+
+[Agendar consulta]
+
+Este conteúdo é informativo. Não substitui avaliação
+médica presencial em casos de emergência."
+
+PALAVRAS-CHAVE: indicação, eficácia, aderência, evidência
+clínica, randomizado, peer-reviewed, registro ANVISA.
+
+PROVA: Estudos publicados em journals reconhecidos,
+registros regulatórios, credenciais médicas verificáveis.
+
+CUIDADO: Disclaimer obrigatório. Toda copy de saúde no BR
+exige menção de "este conteúdo não substitui consulta
+médica" ou variantes. Promessas específicas exigem
+respaldo clínico publicado.
+```
+
+### Fintech / Treasury Corporate
+
+```
+TOM: Institucional, compliance-aware, security-first.
+Decisor é CFO, tesoureiro, ou risk officer.
+
+NÃO faça: "Multiplique seu dinheiro!"
+NÃO faça: "Renda fixa que rende 200% do CDI"
+NÃO faça: Promessa de retorno garantido (proibido pela CVM)
+
+FAÇA:
+"Sua tesouraria movimenta R$50M/dia em planilhas
+controladas por três pessoas.
+
+E quando uma fórmula quebra?
+
+A reconciliação manual entre 40+ contas bancárias
+custou em média 84 horas/mês ao seu setor financeiro
+em 2025 (benchmark Deloitte).
+
+Treasury management automatizado, integrado via Open
+Finance regulamentado pelo Bacen, com auditoria
+SOC 2 Type II.
+
+Implementação em 60 dias com seu time atual.
+SLA contratual de uptime 99.95%.
+
+[Avaliar implementação]
+
+Investimentos envolvem riscos. Rentabilidade passada
+não garante resultados futuros. Operação registrada
+junto à CVM sob nº [registro]."
+
+PALAVRAS-CHAVE: compliance, auditoria, reconciliation,
+treasury, risk management, Open Finance, Bacen, SOC 2,
+PCI-DSS, regulação CVM.
+
+PROVA: Certificações regulatórias, compliance reports,
+clientes nominais (com autorização), volume processado.
+
+CUIDADO: Disclaimer CVM obrigatório. Toda comunicação
+de produto financeiro exige menção a riscos. Não usar
+"renda garantida", "ganho certo" ou superlativos sem
+respaldo. Compliance > criatividade.
+```
+
+### Educação / Academic
+
+```
+TOM: Autoridade educada, pedagógico.
+Respeita a inteligência do aluno. Não infantiliza.
+
+NÃO faça: "Aprenda em 7 dias!"
+NÃO faça: "O método secreto que ninguém ensina"
+NÃO faça: Tratar conceito complexo como trivial
+
+FAÇA:
+"Antes de discutirmos política monetária, precisamos
+distinguir três conceitos que muita gente trata como
+sinônimos: meta de inflação, taxa Selic e juros reais.
+
+Os três se relacionam, mas governam decisões diferentes.
+
+Confundi-los é a razão pela qual analistas amadores
+erram previsão sobre Copom em 73% das vezes
+(estudo Anbima 2024).
+
+Neste curso, você vai construir um modelo mental
+preciso desses três conceitos, antes de aplicar a
+casos reais brasileiros entre 2015-2025.
+
+Aulas com Professor [Nome], PhD em Economia pela
+[Universidade], ex-economista do [BC/banco].
+
+8 semanas. R$1.840 (parcelável em 12x).
+Certificado validado pela [instituição].
+
+[Ver ementa completa]"
+
+PALAVRAS-CHAVE: ementa, módulo, syllabus, peer-reviewed,
+metodologia, pedagogia, taxonomia de Bloom, certificado,
+credencial, faculty, alumni.
+
+PROVA: Credenciais acadêmicas verificáveis, ementa
+detalhada, exemplos de alunos egressos, instituições
+parceiras, papers publicados pelo professor.
+
+CUIDADO: Aluno educado reconhece pedagogia rasa
+imediatamente. A copy precisa demonstrar profundidade
+sem soar acadêmica seca. O equilíbrio é difícil mas
+distingue educação séria de info-produto disfarçado.
+```
+
 ---
 
 # PARTE XII: COPY PARA E-COMMERCE
@@ -2827,6 +3048,15 @@ revisado por [profissional/equipe]."
 
 # PARTE XV: COPY SCORING SYSTEM
 
+> **DUAS CAMADAS DE SCORING (use ambas):**
+>
+> 1. **Conceitual (esta seção)** — framework de 5 dimensões para avaliação humana/agent. Use para decidir entre variações, refinar copy, e justificar escolhas.
+> 2. **Operacional (`scripts/quality_gate.py`)** — lint automatizado que checa acentuação PT-BR, força do hook, qualidade do CTA, legibilidade, formato por tipo (post/artigo/email/landing-page/anuncio), hashtags. Retorna score 0-100 + classificação.
+>
+> **Workflow recomendado**: gerar variações → score conceitual mental (esta seção) → escolher top 3 → rodar `python3 scripts/quality_gate.py {arquivo} --type {tipo}` → ajustar issues → entregar.
+>
+> As duas camadas medem coisas diferentes: conceitual mede qualidade da estratégia de copy; operacional mede execução técnica e compliance com regras MOS. Não são redundantes.
+
 ## 15.1 Framework de Avaliação
 
 ```
@@ -2904,6 +3134,8 @@ público seja técnico e espera complexidade).
 ---
 
 # PARTE XVI: TENDÊNCIAS DE COPY 2026
+
+> **AVISO DE FACT-CHECK**: Os números abaixo são direcionais (representam tendências observadas no mercado), não citações exatas. ANTES de citar qualquer dado em copy publicada, valide via WebSearch e busque a fonte primária. Se não confirmar, não cite. Se confirmar, atribua a fonte.
 
 ## 16.1 As 10 Tendências
 
@@ -3423,48 +3655,123 @@ COMPLEMENTARES:
     (UX writing e microcopy)
 ```
 
-## PARTE XV-B: SEÇÃO CLONE — PERSONALIZAÇÃO DE VOZ
+## PARTE XV-B: SEÇÃO CLONE, PERSONALIZAÇÃO DE VOZ
 
-O Copy Agent suporta **clones de voz** que personalizam estilo, tom e frameworks de copywriting lendários.
+O Copy Agent tem acesso a **35 voice clones** profundos em `assets/clones/`, cada um com 4 arquivos especializados.
 
-### Clone por Tipo de Conteúdo
+### Protocolo Obrigatório
+
+Quando o usuário pedir copy "no estilo de X" ou "como X escreveria":
+
+1. **SEMPRE leia primeiro** `assets/clones/{nome}/voice.md` (guia de tom, cadência, anti-padrões com exemplos PT-BR)
+2. **Se precisar de frameworks específicos do autor**, leia `assets/clones/{nome}/frameworks.md`
+3. **Para exemplos aplicados**, leia `assets/clones/{nome}/examples.md`
+4. **Para contexto biográfico/credenciais**, leia `assets/clones/{nome}/profile.md`
+5. SÓ ENTÃO escreva. Os resumos inline da PARTE II-B são **degradação** comparados aos arquivos profundos.
+
+### Estrutura por Clone (4 arquivos cada)
+
+```
+assets/clones/{nome}/
+├── profile.md       # Bio, credenciais, contexto histórico
+├── frameworks.md    # Frameworks proprietários do autor
+├── voice.md         # Guia de voz e tom (LER PRIMEIRO)
+└── examples.md      # Exemplos aplicados PT-BR
+```
+
+### Inventário Completo dos 35 Clones
+
+#### Mestres Clássicos do Copywriting (10)
+`caples`, `cialdini`, `collier`, `halbert`, `hopkins`, `kennedy`, `ogilvy`, `provost`, `schwartz`, `sugarman`
+
+#### Marketers e Copywriters Modernos (12)
+`abraham`, `brunson`, `ellis`, `ezra-firestone`, `gadzhi`, `garyvee`, `godin`, `hormozi`, `leila-hormozi`, `miller`, `patel`, `welsh`
+
+#### Creators e Educators (8)
+`abdaal`, `chen`, `cole`, `howell`, `mrbeast`, `rachitsky`, `suby`, `mel-robbins`
+
+#### BR/PT Specialists (3)
+`conrado`, `flavio-augusto`, `joel-jota`
+
+#### Business Strategists (2)
+`codie-sanchez`
+
+> Total verificado: **35 clones × 4 arquivos = 140 arquivos** em `assets/clones/`. Manifest em `assets/clones/clone-manifest.yaml`.
+
+### Mapa Rápido: Tipo de Conteúdo → Clone Recomendado
 
 | Tipo de Conteúdo | Clone Primário | Clone Alternativo |
-|-------------------|---------------|-------------------|
-| Copy de vendas | Hormozi | Halbert |
-| Landing page | Schwartz | Hormozi |
-| Anúncio | Hormozi | Schwartz |
-| Email marketing | Halbert | Ogilvy |
-| Artigo SEO | Ogilvy | Schwartz |
-| Post LinkedIn | Ogilvy | Schwartz |
-| Newsletter | Halbert | Ogilvy |
-
-### Referência Rápida dos 5 Clones
-
-| Clone | Tom | Frameworks | Quando Usar |
-|-------|-----|-----------|-------------|
-| **Hormozi** | Direto, números concretos, sem enrolação | Value Equation, Grand Slam Offer | Ofertas, VSL, copy de alta conversão |
-| **Ogilvy** | Elegante, research-driven, sofisticado | Headlines Formula, AIDA clássico | Branding, artigos, conteúdo institucional |
-| **Halbert** | Conversacional, urgente, storytelling pessoal | Boron Letters, PAS emocional | Sales letters, emails, copy pessoal |
-| **Schwartz** | Analítico, preciso, científico | 5 Awareness Levels, Breakthrough Ads | Copy segmentado por nível de consciência |
-| **Brunson** | Energético, storytelling, frameworks visuais | Hook-Story-Offer, Perfect Webinar | Funis, webinars, roteiros de vídeo |
+|-------------------|----------------|-------------------|
+| Sales letter / VSL | `halbert` | `kennedy` |
+| Landing page de oferta | `hormozi` | `schwartz` |
+| Anúncio direct response | `kennedy` | `hormozi` |
+| Email marketing pessoal | `halbert` | `collier` |
+| Email B2B sofisticado | `ogilvy` | `cialdini` |
+| Artigo SEO com autoridade | `ogilvy` | `hopkins` |
+| Post LinkedIn educativo | `godin` | `abdaal` |
+| Roteiro YouTube longo | `mrbeast` | `abdaal` |
+| Roteiro Reels/Shorts | `mrbeast` | `garyvee` |
+| Webinar / lançamento | `brunson` | `schwartz` |
+| Long-form storytelling | `sugarman` | `provost` |
+| Copy científico/B2B | `cialdini` | `hopkins` |
+| Copy de produtividade BR | `joel-jota` | `conrado` |
+| Copy de empreendedorismo BR | `flavio-augusto` | `conrado` |
+| Headlines testáveis | `caples` | `hopkins` |
+| Copy emocional poética | `provost` | `collier` |
 
 ### Exemplo de Aplicação
 
-**Sem clone:**
+**Briefing**: "Crie copy de vendas para curso de produtividade, estilo Halbert"
+
+**Workflow correto:**
+
+1. Read `assets/clones/halbert/voice.md` → captura tom conversacional, urgência narrativa, vulnerabilidade
+2. Read `assets/clones/halbert/frameworks.md` → captura Boron Letters structure, PS técnica
+3. Read `assets/clones/halbert/examples.md` → vê exemplos PT-BR aplicados
+4. Aí sim, escreve a copy com fidelidade real ao Halbert (não simulação a partir de resumo)
+
+**Comparação:**
+
 ```
-Nosso curso vai te ajudar a crescer seu negócio.
-Aprenda as melhores estratégias de marketing.
+Sem ler voice.md (a partir de PARTE II-B inline):
+"Preciso te contar uma coisa. 3 anos atrás eu estava quebrado..."
+└── Captura SUPERFICIE do estilo (frases curtas, pessoal)
+
+Com voice.md lido primeiro:
+"Oi, preciso te contar uma coisa. Na semana passada aconteceu algo que
+mudou completamente a forma como eu penso sobre produtividade. E eu
+simplesmente não consigo guardar isso para mim."
+└── Captura PROFUNDIDADE (intimidade, urgência narrativa não-artificial,
+    transição que parece carta para amigo)
 ```
 
-**Com clone Hormozi:**
+### Combinações de Clones (estilo híbrido)
+
 ```
-Este curso transforma R$1 investido em R$37 de retorno.
-217 alunos já escalaram de 5 para 6 dígitos em 90 dias.
-A única pergunta é: você quer continuar perdendo dinheiro?
+PROTOCOLO:
+1. Leia voice.md de AMBOS os clones
+2. Aplique 70% do clone primário + 30% do secundário
+3. Valide: o texto soa coerente?
+
+COMBINAÇÕES PODEROSAS:
+├── halbert + sugarman → Carta pessoal + slippery slide
+├── hormozi + schwartz → Oferta agressiva + awareness
+├── ogilvy + cialdini → Premium + ciência da persuasão
+├── kennedy + halbert → Direct response sem filtro + íntimo
+├── brunson + schwartz → Funis + canalização de desejo
+└── provost + collier → Poesia + empatia
 ```
 
-**Como ativar:** Mencione o clone no briefing: "criar copy de vendas com estilo Hormozi para nicho fitness".
+### Triggers de Ativação
+
+Quando o usuário diz qualquer um destes, ATIVE o protocolo de Read antes de gerar:
+- "no estilo de [autor]"
+- "copy estilo [autor]"
+- "use o tom do [autor]"
+- "como [autor] escreveria"
+- "à la [autor]"
+- "quero algo bem [autor]"
+- Direto: "estilo Halbert", "Hormozi style", "Cialdini approach"
 
 ---
 
