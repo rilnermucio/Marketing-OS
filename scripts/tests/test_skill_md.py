@@ -45,7 +45,7 @@ def test_skill_md_has_required_fields(skill_md: tuple[dict, str]) -> None:
 def test_skill_md_name_matches_plugin(skill_md: tuple[dict, str], project_root: Path) -> None:
     import json
     fm, _ = skill_md
-    plugin = json.loads((project_root / "plugin.json").read_text(encoding="utf-8"))
+    plugin = json.loads((project_root / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8"))
     assert fm["name"] == plugin["name"], (
         f"SKILL.md name='{fm['name']}' should match plugin.json name='{plugin['name']}'"
     )

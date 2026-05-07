@@ -13,7 +13,7 @@ EXPECTED_NAME = "marketing-os"
 
 @pytest.fixture(scope="module")
 def plugin_manifest(project_root: Path) -> dict:
-    manifest_path = project_root / "plugin.json"
+    manifest_path = project_root / ".claude-plugin" / "plugin.json"
     assert manifest_path.exists(), f"plugin.json missing: {manifest_path}"
     return json.loads(manifest_path.read_text(encoding="utf-8"))
 

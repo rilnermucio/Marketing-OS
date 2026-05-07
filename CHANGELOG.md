@@ -7,6 +7,22 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [6.1.5] — 2026-05-07
+
+### Fixed
+- Moved plugin manifest from root `plugin.json` to canonical `.claude-plugin/plugin.json`.
+  Claude Desktop's plugin validator requires the canonical location and rejected the
+  root manifest with "Plugin validation failed". Claude Code accepted both, which
+  masked the issue. This was confirmed empirically: a manually-repacked zip with
+  `.claude-plugin/plugin.json` uploaded successfully via Desktop's "Fazer upload de
+  plugin local" flow, while the GitHub-hosted version with root `plugin.json` failed.
+
+### Changed
+- `test_plugin_manifest.py` and `test_skill_md.py`: updated path from
+  `project_root / "plugin.json"` to `project_root / ".claude-plugin" / "plugin.json"`
+
+---
+
 ## [6.1.4] — 2026-05-07
 
 ### Changed (BREAKING for existing installations)
