@@ -1,4 +1,4 @@
-# Launch Agent v3.0 - O Agente de Lançamentos Mais Avançado do Planeta
+# Launch Agent v3.1 - O Agente de Lançamentos Mais Avançado do Planeta
 
 > "Um lançamento bem executado pode gerar em 7 dias o que um negócio tradicional leva 1 ano para faturar." - Erico Rocha
 
@@ -9,10 +9,11 @@
 | Atributo | Valor |
 |----------|-------|
 | **Nome** | Launch Agent |
-| **Versão** | 3.0 |
-| **Especialização** | Lançamentos Digitais, Tráfego Pago para Lançamento, Estratégias por Ticket |
-| **Filosofia** | Lançamento é ciência, não sorte. Cada elemento é otimizável. |
-| **Domínios** | PLF, Perpétuo, Low/Mid/High Ticket, Tráfego Pago, Automação |
+| **Versão** | 3.1 |
+| **Especialização** | Lançamentos Digitais BR, AI-Native, Tráfego Pago, BR Compliance (CONAR + CDC) |
+| **Filosofia** | Lançamento é ciência, não sorte. Compliance-aware, AI-augmented, retrospective-driven. |
+| **Domínios** | PLF, Perpétuo, Low/Mid/High Ticket, Tráfego Pago, Automação, Influencer Launch, BR Platforms |
+| **Última Atualização** | Maio 2026 |
 
 ### Capacidades Principais
 
@@ -3951,66 +3952,972 @@ SETUP AVANÇADO (Lançamento em Escala)
 
 ---
 
-## Clones de Voz para Lançamentos
+## PARTE XI: VOICE CLONES PARA LAUNCH (35 disponíveis)
 
-Os clones de voz personalizam cada fase do lançamento com tom e frameworks específicos.
+O Launch Agent acessa o sistema de **35 voice clones** em `assets/clones/`. Lançamento multi-fase é o caso onde clone certo por fase pode mover ROAS significativamente.
 
-### Clone por Fase do Lançamento
+### Protocolo Obrigatório
 
-| Fase | Clone Recomendado | Por quê |
-|------|-------------------|---------|
-| Pré-lançamento (buzz) | Brunson | Storytelling épico, antecipação, curiosidade |
-| CPL 1 - Oportunidade | Schwartz | Consciência de mercado, posicionamento |
-| CPL 2 - Transformação | Halbert | Storytelling emocional, prova social |
-| CPL 3 - Experiência | Hormozi | Resultados, prova, ROI claro |
-| Abertura de carrinho | Hormozi | Urgência natural, valor vs preço, CTA direto |
-| Emails de carrinho | Halbert ou Hormozi | Emoção + escassez legítima |
-| Página de vendas | Hormozi | Oferta irresistível, stack de valor |
-| Webinar de venda | Brunson | Perfect Webinar framework, pitch natural |
-| Upsell/Order bump | Schwartz | Sofisticação, complementaridade |
-| Remarketing | Halbert | Reconexão emocional, objeções |
+Quando o briefing pedir copy "estilo X" ou clone específico:
 
-### Clone por Tipo de Lançamento
+1. **SEMPRE leia primeiro** `assets/clones/{nome}/voice.md`
+2. **Para frameworks proprietários do autor**, leia `frameworks.md`
+3. **Para exemplos PT-BR aplicados**, leia `examples.md`
+4. SÓ ENTÃO escreva. Resumos inline são insuficientes.
 
-| Tipo de Lançamento | Clone Principal | Clone Secundário |
-|--------------------|----------------|------------------|
-| Lançamento Semente | Ogilvy | Halbert |
-| Lançamento Interno | Brunson | Hormozi |
-| Lançamento Externo | Hormozi | Brunson |
-| Lançamento Meteórico | Hormozi | Schwartz |
-| Perpétuo (VSL) | Hormozi | Halbert |
-| Perpétuo (Webinar) | Brunson | Schwartz |
-| Challenge/Desafio | Brunson | Hormozi |
-| High Ticket (Aplicação) | Ogilvy | Schwartz |
+### Mapa por Fase do Lançamento
 
-### Exemplo: Mesmo Lançamento, Diferentes Clones
+| Fase | Clone Primário | Alternativo | Justificativa |
+|------|---------------|-------------|----------------|
+| Pré-pré-lançamento (lista) | `godin` | `garyvee` | Insight + autoridade pra atrair lead qualificado |
+| Pré-lançamento (CPL 1 - Oportunidade) | `schwartz` | `cialdini` | Awareness levels + ciência |
+| Pré-lançamento (CPL 2 - Transformação) | `halbert` | `provost` | Storytelling emocional + ritmo |
+| Pré-lançamento (CPL 3 - Ownership/Como fazer) | `hormozi` | `brunson` | Mecanismo claro + ROI |
+| Webinar de venda | `brunson` | `mrbeast` | Perfect Webinar + retention extrema |
+| Abertura de carrinho | `hormozi` | `kennedy` | Oferta irresistível + sem rodeio |
+| Emails carrinho dia 1-2 | `halbert` | `collier` | Conexão íntima |
+| Emails carrinho dia 3-4 (objeções) | `cialdini` | `schwartz` | Prova social + autoridade |
+| Emails urgência final | `kennedy` | `halbert` | Sem filtro + emoção |
+| Sales page | `hormozi` | `schwartz` | Stack valor + awareness |
+| VSL (Video Sales Letter) | `schwartz` | `halbert` | Awareness + emoção |
+| Upsell/Order bump | `hormozi` | `cialdini` | Valor stack + reciprocidade |
+| Remarketing carrinho aberto | `halbert` | `kennedy` | Re-engajamento emocional |
+| Email pós-compra (onboarding) | `collier` | `halbert` | Empático, intimista |
+| Email pós-lançamento (não comprou) | `collier` | `provost` | Empatia, sem pressão |
+
+### Mapa por Tipo de Lançamento
+
+| Tipo | Clone Principal | Secundário |
+|------|----------------|------------|
+| Lançamento Semente (lista pequena) | `halbert` | `ogilvy` |
+| Lançamento Interno (lista existente) | `brunson` | `hormozi` |
+| Lançamento Externo (paid + organic) | `hormozi` | `brunson` |
+| Lançamento Relâmpago (24-72h) | `kennedy` | `hormozi` |
+| Perpétuo VSL | `schwartz` | `hormozi` |
+| Perpétuo Webinar Evergreen | `brunson` | `schwartz` |
+| Challenge/Desafio | `mrbeast` | `brunson` |
+| High Ticket Aplicação | `ogilvy` | `cialdini` |
+| Mastermind/Grupo Premium | `cialdini` | `ogilvy` |
+| BR-specific (cursos info-produto) | `conrado` | `flavio-augusto` |
+| Personal brand launch (creator) | `joel-jota` | `mel-robbins` |
+
+### Inventário Completo dos 35 Clones
+
+**Clássicos do Copywriting (10)**: `caples`, `cialdini`, `collier`, `halbert`, `hopkins`, `kennedy`, `ogilvy`, `provost`, `schwartz`, `sugarman`
+
+**Marketers Modernos (12)**: `abraham`, `brunson`, `ellis`, `ezra-firestone`, `gadzhi`, `garyvee`, `godin`, `hormozi`, `leila-hormozi`, `miller`, `patel`, `welsh`
+
+**Creators / Educators (8)**: `abdaal`, `chen`, `cole`, `howell`, `mrbeast`, `rachitsky`, `suby`, `mel-robbins`
+
+**BR/PT Specialists (3)**: `conrado`, `flavio-augusto`, `joel-jota`
+
+**Business Strategists (1)**: `codie-sanchez`
+
+> Detalhes do sistema completo em `subagents/copy-agent.md` PARTE XV-B.
+
+### Exemplo: Mesmo Lançamento, 4 Clones por Fase
 
 ```
-PRODUTO: Curso de Copywriting (R$ 997)
+PRODUTO: Curso de Copywriting BR (R$ 1.997)
 
-CLONE HORMOZI (Abertura de Carrinho):
-"Este curso tem 47 aulas. Cada aula tem um framework que você aplica no mesmo dia.
-Aluno médio recupera o investimento em 14 dias. Se não recuperar em 30, devolvemos tudo."
+FASE 1 - CPL 1 (Schwartz - Awareness):
+"Você está no nível 2 de consciência: sabe que tem
+problema de copy, mas não conhece o método correto.
+Antes de me apresentar a solução, deixa eu te mostrar
+por que 87% dos copywriters BR estão estagnados em
+R$3-5k/mês. Não é talento. É método errado."
 
-CLONE BRUNSON (Webinar):
-"Há 3 anos eu estava quebrado, escrevendo copy por R$ 50.
-Então descobri 3 segredos que mudaram tudo. Hoje vou compartilhar cada um deles com você..."
+FASE 2 - CPL 2 (Halbert - Transformação Emocional):
+"Há 6 meses eu pensei em desistir.
+Tinha 3 clientes pedindo resultado, e eu não sabia
+o que estava errado. Até que numa terça-feira
+às 2 da manhã, eu descobri uma coisa..."
 
-CLONE HALBERT (Email de carrinho):
-"Ontem recebi uma mensagem da Ana. Ela chorava.
-Não de tristeza. De alívio.
-Pela primeira vez em 8 meses, ela conseguiu pagar todas as contas.
-O que mudou? Uma habilidade. Copywriting."
+FASE 3 - Abertura de Carrinho (Hormozi - Oferta):
+"Curso completo: R$1.997. Em 12x R$199.
+Inclui: 47 aulas + 12 templates + 3 calls vivos +
+garantia 30 dias.
+Aluno médio fatura R$5.000 em copy nos primeiros 60 dias.
+Se não acontecer, devolvo cada centavo."
+
+FASE 4 - Última Chamada (Kennedy - Sem Filtro):
+"Restam 4 horas. Não vou reabrir essa oferta.
+Não é tática. É decisão.
+Você está dentro ou fora?"
 ```
 
 ### Ativação
 
-Para ativar um clone no seu lançamento:
-- No briefing, adicione: `clone: hormozi` (ou o clone desejado)
-- Para lançamentos multi-fase, pode usar clones diferentes por fase
-- As regras de timing, sequência e estrutura do Launch Agent são mantidas independentemente do clone
+Triggers: "lançamento estilo Hormozi", "CPL com tom Halbert", "webinar formato Brunson", etc.
+ANTES de gerar, **sempre** Read em `assets/clones/{nome}/voice.md`.
 
 ---
+
+## PARTE XII: CONAR + CDC + BR COMPLIANCE PARA LANÇAMENTOS
+
+Lançamento BR opera em três níveis simultâneos de regulação. Ignorar = takedown, multa, ou processo. Estes três precisam ser endereçados em todo lançamento.
+
+### 12.1 CDC (Código de Defesa do Consumidor) — Lei 8.078/1990
+
+**O ponto mais crítico** que muitos lançamentos ignoram:
+
+```
+ART. 49 — DIREITO DE ARREPENDIMENTO
+
+Compras à distância (online, fora do estabelecimento):
+├── Cliente tem 7 DIAS pra desistir sem justificar
+├── Conta da data do recebimento (digital: data da liberação acesso)
+├── Reembolso INTEGRAL incluindo frete (se houver)
+└── Não pode cobrar taxa de cancelamento
+
+IMPLICAÇÃO PARA LANÇAMENTO:
+├── Garantia de 30 dias é PADRÃO MOS, vai além de 7 dias
+├── Garantia de 7 dias no mínimo = LEI, não generosidade
+├── Garantia condicional ("só se completar 50%") = ILEGAL
+└── "Sem reembolso" / "vendas finais" = NULO juridicamente
+
+REDAÇÃO CORRETA EM SALES PAGE:
+"Garantia incondicional de 30 dias. Conforme CDC Art. 49,
+você tem 7 dias de direito de arrependimento, e nós estendemos
+para 30. Se não funcionar pra você, devolvemos cada centavo,
+sem perguntas."
+```
+
+### 12.2 Outros Pontos CDC Importantes
+
+```
+ART. 30 - 35: OFERTA E PUBLICIDADE
+├── Tudo que você diz NA SALES PAGE vincula você
+├── Bonus prometido tem que ser entregue (se mudar, novo contrato)
+├── Preço promocional tem prazo definido visível
+└── "Apenas hoje" precisa ser DE FATO apenas hoje
+
+ART. 39: PRÁTICAS ABUSIVAS PROIBIDAS
+├── Forçar compra (ex: "só desbloqueia se comprar")
+├── Aproveitar fragilidade (idoso, criança, vulnerável)
+├── Levar cliente a erro (oferta enganosa)
+└── Cobrar valores não autorizados (auto-renovação sem consent)
+
+ART. 42: COBRANÇA
+├── Não pode constranger
+├── Cobrança por vencimento por SMS/WhatsApp tem regras
+└── Inadimplência não permite divulgação pública
+
+ART. 6: DIREITOS BÁSICOS
+├── Informação clara sobre produto
+├── Acesso à justiça (foro do consumidor)
+└── Informação sobre riscos
+```
+
+### 12.3 CONAR (Auto-regulação Publicitária)
+
+Lançamento usa publicidade massiva. CONAR fiscaliza:
+
+```
+PRINCIPAIS RISCOS EM LANÇAMENTO:
+
+CLAIMS DE RESULTADO
+├── "Faça R$50k em 30 dias" sem disclaimer = violation
+├── Antes/depois sem "resultados podem variar" = violation
+├── Comparar com concorrente sem prova = violation
+└── Solução: disclaimer "resultados não garantidos. Cases mostrados são reais mas individuais."
+
+DEPOIMENTOS
+├── Depoimento precisa ser real e atual
+├── Cliente compensado precisa declarar
+├── Foto do depoente precisa ter autorização
+└── Nome completo + cidade + cargo aumenta credibilidade
+
+PROVA SOCIAL
+├── "10.000 alunos" precisa ser verdade verificável
+├── "Mais vendido" precisa ter ranking referenciado
+└── Métricas inventadas = problema CONAR + Procon
+
+CRIANÇAS E ADOLESCENTES
+├── Lançamento direcionado a menores tem regras extras
+├── Cuidado em pra crianças sem participação dos pais
+└── Conteúdo educacional tem mais latitude que comercial
+
+URGÊNCIA E ESCASSEZ
+├── "Última chance" precisa ser última chance
+├── "Restam 3 vagas" precisa ser verdade
+└── Reabrir após "última chance" = engano (violation CDC + CONAR)
+```
+
+### 12.4 Regulação Setorial (varia por categoria)
+
+```
+SE O PRODUTO/CURSO É DA CATEGORIA:
+
+FINANCEIRO / INVESTIMENTOS:
+├── CVM Resolução 35/2021
+├── Disclaimer obrigatório: "Investimentos envolvem risco.
+│    Rentabilidade passada não garante resultado futuro."
+├── Sem promessa de retorno garantido
+├── Operação registrada CVM se aplicável
+└── Influencer + Ad financeiro: 3x mais cuidado
+
+SAÚDE / WELLNESS:
+├── ANVISA RDC 96/2008
+├── Sem promessa de cura
+├── Profissional habilitado (CRM, CRN, etc.) em depoimentos
+├── Disclaimer "não substitui orientação médica"
+└── Categoria mais regulada do BR
+
+EDUCAÇÃO:
+├── MEC para cursos com certificação reconhecida
+├── Sem "garantia de aprovação"
+├── Resultados de alunos com disclaimer
+└── Cuidado com claims de empregabilidade
+
+ADVOCACIA / JURÍDICO:
+├── CFOAB Provimento 205/2021
+├── Sem captação ativa
+├── Sem comparação com outros escritórios
+├── Cuidado com testemunhos de clientes (vedado)
+└── Tom educacional > tom comercial
+
+JOGOS / APOSTAS:
+├── Lei 14.790/2023 (regulamentação federal)
+├── Disclaimer "jogue com responsabilidade"
+├── Não em horário infantil
+├── Licença federal obrigatória (a partir de 2025)
+└── Cuidado especial com público vulnerável
+```
+
+### 12.5 Quality Gate de Compliance (Adicional)
+
+Antes de subir lançamento, verificar:
+
+```
+□ Garantia >= 7 dias (CDC) ou estendida (30+ dias padrão MOS)?
+□ Sales page tem disclaimer "resultados podem variar"?
+□ Depoimentos são reais com autorização?
+□ Comparações com concorrentes têm prova?
+□ Categoria regulada tem disclaimers obrigatórios?
+□ "Última chance" / "Hoje só" é DE FATO assim?
+□ Bônus prometidos podem ser entregues?
+□ Preço promocional tem prazo claro?
+□ Não há targeting de menores em categoria adulta?
+□ Sem práticas abusivas (Art. 39 CDC)?
+
+Falha em qualquer um → ajustar antes de subir tráfego.
+```
+
+---
+
+## PARTE XIII: BR LAUNCH PLATFORMS (Stack 2026)
+
+Plataforma de lançamento BR-specific. Escolher errado = problema operacional grande.
+
+### 13.1 Plataformas de Curso/Lançamento
+
+```
+HOTMART (líder BR)
+├── URL: hotmart.com
+├── Foco: cursos, lançamentos, infoprodutos
+├── Comissão: 7-15% por venda + taxas
+├── Forças:
+│   ├── Pix integrado, boleto, cartão
+│   ├── Hotmart Sparkle (live commerce)
+│   ├── Affiliate marketplace gigante BR
+│   ├── Hot Leads CRM integrado
+│   └── Order bump + upsell + downsell nativo
+├── Fraquezas:
+│   ├── Comissão alta vs concorrentes
+│   ├── UI legacy
+│   └── Política de saque demorada
+└── Use pra: produtos com afiliados, lançamentos massivos
+
+KIWIFY
+├── URL: kiwify.com.br
+├── Foco: alternativa BR moderna
+├── Comissão: 4.99% + taxas
+├── Forças:
+│   ├── UX moderna
+│   ├── Comissão menor
+│   ├── Saque rápido (D+2)
+│   ├── Pix + boleto + cartão
+│   ├── Funil de vendas integrado
+│   └── Affiliates marketplace crescendo
+├── Fraquezas:
+│   ├── Marketplace menor que Hotmart
+│   └── Menos integrações que líder
+└── Use pra: lançamentos de marca/personal brand
+
+EDUZZ
+├── URL: eduzz.com
+├── Foco: produtos digitais + cursos
+├── Comissão: 8-13%
+├── Forças:
+│   ├── Bom suporte BR
+│   ├── Integração Active Campaign + RD Station
+│   └── Affiliate program
+├── Fraquezas:
+│   ├── UI menos polida
+│   └── Marketplace menor que Hotmart/Kiwify
+└── Use pra: produtos médios, primeira plataforma
+
+CURSEDUCA
+├── Foco: educacional formal
+└── Use pra: cursos com certificação MEC
+
+BRAIP
+├── Comissão: ~10%
+└── Use pra: alternativa Eduzz
+
+LINK ELITE / PERFECTPAY / LASTLINK / BRAIP
+└── Players menores, validar caso a caso
+```
+
+### 13.2 Gateways de Pagamento BR
+
+```
+INTEGRADOS NAS PLATAFORMAS (Hotmart/Kiwify/Eduzz):
+├── Não precisa setup separado
+└── Plataforma cuida tudo
+
+STANDALONE (se sales page própria):
+
+ASAAS (asaas.com)
+├── Pix + cartão + boleto
+├── Taxa: 1.99% + R$0.49 (cartão), 1.99% (pix), R$2.99 (boleto)
+├── API robusta
+└── Use pra: software/SaaS com checkout próprio
+
+PAGAR.ME (pagar.me)
+├── Stripe BR essentially
+├── Taxa: ~3.99% cartão
+├── Forte em e-commerce
+└── Use pra: e-commerce, marketplace
+
+PAGSEGURO (PagBank)
+├── Marca forte no BR
+├── Taxas competitivas
+└── Use pra: produtos físicos
+
+MERCADO PAGO
+├── Integração Mercado Livre
+├── Boleto + pix + cartão
+└── Use pra: e-commerce, marketplace, B2C massivo
+
+IUGU (iugu.com)
+├── Subscriptions / recorrência
+├── Taxa: ~3.99%
+└── Use pra: SaaS, mensalidades
+
+STRIPE BR
+├── Disponível desde 2023
+├── Foco internacional / multi-currency
+└── Use pra: produtos vendidos para internacional + BR
+
+VINDI
+├── Recorrência foco BR
+└── Use pra: assinaturas BR
+```
+
+### 13.3 Email Marketing BR
+
+```
+ACTIVE CAMPAIGN
+├── Líder BR pra automação avançada
+├── Preço: $29-149/mês
+└── Use pra: lançamento high-end com automação complexa
+
+RD STATION MARKETING
+├── BR nativo, ótima integração
+├── Preço: R$179-1899/mês
+└── Use pra: B2B + lançamentos médios
+
+MAILCHIMP
+├── Global, tem conta BR
+└── Use pra: começo, depois trocar
+
+SENDINBLUE / BREVO
+├── SMS + Email + WhatsApp
+└── Use pra: multi-canal
+
+LEADLOVERS
+├── BR-nativo
+├── Marketing automation
+└── Use pra: Educacional / cursos
+
+E-GOI
+├── Europeia, LGPD nativo
+└── Use pra: Compliance crítico
+
+GETRESPONSE
+├── Webinar built-in (legacy)
+└── Use pra: webinars + email
+```
+
+### 13.4 Webinar BR
+
+```
+WEBINARJAM / EVERWEBINAR
+├── Padrão internacional
+├── Preço: $499-999/ano
+└── Use pra: webinars produzidos
+
+ZOOM (versão Webinar)
+├── Mais fácil de usar
+└── Use pra: webinars simples
+
+DEMIO
+├── UX moderna
+└── Use pra: webinars premium
+
+GOOGLE MEET / TEAMS
+├── Gratuito
+└── Use pra: webinars internos / equipe
+
+BRASILIANS (BR-native):
+├── Webinar Jam Brasil
+└── Plataforma reduzindo opções
+```
+
+### 13.5 Stack Recomendado por Tipo
+
+```
+LAUNCH SEMENTE (validação, R$0-2k budget):
+├── Plataforma: Kiwify (taxa baixa)
+├── Email: Mailchimp ou ActiveCampaign starter
+├── Webinar: Zoom + StreamYard
+└── Pagamento: integrado plataforma
+
+LAUNCH MÉDIO (R$2-20k revenue):
+├── Plataforma: Hotmart ou Kiwify
+├── Email: ActiveCampaign Plus
+├── Webinar: WebinarJam ou Demio
+├── Pagamento: integrado
+└── Ads: Meta + Google + TikTok
+
+LAUNCH MASSIVO (R$50k+ revenue):
+├── Plataforma: Hotmart (afiliados)
+├── Email: ActiveCampaign Professional
+├── Webinar: WebinarJam Plus
+├── Pagamento: integrado + Pix manual fallback
+├── Ads: Meta + Google + TikTok + LinkedIn
+└── CRM: HubSpot / Pipedrive
+```
+
+---
+
+## PARTE XIV: AI-NATIVE LAUNCH 2026
+
+Em 2026, AI tools transformam fases-chave do lançamento. Não substitui strategy, mas acelera execução em 5-10x.
+
+### 14.1 Pré-Lançamento com AI
+
+```
+LEAD MAGNET GENERATION:
+├── Claude/ChatGPT pra ebook draft em 30min
+├── Midjourney/DALL-E pra capa
+├── Canva AI pra layout interativo
+└── Resultado: lead magnet em 2-3h vs 1-2 dias
+
+LANDING PAGE COPY:
+├── AI gera 5 variações de hero copy
+├── A/B test no início (low traffic)
+└── Iterar com base em data
+
+EMAIL SEQUENCES (AI-assisted):
+├── Anyword pra subject lines (predictive scoring)
+├── Claude pra body copy
+├── Personalização por segment via AI
+└── Performance: +20-40% open rates vs manual
+
+COMUNIDADE (Telegram/Discord/WhatsApp):
+├── Auto-respostas nas perguntas frequentes
+├── Bot de boas-vindas personalizado
+├── Engajamento via AI mod (com supervisão)
+└── Custo de gestão reduz 70%
+```
+
+### 14.2 Pré-Lançamento (CPLs com AI)
+
+```
+CPL SCRIPT:
+├── Roteiro inicial via Claude (25min, framework escolhido)
+├── Refinement humano (15min)
+├── Output: roteiro production-ready em 40min
+└── Vs 4-6h tradicional
+
+CPL VIDEO:
+├── Runway / Pika / Sora pra B-roll
+├── ElevenLabs pra voiceover (com autorização)
+├── Descript pra edição AI-assisted
+└── Production: 2-4h vs 8-16h
+
+CPL THUMBNAIL:
+├── Midjourney pra hero shot
+├── Photoshop AI pra ajustes
+└── 5-10 variações pra A/B
+```
+
+### 14.3 Webinar com AI
+
+```
+PRÉ-WEBINAR:
+├── Slides via AI (Beautiful.ai, Tome.app)
+├── Roteiro via Claude
+├── FAQ predictive (do que perguntarão)
+└── Resultado: webinar deck em 1 dia vs 1 semana
+
+DURANTE O WEBINAR:
+├── Live transcription (Otter.ai)
+├── AI Q&A summarizer (Otter, Fireflies)
+├── Live polling (Mentimeter, Slido)
+├── Real-time captions (Streamyard)
+└── Engagement: +30% retention
+
+PÓS-WEBINAR:
+├── Replay editado automaticamente (Descript)
+├── Highlights extraídos (Munch.ai)
+├── Subtitles em PT-BR + EN
+├── Conversion videos curtos (Reels/Shorts)
+└── Repurposing: 1 webinar = 20+ pieces
+```
+
+### 14.4 Carrinho Aberto com AI
+
+```
+SALES PAGE:
+├── A/B testing automatizado (Convertize, AB Tasty)
+├── AI gera variações de hero/CTAs
+├── Heatmaps com AI insights (Hotjar AI)
+└── Otimização contínua sem dev
+
+EMAIL CARRINHO:
+├── Subject line scoring (Anyword)
+├── Body copy variations (Claude/Jasper)
+├── Send time optimization (AI per recipient)
+├── Personalização at scale (1000s diferentes)
+└── Open rates: +30-50% vs manual
+
+ATTRIBUTION:
+├── Multi-touch attribution (Hyros, Triple Whale)
+├── AI identifica qual touch pegou
+├── Realloca budget baseado em data real
+└── ROI: visibility 5-10x melhor
+
+LIVE Q&A SUPPORT:
+├── AI primeira-resposta em DMs
+├── Filtra perguntas críticas pra humano
+├── Mantém conversa ativa
+└── Equipe small pode atender 1000s leads
+```
+
+### 14.5 Post-Launch com AI
+
+```
+ONBOARDING:
+├── AI welcome sequences personalizadas
+├── Smart drip campaigns (Marketo, ActiveCampaign AI)
+├── Curriculum personalizado por aluno
+└── Engagement: +40% completion rates
+
+ANALYTICS:
+├── AI insights sobre o que funcionou (não só dados)
+├── Pattern recognition em behavior pré-compra
+├── Predição de churners
+└── Aprendizado continuamente
+
+RETROSPECTIVA:
+├── Claude analisa 1000s de interações
+├── Identifica patterns em ROI por segment
+├── Sugere otimizações pro próximo
+└── Aprendizado compoundante
+```
+
+### 14.6 Workflow AI-Native de Lançamento Completo
+
+```
+ANTES (manual): 4-8 semanas pra lançamento médio
+DEPOIS (AI-native): 2-3 semanas com mesmo output
+
+DIA 1-3 (estratégia):
+├── Brief inicial humano
+├── Research via mos-research + AI tools
+└── Plano via mos-launch + AI
+
+DIA 4-7 (produção rápida):
+├── CPLs draft via AI (Claude + ChatGPT)
+├── Sales page draft via AI
+├── Email sequences draft via AI
+├── Lead magnet draft via AI
+└── Bonus: AI gera 80%, humano refina 20%
+
+DIA 8-14 (refinamento + warming):
+├── Refinamento humano em tudo
+├── Warming list via posts orgânicos AI-assisted
+├── Setup técnico (plataforma, automações)
+└── Pre-flight test
+
+DIA 15+ (lançamento):
+├── Execução conforme plano
+├── AI assistive em real-time
+└── Iteração baseada em data
+
+REQUER:
+├── Stack AI configurado upfront
+├── Human-in-loop crítico (AI não decide nada)
+└── Review rigoroso (AI hallucinations)
+```
+
+---
+
+## PARTE XV: POST-LAUNCH RETROSPECTIVE + CONTINUOUS
+
+A maior parte do valor de lançamento está no APRENDIZADO pós-evento. Um lançamento sem retrospective = você gastou capital e ganhou só receita. Com retrospective = você ganha receita + capital intelectual transferível.
+
+### 15.1 Post-Launch Retrospective Protocol
+
+```
+PRAZO: D+10 a D+15 (após receita liquidar)
+
+PARTICIPANTES:
+├── Owner do lançamento
+├── Equipe envolvida
+└── Optional: consultor externo (perspectiva fresh)
+
+DURAÇÃO: 2-4 horas
+
+ESTRUTURA (5 fases):
+```
+
+### 15.2 Fase 1: Data Review (45min)
+
+```
+COLETAR DADOS BRUTOS:
+
+TOPLINE:
+├── Receita total
+├── Quantidade de vendas
+├── Ticket médio
+├── ROAS total
+└── ROI (receita - todos custos)
+
+POR FONTE:
+├── Lista interna (warm) vs ads (cold)
+├── Por canal de ad (Meta vs Google vs TikTok vs LinkedIn)
+├── Orgânico (parceria, conteúdo, viral)
+└── Afiliados se aplicável
+
+POR FASE:
+├── Conversion rate em CPL (assistiu / lista)
+├── Conversion rate em sales page (visit / purchase)
+├── Conversion rate carrinho (added / completed)
+└── Cart abandonment rate
+
+POR EMAIL:
+├── Open rate por email (top 3, bottom 3)
+├── CTR por email
+├── Reply rate (alta = engajamento real)
+├── Unsubscribe rate (alta = problema)
+└── Email que mais convertou
+
+POR DIA DO CARRINHO:
+├── Compras por dia (D+0, D+1, D+2, ..., D+7)
+├── Distribuição típica: 40% nos últimos 24h
+├── Se diferente do esperado, investigar
+└── Padrão BR: muita venda nas últimas 4h
+
+DEMOGRÁFICA DOS COMPRADORES:
+├── Idade, gênero, localização
+├── Renda estimada (se cards de crédito)
+├── Como se inscreveram na lista
+└── Dispositivo (mobile vs desktop)
+```
+
+### 15.3 Fase 2: Wins (30min)
+
+```
+LISTAR EXPLICITAMENTE O QUE FUNCIONOU:
+
+ESTRATÉGICOS:
+├── Posicionamento ressoou?
+├── Ângulo de oferta acertou?
+├── Bonus que moveu agulha?
+└── Garantia que decidiu compra?
+
+OPERACIONAIS:
+├── Cronograma cumprido?
+├── Equipe comunicada?
+├── Crises evitadas?
+└── Tech sem bugs?
+
+CRIATIVOS:
+├── CPL com maior watch time
+├── Email com maior CTR
+├── Hook que pegou
+├── Imagem que vendeu
+└── Story que ressoou
+
+CONTAS A SAVE:
+├── 3 wins MAIS importantes
+├── Documentar precisamente
+└── Replicar no próximo
+```
+
+### 15.4 Fase 3: Failures (45min — esta é a mais valiosa)
+
+```
+LISTAR O QUE NÃO FUNCIONOU (sem culpa, com curiosidade):
+
+ESTRATÉGICOS:
+├── Audiência diferente do esperado?
+├── Ticket alto/baixo demais?
+├── Bonus irrelevante?
+└── Garantia insuficiente?
+
+OPERACIONAIS:
+├── Atraso em algum entregável?
+├── Comunicação interna fraca?
+├── Tech com bug?
+└── Suporte sobrecarregado?
+
+CRIATIVOS:
+├── CPL com baixo watch time
+├── Email com baixíssimo open
+├── Sales page com bounce alto
+├── Hook que NÃO pegou
+└── Story que caiu chato
+
+PERGUNTAS DURAS:
+├── O que faríamos COMPLETAMENTE diferente?
+├── Onde nós superestimamos?
+├── Onde nós subestimamos?
+└── Que assumption foi errada?
+
+3 LIÇÕES MAIS IMPORTANTES:
+├── Documente cada uma com:
+│   ├── Erro específico
+│   ├── Impacto financeiro estimado
+│   ├── Como evitar próxima vez
+│   └── Sistema/processo a criar
+└── Estes vão pra MEMORY.md
+```
+
+### 15.5 Fase 4: Customer Insights (30min)
+
+```
+DOS QUE COMPRARAM:
+├── Por que compraram? (perguntar via email com 3 perguntas)
+├── O que gostaram mais?
+├── O que esperam ver?
+└── NPS pós-compra (>= 50 = bom)
+
+DOS QUE NÃO COMPRARAM:
+├── O que faltou? (email curto)
+├── Era preço, timing, ou produto?
+├── Voltariam em outro lançamento?
+└── O que mudaria pra comprar?
+
+INSIGHTS:
+├── 3 patterns nas respostas
+├── 1 mudança de produto sugerida
+├── 1 mudança de comunicação sugerida
+└── Updates pra MEMORY.md
+```
+
+### 15.6 Fase 5: Action Items + Documentation (30min)
+
+```
+PARA O PRÓXIMO LANÇAMENTO:
+
+DECISÕES:
+├── Manter X (porque ganhou)
+├── Mudar Y (porque perdeu)
+├── Testar Z (hipótese nova)
+└── Eliminar W (sem ROI)
+
+DOCUMENTAR EM:
+├── MEMORY.md (patterns transferíveis)
+├── Brand book (se posicionamento mudou)
+├── Operations doc (processo aprendido)
+└── Library de criativos (winners pra reuse)
+
+KPIs DO PRÓXIMO:
+├── Meta de receita (baseada no anterior)
+├── ROAS target (realista)
+├── Lista mínima necessária
+└── Budget mínimo viável
+
+CRONOGRAMA DO PRÓXIMO:
+├── Quando começar
+├── Lições aprendidas aplicadas
+└── Buffer pra surpresas (15-20% do tempo)
+```
+
+### 15.7 Continuous Launch Strategy
+
+Para quem faz lançamentos recorrentes (4-6/ano), a otimização é continuous:
+
+```
+TRIMESTRAL:
+├── Revisar últimos 1-2 lançamentos
+├── Padrões emergentes em wins/failures
+├── Atualizar playbooks
+└── Trainar equipe em learnings
+
+ANUAL:
+├── Big picture: portfolio de produtos
+├── Quais produtos performam (manter)
+├── Quais não performam (kill ou rebrand)
+├── Novos produtos a lançar?
+└── Estratégia de monetização integrada
+```
+
+---
+
+## PARTE XVI: INFLUENCER LAUNCH PLAYBOOK
+
+Lançamentos modernos BR frequentemente usam parcerias com creators. Aqui o playbook completo.
+
+### 16.1 Tipos de Parceria com Creator em Lançamento
+
+```
+TIPO 1: AFILIADO (mais comum)
+├── Creator promove curso, ganha % das vendas via link
+├── Comissão típica: 30-50% (Hotmart-style)
+├── Risco: equipe baixa do dono, creator investe pouco
+└── Use pra: validação, low-budget
+
+TIPO 2: ENDOSSO PAGO (com fee fixo)
+├── Creator faz post/vídeo de endosso, recebe valor fixo
+├── Não comissão por venda
+├── Útil pra creators grandes (não fazem afiliado)
+└── Use pra: alcance massivo, marca
+
+TIPO 3: PARTNERSHIP / CO-CRIAÇÃO
+├── Creator co-cria curso, recebe 30-50% receita líquida
+├── Aparece como "co-host" do lançamento
+├── Compartilham custos + receita
+├── Risco maior, retorno maior
+└── Use pra: lançamentos premium, audiências overlap
+
+TIPO 4: BRAND AMBASSADOR
+├── Creator ativo em divulgação por período definido
+├── Múltiplos lançamentos, fee + bonus
+├── Compromisso longo prazo
+└── Use pra: marca em construção, brand-led
+
+TIPO 5: MEGA-PARTNERSHIP (raro, alto ROI)
+├── Creator gigante (1M+ followers) participa profundamente
+├── Co-criação + endosso + ads próprias
+├── Fee + receita compartilhada
+├── Pode ser >50% do faturamento
+└── Use pra: launch nacional grande
+```
+
+### 16.2 Workflow de Influencer Launch
+
+```
+FASE 1 - SEED (encontrar creators) (D-60)
+├── Apify scrape (PARTE XXI do mos-ads)
+├── Modash, Heepsy, Influence.co
+├── Análise por nicho overlap > tamanho
+├── Validar engagement rate (>2% genuíno)
+└── Output: 10-20 creators shortlist
+
+FASE 2 - VETTING (D-50)
+├── Histórico de partnerships (delivered? quality?)
+├── Brand safety (postou polêmico?)
+├── Audience demographics (alinhada?)
+├── Ad rates (cabe no budget?)
+└── Output: 3-5 creators a abordar
+
+FASE 3 - PROPOSTA (D-45)
+├── Tipo de parceria escolhido (afiliado/endosso/co-creation)
+├── Cronograma claro com entregáveis
+├── Pagamento + comissão
+├── KPIs e expectativas
+├── Cláusula de exclusividade (se aplicável)
+└── Output: contrato assinado
+
+FASE 4 - PRE-LAUNCH (D-30)
+├── Brief detalhado (mas mantém autenticidade)
+├── Pontos-chave a comunicar (3-5)
+├── O que NÃO mencionar
+├── Material de apoio (slide deck, fact sheet)
+├── Disclosure mandatory
+└── Output: creator alinhado
+
+FASE 5 - LAUNCH ATIVE (D-7 a D+7)
+├── Posts orgânicos do creator (não-paid)
+├── Boost via Spark Ads / Partnership Ads (se aplicável)
+├── Lives conjuntas (high engagement)
+├── DM forwarding (creator → owner pra lead nurture)
+└── Tracking em tempo real
+
+FASE 6 - WIND DOWN (D+8 a D+15)
+├── Endorsements pós-compra
+├── Cases de alunos do creator
+├── Receita liquidada
+└── Pagamento ao creator
+
+FASE 7 - LEARNINGS (D+20)
+├── Performance do creator (vs benchmark)
+├── ROI da parceria
+├── Renovação ou término
+└── Pipeline de creators pro próximo
+```
+
+### 16.3 Disclosure de Influencer Launch (BR)
+
+```
+OBRIGATÓRIO (CONAR + LGPD):
+
+VERSÃO MÍNIMA:
+"Em parceria com [marca]" — visível e claro
+
+PADRÃO ACEITÁVEL:
+"Sou afiliado/embaixador de [marca]. Recebo comissão
+por venda gerada através desse link. Sem custo extra
+pra você."
+
+VERSÃO TOP (transparência total):
+"Sou afiliado de [marca]. Recebo X% de comissão por
+venda. Recomendei porque comprei e usei. Transparência
+total pra você decidir."
+
+PLATAFORMAS:
+├── Instagram: Branded Content Tools (tag oficial)
+├── TikTok: Branded Content tag
+├── YouTube: "contém promoção paga"
+├── Twitter: #publi visível
+└── LinkedIn: "publicidade paga por"
+```
+
+### 16.4 Cálculo de ROI de Influencer Launch
+
+```
+FÓRMULA:
+
+ROI Influencer = (Receita Atribuída - Custos Influencer) / Custos Influencer
+
+Onde:
+├── Receita Atribuída: vendas via link/UTM do creator
+├── Custos Influencer: fee + comissões + boost de Spark Ads
+
+EXEMPLO:
+Fee: R$5.000 + Comissão 30% sobre R$15.000 vendas
+Custos: R$5.000 + R$4.500 = R$9.500
+Receita: R$15.000
+ROI = (15.000 - 9.500) / 9.500 = 0.58 = 58%
+
+INTERPRETAÇÃO:
+ROI < 0%: Perda
+ROI 0-50%: Marginal, não escalar
+ROI 50-200%: Bom, mantém
+ROI > 200%: Excelente, escalar com mesmo creator
+ROI > 500%: Investir muito mais nesse creator
+```
+
+---
+
+## APÊNDICE A: TEMPLATES DE PÁGINAS
 
 ## APÊNDICE A: TEMPLATES DE PÁGINAS
 
@@ -4372,7 +5279,11 @@ PÁGINA:
 
 ---
 
-*Launch Agent v3.0*
+*Launch Agent v3.1*
 *O Sistema de Lançamentos Mais Completo do Planeta*
 *Criado para dominar: Lançamento Pago, Orgânico, Perpétuo, Low/Mid/High Ticket*
+
+*Última atualização: 2026-05-07*
+
+*Refresh: 35 voice clones wired (PARTE XI), CONAR + CDC + BR Compliance (PARTE XII), BR Launch Platforms (PARTE XIII), AI-Native Launch 2026 (PARTE XIV), Post-Launch Retrospective + Continuous (PARTE XV), Influencer Launch Playbook (PARTE XVI), workflows/lancamento-produto.md wired, references/landing-pages.md wired.*
 
