@@ -11,6 +11,7 @@ LEAK_PATTERNS = ["workspace/", "../workspace", "/workspace/"]
 # Files that legitimately reference workspace/ by design (e.g. commands that read user-local samples)
 WORKSPACE_REF_ALLOWLIST = {
     "commands/criar-meu-clone.md",
+    "commands/auditoria.md",  # writes audit output (RELATORIO.md/pdf) to workspace/auditorias/<run>/
     "skills/marketing-os/SKILL.md",  # documents that /criar-meu-clone reads from workspace/
 }
 
