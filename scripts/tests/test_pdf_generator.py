@@ -41,3 +41,43 @@ class TestBuildHTML:
         html = _build_html("# X", config=None)
         assert "marketing-os" in html.lower()
         assert "#1a73e8" in html
+
+
+class TestWhiteLabel:
+    def test_config_brand_name_in_html(self, tmp_path: Path):
+        config = {"brand_name": "Agência X"}
+        html = _build_html("# X", config=config)
+        assert "Agência X" in html
+
+    def test_config_accent_color_in_html(self):
+        config = {"brand_name": "X", "accent_color": "#ff0000"}
+        html = _build_html("# X", config=config)
+        assert "#ff0000" in html
+        assert "#1a73e8" not in html
+
+    def test_config_footer_text_in_html(self):
+        config = {"brand_name": "X", "footer_text": "© Cliente Y"}
+        html = _build_html("# X", config=config)
+        assert "© Cliente Y" in html
+
+    def test_logo_present_when_path_exists(self, tmp_path: Path):
+        logo = tmp_path / "logo.png"
+        logo.write_bytes(b"fake png")
+        config = {"brand_name": "X", "logo_path": str(logo)}
+        html = _build_html("# X", config=config)
+        assert '<img class="header-logo"' in html
+
+    def test_logo_omitted_when_path_missing(self, tmp_path: Path):
+        config = {"brand_name": "X", "logo_path": str(tmp_path / "nonexistent.png")}
+        html = _build_html("# X", config=config)
+        assert '<img class="header-logo"' not in html
+
+    def test_generate_with_config_path(self, tmp_path: Path):
+        md = tmp_path / "r.md"
+        md.write_text("# Title")
+        cfg = tmp_path / "cfg.json"
+        cfg.write_text(json.dumps({"brand_name": "Acme"}))
+        out = tmp_path / "r.pdf"
+        generate(md, out, cfg)
+        assert out.exists()
+        assert out.stat().st_size > 100
