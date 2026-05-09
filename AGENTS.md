@@ -62,7 +62,7 @@ Para qualquer pedido de produção de marketing (copy, SEO, post, anúncio, víd
 
 Mapeamento completo briefing → agent em `skills/marketing-os/SKILL.md` (seção "Mapa de Dispatch").
 
-Hoje 30 dos 32 slash commands em `commands/` dispatcham subagents. Os 2 sem dispatch são intencionais: `/publicar-notion` (utility do Notion MCP) e `/campanha` (índice dos 6 sub-commands `/campanha-{preset}`). Existe ainda `/mo` (meta-orquestrador) que recebe briefing aberto e roteia automaticamente. O teste `scripts/tests/test_commands_dispatch.py` trava regressão de cobertura: se você adicionar um command novo de produção, ele precisa dispatchar ou o teste falha.
+Hoje 31 dos 33 slash commands em `commands/` dispatcham subagents. O 33º é `/auditoria` (auditoria multi-modal com PDF white-label, ver `docs/AUDIT-CONFIG.md`). Os 2 sem dispatch são intencionais: `/publicar-notion` (utility do Notion MCP) e `/campanha` (índice dos 6 sub-commands `/campanha-{preset}`). Existe ainda `/mo` (meta-orquestrador) que recebe briefing aberto e roteia automaticamente. O teste `scripts/tests/test_commands_dispatch.py` trava regressão de cobertura: se você adicionar um command novo de produção, ele precisa dispatchar ou o teste falha.
 
 ## Quality Gates Globais (aplicar SEMPRE antes de entregar)
 

@@ -7,6 +7,22 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## v6.7.0 (2026-05-09)
+
+### Added
+- New command `/auditoria <input>`. Multi-modal audit (landing page, Instagram, Meta Ad Library, YouTube). Auto-detects type, dispatches 4-7 mos-* agents in parallel, computes weighted score per type-specific rubric, generates RELATORIO.md + RELATORIO.pdf in `workspace/auditorias/<run>/`.
+- Generic, reusable PDF generator script `scripts/pdf_generator.py` (markdown to PDF via weasyprint). White-label aware via `.auditoria-config.json` in user's project root.
+- Scoring infrastructure: `scripts/audit_detector.py`, `scripts/audit_scoring.py`, `scripts/audit_config.py`, plus 50+ unit tests and 1 smoke test.
+- New deps: `weasyprint`, `markdown-it-py`, `jsonschema` (added to `requirements.txt`).
+- User doc: `docs/AUDIT-CONFIG.md` for white-label config schema.
+
+### Notes
+- PDF output requires `pip install weasyprint`. macOS users may need `brew install cairo pango gdk-pixbuf libffi`.
+- Synthesis (free-form agent outputs to 0-100 dimension scores) is performed by Claude in the command, not by NLP heuristics. Existing 18 agents are unmodified.
+- Outputs land in `workspace/auditorias/<run>/` (gitignored).
+
+---
+
 ## [6.6.0] — 2026-05-09 (Apify scraping opt-in para mos-seo + mos-research)
 
 Minor release adicionando integração opt-in com Apify Actors pra dois agents.
