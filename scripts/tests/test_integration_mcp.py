@@ -269,6 +269,7 @@ class TestCoberturaDeSscripts:
         "audit_radar_chart.py", # invocado direto por /auditoria-pro, não pelo CLI mos.py
         "audit_screenshot.py",  # invocado direto por /auditoria-pro, não pelo CLI mos.py
         "audit_roadmap_generator.py",  # invocado direto por /auditoria-pro, não pelo CLI mos.py
+        "audit_premium_template.py",   # helper interno do /auditoria-pro (HTML/CSS render)
     }
 
     def test_scripts_relevantes_estao_no_command_map(self):
