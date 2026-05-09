@@ -53,6 +53,30 @@ _COST_RATES = {
         "rate_per_result": 0.0023,
         "default_multiplier": 30,
     },
+    "curious_coder/facebook-ads-library-scraper": {
+        "list_field": "urls",
+        "multiplier_field": "count",
+        "rate_per_result": 0.0015,
+        "default_multiplier": 30,
+    },
+    "clockworks/free-tiktok-scraper": {
+        "list_field": "profiles",
+        "multiplier_field": "resultsPerPage",
+        "rate_per_result": 0.0,  # Free Actor — sem custo de API
+        "default_multiplier": 30,
+    },
+    "streamers/youtube-scraper": {
+        "list_field": "startUrls",
+        "multiplier_field": "maxResults",
+        "rate_per_result": 0.005,
+        "default_multiplier": 20,
+    },
+    "apidojo/twitter-scraper-lite": {
+        "list_field": "twitterHandles",
+        "multiplier_field": "maxItems",
+        "rate_per_result": 0.0004,
+        "default_multiplier": 50,
+    },
 }
 
 

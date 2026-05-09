@@ -97,6 +97,10 @@ COMMAND_MAP: Dict[str, Dict[str, Tuple[str, str]]] = {
     "apify": {
         "serp": ("apify_serp.py", "SERP scraping via Apify (opcional, requer APIFY_TOKEN)"),
         "instagram": ("apify_instagram.py", "Instagram profile scraping via Apify (opcional)"),
+        "meta-ads": ("apify_meta_ads.py", "Meta Ad Library scraping (Facebook + Instagram, opcional)"),
+        "tiktok": ("apify_tiktok.py", "TikTok profile scraping (opcional)"),
+        "youtube": ("apify_youtube.py", "YouTube channel scraping (opcional)"),
+        "twitter": ("apify_twitter.py", "Twitter/X profile scraping (opcional)"),
     },
 }
 
@@ -168,6 +172,10 @@ CATEGORIAS E COMANDOS:
   Apify (opcional, requer APIFY_TOKEN):
     mos apify serp "infoproduto bofu" --max-results 10
     mos apify instagram @concorrente --max-posts 30 --dry-run
+    mos apify meta-ads --query "hotmart" --country BR --max-ads 30
+    mos apify tiktok --handle @usuario --max-videos 30
+    mos apify youtube --channel @mrbeast --max-videos 20
+    mos apify twitter --handle @elonmusk --max-tweets 50
 
   Projetos:
     mos project create "Lançamento Curso" --type launch

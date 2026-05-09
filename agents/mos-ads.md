@@ -46,10 +46,20 @@ python3 scripts/meta_ads_api.py
 
 # A/B variation generator
 python3 scripts/ab_generator.py headline "texto base"
-
-# Competitive ad research via Apify (Tier 2 PARTE X)
-# (configure via docker-gateway com Apify MCP)
 ```
+
+**Inteligência competitiva de criativo via Apify (opcional):** quando a tarefa pede análise de anúncios reais de concorrente (criativo, copy, CTA, plataformas) e a variável `APIFY_TOKEN` está disponível, use Meta Ad Library:
+
+```bash
+# Anúncios ativos de uma marca específica
+python3 scripts/apify_meta_ads.py --query "hotmart" --country BR --max-ads 30
+# ou: python3 scripts/mos.py apify meta-ads --query "hotmart"
+
+# Anúncios por keyword/categoria (oportunidade ou benchmark)
+python3 scripts/apify_meta_ads.py --query "infoproduto" --country BR --max-ads 50
+```
+
+Use `--dry-run` antes pra ver custo estimado (~$0.0015 por anúncio = ~$0.05 pra 30 ads). Sem `APIFY_TOKEN`, siga com WebSearch e prints manuais de Ad Library. Output em diretório local + summary direto via stdout. Documentação: `docs/APIFY-INTEGRATION.md`.
 
 ### 4. Use WebSearch agressivamente
 

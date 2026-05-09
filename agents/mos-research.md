@@ -58,18 +58,29 @@ python3 scripts/tiktok_trends_scraper.py --hashtag "marketing" --min-views 10000
 python3 scripts/instagram_hashtag_research.py "hashtag"
 ```
 
-**Scraping estruturado via Apify (opcional):** quando a tarefa pede dados profundos de concorrente (posts, métricas agregadas, top hashtags) e a variável `APIFY_TOKEN` está disponível, use:
+**Scraping estruturado via Apify (opcional):** quando a tarefa pede dados profundos de concorrente (posts, vídeos, anúncios, métricas agregadas, top hashtags) e a variável `APIFY_TOKEN` está disponível, use:
 
 ```bash
-# Instagram profile scraper — top posts + métricas + hashtags
+# Instagram profile — top posts + métricas + hashtags
 python3 scripts/apify_instagram.py --handle @concorrente --max-posts 30
-# ou: python3 scripts/mos.py apify instagram @concorrente --max-posts 30
+
+# TikTok profile — top videos + plays/likes/shares + hashtags
+python3 scripts/apify_tiktok.py --handle @concorrente --max-videos 30
+
+# YouTube channel — top vídeos + views/likes + duração
+python3 scripts/apify_youtube.py --channel @concorrente --max-videos 20
+
+# Twitter/X profile — tweets + likes/retweets/replies
+python3 scripts/apify_twitter.py --handle @concorrente --max-tweets 50
+
+# Meta Ad Library — anúncios ATIVOS de uma marca/keyword (FB + IG)
+python3 scripts/apify_meta_ads.py --query "marca-ou-keyword" --country BR --max-ads 30
 
 # SERP profundo para keyword research (se delegando a parte SEO)
 python3 scripts/apify_serp.py --query "keyword" --max-results 10
 ```
 
-Sempre rode `--dry-run` primeiro para ver custo estimado. Sem `APIFY_TOKEN` o script sai silenciosamente — siga com WebSearch e os scripts nativos acima. JSON salvo no diretório local configurado pelo script. Setup, custo e troubleshooting completos em `docs/APIFY-INTEGRATION.md`.
+Sempre rode `--dry-run` primeiro para ver custo estimado. Sem `APIFY_TOKEN` os scripts saem silenciosamente — siga com WebSearch e os scripts nativos acima. JSON salvo no diretório local configurado pelos scripts. Setup, custo e troubleshooting completos em `docs/APIFY-INTEGRATION.md`.
 
 ### 4. Use WebSearch agressivamente
 

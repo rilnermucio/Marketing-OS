@@ -1,53 +1,68 @@
 # Apify Integration (opcional)
 
-Scraping estruturado de SERP do Google e perfis públicos do Instagram via [Apify Actors](https://apify.com/store), consumido pelos agents `mos-seo` e `mos-research`. **Totalmente opt-in** — sem token configurado, o plugin se comporta exatamente como antes.
+Scraping estruturado de SERP do Google, Instagram, TikTok, YouTube, Twitter/X e Meta Ad Library via [Apify Actors](https://apify.com/store), consumido pelos agents `mos-seo`, `mos-research`, `mos-ads` e `mos-video`. **Totalmente opt-in** — sem token configurado, o plugin se comporta exatamente como antes.
 
 ## Por que existe
 
 Casos onde `WebSearch`/`WebFetch` não bastam:
 
-- **SERP estruturado pra SEO**: top 10 com snippets, People Also Ask e related searches em formato JSON, em uma chamada.
-- **Concorrente externo no Instagram**: posts + métricas agregadas + top hashtags de um perfil sem precisar de login no IG.
+- **SERP estruturado pra SEO**: top 10 com snippets, People Also Ask e related searches em JSON.
+- **Concorrente externo no Instagram, TikTok, YouTube e Twitter/X**: posts/vídeos/tweets + métricas agregadas + top hashtags de perfil público sem precisar de login.
+- **Anúncios ATIVOS de concorrente (Meta Ad Library)**: criativo, copy, plataformas, datas. Único jeito programático de ver criativos rotando agora — alternativa é screenshot manual.
 
-Pra qualquer outra coisa (pesquisa rasa, fact-check, conteúdo público em página única), `WebSearch` continua sendo o caminho — mais rápido, sem custo e sem dependência externa.
+Pra qualquer outra coisa (pesquisa rasa, fact-check, conteúdo em página única), `WebSearch` continua sendo o caminho — mais rápido, sem custo e sem dependência externa.
 
 ## Setup (3 passos)
 
-1. **Crie conta no Apify**: https://console.apify.com/sign-up (free tier dá ~$5 USD de crédito mensal — cobre semanas de teste do MVP).
+1. **Crie conta no Apify**: https://console.apify.com/sign-up (free tier dá ~$5 USD de crédito mensal — cobre semanas de teste leve).
 2. **Pegue o token**: Settings → Integrations → API token → copiar.
 3. **Exporte no shell** (ou no `~/.zshrc` / `.env` local):
    ```bash
    export APIFY_TOKEN="apify_api_xxx..."
    ```
 
-Pronto. Rode um `--dry-run` pra confirmar que o custo estimado bate com o esperado:
+Pronto. Rode um `--dry-run` em qualquer script pra confirmar setup:
 
 ```bash
 python scripts/apify_serp.py --query "infoproduto bofu" --dry-run
 python scripts/apify_instagram.py --handle @concorrente --dry-run
+python scripts/apify_meta_ads.py --query "hotmart" --dry-run
+python scripts/apify_tiktok.py --handle @concorrente --dry-run
+python scripts/apify_youtube.py --channel @mrbeast --dry-run
+python scripts/apify_twitter.py --handle @elonmusk --dry-run
 ```
 
 ## Uso direto
 
 ```bash
-# SERP (default 10 resultados, BR + pt-BR)
+# SERP do Google (default 10 resultados, BR + pt-BR)
 python scripts/apify_serp.py --query "infoproduto bofu"
 
-# SERP com mais resultados e formato JSON
-python scripts/apify_serp.py --query "x" --max-results 20 --format json
-
-# Instagram (default 30 posts)
+# Instagram profile (default 30 posts)
 python scripts/apify_instagram.py --handle @concorrente
 
-# Instagram via URL completa
-python scripts/apify_instagram.py --handle "https://instagram.com/concorrente/"
+# Meta Ad Library — anúncios ATIVOS por keyword/marca
+python scripts/apify_meta_ads.py --query "hotmart" --country BR --max-ads 30
+
+# TikTok profile (default 30 vídeos)
+python scripts/apify_tiktok.py --handle @usuario
+
+# YouTube channel (default 20 vídeos)
+python scripts/apify_youtube.py --channel @mrbeast
+
+# Twitter/X profile (default 50 tweets)
+python scripts/apify_twitter.py --handle @elonmusk
 
 # Via CLI unificado (mos.py)
-python scripts/mos.py apify serp "x" --max-results 10
+python scripts/mos.py apify serp "infoproduto bofu" --max-results 10
 python scripts/mos.py apify instagram @concorrente --max-posts 30
+python scripts/mos.py apify meta-ads --query "hotmart" --country BR
+python scripts/mos.py apify tiktok --handle @concorrente
+python scripts/mos.py apify youtube --channel @mrbeast
+python scripts/mos.py apify twitter --handle @elonmusk
 ```
 
-Output:
+Output (idêntico em todos os scripts):
 - **stdout**: Markdown summary (consumível direto pelos agents)
 - **arquivo**: JSON completo em `workspace/research/apify/<timestamp>-<slug>.json` (gitignored)
 - **stderr**: caminho do arquivo salvo + mensagens de erro
@@ -56,26 +71,36 @@ Output:
 
 Baseado em pricing público dos Actors em maio/2026. **Heurística** — preço real pode variar.
 
-| Operação | Volume | Custo aproximado |
+| Operação | Default | Custo aproximado |
 |---|---|---|
-| 1 query SERP, 10 resultados | 10 results | $0.05 USD |
-| 1 query SERP, 100 resultados (cap) | 100 results | $0.50 USD |
-| 1 perfil IG, 30 posts | 30 posts | $0.07 USD |
-| 1 perfil IG, 100 posts (cap) | 100 posts | $0.23 USD |
+| SERP (1 query, 10 resultados) | 10 | $0.050 |
+| SERP (cap) | 100 | $0.500 |
+| Instagram (30 posts) | 30 | $0.069 |
+| Instagram (cap) | 100 | $0.230 |
+| Meta Ad Library (30 ads) | 30 | $0.045 |
+| Meta Ad Library (cap) | 100 | $0.150 |
+| TikTok (30 vídeos) | 30 | $0.060 |
+| TikTok (cap) | 100 | $0.200 |
+| YouTube (20 vídeos) | 20 | $0.100 |
+| YouTube (cap) | 100 | $0.500 |
+| Twitter/X (50 tweets) | 50 | $0.020 |
+| Twitter/X (cap) | 200 | $0.080 |
 
-**Hard caps no MVP**: 100 results SERP, 100 posts Instagram. Evita engano de digitar 10000.
-
-Sempre rode `--dry-run` antes de execuções caras.
+**Hard caps por script** evitam engano de digitar 10000. Sempre rode `--dry-run` antes de execuções com `--max-*` alto.
 
 ## Como os agents usam
 
 ### `mos-seo`
-
-Quando o briefing pede "rankear pra X", "análise de SERP", "intent matching", "keyword research aprofundada", o agent verifica `APIFY_TOKEN` e, se disponível, invoca `apify_serp.py` para pegar a SERP estruturada antes de propor headline e outline. Sem token, segue com `WebSearch` normal.
+SERP enriquecido pra keyword research, intent matching, content gap. Invoca `apify_serp.py` se `APIFY_TOKEN` existe.
 
 ### `mos-research`
+Análise competitiva profunda em qualquer plataforma. Pode invocar **todos** os scripts conforme briefing — Instagram/TikTok/YouTube/Twitter pra perfil de concorrente, Meta Ad Library pra ver criativos ativos, SERP pra contexto. O Research Brief consolida.
 
-Quando o briefing envolve análise de concorrente específico, content gap analysis ou benchmark de engajamento, o agent invoca `apify_instagram.py` pra pegar top posts e hashtags. O resultado vai pro `Research Brief` final como evidência.
+### `mos-ads`
+Inteligência competitiva de criativo via Meta Ad Library: copy, CTA, plataforma, duração de campanha. Bate em `/criar-anuncio` e `/clonar-estrategia`.
+
+### `mos-video`
+Reverse-engineer de top creators no YouTube e TikTok pra extrair patterns de hooks, retenção, formato. Encaixa em `/analisar-video` e `/criar-video`.
 
 ## Graceful degrade
 
@@ -86,16 +111,21 @@ Erros reais (401 invalid token, 429 rate limit, timeout) saem com **exit 2** e m
 ## FAQ
 
 **O token Apify fica exposto no plugin?**
-Não. Cada usuário define o seu `APIFY_TOKEN` localmente. O plugin nunca embute credencial. O scraping vai pra `workspace/` que é gitignored.
+Não. Cada usuário define o seu `APIFY_TOKEN` localmente. O plugin nunca embute credencial. Outputs vão pra `workspace/` que é gitignored.
 
 **Funciona offline / sem internet?**
-Não. Os Actors rodam na nuvem do Apify. `WebSearch` também precisa de internet — sem rede, marketing-os funciona em "modo composição" (geração baseada em conhecimento embutido, sem fact-check).
+Não. Os Actors rodam na nuvem do Apify.
 
-**Posso adicionar outros Actors (TikTok, LinkedIn)?**
-Por design, não no MVP. Se o uso provar valor depois de algumas semanas, é trivial adicionar — basta criar `scripts/apify_<plataforma>.py` seguindo o pattern de `apify_serp.py` e atualizar `_COST_RATES` em `apify_client.py`.
+**Por que não usar a API do TikTok/YouTube/Twitter direto?**
+- TikTok não tem API pública pra perfis de terceiros
+- YouTube tem API mas com quota agressiva e exige projeto Google Cloud
+- Twitter/X cobra $100/mês mínimo pelo tier básico
+- Meta Ad Library tem API mas exige autenticação por desenvolvedor approved
 
-**Quero limitar custo máximo por execução**
-Use `--max-results` (SERP) ou `--max-posts` (IG). Hard cap de 100 já está no script.
+Apify centraliza tudo num único token, sem setup por plataforma.
+
+**LinkedIn?**
+Não incluímos no plugin. Apify oferece scrapers, mas viola ToS do LinkedIn agressivamente — risco de banimento + ação legal. Pular.
 
 **Como vejo o que foi salvo até agora?**
 ```bash
@@ -108,13 +138,16 @@ ls -lah workspace/research/apify/
 find workspace/research/apify/ -name "*.json" -mtime +30 -delete
 ```
 
+**Quero usar um Actor diferente do que vem no plugin**
+Os Actor IDs são constantes no topo de cada script (`SERP_ACTOR_ID`, `INSTAGRAM_ACTOR_ID`, etc.). Edite e adicione entrada em `_COST_RATES` em `apify_client.py` se quiser custo estimado.
+
 ## Opt-out completo
 
 Se decidir desinstalar:
 
 1. Remova `APIFY_TOKEN` do shell.
 2. Opcional: delete `workspace/research/apify/` (são só JSONs locais, gitignored).
-3. Os scripts Python ficam, mas inertes — `mos-seo` e `mos-research` voltam ao comportamento original (WebSearch).
+3. Os scripts Python ficam, mas inertes — agents voltam ao comportamento original (WebSearch).
 
 Não há banco de dados, não há config persistente, não há lock-in.
 
@@ -122,14 +155,41 @@ Não há banco de dados, não há config persistente, não há lock-in.
 
 ```
 scripts/
-├── apify_client.py       # auth + run-sync + erro + custo (sem CLI próprio)
-├── apify_serp.py         # google-search-scraper Actor + CLI
-└── apify_instagram.py    # instagram-scraper Actor + CLI
+├── apify_client.py        # auth + run-sync + erro + custo (sem CLI próprio)
+├── apify_serp.py          # apify/google-search-scraper + CLI
+├── apify_instagram.py     # apify/instagram-scraper + CLI
+├── apify_meta_ads.py      # curious_coder/facebook-ads-library-scraper + CLI
+├── apify_tiktok.py        # clockworks/free-tiktok-scraper + CLI (FREE)
+├── apify_youtube.py       # streamers/youtube-scraper + CLI
+└── apify_twitter.py       # apidojo/twitter-scraper-lite + CLI (requer rental)
 
 scripts/tests/
-├── test_apify_client.py    # 31 tests
-├── test_apify_serp.py      # 23 tests
-└── test_apify_instagram.py # 29 tests
+├── test_apify_client.py     # 31 tests
+├── test_apify_serp.py       # 25 tests
+├── test_apify_instagram.py  # 29 tests
+├── test_apify_meta_ads.py   # 24 tests
+├── test_apify_tiktok.py     # 25 tests
+├── test_apify_youtube.py    # 23 tests
+└── test_apify_twitter.py    # 24 tests
 ```
 
-`apify_client.py` usa `urllib.request` da stdlib — sem dependência nova no `requirements.txt`. Mock dos testes via `monkeypatch.setattr` (consistente com `test_notion_api.py`, `test_meta_ads_api.py`).
+`apify_client.py` usa `urllib.request` da stdlib — zero dependência nova. Mock dos testes via `monkeypatch.setattr` (consistente com `test_notion_api.py`, `test_meta_ads_api.py`).
+
+## Mapeamento Actor → script → agent
+
+| Actor | Script | Agent principal | Use case | Status |
+|---|---|---|---|---|
+| `apify/google-search-scraper` | `apify_serp.py` | `mos-seo` | SERP pra keyword research / SEO | OK |
+| `apify/instagram-scraper` | `apify_instagram.py` | `mos-research` | Top posts de concorrente IG | OK |
+| `curious_coder/facebook-ads-library-scraper` | `apify_meta_ads.py` | `mos-ads` | Anúncios ativos por keyword/marca | OK |
+| `clockworks/free-tiktok-scraper` | `apify_tiktok.py` | `mos-research`, `mos-video` | Top vídeos de TikTok (Actor FREE) | OK |
+| `streamers/youtube-scraper` | `apify_youtube.py` | `mos-video`, `mos-research` | Vídeos de canal YouTube com métricas | OK |
+| `apidojo/twitter-scraper-lite` | `apify_twitter.py` | `mos-research` | Tweets recentes de perfil | Requer rental* |
+
+\* **Twitter/X**: o Actor exige rental mensal explícita no Apify console (não basta `APIFY_TOKEN`). Sem ativar, retorna `{"demo": true}`. O script detecta e emite mensagem clara com link de ativação. Em alternativa, troque `TWITTER_ACTOR_ID` em `apify_twitter.py` por outro scraper de sua preferência.
+
+## Notas sobre Actors específicos
+
+- **Meta Ad Library** (`curious_coder/facebook-ads-library-scraper`): exige `count >= 10` no input. O script eleva valores menores automaticamente (pra evitar HTTP 400). Bodies de creative dinâmico vêm com placeholders `{{product.brand}}` — preservados como vêm.
+- **TikTok** (`clockworks/free-tiktok-scraper`): Actor FREE, sem custo via API (cobertura igual ao paid em volume baixo). Para profiles privados ou com 0 vídeos, retorna apenas metadados (`note: "Profile has no videos..."`).
+- **Twitter/X** (`apidojo/twitter-scraper-lite`): rental ~$15-25/mês via Apify console. Pra uso pontual, considere `WebSearch` que cobre tweets públicos via Google.
