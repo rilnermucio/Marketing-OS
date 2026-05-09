@@ -46,3 +46,10 @@
 # python-dotenv>=1.0.0      # Para gerenciamento de variáveis de ambiente
 # schedule>=1.2.0           # Para agendamento de publicações
 # Pillow>=10.0.0            # Para manipulação de imagens
+
+# ============================================================
+# Dependências para /auditoria (multi-modal PDF report)
+# ============================================================
+weasyprint>=60.0
+markdown-it-py>=3.0
+jsonschema>=4.0
