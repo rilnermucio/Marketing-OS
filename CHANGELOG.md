@@ -7,6 +7,27 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [6.6.0] — 2026-05-09 (Apify scraping opt-in para mos-seo + mos-research)
+
+Minor release adicionando integração opt-in com Apify Actors pra dois agents.
+
+### Added
+
+- **Apify SERP scraping (`scripts/apify_serp.py`)** — `mos-seo` ganha acesso a structured SERP data (top 10 + People Also Ask + related searches) via `google-search-scraper` Actor. Substitui WebSearch quando keyword research precisa de dados estruturados pra schema markup ou intent analysis.
+- **Apify Instagram scraping (`scripts/apify_instagram.py`)** — `mos-research` ganha analise de perfis de concorrentes (posts + metricas agregadas + top hashtags) via `instagram-scraper` Actor. Util pra audit de presence + hashtag strategy mining.
+- `scripts/apify_client.py` — wrapper minimo (urllib stdlib only, zero deps novas) com timeout, retry e parsing.
+- `docs/APIFY-INTEGRATION.md` — setup, custos estimados e FAQ.
+- 83 tests novos cobrindo client + ambos os Actors.
+- Updates em `agents/mos-seo.md` e `agents/mos-research.md` com instrucoes opt-in.
+
+### Notes
+
+- **Opt-in via env var:** `APIFY_TOKEN` precisa estar exportado pra agents usarem. Sem token, agents fall back silenciosamente pra WebSearch (zero behavior change).
+- **Hard caps:** 100 results pro SERP, 100 posts pro Instagram. `--dry-run` pra estimar custo antes de rodar.
+- **Output paths:** JSON salvo em diretorio user-local configuravel; Markdown summary streamado pra stdout (consumo direto pelos agents).
+
+---
+
 ## [6.5.1] — 2026-05-09 (path canonicalization + post-v6.5.0 polish + validation docs)
 
 Patch release que distribui dois commits acumulados desde o tag v6.5.0 (1aa2a44, 1303771) e adiciona docs derivadas da validação completa da v6.5.0 ([VALIDATION-RESULTS-v6.5.0.md](docs/VALIDATION-RESULTS-v6.5.0.md)).
