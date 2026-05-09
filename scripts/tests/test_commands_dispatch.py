@@ -27,6 +27,7 @@ AGENTS_DIR = PROJECT_ROOT / "agents"
 UTILITY_COMMANDS = {
     "publicar-notion.md",  # routes to other /criar-* commands when generation is needed
     "campanha.md",  # index of /campanha-* sub-commands; pure router, no direct dispatch
+    "projeto.md",  # workflow orchestrator; dispatch is dynamic per pipeline stage at runtime
 }
 
 # Regex to extract the agent name from any Agent(subagent_type: "mos-*") call.

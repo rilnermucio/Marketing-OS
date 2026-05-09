@@ -55,8 +55,8 @@ Para benchmarks BR atuais:
 ### 4. Invoque scripts via Bash quando aplicável
 
 ```bash
-# Project manager (acompanha criação de infoproduto fase a fase)
-python3 scripts/project_manager.py create "infoproduto-X"
+# Project manager (workflow com handoffs e approval gates)
+python3 scripts/project_manager.py novo "infoproduto-X" --tipo mentoria
 
 # Quality gate (valida módulos antes de publicar)
 python3 scripts/quality_gate.py modulo.md --type artigo

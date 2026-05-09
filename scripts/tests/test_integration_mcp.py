@@ -109,10 +109,10 @@ class TestPipelineMOSArgumentos:
         assert "--compare" in result
         assert "Título A" in result
 
-    def test_project_create_injeta_subcomando(self):
-        fn = SPECIAL_ARGS[("project", "create")]
-        result = fn(["Meu Projeto", "--type", "launch"])
-        assert result[0] == "create"
+    def test_project_novo_injeta_subcomando(self):
+        fn = SPECIAL_ARGS[("project", "novo")]
+        result = fn(["Meu Projeto", "--tipo", "lancamento"])
+        assert result[0] == "novo"
         assert "Meu Projeto" in result
 
     def test_project_list_injeta_subcomando(self):
@@ -126,20 +126,20 @@ class TestPipelineMOSArgumentos:
         assert result[0] == "status"
         assert "meu-projeto-slug" in result
 
-    def test_project_add_content_injeta_subcomando(self):
-        fn = SPECIAL_ARGS[("project", "add-content")]
-        result = fn(["slug", "arquivo.md"])
-        assert result[0] == "add-content"
-
-    def test_project_complete_injeta_subcomando(self):
-        fn = SPECIAL_ARGS[("project", "complete")]
+    def test_project_avancar_injeta_subcomando(self):
+        fn = SPECIAL_ARGS[("project", "avancar")]
         result = fn(["slug"])
-        assert result[0] == "complete"
+        assert result[0] == "avancar"
 
-    def test_project_note_injeta_subcomando(self):
-        fn = SPECIAL_ARGS[("project", "note")]
-        result = fn(["slug", "Nota aqui"])
-        assert result[0] == "note"
+    def test_project_aprovar_injeta_subcomando(self):
+        fn = SPECIAL_ARGS[("project", "aprovar")]
+        result = fn(["slug"])
+        assert result[0] == "aprovar"
+
+    def test_project_rejeitar_injeta_subcomando(self):
+        fn = SPECIAL_ARGS[("project", "rejeitar")]
+        result = fn(["slug", "feedback aqui"])
+        assert result[0] == "rejeitar"
 
     def test_readability_check_passthrough(self):
         fn = SPECIAL_ARGS[("readability", "check")]

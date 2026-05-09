@@ -593,7 +593,7 @@ graph TB
         VAL["validators.py\nValidação de inputs"]
         QG["quality_gate.py\nGate de qualidade"]
         OF["output_formatter.py\nJSON · Markdown · HTML"]
-        PM["project_manager.py\nGerenciamento de projetos"]
+        PM["project_manager.py\nWorkflow + handoffs + approval gates"]
     end
 
     CLI --> CONTENT

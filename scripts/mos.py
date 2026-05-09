@@ -24,9 +24,12 @@ Uso:
     python mos.py ab generate headline "texto original"
     python mos.py captions generate "tema" engajamento
     python mos.py quality check arquivo.md --type post
-    python mos.py project create "Nome do Projeto" --type launch
+    python mos.py project novo "Nome do Projeto" --tipo lancamento
     python mos.py project list
     python mos.py project status slug
+    python mos.py project avancar slug
+    python mos.py project aprovar slug
+    python mos.py project rejeitar slug "feedback"
 """
 
 import os
@@ -87,12 +90,12 @@ COMMAND_MAP: Dict[str, Dict[str, Tuple[str, str]]] = {
         "check": ("quality_gate.py", "Valida qualidade do conteúdo"),
     },
     "project": {
-        "create": ("project_manager.py", "Cria novo projeto"),
+        "novo": ("project_manager.py", "Cria novo projeto (--tipo lancamento|perpetuo|consultoria|mentoria)"),
         "list": ("project_manager.py", "Lista projetos"),
         "status": ("project_manager.py", "Status de um projeto"),
-        "add-content": ("project_manager.py", "Adiciona conteúdo a projeto"),
-        "complete": ("project_manager.py", "Marca projeto como concluído"),
-        "note": ("project_manager.py", "Adiciona nota a projeto"),
+        "avancar": ("project_manager.py", "Cria run pendente pro stage atual"),
+        "aprovar": ("project_manager.py", "Aprova ultimo run e avanca stage"),
+        "rejeitar": ("project_manager.py", "Rejeita ultimo run com feedback"),
     },
     "apify": {
         "serp": ("apify_serp.py", "SERP scraping via Apify (opcional, requer APIFY_TOKEN)"),
@@ -107,12 +110,12 @@ COMMAND_MAP: Dict[str, Dict[str, Tuple[str, str]]] = {
 SPECIAL_ARGS: Dict[Tuple[str, str], Callable[[List[str]], List[str]]] = {
     ("headlines", "compare"): lambda args: ["--compare"] + args,
     ("readability", "check"): lambda args: args,  # já é passthrough
-    ("project", "create"): lambda args: ["create"] + args,
+    ("project", "novo"): lambda args: ["novo"] + args,
     ("project", "list"): lambda args: ["list"] + args,
     ("project", "status"): lambda args: ["status"] + args,
-    ("project", "add-content"): lambda args: ["add-content"] + args,
-    ("project", "complete"): lambda args: ["complete"] + args,
-    ("project", "note"): lambda args: ["note"] + args,
+    ("project", "avancar"): lambda args: ["avancar"] + args,
+    ("project", "aprovar"): lambda args: ["aprovar"] + args,
+    ("project", "rejeitar"): lambda args: ["rejeitar"] + args,
 }
 
 
@@ -176,9 +179,12 @@ CATEGORIAS E COMANDOS:
     mos apify youtube --channel @mrbeast --max-videos 20
 
   Projetos:
-    mos project create "Lançamento Curso" --type launch
+    mos project novo "Lançamento Curso" --tipo lancamento
     mos project list
     mos project status lancamento-curso
+    mos project avancar lancamento-curso
+    mos project aprovar lancamento-curso
+    mos project rejeitar lancamento-curso "feedback"
 
 Para ajuda de um comando específico:
     python mos.py <categoria> <comando> --help

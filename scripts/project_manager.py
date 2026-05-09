@@ -1,399 +1,395 @@
 #!/usr/bin/env python3
 """
-Project Manager - Gerencia projetos e campanhas de marketing
+project_manager.py - Workflow de projetos de marketing com handoffs e approval gates.
+
+State machine declarativa por projeto:
+- project.md (frontmatter YAML + body)
+- runs.jsonl (append-only log de execucoes)
+- decisions.md (historico de aprovacoes/rejeicoes)
+- pastas <NN>-<stage>/ (artifacts por estagio, criadas sob demanda)
 
 Uso:
-    python project_manager.py create "Nome do Projeto" --type launch
+    python project_manager.py novo "Lancamento Curso IA" --tipo lancamento
     python project_manager.py list
-    python project_manager.py status "nome-do-projeto"
-    python project_manager.py add-content "nome-do-projeto" --file conteudo.md
-    python project_manager.py complete "nome-do-projeto"
+    python project_manager.py status lancamento-curso-ia
+    python project_manager.py avancar lancamento-curso-ia
+    python project_manager.py aprovar lancamento-curso-ia
+    python project_manager.py rejeitar lancamento-curso-ia "feedback"
 """
+from __future__ import annotations
 
 import argparse
-import os
-import sys
 import json
 import re
+import sys
 from datetime import datetime
-from typing import Dict, List, Optional
+from pathlib import Path
+from typing import Optional
 
-# Diretório base de projetos
-PROJECTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "output", "projects")
+import yaml
 
-# Tipos de projeto válidos
-PROJECT_TYPES = {
-    "launch": "Lançamento de produto ou campanha",
-    "funnel": "Funil de vendas completo",
-    "batch": "Produção de conteúdo em lote",
-    "campaign": "Campanha de marketing",
-    "editorial": "Calendário editorial",
-    "sequence": "Sequência multi-canal",
-    "infoproduct": "Criação de infoproduto",
-    "custom": "Projeto personalizado"
-}
+REPO_ROOT = Path(__file__).resolve().parent.parent
+PROJECTS_ROOT = REPO_ROOT / "workspace" / "projects"
+TEMPLATES_DIR = REPO_ROOT / "scripts" / "templates" / "projeto"
 
-# Status possíveis
-STATUSES = ["active", "paused", "completed", "archived"]
+PROJECT_TYPES = ("lancamento", "perpetuo", "consultoria", "mentoria")
 
+
+# ---------- helpers ----------
 
 def slugify(text: str) -> str:
-    """Converte texto para slug (URL-safe)."""
+    """Converte texto livre em slug URL-safe."""
     text = text.lower().strip()
-    text = re.sub(r'[àáâãä]', 'a', text)
-    text = re.sub(r'[èéêë]', 'e', text)
-    text = re.sub(r'[ìíîï]', 'i', text)
-    text = re.sub(r'[òóôõö]', 'o', text)
-    text = re.sub(r'[ùúûü]', 'u', text)
-    text = re.sub(r'[ç]', 'c', text)
-    text = re.sub(r'[^a-z0-9]+', '-', text)
-    text = text.strip('-')
-    return text
+    accent_map = {
+        "[àáâãä]": "a", "[èéêë]": "e", "[ìíîï]": "i",
+        "[òóôõö]": "o", "[ùúûü]": "u", "[ç]": "c",
+    }
+    for pattern, repl in accent_map.items():
+        text = re.sub(pattern, repl, text)
+    text = re.sub(r"[^a-z0-9]+", "-", text)
+    return text.strip("-")
 
 
-def ensure_projects_dir():
-    """Garante que o diretório de projetos existe."""
-    os.makedirs(PROJECTS_DIR, exist_ok=True)
+def load_template(project_type: str) -> str:
+    """Carrega template de um tipo de projeto."""
+    if project_type not in PROJECT_TYPES:
+        raise ValueError(
+            f"invalid type '{project_type}'. Valid: {', '.join(PROJECT_TYPES)}"
+        )
+    template_path = TEMPLATES_DIR / f"{project_type}.md"
+    return template_path.read_text(encoding="utf-8")
 
 
-def get_project_path(slug: str) -> str:
-    """Retorna o caminho do projeto."""
-    return os.path.join(PROJECTS_DIR, slug)
+FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---\n?(.*)$", re.DOTALL)
 
 
-def load_project(slug: str) -> Optional[Dict]:
-    """Carrega dados do projeto."""
-    project_file = os.path.join(get_project_path(slug), "project.json")
-    if not os.path.exists(project_file):
-        return None
-    with open(project_file, 'r', encoding='utf-8') as f:
-        return json.load(f)
+def parse_frontmatter(content: str) -> tuple[dict, str]:
+    """Extrai frontmatter YAML + body de um arquivo Markdown."""
+    match = FRONTMATTER_RE.match(content)
+    if not match:
+        return {}, content
+    fm = yaml.safe_load(match.group(1)) or {}
+    body = match.group(2)
+    return fm, body
 
 
-def save_project(slug: str, data: Dict):
-    """Salva dados do projeto."""
-    project_file = os.path.join(get_project_path(slug), "project.json")
-    data["updated_at"] = datetime.now().isoformat()
-    with open(project_file, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+def serialize_frontmatter(fm: dict, body: str) -> str:
+    """Serializa frontmatter + body de volta pra Markdown."""
+    yaml_str = yaml.safe_dump(fm, sort_keys=False, allow_unicode=True).strip()
+    return f"---\n{yaml_str}\n---\n\n{body.strip()}\n"
 
 
-def create_project(name: str, project_type: str = "custom", description: str = ""):
-    """Cria um novo projeto."""
-    ensure_projects_dir()
+def _read_jsonl(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    out = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line:
+            out.append(json.loads(line))
+    return out
+
+
+# ---------- create ----------
+
+def create_project(name: str, project_type: str) -> Path:
+    """Cria estrutura nova do projeto em workspace/projects/<slug>/."""
+    if project_type not in PROJECT_TYPES:
+        raise ValueError(f"invalid type '{project_type}'. Valid: {', '.join(PROJECT_TYPES)}")
 
     slug = slugify(name)
-    project_path = get_project_path(slug)
+    project_dir = PROJECTS_ROOT / slug
 
-    if os.path.exists(project_path):
-        print(f"\n❌ Projeto '{slug}' já existe.")
-        print(f"   Use: python project_manager.py status \"{slug}\"")
-        sys.exit(1)
+    if project_dir.exists():
+        raise FileExistsError(f"projeto ja existe: {slug}")
 
-    if project_type not in PROJECT_TYPES:
-        print(f"\n❌ Tipo inválido: '{project_type}'")
-        print(f"   Tipos válidos: {', '.join(PROJECT_TYPES.keys())}")
-        sys.exit(1)
+    project_dir.mkdir(parents=True, exist_ok=True)
 
-    # Criar estrutura de diretórios
-    os.makedirs(project_path)
-    os.makedirs(os.path.join(project_path, "content"))
-    os.makedirs(os.path.join(project_path, "analytics"))
+    template = load_template(project_type)
+    created_at = datetime.now().isoformat(timespec="seconds")
+    rendered = template.format(name=name, slug=slug, created_at=created_at)
+    (project_dir / "project.md").write_text(rendered, encoding="utf-8")
 
-    # Criar project.json
-    project_data = {
-        "name": name,
+    (project_dir / "runs.jsonl").touch()
+    (project_dir / "decisions.md").write_text(
+        f"# Decisoes: {name}\n\n", encoding="utf-8"
+    )
+
+    return project_dir
+
+
+# ---------- list ----------
+
+def list_projects() -> list[dict]:
+    """Lista todos os projetos com snapshot de estado."""
+    if not PROJECTS_ROOT.exists():
+        return []
+    out = []
+    for entry in sorted(PROJECTS_ROOT.iterdir()):
+        if not entry.is_dir():
+            continue
+        project_md = entry / "project.md"
+        if not project_md.is_file():
+            continue
+        fm, _ = parse_frontmatter(project_md.read_text(encoding="utf-8"))
+        out.append({
+            "slug": fm.get("slug", entry.name),
+            "name": fm.get("name", entry.name),
+            "type": fm.get("type", "?"),
+            "status": fm.get("status", "?"),
+            "current_stage": fm.get("current_stage", "?"),
+        })
+    return out
+
+
+# ---------- status ----------
+
+def project_status(slug: str) -> dict:
+    """Snapshot completo do estado de um projeto."""
+    project_dir = PROJECTS_ROOT / slug
+    project_md = project_dir / "project.md"
+    if not project_md.is_file():
+        raise FileNotFoundError(f"projeto nao encontrado: {slug}")
+
+    fm, _ = parse_frontmatter(project_md.read_text(encoding="utf-8"))
+    runs = _read_jsonl(project_dir / "runs.jsonl")
+
+    return {
         "slug": slug,
-        "type": project_type,
-        "type_description": PROJECT_TYPES[project_type],
-        "description": description,
-        "status": "active",
-        "created_at": datetime.now().isoformat(),
-        "updated_at": datetime.now().isoformat(),
-        "contents": [],
-        "metrics": {},
-        "notes": []
-    }
-    save_project(slug, project_data)
-
-    # Criar brief.md
-    brief_content = f"""# {name}
-
-## Tipo
-{PROJECT_TYPES[project_type]}
-
-## Descrição
-{description if description else "[Adicionar descrição do projeto]"}
-
-## Objetivos
-- [ ] [Objetivo 1]
-- [ ] [Objetivo 2]
-- [ ] [Objetivo 3]
-
-## Audiência-Alvo
-[Descrever a audiência]
-
-## Cronograma
-- **Início:** {datetime.now().strftime('%Y-%m-%d')}
-- **Deadline:** [Definir]
-
-## Canais
-- [ ] Instagram
-- [ ] LinkedIn
-- [ ] Email
-- [ ] Blog/SEO
-- [ ] Ads
-- [ ] YouTube
-- [ ] TikTok
-
-## Notas
-[Notas adicionais do projeto]
-"""
-    with open(os.path.join(project_path, "brief.md"), 'w', encoding='utf-8') as f:
-        f.write(brief_content)
-
-    print("\n" + "=" * 60)
-    print("✅ PROJETO CRIADO COM SUCESSO")
-    print("=" * 60)
-    print(f"\n📁 Nome: {name}")
-    print(f"🏷️  Slug: {slug}")
-    print(f"📂 Tipo: {PROJECT_TYPES[project_type]}")
-    print(f"📍 Local: {project_path}")
-    print(f"\n📄 Arquivos criados:")
-    print(f"   • project.json (metadados)")
-    print(f"   • brief.md (briefing)")
-    print(f"   • content/ (conteúdos gerados)")
-    print(f"   • analytics/ (métricas)")
-    print(f"\n💡 Próximos passos:")
-    print(f"   1. Edite o brief.md com os detalhes do projeto")
-    print(f"   2. Use os comandos do Marketing OS para gerar conteúdo")
-    print(f"   3. Adicione conteúdo: python project_manager.py add-content \"{slug}\" --file conteudo.md")
-    print("=" * 60)
-
-
-def list_projects():
-    """Lista todos os projetos."""
-    ensure_projects_dir()
-
-    projects = []
-    if os.path.exists(PROJECTS_DIR):
-        for item in sorted(os.listdir(PROJECTS_DIR)):
-            project_path = os.path.join(PROJECTS_DIR, item)
-            if os.path.isdir(project_path):
-                data = load_project(item)
-                if data:
-                    projects.append(data)
-
-    if not projects:
-        print("\n📭 Nenhum projeto encontrado.")
-        print("   Crie um: python project_manager.py create \"Nome do Projeto\" --type launch")
-        return
-
-    print("\n" + "=" * 60)
-    print("📋 PROJETOS DO MARKETING OS")
-    print("=" * 60)
-
-    # Agrupar por status
-    for status in STATUSES:
-        status_projects = [p for p in projects if p.get("status") == status]
-        if status_projects:
-            status_icons = {
-                "active": "🟢",
-                "paused": "🟡",
-                "completed": "✅",
-                "archived": "📦"
-            }
-            print(f"\n{status_icons.get(status, '⬜')} {status.upper()} ({len(status_projects)})")
-            print("-" * 40)
-
-            for p in status_projects:
-                content_count = len(p.get("contents", []))
-                created = p.get("created_at", "")[:10]
-                print(f"   📁 {p['name']}")
-                print(f"      Slug: {p['slug']} | Tipo: {p['type']} | Conteúdos: {content_count} | Criado: {created}")
-
-    print(f"\n📊 Total: {len(projects)} projeto(s)")
-    print("=" * 60)
-
-
-def show_status(slug: str):
-    """Mostra status detalhado de um projeto."""
-    data = load_project(slug)
-
-    if not data:
-        print(f"\n❌ Projeto '{slug}' não encontrado.")
-        return
-
-    status_icons = {
-        "active": "🟢 Ativo",
-        "paused": "🟡 Pausado",
-        "completed": "✅ Concluído",
-        "archived": "📦 Arquivado"
+        "name": fm.get("name", slug),
+        "type": fm.get("type"),
+        "status": fm.get("status"),
+        "current_stage": fm.get("current_stage"),
+        "pipeline": fm.get("pipeline", []),
+        "default_approval": fm.get("default_approval", "required"),
+        "last_run": runs[-1] if runs else None,
+        "total_runs": len(runs),
     }
 
-    print("\n" + "=" * 60)
-    print(f"📁 PROJETO: {data['name']}")
-    print("=" * 60)
-    print(f"\n🏷️  Slug: {data['slug']}")
-    print(f"📂 Tipo: {data.get('type_description', data['type'])}")
-    print(f"📊 Status: {status_icons.get(data['status'], data['status'])}")
-    print(f"📅 Criado: {data['created_at'][:10]}")
-    print(f"🔄 Atualizado: {data['updated_at'][:10]}")
 
-    if data.get('description'):
-        print(f"\n📝 Descrição: {data['description']}")
+# ---------- run log ----------
 
-    contents = data.get('contents', [])
-    if contents:
-        print(f"\n📄 CONTEÚDOS ({len(contents)}):")
-        for c in contents:
-            print(f"   • {c.get('filename', 'sem nome')} — {c.get('type', 'desconhecido')} ({c.get('added_at', '')[:10]})")
+def append_run(slug: str, run: dict) -> dict:
+    """Appenda uma linha em runs.jsonl. Preenche run_id e started_at se faltarem."""
+    project_dir = PROJECTS_ROOT / slug
+    runs_path = project_dir / "runs.jsonl"
+    existing = _read_jsonl(runs_path)
+    next_id = f"run_{len(existing) + 1:03d}"
+
+    run = dict(run)
+    run.setdefault("run_id", next_id)
+    run.setdefault("started_at", datetime.now().isoformat(timespec="seconds"))
+
+    with runs_path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(run, ensure_ascii=False) + "\n")
+    return run
+
+
+# ---------- state machine ----------
+
+def _update_frontmatter(slug: str, updates: dict) -> dict:
+    """Mescla updates no frontmatter do project.md e regrava."""
+    project_md = PROJECTS_ROOT / slug / "project.md"
+    fm, body = parse_frontmatter(project_md.read_text(encoding="utf-8"))
+    fm.update(updates)
+    project_md.write_text(serialize_frontmatter(fm, body), encoding="utf-8")
+    return fm
+
+
+def _next_stage(pipeline: list[dict], current_id: str) -> Optional[dict]:
+    for i, stage in enumerate(pipeline):
+        if stage["id"] == current_id and i + 1 < len(pipeline):
+            return pipeline[i + 1]
+    return None
+
+
+def _current_stage_def(pipeline: list[dict], current_id: str) -> Optional[dict]:
+    for stage in pipeline:
+        if stage["id"] == current_id:
+            return stage
+    return None
+
+
+def _stage_iteration(slug: str, stage_id: str) -> int:
+    """Quantas vezes esse stage rodou ate agora? (proxima iteracao = N+1)"""
+    runs = _read_jsonl(PROJECTS_ROOT / slug / "runs.jsonl")
+    return sum(1 for r in runs if r.get("stage_id") == stage_id) + 1
+
+
+def _rewrite_runs(slug: str, runs: list[dict]) -> None:
+    runs_path = PROJECTS_ROOT / slug / "runs.jsonl"
+    runs_path.write_text(
+        "\n".join(json.dumps(r, ensure_ascii=False) for r in runs) + "\n",
+        encoding="utf-8",
+    )
+
+
+def _append_decision(slug: str, stage_id: str, run_id: str, decision: str, feedback: Optional[str]) -> None:
+    when = datetime.now().strftime("%Y-%m-%d %H:%M")
+    block = [f"\n## {when} {stage_id} ({run_id})", f"- **Decisao:** {decision}"]
+    if feedback:
+        block.append(f"- **Feedback:** {feedback}")
+    block.append("")
+    decisions_md = PROJECTS_ROOT / slug / "decisions.md"
+    with decisions_md.open("a", encoding="utf-8") as f:
+        f.write("\n".join(block) + "\n")
+
+
+def advance_stage(slug: str) -> dict:
+    """Cria run pendente pro stage atual e retorna ele.
+
+    Nao executa o agente. Quem executa eh o slash command /projeto.
+    Esse helper soh registra "vai rodar isso agora".
+    """
+    state = project_status(slug)
+    stage_def = _current_stage_def(state["pipeline"], state["current_stage"])
+    if stage_def is None:
+        raise ValueError(f"stage atual '{state['current_stage']}' nao esta na pipeline")
+    iteration = _stage_iteration(slug, stage_def["id"])
+    run = append_run(slug, {
+        "stage_id": stage_def["id"],
+        "agent": stage_def["agent"],
+        "iteration": iteration,
+        "status": "pending",
+        "source": "pipeline",
+    })
+    return run
+
+
+def approve_stage(slug: str) -> dict:
+    """Aprova ultimo run pendente e avanca current_stage.
+
+    Se ja for o ultimo stage da pipeline, marca status: completed.
+    """
+    project_dir = PROJECTS_ROOT / slug
+    runs = _read_jsonl(project_dir / "runs.jsonl")
+    if not runs:
+        raise ValueError("nenhum run para aprovar")
+
+    last = runs[-1]
+    if last.get("status") not in ("pending", "running", "pending_approval"):
+        raise ValueError(f"ultimo run nao esta aguardando aprovacao: {last.get('status')}")
+
+    last["status"] = "approved"
+    last["approved_at"] = datetime.now().isoformat(timespec="seconds")
+    _rewrite_runs(slug, runs)
+
+    _append_decision(slug, last["stage_id"], last["run_id"], "aprovado", feedback=None)
+
+    state = project_status(slug)
+    next_stage = _next_stage(state["pipeline"], last["stage_id"])
+    if next_stage is None:
+        _update_frontmatter(slug, {"status": "completed"})
     else:
-        print("\n📄 Nenhum conteúdo adicionado ainda.")
+        _update_frontmatter(slug, {"current_stage": next_stage["id"]})
 
-    notes = data.get('notes', [])
-    if notes:
-        print(f"\n📌 NOTAS ({len(notes)}):")
-        for n in notes[-5:]:  # Últimas 5
-            print(f"   • [{n.get('date', '')[:10]}] {n.get('text', '')}")
-
-    print("\n" + "=" * 60)
+    return project_status(slug)
 
 
-def add_content(slug: str, filepath: str, content_type: str = "general"):
-    """Adiciona conteúdo ao projeto."""
-    data = load_project(slug)
-    if not data:
-        print(f"\n❌ Projeto '{slug}' não encontrado.")
+def reject_stage(slug: str, feedback: str) -> dict:
+    """Rejeita ultimo run e mantem current_stage (proxima execucao re-roda com feedback)."""
+    project_dir = PROJECTS_ROOT / slug
+    runs = _read_jsonl(project_dir / "runs.jsonl")
+    if not runs:
+        raise ValueError("nenhum run para rejeitar")
+
+    last = runs[-1]
+    last["status"] = "rejected"
+    last["rejected_at"] = datetime.now().isoformat(timespec="seconds")
+    last["feedback"] = feedback
+    _rewrite_runs(slug, runs)
+
+    _append_decision(slug, last["stage_id"], last["run_id"], "rejeitado", feedback=feedback)
+    return project_status(slug)
+
+
+# ---------- CLI ----------
+
+def _print_status(state: dict) -> None:
+    print(f"\nProjeto: {state['name']} ({state['slug']})")
+    print(f"Tipo: {state['type']}  Status: {state['status']}")
+    print(f"Stage atual: {state['current_stage']}")
+    print(f"Total de runs: {state['total_runs']}")
+    if state.get("last_run"):
+        lr = state["last_run"]
+        print(
+            f"Ultimo run: {lr.get('run_id')} stage={lr.get('stage_id')} "
+            f"status={lr.get('status')} iter={lr.get('iteration')}"
+        )
+    print("\nPipeline:")
+    for s in state["pipeline"]:
+        marker = ">" if s["id"] == state["current_stage"] else " "
+        approval = s.get("approval", state["default_approval"])
+        print(f"  {marker} {s['id']:<14} agent={s['agent']:<18} approval={approval}")
+
+
+def _print_list(projects: list[dict]) -> None:
+    if not projects:
+        print("Nenhum projeto encontrado em workspace/projects/.")
         return
-
-    if not os.path.exists(filepath):
-        print(f"\n❌ Arquivo '{filepath}' não encontrado.")
-        return
-
-    # Copiar arquivo para o diretório do projeto
-    filename = os.path.basename(filepath)
-    dest = os.path.join(get_project_path(slug), "content", filename)
-
-    with open(filepath, 'r', encoding='utf-8') as f:
-        content = f.read()
-    with open(dest, 'w', encoding='utf-8') as f:
-        f.write(content)
-
-    # Atualizar metadados
-    data.setdefault("contents", []).append({
-        "filename": filename,
-        "type": content_type,
-        "source": filepath,
-        "added_at": datetime.now().isoformat(),
-        "lines": len(content.splitlines()),
-        "words": len(content.split())
-    })
-
-    save_project(slug, data)
-
-    print(f"\n✅ Conteúdo adicionado ao projeto '{data['name']}'")
-    print(f"   📄 Arquivo: {filename}")
-    print(f"   📏 {len(content.splitlines())} linhas, {len(content.split())} palavras")
-    print(f"   📁 Salvo em: {dest}")
-
-
-def complete_project(slug: str):
-    """Marca projeto como concluído."""
-    data = load_project(slug)
-    if not data:
-        print(f"\n❌ Projeto '{slug}' não encontrado.")
-        return
-
-    data["status"] = "completed"
-    data["completed_at"] = datetime.now().isoformat()
-    save_project(slug, data)
-
-    contents = data.get("contents", [])
-    print(f"\n✅ Projeto '{data['name']}' marcado como concluído!")
-    print(f"   📄 Total de conteúdos: {len(contents)}")
-    print(f"   📅 Concluído em: {datetime.now().strftime('%Y-%m-%d')}")
-
-
-def add_note(slug: str, text: str):
-    """Adiciona nota ao projeto."""
-    data = load_project(slug)
-    if not data:
-        print(f"\n❌ Projeto '{slug}' não encontrado.")
-        return
-
-    data.setdefault("notes", []).append({
-        "text": text,
-        "date": datetime.now().isoformat()
-    })
-    save_project(slug, data)
-    print(f"\n✅ Nota adicionada ao projeto '{data['name']}'")
+    print(f"\n{len(projects)} projeto(s):\n")
+    for p in projects:
+        print(
+            f"  [{p['status']:<10}] {p['slug']:<28} tipo={p['type']:<12} "
+            f"stage={p['current_stage']}"
+        )
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Gerencia projetos e campanhas do Marketing OS",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Exemplos:
-  python project_manager.py create "Lançamento Curso IA" --type launch
-  python project_manager.py create "Conteúdo Fevereiro" --type editorial --desc "Calendário editorial de fevereiro 2026"
-  python project_manager.py list
-  python project_manager.py status "lancamento-curso-ia"
-  python project_manager.py add-content "lancamento-curso-ia" --file output/post.md --content-type post
-  python project_manager.py note "lancamento-curso-ia" "Ajustar tom para mais urgente"
-  python project_manager.py complete "lancamento-curso-ia"
-        """
+        description="Workflow de projetos do Marketing OS (handoffs + approvals)."
+    )
+    sub = parser.add_subparsers(dest="cmd")
+
+    p_novo = sub.add_parser("novo", help="Criar novo projeto")
+    p_novo.add_argument("name")
+    p_novo.add_argument(
+        "--tipo", required=True, choices=PROJECT_TYPES, help="Tipo do projeto"
     )
 
-    subparsers = parser.add_subparsers(dest="command", help="Comando a executar")
+    sub.add_parser("list", help="Listar projetos")
 
-    # create
-    create_parser = subparsers.add_parser("create", help="Criar novo projeto")
-    create_parser.add_argument("name", help="Nome do projeto")
-    create_parser.add_argument("--type", "-t", default="custom", choices=PROJECT_TYPES.keys(), help="Tipo de projeto")
-    create_parser.add_argument("--desc", "-d", default="", help="Descrição do projeto")
+    p_status = sub.add_parser("status", help="Mostrar estado de um projeto")
+    p_status.add_argument("slug")
 
-    # list
-    subparsers.add_parser("list", help="Listar todos os projetos")
+    p_avancar = sub.add_parser("avancar", help="Cria run pendente pro stage atual")
+    p_avancar.add_argument("slug")
 
-    # status
-    status_parser = subparsers.add_parser("status", help="Ver status de um projeto")
-    status_parser.add_argument("slug", help="Slug do projeto")
+    p_aprovar = sub.add_parser("aprovar", help="Aprova ultimo run e avanca stage")
+    p_aprovar.add_argument("slug")
 
-    # add-content
-    add_parser = subparsers.add_parser("add-content", help="Adicionar conteúdo ao projeto")
-    add_parser.add_argument("slug", help="Slug do projeto")
-    add_parser.add_argument("--file", "-f", required=True, help="Arquivo de conteúdo")
-    add_parser.add_argument("--content-type", "-ct", default="general", help="Tipo do conteúdo")
-
-    # note
-    note_parser = subparsers.add_parser("note", help="Adicionar nota ao projeto")
-    note_parser.add_argument("slug", help="Slug do projeto")
-    note_parser.add_argument("text", help="Texto da nota")
-
-    # complete
-    complete_parser = subparsers.add_parser("complete", help="Marcar projeto como concluído")
-    complete_parser.add_argument("slug", help="Slug do projeto")
+    p_rejeitar = sub.add_parser("rejeitar", help="Rejeita ultimo run com feedback")
+    p_rejeitar.add_argument("slug")
+    p_rejeitar.add_argument("feedback")
 
     args = parser.parse_args()
-
-    if not args.command:
+    if not args.cmd:
         parser.print_help()
         sys.exit(1)
 
-    if args.command == "create":
-        create_project(args.name, args.type, args.desc)
-    elif args.command == "list":
-        list_projects()
-    elif args.command == "status":
-        show_status(args.slug)
-    elif args.command == "add-content":
-        add_content(args.slug, args.file, args.content_type)
-    elif args.command == "note":
-        add_note(args.slug, args.text)
-    elif args.command == "complete":
-        complete_project(args.slug)
+    try:
+        if args.cmd == "novo":
+            project_dir = create_project(args.name, args.tipo)
+            print(f"Projeto criado em {project_dir}")
+            _print_status(project_status(slugify(args.name)))
+        elif args.cmd == "list":
+            _print_list(list_projects())
+        elif args.cmd == "status":
+            _print_status(project_status(args.slug))
+        elif args.cmd == "avancar":
+            run = advance_stage(args.slug)
+            print(f"Run pendente criado: {run['run_id']} stage={run['stage_id']} agent={run['agent']}")
+            print("Agora /projeto despacha o agente. Quando terminar, use /projeto aprovar ou rejeitar.")
+        elif args.cmd == "aprovar":
+            state = approve_stage(args.slug)
+            print(f"Stage aprovado. Novo stage atual: {state['current_stage']} (status={state['status']})")
+        elif args.cmd == "rejeitar":
+            state = reject_stage(args.slug, args.feedback)
+            print(f"Stage rejeitado. Stage atual continua: {state['current_stage']}")
+            print("Feedback registrado em decisions.md.")
+    except (ValueError, FileNotFoundError, FileExistsError) as e:
+        print(f"ERRO: {e}", file=sys.stderr)
+        sys.exit(2)
 
 
 if __name__ == "__main__":

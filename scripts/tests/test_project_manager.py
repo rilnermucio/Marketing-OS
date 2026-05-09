@@ -1,295 +1,291 @@
-"""Testes para project_manager.py — gerenciamento de projetos."""
+"""Testes para project_manager.py - workflow com handoffs e approval gates."""
+from __future__ import annotations
+
+import json
+import sys
+import tempfile
+from pathlib import Path
 
 import pytest
-import os
-import sys
-import json
-import shutil
-import tempfile
-from unittest.mock import patch
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+SCRIPTS_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(SCRIPTS_DIR))
 
-from project_manager import (
-    slugify,
+from project_manager import (  # noqa: E402
+    PROJECT_TYPES,
+    advance_stage,
+    append_run,
+    approve_stage,
     create_project,
     list_projects,
-    show_status,
-    add_content,
-    complete_project,
-    add_note,
-    load_project,
-    save_project,
-    ensure_projects_dir,
-    get_project_path,
-    PROJECT_TYPES,
-    STATUSES,
-    PROJECTS_DIR,
+    load_template,
+    parse_frontmatter,
+    project_status,
+    reject_stage,
+    serialize_frontmatter,
+    slugify,
 )
 
 
 @pytest.fixture
-def mock_projects_dir(tmp_dir):
-    """Redireciona PROJECTS_DIR para diretório temporário."""
-    with patch("project_manager.PROJECTS_DIR", tmp_dir):
-        yield tmp_dir
+def tmp_workspace(monkeypatch):
+    """Workspace isolado em tmpdir."""
+    tmpdir = tempfile.mkdtemp()
+    workspace = Path(tmpdir) / "workspace" / "projects"
+    workspace.mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr("project_manager.PROJECTS_ROOT", workspace)
+    yield workspace
 
-
-@pytest.fixture
-def create_test_project(mock_projects_dir):
-    """Cria um projeto de teste e retorna o slug."""
-    def _create(name="Projeto Teste", project_type="custom", description="Descrição teste"):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            create_project(name, project_type, description)
-            return slugify(name)
-    return _create
-
 
-class TestSlugify:
-    """Testes para conversão de texto em slug."""
-
-    def test_basic_slugify(self):
-        assert slugify("Projeto Teste") == "projeto-teste"
-
-    def test_accented_chars(self):
-        assert slugify("Lançamento Curso IA") == "lancamento-curso-ia"
+def _read_jsonl_lines(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
-    def test_special_chars(self):
-        assert slugify("Projeto @#$ Especial!") == "projeto-especial"
 
-    def test_multiple_spaces(self):
-        assert slugify("  Projeto   Teste  ") == "projeto-teste"
+# ---------- slugify ----------
 
-    def test_already_slug(self):
-        assert slugify("projeto-teste") == "projeto-teste"
+def test_slugify_basic():
+    assert slugify("Lançamento Curso IA") == "lancamento-curso-ia"
 
-    def test_cedilla(self):
-        assert slugify("Promoção") == "promocao"
 
-    def test_all_accents(self):
-        result = slugify("àáâãäèéêëìíîïòóôõöùúûüç")
-        assert "a" * 5 in result or result.startswith("a")
-        assert "c" in result
+def test_slugify_strips_special_chars():
+    assert slugify("Cliente: ACME Inc.") == "cliente-acme-inc"
 
-    def test_numbers_preserved(self):
-        assert slugify("Projeto 2026") == "projeto-2026"
 
-    def test_empty_string(self):
-        assert slugify("") == ""
+def test_slugify_collapses_whitespace():
+    assert slugify("  varios   espacos  ") == "varios-espacos"
 
 
-class TestProjectTypes:
-    """Testes para tipos e status de projeto."""
+# ---------- templates ----------
 
-    def test_all_types_have_descriptions(self):
-        for ptype, desc in PROJECT_TYPES.items():
-            assert len(desc) > 0
-            assert isinstance(desc, str)
+def test_load_template_valid_type():
+    tpl = load_template("lancamento")
+    assert "{name}" in tpl
+    assert "{slug}" in tpl
+    assert "type: lancamento" in tpl
 
-    def test_expected_types_exist(self):
-        expected = ["launch", "funnel", "batch", "campaign", "editorial", "custom"]
-        for t in expected:
-            assert t in PROJECT_TYPES
 
-    def test_statuses(self):
-        assert "active" in STATUSES
-        assert "completed" in STATUSES
-        assert "paused" in STATUSES
-        assert "archived" in STATUSES
+def test_load_template_invalid_type_raises():
+    with pytest.raises(ValueError, match="invalid"):
+        load_template("invalid")
 
 
-class TestCreateProject:
-    """Testes para criação de projetos."""
+def test_all_project_types_have_templates():
+    for t in PROJECT_TYPES:
+        tpl = load_template(t)
+        assert f"type: {t}" in tpl
 
-    def test_create_project_success(self, mock_projects_dir, capsys):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            create_project("Meu Projeto", "launch", "Descrição do projeto")
 
-        slug = "meu-projeto"
-        project_path = os.path.join(mock_projects_dir, slug)
-        assert os.path.exists(project_path)
-        assert os.path.exists(os.path.join(project_path, "project.json"))
-        assert os.path.exists(os.path.join(project_path, "brief.md"))
-        assert os.path.isdir(os.path.join(project_path, "content"))
-        assert os.path.isdir(os.path.join(project_path, "analytics"))
+# ---------- frontmatter ----------
 
-    def test_create_project_data(self, mock_projects_dir):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            create_project("Teste Data", "campaign", "Campanha teste")
+def test_parse_frontmatter_extracts_dict_and_body():
+    content = """---
+name: test
+type: lancamento
+current_stage: research
+---
 
-        slug = "teste-data"
-        project_file = os.path.join(mock_projects_dir, slug, "project.json")
-        with open(project_file, 'r') as f:
-            data = json.load(f)
+# Body content here
+"""
+    fm, body = parse_frontmatter(content)
+    assert fm["name"] == "test"
+    assert fm["type"] == "lancamento"
+    assert fm["current_stage"] == "research"
+    assert "Body content here" in body
 
-        assert data["name"] == "Teste Data"
-        assert data["slug"] == slug
-        assert data["type"] == "campaign"
-        assert data["status"] == "active"
-        assert "created_at" in data
-        assert data["contents"] == []
 
-    def test_create_duplicate_project_exits(self, mock_projects_dir):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            create_project("Duplicado", "custom")
-            with pytest.raises(SystemExit):
-                create_project("Duplicado", "custom")
+def test_parse_frontmatter_no_frontmatter_returns_empty_dict():
+    fm, body = parse_frontmatter("# No frontmatter here")
+    assert fm == {}
+    assert "No frontmatter" in body
 
-    def test_create_invalid_type_exits(self, mock_projects_dir):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            with pytest.raises(SystemExit):
-                create_project("Projeto", "tipo_invalido")
 
-    def test_brief_contains_project_name(self, mock_projects_dir):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            create_project("Brief Test", "editorial")
+def test_serialize_frontmatter_roundtrip():
+    fm = {"name": "x", "type": "lancamento", "pipeline": [{"id": "a", "agent": "mos-x"}]}
+    body = "# Hi"
+    serialized = serialize_frontmatter(fm, body)
+    fm2, body2 = parse_frontmatter(serialized)
+    assert fm2 == fm
+    assert body2.strip() == body.strip()
 
-        brief_path = os.path.join(mock_projects_dir, "brief-test", "brief.md")
-        with open(brief_path, 'r') as f:
-            brief = f.read()
 
-        assert "Brief Test" in brief
-        assert "Calendário editorial" in brief
+# ---------- create_project ----------
 
+def test_create_project_creates_structure(tmp_workspace):
+    create_project("Lançamento Curso IA", "lancamento")
+    project_dir = tmp_workspace / "lancamento-curso-ia"
+    assert project_dir.is_dir()
+    assert (project_dir / "project.md").is_file()
+    assert (project_dir / "runs.jsonl").is_file()
+    assert (project_dir / "decisions.md").is_file()
 
-class TestLoadSaveProject:
-    """Testes para load/save de projetos."""
 
-    def test_load_nonexistent_project(self, mock_projects_dir):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            result = load_project("nao-existe")
-        assert result is None
+def test_create_project_writes_frontmatter_correctly(tmp_workspace):
+    create_project("Curso X", "lancamento")
+    content = (tmp_workspace / "curso-x" / "project.md").read_text(encoding="utf-8")
+    fm, body = parse_frontmatter(content)
+    assert fm["name"] == "Curso X"
+    assert fm["slug"] == "curso-x"
+    assert fm["type"] == "lancamento"
+    assert fm["current_stage"] == "research"
+    assert fm["status"] == "active"
+    assert isinstance(fm["pipeline"], list)
+    assert len(fm["pipeline"]) > 0
+    assert "Briefing" in body
 
-    def test_save_and_load(self, mock_projects_dir):
-        slug = "test-save"
-        project_path = os.path.join(mock_projects_dir, slug)
-        os.makedirs(project_path)
 
-        data = {"name": "Test", "slug": slug, "status": "active"}
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            save_project(slug, data)
-            loaded = load_project(slug)
+def test_create_project_rejects_invalid_type(tmp_workspace):
+    with pytest.raises(ValueError):
+        create_project("X", "invalid")
 
-        assert loaded["name"] == "Test"
-        assert loaded["slug"] == slug
-        assert "updated_at" in loaded
 
+def test_create_project_rejects_duplicate(tmp_workspace):
+    create_project("Curso Y", "perpetuo")
+    with pytest.raises(FileExistsError):
+        create_project("Curso Y", "perpetuo")
 
-class TestListProjects:
-    """Testes para listagem de projetos."""
 
-    def test_list_empty(self, mock_projects_dir, capsys):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            list_projects()
+def test_create_consultoria_starts_at_discovery(tmp_workspace):
+    create_project("Cliente ACME", "consultoria")
+    state = project_status("cliente-acme")
+    assert state["current_stage"] == "discovery"
 
-        captured = capsys.readouterr()
-        assert "Nenhum projeto" in captured.out
 
-    def test_list_with_projects(self, mock_projects_dir, capsys):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            create_project("Projeto A", "launch")
-            create_project("Projeto B", "campaign")
-            list_projects()
+def test_create_mentoria_starts_at_planejamento(tmp_workspace):
+    create_project("Cohort 2026", "mentoria")
+    state = project_status("cohort-2026")
+    assert state["current_stage"] == "planejamento"
 
-        captured = capsys.readouterr()
-        assert "Projeto A" in captured.out
-        assert "Projeto B" in captured.out
+
+# ---------- list ----------
 
+def test_list_projects_empty(tmp_workspace):
+    assert list_projects() == []
 
-class TestShowStatus:
-    """Testes para status de projeto."""
 
-    def test_status_existing_project(self, mock_projects_dir, capsys):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            create_project("Status Test", "funnel", "Teste de status")
-            show_status("status-test")
-
-        captured = capsys.readouterr()
-        assert "Status Test" in captured.out
-        assert "Ativo" in captured.out
-
-    def test_status_nonexistent(self, mock_projects_dir, capsys):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            show_status("nao-existe")
-
-        captured = capsys.readouterr()
-        assert "não encontrado" in captured.out
-
-
-class TestAddContent:
-    """Testes para adição de conteúdo a projetos."""
-
-    def test_add_content_success(self, mock_projects_dir, tmp_dir, capsys):
-        # Criar arquivo de conteúdo temporário
-        content_file = os.path.join(tmp_dir, "conteudo.md")
-        with open(content_file, 'w') as f:
-            f.write("# Conteúdo de teste\n\nTexto do conteúdo.")
-
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            create_project("Content Test", "batch")
-            add_content("content-test", content_file, "post")
-
-            data = load_project("content-test")
-
-        assert len(data["contents"]) == 1
-        assert data["contents"][0]["type"] == "post"
-        assert data["contents"][0]["filename"] == "conteudo.md"
-
-    def test_add_content_nonexistent_project(self, mock_projects_dir, capsys):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            add_content("nao-existe", "arquivo.md")
-
-        captured = capsys.readouterr()
-        assert "não encontrado" in captured.out
-
-    def test_add_content_nonexistent_file(self, mock_projects_dir, capsys):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            create_project("File Test", "custom")
-            add_content("file-test", "/caminho/inexistente.md")
-
-        captured = capsys.readouterr()
-        assert "não encontrado" in captured.out
-
-
-class TestCompleteProject:
-    """Testes para conclusão de projetos."""
-
-    def test_complete_project(self, mock_projects_dir, capsys):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            create_project("Complete Test", "launch")
-            complete_project("complete-test")
-            data = load_project("complete-test")
-
-        assert data["status"] == "completed"
-        assert "completed_at" in data
-
-    def test_complete_nonexistent(self, mock_projects_dir, capsys):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            complete_project("nao-existe")
-
-        captured = capsys.readouterr()
-        assert "não encontrado" in captured.out
-
-
-class TestAddNote:
-    """Testes para notas em projetos."""
-
-    def test_add_note(self, mock_projects_dir, capsys):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            create_project("Note Test", "custom")
-            add_note("note-test", "Nota de teste importante")
-            data = load_project("note-test")
-
-        assert len(data["notes"]) == 1
-        assert data["notes"][0]["text"] == "Nota de teste importante"
-        assert "date" in data["notes"][0]
-
-    def test_add_multiple_notes(self, mock_projects_dir):
-        with patch("project_manager.PROJECTS_DIR", mock_projects_dir):
-            create_project("Multi Notes", "custom")
-            add_note("multi-notes", "Nota 1")
-            add_note("multi-notes", "Nota 2")
-            add_note("multi-notes", "Nota 3")
-            data = load_project("multi-notes")
-
-        assert len(data["notes"]) == 3
+def test_list_projects_returns_all(tmp_workspace):
+    create_project("Projeto A", "lancamento")
+    create_project("Projeto B", "perpetuo")
+    projects = list_projects()
+    assert len(projects) == 2
+    slugs = {p["slug"] for p in projects}
+    assert slugs == {"projeto-a", "projeto-b"}
+    assert all(p["status"] == "active" for p in projects)
+
+
+# ---------- status ----------
+
+def test_project_status_returns_state(tmp_workspace):
+    create_project("Status Test", "lancamento")
+    state = project_status("status-test")
+    assert state["slug"] == "status-test"
+    assert state["current_stage"] == "research"
+    assert state["status"] == "active"
+    assert state["pipeline"][0]["id"] == "research"
+    assert state["last_run"] is None
+    assert state["total_runs"] == 0
+
+
+def test_project_status_unknown_slug_raises(tmp_workspace):
+    with pytest.raises(FileNotFoundError):
+        project_status("nao-existe")
+
+
+# ---------- run log ----------
+
+def test_append_run_writes_jsonl_line(tmp_workspace):
+    create_project("Run Test", "lancamento")
+    append_run("run-test", {
+        "stage_id": "research",
+        "agent": "mos-research",
+        "iteration": 1,
+        "status": "running",
+    })
+    runs = _read_jsonl_lines(tmp_workspace / "run-test" / "runs.jsonl")
+    assert len(runs) == 1
+    assert runs[0]["stage_id"] == "research"
+    assert runs[0]["status"] == "running"
+    assert "run_id" in runs[0]
+    assert "started_at" in runs[0]
+
+
+def test_append_run_increments_run_id(tmp_workspace):
+    create_project("Multi", "perpetuo")
+    append_run("multi", {"stage_id": "research", "agent": "mos-research", "status": "running"})
+    append_run("multi", {"stage_id": "research", "agent": "mos-research", "status": "running"})
+    runs = _read_jsonl_lines(tmp_workspace / "multi" / "runs.jsonl")
+    assert runs[0]["run_id"] == "run_001"
+    assert runs[1]["run_id"] == "run_002"
+
+
+# ---------- state machine ----------
+
+def test_advance_stage_creates_pending_run(tmp_workspace):
+    create_project("Advance Test", "lancamento")
+    run = advance_stage("advance-test")
+    assert run["stage_id"] == "research"
+    assert run["agent"] == "mos-research"
+    assert run["status"] == "pending"
+    assert run["iteration"] == 1
+    assert run["source"] == "pipeline"
+
+
+def test_approve_stage_advances_current_stage(tmp_workspace):
+    create_project("Approve Test", "perpetuo")
+    advance_stage("approve-test")
+    runs_path = tmp_workspace / "approve-test" / "runs.jsonl"
+    runs = _read_jsonl_lines(runs_path)
+    runs[-1]["status"] = "pending_approval"
+    runs_path.write_text("\n".join(json.dumps(r) for r in runs) + "\n", encoding="utf-8")
+
+    state = approve_stage("approve-test")
+    assert state["current_stage"] == "funil"
+    assert state["last_run"]["status"] == "approved"
+    assert "approved_at" in state["last_run"]
+
+
+def test_approve_last_stage_completes_project(tmp_workspace):
+    create_project("Final", "perpetuo")
+    pipeline = project_status("final")["pipeline"]
+    for stage in pipeline:
+        advance_stage("final")
+        runs_path = tmp_workspace / "final" / "runs.jsonl"
+        runs = _read_jsonl_lines(runs_path)
+        runs[-1]["status"] = "pending_approval"
+        runs_path.write_text("\n".join(json.dumps(r) for r in runs) + "\n", encoding="utf-8")
+        approve_stage("final")
+
+    state = project_status("final")
+    assert state["status"] == "completed"
+
+
+def test_reject_stage_keeps_current_and_logs_feedback(tmp_workspace):
+    create_project("Reject Test", "lancamento")
+    advance_stage("reject-test")
+    runs_path = tmp_workspace / "reject-test" / "runs.jsonl"
+    runs = _read_jsonl_lines(runs_path)
+    runs[-1]["status"] = "pending_approval"
+    runs_path.write_text("\n".join(json.dumps(r) for r in runs) + "\n", encoding="utf-8")
+
+    state = reject_stage("reject-test", "muito formal")
+    assert state["current_stage"] == "research"
+    assert state["last_run"]["status"] == "rejected"
+    assert state["last_run"]["feedback"] == "muito formal"
+
+    decisions = (tmp_workspace / "reject-test" / "decisions.md").read_text(encoding="utf-8")
+    assert "muito formal" in decisions
+
+
+def test_reject_then_advance_creates_iteration_2(tmp_workspace):
+    create_project("Iter Test", "lancamento")
+    advance_stage("iter-test")
+    runs_path = tmp_workspace / "iter-test" / "runs.jsonl"
+    runs = _read_jsonl_lines(runs_path)
+    runs[-1]["status"] = "pending_approval"
+    runs_path.write_text("\n".join(json.dumps(r) for r in runs) + "\n", encoding="utf-8")
+    reject_stage("iter-test", "tenta de novo")
+
+    run2 = advance_stage("iter-test")
+    assert run2["iteration"] == 2
+    assert run2["stage_id"] == "research"

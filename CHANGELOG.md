@@ -7,6 +7,31 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## v6.8.0 (2026-05-09)
+
+### Added
+- New `/projeto` slash command: workflow de projetos com pipeline declarativo, dispatch sequencial dos `mos-*` e approval gates entre stages. Subcomandos: `novo`, `list`, `status`, `avancar`, `aprovar`, `rejeitar`.
+- 4 templates de projeto em `scripts/templates/projeto/`: `lancamento.md`, `perpetuo.md`, `consultoria.md`, `mentoria.md`. Cada um define pipeline + stages + approval policy.
+- `runs.jsonl` append-only por projeto rastreia execucoes (`run_id`, `stage_id`, `agent`, `iteration`, `status`, `started_at`, `approved_at`/`rejected_at`, `feedback`, `source`).
+- `decisions.md` por projeto: log human-readable de aprovacoes/rejeicoes com feedback.
+- 26 testes em `scripts/tests/test_project_manager.py` (slugify, frontmatter, create, list, status, append_run, advance, approve, reject, iteracao).
+
+### Changed
+- `scripts/project_manager.py` reescrito do zero. CRUD anterior (project.json + content/ + notes) substituido por state machine declarativa em `project.md` com YAML frontmatter (current_stage + pipeline + default_approval).
+- `scripts/mos.py`: subcomandos `mos project` agora sao `novo|list|status|avancar|aprovar|rejeitar` (antes: `create|list|status|add-content|complete|note`).
+- `agents/mos-infoproduct.md`: dispatch reference atualizado de `create` para `novo --tipo mentoria`.
+- `docs/ARCHITECTURE.md`: descricao do `project_manager.py` atualizada.
+
+### Migration notes
+- Quem usava `mos project create` deve migrar pra `mos project novo --tipo {lancamento|perpetuo|consultoria|mentoria}`.
+- Pasta `output/projects/` antiga nao eh mais lida. Projetos novos vivem em `workspace/projects/<slug>/` (gitignored).
+- `add-content`, `complete`, `note` foram removidos. Conteudo gerado pelos agentes vai pra subpastas `<NN>-<stage>/` automaticamente; aprovacao/rejeicao registrada em `decisions.md`.
+
+### Design rationale
+Spec consensual entre Claude Opus 4.7 + Codex CLI (gpt-5.5/high) em 3 turnos de debate. Decisao: NAO construir abstracao de "times/squads" (overhead pra operador solo); flat por projeto + state machine simples + run log estruturado eh suficiente. Faseamento explicito: MVP sequencial agora; paralelismo, `auto_approve` e `published_at` ficam pra Fase 2 condicional ao uso real.
+
+---
+
 ## v6.7.0 (2026-05-09)
 
 ### Added

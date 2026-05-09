@@ -46,7 +46,7 @@ class TestCommandMap:
         assert "variants" in COMMAND_MAP["hooks"]
 
     def test_project_commands(self):
-        expected = ["create", "list", "status", "add-content", "complete", "note"]
+        expected = ["novo", "list", "status", "avancar", "aprovar", "rejeitar"]
         for cmd in expected:
             assert cmd in COMMAND_MAP["project"], f"Comando 'project.{cmd}' não encontrado"
 
@@ -64,10 +64,10 @@ class TestSpecialArgs:
         assert "Headline A" in result
         assert "Headline B" in result
 
-    def test_project_create_transform(self):
-        transform = SPECIAL_ARGS[("project", "create")]
-        result = transform(["Nome Projeto", "--type", "launch"])
-        assert result[0] == "create"
+    def test_project_novo_transform(self):
+        transform = SPECIAL_ARGS[("project", "novo")]
+        result = transform(["Nome Projeto", "--tipo", "lancamento"])
+        assert result[0] == "novo"
         assert "Nome Projeto" in result
 
     def test_project_list_transform(self):
