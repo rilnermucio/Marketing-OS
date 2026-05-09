@@ -114,3 +114,20 @@ def detect(input_str: str) -> dict:
         }
 
     raise ValueError(f"Não consegui interpretar: {input_str!r}")
+
+
+def _cli(argv: list[str]) -> int:
+    if len(argv) < 2:
+        print("Usage: audit_detector.py <input>", file=sys.stderr)
+        return 1
+    try:
+        result = detect(argv[1])
+    except ValueError as e:
+        print(str(e), file=sys.stderr)
+        return 1
+    print(json.dumps(result, ensure_ascii=False))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(_cli(sys.argv))

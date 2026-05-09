@@ -101,3 +101,38 @@ class TestYouTubeDetection:
         result = detect("https://youtube.com/@channelname")
         assert result["type"] == "youtube"
         assert result["slug"] == "channelname"
+
+
+class TestErrorCases:
+    def test_empty_string_raises(self):
+        with pytest.raises(ValueError, match="vazio"):
+            detect("")
+
+    def test_whitespace_only_raises(self):
+        with pytest.raises(ValueError, match="vazio"):
+            detect("   ")
+
+    def test_invalid_input_raises(self):
+        with pytest.raises(ValueError, match="Não consegui"):
+            detect("não é url nem perfil 123!@#")
+
+
+class TestCLI:
+    def test_cli_outputs_json(self):
+        script = Path(__file__).resolve().parent.parent / "audit_detector.py"
+        result = subprocess.run(
+            [sys.executable, str(script), "https://stripe.com"],
+            capture_output=True, text=True, check=True,
+        )
+        data = json.loads(result.stdout)
+        assert data["type"] == "landing"
+        assert data["slug"] == "stripe"
+
+    def test_cli_invalid_exits_nonzero(self):
+        script = Path(__file__).resolve().parent.parent / "audit_detector.py"
+        result = subprocess.run(
+            [sys.executable, str(script), ""],
+            capture_output=True, text=True,
+        )
+        assert result.returncode != 0
+        assert "vazio" in result.stderr.lower()
