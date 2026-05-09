@@ -58,6 +58,19 @@ python3 scripts/tiktok_trends_scraper.py --hashtag "marketing" --min-views 10000
 python3 scripts/instagram_hashtag_research.py "hashtag"
 ```
 
+**Scraping estruturado via Apify (opcional):** quando a tarefa pede dados profundos de concorrente (posts, métricas agregadas, top hashtags) e a variável `APIFY_TOKEN` está disponível, use:
+
+```bash
+# Instagram profile scraper — top posts + métricas + hashtags
+python3 scripts/apify_instagram.py --handle @concorrente --max-posts 30
+# ou: python3 scripts/mos.py apify instagram @concorrente --max-posts 30
+
+# SERP profundo para keyword research (se delegando a parte SEO)
+python3 scripts/apify_serp.py --query "keyword" --max-results 10
+```
+
+Sempre rode `--dry-run` primeiro para ver custo estimado. Sem `APIFY_TOKEN` o script sai silenciosamente — siga com WebSearch e os scripts nativos acima. JSON salvo no diretório local configurado pelo script. Setup, custo e troubleshooting completos em `docs/APIFY-INTEGRATION.md`.
+
 ### 4. Use WebSearch agressivamente
 
 Este agent é dados-driven. Toda afirmação precisa de fonte. Para fontes BR-specific (Anbima, Kantar Ibope, IBGE, BC, PNAD, etc.), ver Tier 2 PARTE 7.

@@ -260,6 +260,7 @@ class TestCoberturaDeSscripts:
         "validate_agents.py",   # utilitário de validação de infra (não CLI MOS)
         "voice_extractor.py",   # invocado direto por /criar-meu-clone, não pelo CLI mos.py
         "init_agent_memory.py", # bootstrap one-shot de memory opt-in (não CLI MOS)
+        "apify_client.py",      # helper interno (auth + run-sync), sem CLI próprio
     }
 
     def test_scripts_relevantes_estao_no_command_map(self):

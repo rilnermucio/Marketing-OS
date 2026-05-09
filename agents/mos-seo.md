@@ -222,6 +222,19 @@ python scripts/gsc_analyzer.py  # se GSC conectado
 
 Ver `scripts/mos.py` para CLI unificado: `python scripts/mos.py seo analyze ...`
 
+### SERP enriquecido via Apify (opcional)
+
+Se a tarefa pede análise profunda de SERP (PAA, related, top 10 com snippets) e a variável `APIFY_TOKEN` está disponível, invoque:
+
+```bash
+python scripts/apify_serp.py --query "<keyword>" --max-results 10
+# ou: python scripts/mos.py apify serp "<keyword>" --max-results 10
+```
+
+Output: Markdown summary direto no stdout (Top resultados + People Also Ask + Related searches), JSON completo salvo no diretório local configurado pelo script (ver `docs/APIFY-INTEGRATION.md`). Use `--dry-run` antes pra ver custo estimado (~$0.005 por resultado).
+
+Sem `APIFY_TOKEN`, o script sai silenciosamente — siga com `WebSearch` normal. Documentação completa: `docs/APIFY-INTEGRATION.md`.
+
 ## Referência à Base de Conhecimento
 
 Tier-2 completo em `subagents/seo-agent.md`. Leia a PARTE relevante antes de produzir:

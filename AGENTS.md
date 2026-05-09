@@ -89,9 +89,11 @@ Conteúdos de redes sociais (Reels, posts, carrosséis, stories) **devem** inclu
 
 ## Ferramentas Python relevantes
 
-29 scripts em `scripts/` (CLI unificado em `scripts/mos.py`). Os agents Tier 1 com acesso a `Bash` invocam-nos para tarefas determinísticas: `seo_analyzer.py`, `hashtag_generator.py`, `hook_generator.py`, `reels_script_generator.py`, `carousel_structure_generator.py`, `caption_generator.py`, `trend_tracker.py`, `quality_gate.py`, `headline_scorer.py`, `competitor_analyzer.py`, etc.
+32 scripts em `scripts/` (CLI unificado em `scripts/mos.py`). Os agents Tier 1 com acesso a `Bash` invocam-nos para tarefas determinísticas: `seo_analyzer.py`, `hashtag_generator.py`, `hook_generator.py`, `reels_script_generator.py`, `carousel_structure_generator.py`, `caption_generator.py`, `trend_tracker.py`, `quality_gate.py`, `headline_scorer.py`, `competitor_analyzer.py`, etc.
 
 Hook de quality gate: `scripts/hooks/quality_gate_hook.py` é invocado via `PreToolUse` matcher `Write|Edit|MultiEdit` em vários agents Tier 1 (ver frontmatter `hooks` em `agents/mos-*.md`).
+
+**Apify (opt-in)**: 3 scripts opcionais (`apify_client.py`, `apify_serp.py`, `apify_instagram.py`) habilitam scraping estruturado de SERP do Google e perfis públicos do Instagram. Usados pelos agents `mos-seo` e `mos-research` quando a variável `APIFY_TOKEN` está disponível. Sem token, comportamento idêntico ao anterior (fallback automático para `WebSearch`). Setup, custo estimado e FAQ em `docs/APIFY-INTEGRATION.md`.
 
 ## Voice clones (`assets/clones/`)
 

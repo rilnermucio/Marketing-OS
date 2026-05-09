@@ -94,6 +94,10 @@ COMMAND_MAP: Dict[str, Dict[str, Tuple[str, str]]] = {
         "complete": ("project_manager.py", "Marca projeto como concluído"),
         "note": ("project_manager.py", "Adiciona nota a projeto"),
     },
+    "apify": {
+        "serp": ("apify_serp.py", "SERP scraping via Apify (opcional, requer APIFY_TOKEN)"),
+        "instagram": ("apify_instagram.py", "Instagram profile scraping via Apify (opcional)"),
+    },
 }
 
 # Comandos especiais que precisam de argumentos transformados
@@ -160,6 +164,10 @@ CATEGORIAS E COMANDOS:
 
   Concorrência:
     mos competitor analyze "@perfil1" "@perfil2"
+
+  Apify (opcional, requer APIFY_TOKEN):
+    mos apify serp "infoproduto bofu" --max-results 10
+    mos apify instagram @concorrente --max-posts 30 --dry-run
 
   Projetos:
     mos project create "Lançamento Curso" --type launch
