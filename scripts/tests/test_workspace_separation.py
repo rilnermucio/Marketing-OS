@@ -12,6 +12,7 @@ LEAK_PATTERNS = ["workspace/", "../workspace", "/workspace/"]
 WORKSPACE_REF_ALLOWLIST = {
     "commands/criar-meu-clone.md",
     "commands/auditoria.md",  # writes audit output (RELATORIO.md/pdf) to workspace/auditorias/<run>/
+    "commands/auditoria-pro.md",  # writes premium audit (RELATORIO.html/pdf + screenshots/charts) to workspace/auditorias/<run>-pro/
     "commands/projeto.md",  # manages user-side projects in workspace/projects/<slug>/
     "skills/marketing-os/SKILL.md",  # documents that /criar-meu-clone reads from workspace/
 }
