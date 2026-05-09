@@ -261,6 +261,10 @@ class TestCoberturaDeSscripts:
         "voice_extractor.py",   # invocado direto por /criar-meu-clone, não pelo CLI mos.py
         "init_agent_memory.py", # bootstrap one-shot de memory opt-in (não CLI MOS)
         "apify_client.py",      # helper interno (auth + run-sync), sem CLI próprio
+        "audit_detector.py",    # invocado direto por /auditoria, não pelo CLI mos.py
+        "audit_scoring.py",     # invocado direto por /auditoria, não pelo CLI mos.py
+        "audit_config.py",      # helper interno do pdf_generator (sem entry em mos.py)
+        "pdf_generator.py",     # invocado direto por /auditoria, não pelo CLI mos.py
     }
 
     def test_scripts_relevantes_estao_no_command_map(self):
