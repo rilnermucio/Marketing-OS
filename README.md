@@ -1,6 +1,6 @@
 # Marketing OS
 
-> Plugin Claude Code com **18 subagentes especializados** em marketing digital + 25 slash commands + 36 voice clones de copywriters lendários.
+> Plugin Claude Code com **18 subagentes especializados** em marketing digital + 32 slash commands + 36 voice clones de copywriters lendários.
 
 [![Version](https://img.shields.io/badge/version-6.5.0-blue.svg)](./CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
@@ -9,7 +9,7 @@
 
 Marketing OS é um plugin para o [Claude Code](https://www.anthropic.com/claude-code) que orquestra 18 subagentes nativos especializados em domínios distintos do marketing digital. O plugin reivindica território explícito sobre briefings de marketing. Quando você pede "cria página de aplicação" ou "monta um webinar", ele dispatcha os subagents corretos em paralelo, com camada estratégica antes de qualquer execução técnica.
 
-**24 dos 25 slash commands** dispatcham subagents `mos-*` (o único utility puro é `/publicar-notion`, intencional). **Conteúdo PT-BR otimizado para o mercado brasileiro.**
+**30 dos 32 slash commands** dispatcham subagents `mos-*`. Os 2 que não dispatcham são intencionais: `/publicar-notion` (utility do Notion MCP) e `/campanha` (índice dos 6 sub-commands de preset). Use `/mo` pra briefing aberto se não souber qual command escolher. **Conteúdo PT-BR otimizado para o mercado brasileiro.**
 
 ## Instalação
 
@@ -109,6 +109,7 @@ Ver SKILL.md pra detalhes de cada workflow e "por que essa ordem importa". Tier 
 
 | Categoria | Commands |
 |---|---|
+| Meta-orquestrador | `/mo` (briefing aberto, roteia pro command apropriado) |
 | Conteúdo social | `/criar-post`, `/criar-carrossel`, `/criar-calendario` |
 | Vídeo/áudio | `/criar-video`, `/criar-podcast` |
 | Páginas/funis | `/criar-landing-page`, `/criar-funil`, `/criar-webinar` |
@@ -118,7 +119,8 @@ Ver SKILL.md pra detalhes de cada workflow e "por que essa ordem importa". Tier 
 | Voice clones | `/criar-clone` (expert externo), `/criar-meu-clone` (suas amostras) |
 | Análise | `/analisar-concorrencia`, `/analisar-video`, `/clonar-estrategia` |
 | Visual | `/criar-brief-design`, `/gerar-imagem`, `/capturar-tela` |
-| Operação | `/campanha`, `/batch`, `/criar-artigo`, `/publicar-notion` |
+| Operação | `/batch`, `/criar-artigo`, `/publicar-notion` |
+| Campanhas (presets) | `/campanha` (índice), `/campanha-lancamento`, `/campanha-prospeccao`, `/campanha-retencao`, `/campanha-autoridade`, `/campanha-growth`, `/campanha-black-friday` |
 
 ## Estrutura
 
@@ -128,7 +130,7 @@ Marketing OS/
 ├── agents/                 # 18 native subagents (mos-*.md)
 ├── skills/marketing-os/    # Skill entrypoint (SKILL.md = orquestrador)
 ├── subagents/              # Tier 2 knowledge bases (~3500 linhas cada)
-├── commands/               # 25 slash commands (24 com dispatch)
+├── commands/               # 32 slash commands (30 com dispatch + /mo orquestrador + /campanha índice)
 ├── workflows/              # 10 workflows end-to-end documentados
 ├── assets/                 # Frameworks, personas, prompts, swipe files,
 │   ├── clones/             #   templates, 36 voice clones

@@ -6,7 +6,7 @@ This file provides guidance to AI coding agents (Claude Code, Codex CLI, Cursor,
 
 ## O que é este repositório
 
-Marketing OS é um **plugin do Claude Code** (`plugin.json` v6.0.0) que distribui 18 subagents nativos especializados em marketing digital, mais 25 slash commands, knowledge bases, voice clones e scripts Python. O conteúdo é majoritariamente PT-BR e otimizado para o mercado brasileiro.
+Marketing OS é um **plugin do Claude Code** (`plugin.json` v6.5.0) que distribui 18 subagents nativos especializados em marketing digital, mais 32 slash commands, knowledge bases, voice clones e scripts Python. O conteúdo é majoritariamente PT-BR e otimizado para o mercado brasileiro.
 
 Arquivos manifesto: `plugin.json` (raiz) e `.claude-plugin/marketplace.json` (listagem de marketplace). O entrypoint da skill é `skills/marketing-os/SKILL.md`.
 
@@ -62,7 +62,7 @@ Para qualquer pedido de produção de marketing (copy, SEO, post, anúncio, víd
 
 Mapeamento completo briefing → agent em `skills/marketing-os/SKILL.md` (seção "Mapa de Dispatch").
 
-Hoje 24 dos 25 slash commands em `commands/` dispatcham subagents (o único utility puro é `/publicar-notion`). O teste `scripts/tests/test_commands_dispatch.py` (148 cases) trava regressão de cobertura: se você adicionar um command novo de produção, ele precisa dispatchar ou o teste falha.
+Hoje 30 dos 32 slash commands em `commands/` dispatcham subagents. Os 2 sem dispatch são intencionais: `/publicar-notion` (utility do Notion MCP) e `/campanha` (índice dos 6 sub-commands `/campanha-{preset}`). Existe ainda `/mo` (meta-orquestrador) que recebe briefing aberto e roteia automaticamente. O teste `scripts/tests/test_commands_dispatch.py` trava regressão de cobertura: se você adicionar um command novo de produção, ele precisa dispatchar ou o teste falha.
 
 ## Quality Gates Globais (aplicar SEMPRE antes de entregar)
 

@@ -394,10 +394,11 @@ Quando os subagents do marketing-os terminam sua parte, alguns outputs podem pre
 
 ## Slash commands rápidos
 
-25 commands em `commands/` são atalhos pra workflows comuns. Quando user invoca o command direto (ex: `/criar-carrossel`), segue a lógica do command file. Quando user pede em linguagem natural ("cria um carrossel sobre X"), este SKILL dispatcha conforme tabela e workflows acima.
+32 commands em `commands/` são atalhos pra workflows comuns. Quando user invoca o command direto (ex: `/criar-carrossel`), segue a lógica do command file. Quando user pede em linguagem natural ("cria um carrossel sobre X"), este SKILL dispatcha conforme tabela e workflows acima.
 
 | Categoria | Commands |
 |---|---|
+| Meta-orquestrador | `/mo` (briefing aberto, roteia automaticamente pro command apropriado) |
 | Conteúdo social | `/criar-post`, `/criar-carrossel`, `/criar-calendario` |
 | Vídeo/áudio | `/criar-video`, `/criar-podcast` |
 | Páginas/funis | `/criar-landing-page`, `/criar-funil`, `/criar-webinar` |
@@ -407,7 +408,8 @@ Quando os subagents do marketing-os terminam sua parte, alguns outputs podem pre
 | Voice clones | `/criar-clone` (expert externo via web research), `/criar-meu-clone` (suas amostras locais em `workspace/`) |
 | Análise | `/analisar-concorrencia`, `/analisar-video`, `/clonar-estrategia` |
 | Visual | `/criar-brief-design`, `/gerar-imagem`, `/capturar-tela` |
-| Operação | `/campanha`, `/batch`, `/criar-artigo`, `/publicar-notion` |
+| Operação | `/batch`, `/criar-artigo`, `/publicar-notion` |
+| Campanhas (presets) | `/campanha` (índice), `/campanha-lancamento`, `/campanha-prospeccao`, `/campanha-retencao`, `/campanha-autoridade`, `/campanha-growth`, `/campanha-black-friday` |
 
 ## Arquitetura (two-tier)
 
