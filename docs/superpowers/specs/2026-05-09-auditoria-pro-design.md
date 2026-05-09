@@ -443,13 +443,16 @@ Pass criteria: PDF gerado sem stack trace, 20+ páginas, contém radar chart, �
 
 ---
 
-## Open questions
+## Decisões finalizadas (pós-review user)
 
-### Confirmações pendentes (pode iterar durante implementação, não bloqueante)
-- Capa: incluir foto do consultor/agência ou só logo? Default: só logo + texto.
-- Glossário: 30 termos é suficiente ou queremos 50+? Default: 30, expandir conforme necessário.
-- Radar chart: variante simples (1 polígono) ou comparativo (cliente vs benchmark setor)? Default: simples na v6.8.0, comparativo em v6.8.1+.
-- Footer com paginação: incluir "Página X de Y"? Default: sim.
+- **Capa:** logo agência + texto + nome do cliente. Full bleed deep blue `#0a2540`, texto branco, accent orange em tag "Confidencial". Sem foto pra preservar flexibilidade white-label.
+- **Glossário:** dict com 50+ termos no `audit_glossary.py`, mas `render_glossary_md(used_terms)` filtra só os efetivamente usados no relatório. Best of both: cobertura ampla + output enxuto.
+- **Radar chart:** simples (1 polígono colorido cliente) + ghost outline secundário (linha tracejada) mostrando "potencial após fixes priority alta", calculado como score atual + (15 a 20 pontos por dimensão com fix priority alta), capped a 100. Adiciona valor visual sem depender de benchmark externo.
+- **Footer:** "Página X de Y" no rodapé, deep blue 9pt, alinhado direita. Default profissional.
+- **PDF target size:** 25-30 páginas. Cap em 35. Trim do apêndice (resumir outputs raw em vez de incluir completos) se exceder.
+- **Sumário Executivo:** score geral em 96pt deep blue centralizado. Maior elemento visual da página.
+- **Anexos:** outputs raw completos dos 7 agents preservados em seções por agent (Markdown details/summary HTML para colapsar no PDF). Justifica o depth do relatório.
+- **Antes/Depois copy:** synthesis prompt pede explicitamente com exemplo no prompt ("Exemplo: 'Start now' → 'Start building free' (devs) | 'Start accepting payments today' (e-commerce)"). Sem instrução explícita, agents não geram.
 
 ### V6.8.1+ candidatos (fora do scope desta release)
 1. Apify para screenshots de concorrentes (Meta Ad Library + Instagram visuals)
