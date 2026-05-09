@@ -1,13 +1,15 @@
 """Tests for audit_scoring.py."""
 from __future__ import annotations
 
+import json
 import os
+import subprocess
 import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pytest
 
-from audit_scoring import RUBRICS, validate_rubrics, compute, top_wins, top_fixes, format_scorecard_md, format_priorities_md
+from audit_scoring import RUBRICS, VALID_PRIORITIES, validate_rubrics, compute, top_wins, top_fixes, format_scorecard_md, format_priorities_md
 
 
 class TestRubrics:
@@ -85,6 +87,21 @@ class TestCompute:
         with pytest.raises(ValueError, match="todas as dimensões"):
             compute("landing", scores, {}, {})
 
+    def test_invalid_priority_raises(self):
+        scores = {k: 50 for k in RUBRICS["landing"]}
+        evidences = {k: "" for k in scores}
+        fixes = {k: {"text": "", "priority": "media"} for k in scores}
+        fixes["Copy (headline, value prop)"] = {"text": "", "priority": "médio"}  # typo
+        with pytest.raises(ValueError, match="priority inválida"):
+            compute("landing", scores, evidences, fixes)
+
+    def test_priority_default_baixa_passes(self):
+        scores = {k: 50 for k in RUBRICS["landing"]}
+        evidences = {k: "" for k in scores}
+        fixes = {k: {} for k in scores}  # no priority key, defaults to baixa
+        result = compute("landing", scores, evidences, fixes)
+        assert result["overall"] == 50
+
 
 class TestOrdering:
     def _full_landing(self, score_overrides=None):
@@ -129,10 +146,6 @@ class TestOrdering:
         assert all(w["dimension"] != "Copy (headline, value prop)" for w in wins)
 
 
-import json
-import subprocess
-
-
 class TestFormatters:
     def _sample_result(self):
         scores = {k: 70 for k in RUBRICS["landing"]}
@@ -152,7 +165,9 @@ class TestFormatters:
     def test_priorities_lists_top_3(self):
         result = self._sample_result()
         md = format_priorities_md(result)
-        assert md.count("\n- ") + md.count("\n1. ") >= 3 or md.count("Prioridade") >= 1
+        assert md.count("\n1. ") == 1
+        assert md.count("\n2. ") == 1
+        assert md.count("\n3. ") == 1
 
 
 class TestScoringCLI:

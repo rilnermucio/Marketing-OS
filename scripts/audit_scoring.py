@@ -82,6 +82,11 @@ def compute(
         if not isinstance(score, (int, float)) or score < 0 or score > 100:
             raise ValueError(f"score fora de 0-100 em {dim!r}: {score}")
 
+    for dim, fix_dict in fixes.items():
+        prio = fix_dict.get("priority", "baixa")
+        if prio not in VALID_PRIORITIES:
+            raise ValueError(f"priority inválida em {dim!r}: {prio!r}")
+
     scored = [(d, s, rubric[d]) for d, s in dimension_scores.items() if s is not None]
     if not scored:
         raise ValueError("todas as dimensões são N/D, auditoria sem score possível")
@@ -108,6 +113,8 @@ def compute(
         "type": audit_type,
     }
 
+
+VALID_PRIORITIES = {"alta", "media", "baixa"}
 
 _PRIORITY_ORDER = {"alta": 0, "media": 1, "baixa": 2}
 
