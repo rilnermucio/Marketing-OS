@@ -100,7 +100,7 @@ Apresente critique LOGO ABAIXO do brief. Termine com: "Vale ajustar antes de pro
 
 **OBRIGATÓRIO em projetos de impacto** (identidade visual nova, KV de campaign, design system):
 
-Atualize `.claude/agent-memory/mos-design/MEMORY.md` com:
+**Memory opt-in** — se `.claude/agent-memory/mos-design/MEMORY.md` existir (ative com `python3 scripts/init_agent_memory.py`), atualize-o com:
 
 - Paletas que ressoaram com a audiência específica (vs hipótese)
 - Fonts que validaram-se em uso real (legibilidade, brand fit)

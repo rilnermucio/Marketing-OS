@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-validate_agents.py — Valida native subagents do Claude Code em .claude/agents/
+validate_agents.py — Valida native subagents do Claude Code em agents/
 
 Checa:
 1. YAML frontmatter presente e bem-formado
@@ -79,7 +79,7 @@ def _yaml_load(text: str) -> dict:
     return _parse_simple_yaml(text)
 
 
-AGENTS_DIR = Path(".claude/agents")
+AGENTS_DIR = Path("agents")
 PROJECT_ROOT = Path(".")
 
 REQUIRED_FIELDS = ["name", "description"]

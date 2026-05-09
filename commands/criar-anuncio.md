@@ -1,275 +1,111 @@
 ---
-description: Create high-converting ad copy for Meta Ads, Google Ads, TikTok Ads, LinkedIn Ads, and other paid platforms with multiple variations for testing.
+description: Create high-converting ad copy for Meta Ads, Google Ads, TikTok Ads, LinkedIn Ads, and Pinterest Ads. Dispatches mos-ads (with mos-research when nicho/cliente é novo).
 argument-hint: "<platform and product, e.g., 'Meta Ads for SaaS product' or 'Google Search for e-commerce'>"
 ---
 
-# Create Ad Copy
+# /criar-anuncio: Anúncio Pago (Dispatch-Based)
 
-> See [CONNECTORS.md](../CONNECTORS.md) for connected services that can provide product data and ad platform integrations.
+Cria copy completa de anúncio orquestrando subagent(s) especializados via `Agent(subagent_type: "mos-*")`. Não produz inline.
 
-Create complete ad copy optimized for conversions, ROAS, and platform-specific best practices.
+## Required inputs (ask if missing)
 
-## Trigger
+1. **Plataforma** (obrigatório): Meta Ads, Google Ads, TikTok Ads, LinkedIn Ads ou Pinterest Ads
+2. **Produto/Oferta** (obrigatório): o que está sendo anunciado
+3. **Objetivo** (opcional): awareness, traffic, leads, conversions, sales
+4. **Audiência-alvo** (opcional): perfil, dor principal, faixa de renda
+5. **Benefício-chave** (opcional): proposta de valor central
+6. **Tom** (opcional): profissional, casual, urgente, autoritário, divertido
+7. **Budget range** (opcional): para sugestões de campaign structure
 
-This command is invoked when the user says `/criar-anuncio` followed by a platform and product/offer, or when they ask to create ads, ad copy, or campaign content.
-
-## Inputs
-
-Gather the following information. If any required field is missing, ask the user before proceeding:
-
-1. **Platform** (required) — Meta Ads, Google Ads, TikTok Ads, LinkedIn Ads, or Pinterest Ads
-2. **Product/Offer** (required) — What is being advertised
-3. **Objective** (optional) — Awareness, traffic, leads, conversions, or sales
-4. **Target Audience** (optional) — Who the ad is targeting
-5. **Key Benefit** (optional) — Primary value proposition
-6. **Tone** (optional) — Professional, casual, urgent, playful, or authoritative
-7. **Budget Range** (optional) — For optimization recommendations
-
-## Platform Specifications
-
-### Meta Ads (Facebook/Instagram)
-
-| Placement | Primary Text | Headline | Description | Image/Video |
-|-----------|--------------|----------|-------------|-------------|
-| Feed | 125 chars visible (2,200 max) | 40 chars | 30 chars | 1:1 or 4:5 |
-| Stories | 125 chars | 40 chars | — | 9:16 |
-| Reels | 72 chars visible | 40 chars | — | 9:16 |
-| Right Column | 125 chars | 40 chars | 20 chars | 1.91:1 |
-| Marketplace | 125 chars | 40 chars | 30 chars | 1:1 |
-
-**Best Practices:**
-- Lead with benefit, not feature
-- Use emojis sparingly (1-2 max)
-- Hook in first line (before "See more")
-- Test video vs. static
-- Use social proof when possible
-
-### Google Ads
-
-**Search Ads:**
-
-| Element | Limit | Quantity |
-|---------|-------|----------|
-| Headlines | 30 chars each | Up to 15 |
-| Descriptions | 90 chars each | Up to 4 |
-| Display URL paths | 15 chars each | 2 |
-
-**Responsive Search Ad Structure:**
-```
-Headlines (mix of types):
-- Keyword-focused (include search term)
-- Benefit-focused (value proposition)
-- CTA-focused (action to take)
-- Social proof (numbers, awards)
-- USP-focused (unique differentiator)
-
-Descriptions:
-- Expand on benefits
-- Include CTA
-- Address objections
-- Add urgency when relevant
-```
-
-**Display Ads:**
-
-| Element | Limit |
-|---------|-------|
-| Short headline | 25 chars |
-| Long headline | 90 chars |
-| Description | 90 chars |
-| Business name | 25 chars |
-
-### TikTok Ads
-
-| Element | Limit | Notes |
-|---------|-------|-------|
-| Ad text | 100 chars recommended | 150 max |
-| Video | 9:16 | 5-60 sec (15-30 optimal) |
-| CTA button | Pre-set options | "Shop Now", "Learn More", etc. |
-
-**Best Practices:**
-- First 3 seconds critical
-- Native look (not polished ads)
-- Trending sounds when possible
-- Text overlays on video
-- Creator/UGC style outperforms branded
-
-### LinkedIn Ads
-
-| Ad Type | Intro Text | Headline | Description |
-|---------|------------|----------|-------------|
-| Single Image | 150 chars visible (600 max) | 70 chars | 100 chars |
-| Video | 150 chars visible (600 max) | 70 chars | — |
-| Carousel | 150 chars visible | 45 chars per card | — |
-| Message Ad | 500 chars | — | — |
-
-**Best Practices:**
-- Professional tone (but not boring)
-- Lead with business outcome
-- Use specific data and numbers
-- Mention job titles/industries
-- Test different value propositions
-
-## Ad Copy Framework
-
-### The PADS Framework
+## Dispatch Decision Tree
 
 ```
-P — PROBLEM
-Start with the pain point or challenge.
-Make the audience feel understood.
-
-A — AGITATE
-Expand on the consequences.
-What happens if they don't solve it?
-
-D — DESIRE
-Paint the picture of life after.
-The transformation, the outcome.
-
-S — SOLUTION
-Present your product/service.
-Clear CTA to take action.
+Briefing recebido
+  ├── Cliente/nicho já com memory ou contexto conhecido? (sim)
+  │     └── Dispatch SIMPLES: mos-ads
+  │
+  ├── Cliente novo / nicho novo / sem benchmarks recentes? (sim)
+  │     └── Dispatch PARALELO: mos-ads + mos-research
+  │         (research valida concorrência ativa, dores reais, ângulos em uso)
+  │
+  └── Já existe campanha rodando + pede só variações novas?
+        └── Dispatch SIMPLES: mos-ads (variations mode)
 ```
 
-### Angle Development
-
-| Angle Type | Focus | Example Hook |
-|------------|-------|--------------|
-| **Problem-aware** | Pain point | "Tired of [problem]?" |
-| **Solution-aware** | Your solution | "Discover how [solution] works" |
-| **Result-focused** | Outcome | "Get [specific result] in [time]" |
-| **Social proof** | Others' success | "Join 10,000+ [audience] who..." |
-| **Comparison** | vs. alternatives | "Finally, a [product] that actually..." |
-| **Curiosity** | Unknown info | "The #1 mistake [audience] make..." |
-| **Urgency** | Time-sensitive | "Limited time: [offer] ends soon" |
-| **Authority** | Credibility | "Featured in Forbes, used by Nike..." |
-
-## Output Structure
-
-Deliver the ad copy in this format:
+## Dispatch Simples (caso comum)
 
 ```
-## AD COPY
-
-📢 PLATFORM: [Meta / Google / TikTok / LinkedIn]
-🎯 OBJECTIVE: [Awareness / Traffic / Conversions / Leads]
-👥 TARGET AUDIENCE: [Description]
-📍 PLACEMENT: [Feed / Stories / Search / etc.]
-
----
-
-### VERSION 1: [Angle Name — e.g., "Problem-Aware"]
-
-**Primary Text:**
-[Full ad copy within character limits]
-
-**Headline:**
-[Headline within character limit]
-
-**Description:**
-[Description within character limit]
-
-**CTA Button:**
-[Shop Now / Learn More / Sign Up / etc.]
-
----
-
-### VERSION 2: [Different Angle — e.g., "Social Proof"]
-
-**Primary Text:**
-[Full ad copy with different hook/angle]
-
-**Headline:**
-[Alternative headline]
-
-**Description:**
-[Alternative description]
-
----
-
-### VERSION 3: [Another Angle — e.g., "Result-Focused"]
-
-**Primary Text:**
-[Continue pattern...]
-
-**Headline:**
-[Headline]
-
-**Description:**
-[Description]
-
----
-
-### VERSION 4: Short-form (Stories/Reels)
-
-**Primary Text:**
-[Condensed version for placements with less space]
-
-**Headline:**
-[Shorter headline variation]
-
----
-
-### VERSION 5: Urgency/Scarcity
-
-**Primary Text:**
-[Version with time-limited offer or scarcity]
-
-**Headline:**
-[Urgency-focused headline]
-
----
-
-## CREATIVE DIRECTION
-
-**Visual recommendation:**
-[Description of image/video to pair with copy]
-
-**Hook for video ads (first 3 seconds):**
-[Opening script that stops the scroll]
-
-**UGC-style script:**
-[If applicable, a native-feeling video script]
-
----
-
-## A/B TEST SUGGESTIONS
-
-| Test | Variant A | Variant B | Hypothesis |
-|------|-----------|-----------|------------|
-| Hook | [Current] | [Test] | [Expected result] |
-| CTA | [Current] | [Test] | [Expected result] |
-| Angle | [Current] | [Test] | [Expected result] |
-| Format | [Image] | [Video] | [Expected result] |
-
----
-
-## CAMPAIGN STRUCTURE SUGGESTION
-
-**Ad Set Organization:**
-- Ad Set 1: [Audience type + targeting]
-- Ad Set 2: [Audience type + targeting]
-- Ad Set 3: [Audience type + targeting]
-
-**Budget Allocation:**
-[Recommendation based on objective]
-
----
-
-## NOTES
-
-- **Primary value proposition:** [Key message]
-- **Objection addressed:** [Common concern handled]
-- **Next iteration idea:** [Future test]
+Agent(subagent_type: "mos-ads", prompt: "Crie copy completa de anúncio para [plataforma]. Produto/oferta: [produto]. Objetivo: [objetivo]. Audiência: [audiência]. Benefício-chave: [benefício]. Tom: [tom]. Considere memory existente do cliente neste projeto. Entregue: 5 variações com ângulos diferentes (problem-aware, social proof, result-focused, curiosity, urgency), respeitando char limits da plataforma, com CTA específico, direção criativa para visual, e sugestões de A/B test. Aplicar quality gates globais (sem travessão, sem 'brutal', PT-BR correto, máx 1-2 emojis).")
 ```
 
-## Final Ask
+## Dispatch Paralelo (cliente/nicho novo, single message)
 
-After delivering the ad copy, ask:
+```
+- Agent(subagent_type: "mos-research", prompt: "Pesquisa rápida pra ad creative em [nicho] na [plataforma] BR: concorrentes ativos rodando ads agora, ângulos predominantes, dores reais do público [audiência], stats relevantes dos últimos 90 dias, regulamentação se nicho saúde/finanças. Retorne research brief compacto pra alimentar copy de anúncio.")
 
-"Would you like me to:
-1. Create more variations with different angles?
-2. Adapt this copy for another platform?
-3. Write a full video script for the ad?
-4. Generate A/B test variations for specific elements?"
+- Agent(subagent_type: "mos-ads", prompt: "Crie copy completa de anúncio para [plataforma]. Produto/oferta: [produto]. Objetivo: [objetivo]. Audiência: [audiência]. Benefício-chave: [benefício]. Tom: [tom]. Considere memory existente do cliente neste projeto. Aguarde research do mos-research e diferencie-se dos ângulos saturados que ele apontar. Entregue 5 variações, char limits respeitados, CTA, direção criativa, A/B test. Aplicar quality gates globais.")
+```
+
+## Consolidação
+
+Após os agents retornarem, entregue:
+
+```markdown
+## Anúncio: [Produto] — [Plataforma]
+
+Plataforma: [Meta | Google | TikTok | LinkedIn | Pinterest] | Objetivo: [objetivo] | Audiência: [audiência]
+
+### Research Context (se houver)
+[Concorrência ativa + ângulos saturados + ângulos em aberto + stats — do mos-research]
+
+### Variações de Copy (de mos-ads)
+
+**Versão 1 — [Ângulo: ex. Problem-Aware]**
+- Primary text: [...]
+- Headline: [...]
+- Description: [...]
+- CTA: [...]
+
+**Versão 2 — [Ângulo: ex. Social Proof]**
+[mesmo schema]
+
+**Versão 3 — [Ângulo: ex. Result-Focused]**
+[mesmo schema]
+
+**Versão 4 — Short-form (Stories/Reels)**
+[versão condensada]
+
+**Versão 5 — Urgency/Scarcity**
+[versão com gatilho temporal]
+
+### Direção Criativa
+- Visual recomendado: [...]
+- Hook de vídeo (3 primeiros segundos): [...]
+- Versão UGC-style (se aplicável): [...]
+
+### A/B Test Suggestions
+[Tabela com hipóteses de teste: hook, CTA, ângulo, formato]
+
+### Campaign Structure
+- Ad sets sugeridos: [...]
+- Alocação de budget: [...]
+
+### Próximos passos
+- Adaptar pra outras plataformas
+- Roteiro de vídeo completo
+- Variações adicionais por ângulo
+```
+
+## Quality Gates (antes de entregar)
+
+Aplicar gates globais do `skills/marketing-os/SKILL.md`:
+- Sem `—`, sem "brutal", sem CAPS gratuito
+- Máx 1-2 emojis (preferir zero)
+- Acentuação PT-BR correta
+- Char limits da plataforma respeitados
+- Compliance regulatório se nicho saúde/finanças/suplementos
+- Fact-check via WebSearch se cita pessoa/stat/case (CONFIRMADO/PROVÁVEL/NÃO USAR)
+
+## Por que esse dispatch
+
+`mos-ads` sozinho entrega copy polida com knowledge profunda de cada plataforma (limits, frameworks, ângulos). Quando o nicho é novo, `mos-research` em paralelo evita ângulos saturados e valida dores reais antes da copy, sem custo extra de latência (1 message, 2 calls).

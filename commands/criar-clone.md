@@ -1,630 +1,145 @@
 ---
-description: Create a complete expert clone with AI-powered research and content generation for all 4 clone files (profile, voice, frameworks, examples).
+description: Create a complete expert clone (profile/voice/frameworks/examples) via dispatch — mos-research busca a base factual, mos-copy gera os 4 arquivos no padrão dos clones existentes em assets/clones/.
 argument-hint: "<expert-name> [specialty]"
 ---
 
-# Create Expert Clone (AI-Powered)
+# /criar-clone: Clone de Expert Externo (Workflow estruturado, dispatch real)
 
-> Reference: See existing clones in `assets/clones/` for structure examples (e.g., `hormozi/`).
+Cria clone de copywriter / autoridade externa pesquisando via web e gerando os 4 arquivos canônicos em `assets/clones/{slug}/`. Estrutura em fases, mas execução **toda via dispatch** (não inline).
 
-Create a complete, production-ready expert clone with rich content generated through web research and AI analysis. This command produces all 4 clone files matching the depth and quality of existing rich clones (~700 lines total).
+> **Diferença de `/criar-meu-clone`**: este pesquisa expert externo via web (Halbert, Hopkins, Hormozi, etc.). O outro analisa amostras LOCAIS do usuário.
 
-## Trigger
+## Required inputs (ask if missing)
 
-This command is invoked when the user says `/criar-clone` followed by an expert name and optional specialty, or when they ask to create a new expert clone with AI-generated content.
+1. **Expert name** (obrigatório): nome completo (ex: "Gary Vaynerchuk", "Seth Godin")
+2. **Slug** (obrigatório): identificador curto kebab-case (ex: "gary-vee", "seth-godin"). Se não fornecido, derivar do nome.
+3. **Specialty** (opcional): área primária. Se não fornecido, deixar `mos-research` determinar.
+4. **Niches** (opcional): ex: "marketing-digital, empreendedorismo"
+5. **Tone** (opcional): tom dominante de voz. Se não fornecido, sai da pesquisa.
 
-## Inputs
+## Pre-flight check (orquestrador inline)
 
-Gather the following information. If any required field is missing, ask the user before proceeding:
+Antes de dispatchar:
 
-1. **Expert Name** (required) — Full name of the expert (e.g., "Gary Vaynerchuk", "Seth Godin")
-2. **Slug** (required) — Short identifier for the clone directory (e.g., "gary-vee", "seth-godin"). If not provided, derive from the expert name.
-3. **Specialty** (optional) — Primary area of expertise. If not provided, research and determine automatically.
-4. **Niches** (optional) — Comma-separated niches (e.g., "marketing-digital, empreendedorismo"). If not provided, determine from research.
-5. **Content Types** (optional) — Best content types for this expert (e.g., "copy_vendas, roteiro_video"). If not provided, determine from research.
-6. **Tone** (optional) — Voice tone description. If not provided, determine from research.
+1. Verificar que `assets/clones/{slug}/` NÃO existe. Se existir, perguntar ao user: overwrite ou abortar.
+2. Verificar que `assets/clones/clone-manifest.yaml` existe.
+3. Listar 2-3 clones existentes (`assets/clones/hormozi/`, etc.) como referência de padrão.
 
-## Pre-Flight Check
-
-Before starting, verify:
-
-1. The clone directory does NOT already exist at `assets/clones/{slug}/`
-2. The `clone-manifest.yaml` exists at `assets/clones/clone-manifest.yaml`
-3. If the clone already exists, ask the user if they want to overwrite or abort
-
-## Phase 1: Research
-
-Use **WebSearch** to gather comprehensive information about the expert. Perform multiple searches to cover:
-
-### Search Queries (adapt to the specific expert)
-
-1. `"{expert name}" marketing philosophy frameworks methodology`
-2. `"{expert name}" writing style voice communication patterns`
-3. `"{expert name}" books career achievements biography`
-4. `"{expert name}" content examples posts emails copy`
-5. `"{expert name}" business strategy frameworks`
-6. `"{expert name}" quotes famous phrases`
-
-### Information to Collect
-
-| Category | Details to Gather |
-|----------|-------------------|
-| **Identidade** | Nome completo, empresa(s), papel atual, livros, reconhecimento público |
-| **Filosofia** | Filosofia central, princípios fundamentais (3-5), crenças sobre o mercado |
-| **Trajetória** | Marcos importantes da carreira, datas, conquistas mensuráveis |
-| **Audiência** | Público típico, faixa etária, nível de experiência, setores |
-| **Voz** | Padrões de linguagem, vocabulário típico, o que evita, tom por contexto |
-| **Frameworks** | Metodologias próprias (4-6), modelos de trabalho, fórmulas |
-| **Exemplos** | Estilo de copy, estruturas de post, padrões de email, anúncios |
-
-**IMPORTANT:** Only use verified, factual information. Do NOT invent frameworks, quotes, or achievements. If information is uncertain, note it and ask the user to confirm.
-
-## Phase 2: Generate profile.md
-
-Write `assets/clones/{slug}/profile.md` following this EXACT structure:
-
-```markdown
-# {Expert Name} - Perfil do Clone
-
-## Identidade
-
-- **Nome completo:** {full name}
-- **Empresa:** {company/companies}
-- **Papel:** {current role}
-- **Reconhecimento:** {key achievement with numbers if possible}
-- **Livros:** {published books, if any}
-
----
-
-## Filosofia Central
-
-{1-2 paragraphs describing the expert's core philosophy and approach. Be specific, reference their actual beliefs and frameworks.}
-
-### Princípios Fundamentais
-
-1. **{Principle Name}** - {Description with specific examples or numbers}
-
-2. **{Principle Name}** - {Description with specific examples or numbers}
-
-3. **{Principle Name}** - {Description with specific examples or numbers}
-
-4. **{Principle Name}** - {Description with specific examples or numbers}
-
-5. **{Principle Name}** - {Description with specific examples or numbers}
-
----
-
-## Trajetória
-
-{1-2 paragraphs with the expert's career narrative, including specific details and turning points.}
-
-### Marcos importantes
-
-- **{Year range}:** {Achievement with specific details}
-- **{Year range}:** {Achievement with specific details}
-- **{Year range}:** {Achievement with specific details}
-- **{Year range}:** {Achievement with specific details}
-- **{Year range}:** {Achievement with specific details}
-- **{Current}:** {Current status/role}
-
----
-
-## Audiência Típica
-
-- {Audience segment 1}
-- {Audience segment 2}
-- {Audience segment 3}
-- {Audience segment 4}
-- {Audience segment 5}
-
----
-
-## Estilo de Comunicação
-
-| Aspecto | Descrição |
-|---------|-----------|
-| Tom | {tone description} |
-| Linguagem | {language patterns} |
-| Estrutura | {typical content structure} |
-| Humor | {humor style if any} |
-| Energia | {energy level and type} |
-| Credibilidade | {how they build credibility} |
-
----
-
-## Diferenciação
-
-O que separa {expert name} de outros experts:
-
-1. **{Differentiator}** - {Description}
-2. **{Differentiator}** - {Description}
-3. **{Differentiator}** - {Description}
-4. **{Differentiator}** - {Description}
-5. **{Differentiator}** - {Description}
-
----
-
-## Quando Usar Este Clone
-
-| Situação | Adequação |
-|----------|-----------|
-| {Use case 1} | Excelente |
-| {Use case 2} | Excelente |
-| {Use case 3} | Muito bom |
-| {Use case 4} | Muito bom |
-| {Anti-use case 1} | Não recomendado |
-| {Anti-use case 2} | Não recomendado |
-| {Edge case} | Usar com cautela |
-
----
-
-## Tópicos de Domínio
-
-- {Domain topic 1}
-- {Domain topic 2}
-- {Domain topic 3}
-- {Domain topic 4}
-- {Domain topic 5}
-- {Domain topic 6}
-- {Domain topic 7}
-- {Domain topic 8}
-```
-
-**Target:** ~100 lines. All content in Portuguese with full acentuação.
-
-## Phase 3: Generate voice.md
-
-Write `assets/clones/{slug}/voice.md` following this EXACT structure:
-
-```markdown
-# {Expert Name} - Guia de Voz e Tom
-
-## Visão Geral
-
-{1 paragraph describing the overall voice: key characteristics, how they communicate, what makes their voice unique.}
-
----
-
-## Características Fundamentais da Voz
-
-### 1. {Characteristic Name}
-
-{Description of this voice trait.}
-
-**Não faça:**
-> "{Example of what NOT to do}"
-
-**Faça:**
-> "{Example of what TO do in this expert's voice}"
-
-### 2. {Characteristic Name}
-
-{Description of this voice trait.}
-
-**Não faça:**
-> "{Example of what NOT to do}"
-
-**Faça:**
-> "{Example of what TO do in this expert's voice}"
-
-### 3. {Characteristic Name}
-
-{Description of this voice trait.}
-
-**Exemplos típicos:**
-- "{Example phrase 1}"
-- "{Example phrase 2}"
-- "{Example phrase 3}"
-
-### 4. {Characteristic Name}
-
-{Description of this voice trait.}
-
-**Padrão rítmico:**
-> "{Example showing the rhythm and style}"
-
-### 5. {Characteristic Name}
-
-{Description of this voice trait.}
-
-**Padrões de abertura:**
-- "{Opening pattern 1}"
-- "{Opening pattern 2}"
-- "{Opening pattern 3}"
-- "{Opening pattern 4}"
-- "{Opening pattern 5}"
-
----
-
-## Estrutura Narrativa
-
-### Padrão Principal: {Pattern Name}
+## Phase 1: Research (Dispatch — mos-research)
 
 ```
-1. {STEP}: {Description}
-   "{Example}"
+Agent(subagent_type: "mos-research", prompt: "Pesquisa profunda sobre o expert [Nome completo]. Use WebSearch em múltiplas queries: '\"[nome]\" filosofia frameworks methodology', '\"[nome]\" writing style voice', '\"[nome]\" books career biography', '\"[nome]\" content examples copy', '\"[nome]\" frameworks proprietários', '\"[nome]\" famous quotes phrases'.
 
-2. {STEP}: {Description}
-   "{Example}"
+Retorne brief estruturado nas 7 categorias canônicas dos clones:
+1. Identidade — nome, empresa(s), papel atual, livros, reconhecimento público (com números quando possível)
+2. Filosofia — central + 3-5 princípios fundamentais com exemplos concretos
+3. Trajetória — narrativa de carreira + marcos com datas
+4. Audiência típica — 4-6 segmentos
+5. Voz — tom, padrões de linguagem, vocabulário típico, palavras que ele NUNCA usa, tom por contexto (sales/landing/ad/video/post)
+6. Frameworks — 4-6 frameworks proprietários (apenas REAIS, não inventar) com componentes e como aplicar
+7. Exemplos de estilo — padrões de copy de venda, ad, email, post LinkedIn
 
-3. {STEP}: {Description}
-   "{Example}"
-
-4. {STEP}: {Description}
-   "{Example}"
+REGRA CRÍTICA: apenas informação verificada. Não inventar frameworks, quotes ou conquistas. Marcar incertezas como [VERIFICAR]. Considere memory existente do cliente neste projeto."
+)
+  → Aguarde brief de research
 ```
 
-### Padrão Secundário: {Pattern Name}
+`mos-research` tem memory project — cita explicitamente.
+
+## Phase 2: Geração dos 4 arquivos (Dispatch — mos-copy)
+
+Com o brief em mãos, dispatcha `mos-copy` para gerar os 4 arquivos seguindo o padrão dos clones existentes.
 
 ```
-1. {STEP}: "{Example}"
-2. {STEP}: "{Example}"
-3. {STEP}: "{Example}"
+Agent(subagent_type: "mos-copy", prompt: "Gere os 4 arquivos canônicos do clone de [Nome] em assets/clones/{slug}/ usando este research como única fonte factual: [colar brief inteiro do mos-research].
+
+Padrão de referência: clones já existentes em assets/clones/ (ex: hormozi/, halbert/, hopkins/). Você já conhece o schema dos 4 arquivos via knowledge base do agent. Resumo dos targets:
+
+1. profile.md (~100 linhas) — Identidade, Filosofia Central + Princípios Fundamentais (5), Trajetória + Marcos, Audiência Típica, Estilo de Comunicação (tabela), Diferenciação (5), Quando Usar Este Clone (tabela com Excelente/Muito bom/Não recomendado), Tópicos de Domínio (8)
+
+2. voice.md (~190 linhas) — Visão Geral, 5 Características Fundamentais (cada uma com 'Não faça / Faça' OU exemplos concretos), Estrutura Narrativa (padrão principal + secundário), Vocabulário Típico (tabela de categorias + tabela de palavras NUNCA usadas com motivo), Tom por Tipo de Conteúdo (sales/landing/ad/video/post), Regras de Formatação (6), Exemplos de Adaptação de Tom (formal vs estilo dele, motivacional vazio vs estilo dele), Checklist de Voz (8 items)
+
+3. frameworks.md (~200 linhas) — 4-6 frameworks REAIS do expert. Cada um: descrição (1-2 frases), Componentes (tabela), Aplicação na Copy (passo a passo), exemplos. Tabela-resumo no final ('Use quando...'). NÃO INVENTAR frameworks.
+
+4. examples.md (~200 linhas) — 4 exemplos completos (não snippets) na voz autêntica do expert: Copy de Vendas, Anúncio para Redes Sociais, Email de Vendas (com subject + body + P.S.), Post LinkedIn. Cada exemplo seguido de tabela 'Análise: Elemento | Técnica Aplicada'. Vocabulário e frameworks devem ser os mesmos do voice.md/frameworks.md.
+
+REGRAS:
+- Tudo em PT-BR com acentuação correta
+- Aplicar quality gates globais (sem '—', sem 'brutal', sem CAPS, sem aspas em falas, máx 1-2 emojis)
+- Apenas info do research — se algo está [VERIFICAR], suavizar ou omitir
+- Salvar via Write em: assets/clones/{slug}/profile.md, voice.md, frameworks.md, examples.md
+- Total alvo: ~700 linhas nos 4 arquivos somados
+
+Considere memory existente do cliente neste projeto."
+)
+  → Aguarde criação dos 4 arquivos
 ```
 
----
+`mos-copy` tem memory project — cita explicitamente.
 
-## Vocabulário Típico
+## Phase 3: Update do manifest (orquestrador inline)
 
-### Palavras e Expressões Frequentes
-
-| Categoria | Expressões |
-|-----------|------------|
-| **{Category 1}** | "{expressions}" |
-| **{Category 2}** | "{expressions}" |
-| **{Category 3}** | "{expressions}" |
-| **{Category 4}** | "{expressions}" |
-| **{Category 5}** | "{expressions}" |
-| **{Category 6}** | "{expressions}" |
-
-### Palavras que {Expert Name} NUNCA usa
-
-| Evitar | Por quê |
-|--------|---------|
-| "{word/phrase}" | {reason} |
-| "{word/phrase}" | {reason} |
-| "{word/phrase}" | {reason} |
-| "{word/phrase}" | {reason} |
-| "{word/phrase}" | {reason} |
-| "{word/phrase}" | {reason} |
-
----
-
-## Tom por Tipo de Conteúdo
-
-### Copy de Vendas
-- {characteristic 1}
-- {characteristic 2}
-- {characteristic 3}
-- {characteristic 4}
-- {characteristic 5}
-
-### Landing Page
-- {characteristic 1}
-- {characteristic 2}
-- {characteristic 3}
-- {characteristic 4}
-- {characteristic 5}
-
-### Anúncio (Ad)
-- {characteristic 1}
-- {characteristic 2}
-- {characteristic 3}
-- {characteristic 4}
-- {characteristic 5}
-
-### Roteiro de Vídeo
-- {characteristic 1}
-- {characteristic 2}
-- {characteristic 3}
-- {characteristic 4}
-
-### Post para Redes Sociais
-- {characteristic 1}
-- {characteristic 2}
-- {characteristic 3}
-- {characteristic 4}
-
----
-
-## Regras de Formatação
-
-1. **{Rule 1}** - {Description}
-2. **{Rule 2}** - {Description}
-3. **{Rule 3}** - {Description}
-4. **{Rule 4}** - {Description}
-5. **{Rule 5}** - {Description}
-6. **{Rule 6}** - {Description}
-
----
-
-## Exemplos de Adaptação de Tom
-
-### Tom Formal (evitar ao clonar {Expert Name})
-> "{Example of formal tone to avoid}"
-
-### Tom {Expert Name} (usar)
-> "{Example of the correct tone}"
-
-### Tom Motivacional Vazio (evitar)
-> "{Example of empty motivational tone to avoid}"
-
-### Tom {Expert Name} (usar)
-> "{Example of the correct tone as contrast}"
-
----
-
-## Checklist de Voz
-
-Antes de finalizar qualquer conteúdo no estilo {Expert Name}, verifique:
-
-- [ ] {Check 1 - key voice characteristic}
-- [ ] {Check 2 - opening/hook quality}
-- [ ] {Check 3 - evidence/support}
-- [ ] {Check 4 - avoiding anti-patterns}
-- [ ] {Check 5 - CTA clarity}
-- [ ] {Check 6 - formatting rules}
-- [ ] {Check 7 - reader next steps}
-- [ ] {Check 8 - tone consistency}
-```
-
-**Target:** ~190 lines. All content in Portuguese with full acentuação. Each characteristic MUST have "Não faça / Faça" or concrete examples.
-
-## Phase 4: Generate frameworks.md
-
-Write `assets/clones/{slug}/frameworks.md` following this EXACT structure:
-
-```markdown
-# {Expert Name} - Frameworks
-
-## 1. {Framework Name} ({Portuguese Translation if applicable})
-
-{1-2 sentences describing the framework and its purpose.}
-
-{Optional: ASCII formula or visual representation if the framework has one}
-
-### Componentes
-
-| Componente | Descrição | Como aplicar |
-|------------|-----------|--------------|
-| **{Component 1}** | {Description} | {Application in copy/content} |
-| **{Component 2}** | {Description} | {Application in copy/content} |
-| **{Component 3}** | {Description} | {Application in copy/content} |
-| **{Component 4}** | {Description} | {Application in copy/content} |
-
-### Aplicação na Copy
-
-{Specific guidance on how to use this framework when creating content.}
-
-1. **{Step 1}** - {Description with examples}
-2. **{Step 2}** - {Description with examples}
-3. **{Step 3}** - {Description with examples}
-4. **{Step 4}** - {Description with examples}
-
----
-
-## 2. {Framework Name}
-
-{Similar structure - adapt sections based on the framework's nature.}
-{Include: description, components/structure (table), step-by-step, examples.}
-
----
-
-## 3. {Framework Name}
-
-{Similar structure.}
-
----
-
-## 4. {Framework Name}
-
-{Similar structure.}
-
----
-
-## 5. {Framework Name} (if applicable)
-
-{Similar structure.}
-
----
-
-## 6. {Framework Name} (if applicable)
-
-{Similar structure.}
-
----
-
-## Resumo para Aplicação na Copy
-
-| Framework | Use quando... |
-|-----------|---------------|
-| {Framework 1} | {When to use} |
-| {Framework 2} | {When to use} |
-| {Framework 3} | {When to use} |
-| {Framework 4} | {When to use} |
-| {Framework 5} | {When to use} |
-| {Framework 6} | {When to use} |
-```
-
-**Target:** ~200 lines. Include 4-6 frameworks depending on the expert. Each framework must have:
-- Description
-- Components (table format)
-- Step-by-step application
-- Copy/content examples
-- The summary table at the end
-
-**CRITICAL:** Only include REAL frameworks the expert actually uses/teaches. Do NOT invent frameworks.
-
-## Phase 5: Generate examples.md
-
-Write `assets/clones/{slug}/examples.md` following this EXACT structure:
-
-```markdown
-# {Expert Name} - Exemplos Anotados
-
-## Exemplo 1: Copy de Vendas - {Specific scenario}
-
-### Copy
-
----
-
-{Full sales copy example written in the expert's voice and style. 15-25 lines.
-Use the expert's frameworks, vocabulary, and patterns.
-Include specific numbers, proof points, and CTAs consistent with their approach.}
-
----
-
-### Análise
-
-| Elemento | Técnica Aplicada |
-|----------|-----------------|
-| **Headline** | {What technique was used and why} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **CTA** | {Technique applied} |
-
----
-
-## Exemplo 2: Anúncio para Redes Sociais
-
-### Copy
-
----
-
-{Full ad copy in the expert's voice. 10-20 lines.}
-
----
-
-### Análise
-
-| Elemento | Técnica Aplicada |
-|----------|-----------------|
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-
----
-
-## Exemplo 3: Email de Vendas
-
-### Copy
-
----
-
-{Full email copy in the expert's voice. Include subject line, greeting, body, CTA, signature, and P.S. 15-25 lines.}
-
----
-
-### Análise
-
-| Elemento | Técnica Aplicada |
-|----------|-----------------|
-| **Assunto** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **P.S.** | {Technique applied} |
-
----
-
-## Exemplo 4: Post LinkedIn
-
-### Copy
-
----
-
-{Full LinkedIn post in the expert's voice. 15-25 lines.}
-
----
-
-### Análise
-
-| Elemento | Técnica Aplicada |
-|----------|-----------------|
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-| **{Element}** | {Technique applied} |
-```
-
-**Target:** ~200 lines. Each example must:
-- Be a COMPLETE piece of copy (not a snippet)
-- Authentically reflect the expert's voice and frameworks
-- Include an analysis table mapping each element to the technique used
-- Cover 4 formats: copy de vendas, anúncio, email, post LinkedIn
-
-**CRITICAL:** Examples must feel like the expert actually wrote them. Use their vocabulary, frameworks, patterns, and tone from the voice.md and frameworks.md you generated.
-
-## Phase 6: Update clone-manifest.yaml
-
-Append a new entry to `assets/clones/clone-manifest.yaml` in the `clones:` section (BEFORE `matching_rules:`).
-
-Follow the exact format of existing entries:
+Append entry em `assets/clones/clone-manifest.yaml`, na seção `clones:` (ANTES de `matching_rules:`), seguindo o formato dos existentes:
 
 ```yaml
   {slug}:
-    name: "{Full Name}"
-    specialty: "{Specialty description}"
-    best_for: ["{type1}", "{type2}", "{type3}", "{type4}"]
+    name: "{Nome completo}"
+    specialty: "{Specialty (do research ou do user)}"
+    best_for: ["{tipo1}", "{tipo2}", "{tipo3}", "{tipo4}"]
     niches: ["{niche1}", "{niche2}", "{niche3}"]
-    tone: "{tone description in Portuguese}"
+    tone: "{descrição de tom em PT-BR}"
     path: "{slug}/"
 ```
 
-## Phase 7: Validation
+## Phase 4: Validação (orquestrador inline)
 
-After generating all files, verify:
+Verifique:
 
-- [ ] `profile.md` exists with all 8 sections (Identidade, Filosofia, Trajetória, Audiência, Estilo, Diferenciação, Quando Usar, Tópicos)
-- [ ] `voice.md` exists with all 8 sections (Visão Geral, Características, Estrutura Narrativa, Vocabulário, Tom por Tipo, Regras, Exemplos Adaptação, Checklist)
-- [ ] `frameworks.md` exists with 4-6 frameworks + resumo table
-- [ ] `examples.md` exists with 4 examples + análise tables
-- [ ] `clone-manifest.yaml` updated with new entry
-- [ ] All files are in Portuguese with correct acentuação
-- [ ] No invented or unverified information (all based on research)
-- [ ] Total line count across 4 files is ~700 lines
+- [ ] `profile.md` tem 8 seções (Identidade, Filosofia, Trajetória, Audiência, Estilo, Diferenciação, Quando Usar, Tópicos)
+- [ ] `voice.md` tem 8 seções (Visão Geral, Características, Estrutura, Vocabulário, Tom por Tipo, Regras, Adaptação, Checklist)
+- [ ] `frameworks.md` tem 4-6 frameworks + tabela-resumo
+- [ ] `examples.md` tem 4 exemplos + tabelas de análise
+- [ ] Manifest atualizado com nova entrada
+- [ ] Tudo em PT-BR com acentuação
+- [ ] Nenhuma informação não verificada (cruzar com brief do mos-research)
+- [ ] Total ~700 linhas somando os 4 arquivos
 
-Report the validation results to the user.
+Reporte falhas específicas se algo faltar e dispatcha `mos-copy` de novo pra correção pontual.
 
-## Final Output
+## Quality Gates (antes de entregar)
 
-After completion, display:
+Aplicar gates globais do `skills/marketing-os/SKILL.md`:
+- Sem `—`, sem "brutal", sem CAPS gratuito, sem aspas em falas (escrever direto)
+- Acentuação PT-BR correta em tudo
+- Compliance: se o expert atua em saúde/finanças/suplementos, exemplos de copy precisam respeitar disclaimers do nicho
+- Fact-check: qualquer claim citável (livros, prêmios, números de empresa) precisa estar CONFIRMADO via 2+ fontes ou marcado [VERIFICAR]
+
+## Final output
+
+Após completar, mostre:
 
 ```
-Clone criado com sucesso: {Expert Name}
+Clone criado: [Nome do expert]
 
 Arquivos gerados:
   assets/clones/{slug}/
-  ├── profile.md    ({line count} linhas)
-  ├── voice.md      ({line count} linhas)
-  ├── frameworks.md ({line count} linhas)
-  └── examples.md   ({line count} linhas)
+  ├── profile.md    ([N] linhas)
+  ├── voice.md      ([N] linhas)
+  ├── frameworks.md ([N] linhas)
+  └── examples.md   ([N] linhas)
 
-Total: {total lines} linhas
+Total: [N] linhas
+Manifest atualizado: clone-manifest.yaml
 
-Manifesto atualizado: clone-manifest.yaml
-
-Para usar: invoke o agente @mos-clone passando o slug do clone
+Pra usar: 'gere copy no estilo {slug}' ou 'estilo [Nome]' em qualquer chamada que envolva mos-copy.
 ```
 
-Then ask:
+Pergunte se quer:
+1. Revisar/ajustar arquivo específico
+2. Adicionar mais frameworks ou exemplos
+3. Criar outro clone
+4. Testar o clone com peça de exemplo
 
-"Deseja que eu:
-1. Revise e ajuste algum arquivo específico?
-2. Adicione mais frameworks ou exemplos?
-3. Crie um clone de outro expert?
-4. Teste o clone com um conteúdo de exemplo?"
+## Por que esse workflow estruturado (e não dispatch simples)
+
+Clone de expert é peça de longa duração que vai ser consultada por anos pelo `mos-copy`. Pular a fase de research = clone com info inventada (falha em compliance e em qualidade). Pular a separação research → geração = `mos-copy` chuta detalhes biográficos e mistura mestres. Os 4 arquivos têm schemas distintos que o `mos-copy` já conhece via Tier 2 — por isso não precisam de templates inline aqui.

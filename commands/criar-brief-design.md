@@ -1,227 +1,156 @@
 ---
-description: Create a design brief with specs, color palettes, typography, and component requirements for Figma or any design tool.
+description: Create a design brief with specs, palettes, typography, and component requirements. Dispatches mos-design simples ou mos-design + mos-brand (+ opcional mos-ai-tools) em paralelo para identidade completa.
 argument-hint: "<project type, e.g., 'Instagram carousel template' or 'landing page design for SaaS'>"
 ---
 
-# Create Design Brief
+# /criar-brief-design: Brief de Design (Dispatch-Based)
 
-> See [CONNECTORS.md](../CONNECTORS.md) for Figma MCP integration and design asset connections.
+Cria brief de design completo orquestrando subagent(s) especializados via `Agent(subagent_type: "mos-*")`. Não produz inline.
 
-Create a comprehensive design brief with visual direction, specifications, color palettes, typography, and component requirements that can be used directly in Figma or any design tool.
+## Required inputs (ask if missing)
 
-## Trigger
+1. **Project type** (obrigatório): social media template, landing page, carousel, ad creative, brand identity, presentation, email template
+2. **Brand context** (obrigatório): nome, indústria, cores/fontes existentes (se houver), mood
+3. **Purpose** (obrigatório): o que o design precisa gerar (conversão, awareness, branding, retenção)
+4. **Audiência** (opcional): quem vai ver
+5. **Plataformas** (opcional): onde será usado (Instagram, web, print, etc.)
+6. **Style preference** (opcional): minimalista, bold, corporativo, playful, premium, tech, organic
+7. **References** (opcional): inspiração, concorrentes, mood references
+8. **AI image prompts?** (opcional): se sim, ativa dispatch adicional do `mos-ai-tools`
 
-This command is invoked when the user says `/criar-brief-design` followed by a project type, or when they ask to create a design brief, visual direction, or design specifications.
-
-## Inputs
-
-Gather the following information. If any required field is missing, ask the user before proceeding:
-
-1. **Project Type** (required) — Social media template, landing page, carousel, ad creative, brand identity, presentation, email template
-2. **Brand Context** (required) — Brand name, industry, existing colors/fonts, mood
-3. **Purpose** (required) — What the design needs to achieve
-4. **Audience** (optional) — Who will see this design
-5. **Platforms** (optional) — Where the design will be used (Instagram, web, print, etc.)
-6. **Style Preference** (optional) — Minimalist, bold, corporate, playful, premium, tech, organic
-7. **References** (optional) — Design inspiration, competitor examples, mood references
-
-## Design Specifications by Platform
-
-### Instagram
-
-| Format | Dimensions | Safe Zone | Key Rules |
-|--------|-----------|-----------|-----------|
-| Feed Post | 1080x1080 | Full | Text > 20% contrasta com fundo |
-| Carousel | 1080x1080 per slide | Full | Consistência entre slides |
-| Stories | 1080x1920 | Centro 1080x1420 | Evitar extremidades top/bottom |
-| Reels Cover | 1080x1920 | Centro 1080x1350 | Thumbnail legível |
-
-### LinkedIn
-
-| Format | Dimensions | Key Rules |
-|--------|-----------|-----------|
-| Post | 1200x627 | Profissional, clean |
-| Article Cover | 1200x644 | Título legível no overlay |
-| Banner | 1584x396 | Branding sutil |
-
-### YouTube
-
-| Format | Dimensions | Key Rules |
-|--------|-----------|-----------|
-| Thumbnail | 1280x720 | Face + texto grande + cores fortes |
-| Banner | 2560x1440 | Safe area: 1546x423 centro |
-
-### Web/Landing Page
-
-| Element | Specs | Key Rules |
-|---------|-------|-----------|
-| Hero | Full width, 600-800px height | CTA acima do fold |
-| Sections | Max 1200px content width | Espaçamento generoso |
-| Mobile | 375px min width | Touch targets 44x44px |
-
-## Content Generation
-
-### Color Palette Framework
-
-Generate a complete palette:
+## Dispatch Decision Tree
 
 ```
-PRIMARY:    #[hex] — Cor principal da marca (botões, CTAs, destaques)
-SECONDARY:  #[hex] — Cor complementar (backgrounds, seções alternadas)
-ACCENT:     #[hex] — Cor de destaque (badges, alertas, links)
-NEUTRAL:    #[hex] — Texto e elementos neutros
-BACKGROUND: #[hex] — Fundo principal
-SURFACE:    #[hex] — Cards, modais, elementos elevados
+Briefing recebido
+  ├── Brief de 1 peça única (ad creative, social template, email template, etc.)
+  │   COM identidade de marca já definida?
+  │     └── Dispatch SIMPLES: mos-design
+  │
+  ├── Brief envolve identidade de marca completa (brand identity, novo cliente,
+  │   sem brand book, ou redesign de marca)?
+  │     └── Dispatch PARALELO: mos-design + mos-brand
+  │         (mos-brand cuida de paleta + tipografia + tom + identidade;
+  │          mos-design cuida de specs técnicas + layout + componentes)
+  │
+  └── Usuário pediu prompts pra IA gerar visuais (Midjourney/Flux/Ideogram)?
+        └── ADICIONAR EM PARALELO: mos-ai-tools
+            (junto com mos-design, ou junto com mos-design + mos-brand)
 ```
 
-**Paleta por emoção/nicho:**
+`mos-design` tem `memory: project`. `mos-brand` também tem `memory: project`. Explicite "considere memory existente do cliente" em ambos os prompts. `mos-ai-tools` não tem memory — passe tudo no prompt.
 
-| Emoção/Nicho | Cores Sugeridas | Exemplo |
-|-------------|----------------|---------|
-| Confiança/Tech | Azul, cinza, branco | #2563EB, #64748B |
-| Energia/Fitness | Laranja, vermelho, preto | #F97316, #DC2626 |
-| Premium/Luxo | Preto, dourado, marfim | #1A1A1A, #D4AF37 |
-| Saúde/Bem-estar | Verde, bege, terra | #16A34A, #D4C5A9 |
-| Educação | Roxo, azul, branco | #7C3AED, #3B82F6 |
-| Criativo/Design | Rosa, gradientes | #EC4899, #8B5CF6 |
-
-### Typography Framework
+## Dispatch Simples (1 peça, identidade existente)
 
 ```
-HEADING FONT:  [Font name] — [Weight: Bold/Black]
-  - H1: [size]px / [line-height]
-  - H2: [size]px / [line-height]
-  - H3: [size]px / [line-height]
-
-BODY FONT:     [Font name] — [Weight: Regular/Medium]
-  - Body: [size]px / [line-height]
-  - Small: [size]px / [line-height]
-  - Caption: [size]px / [line-height]
-
-ACCENT FONT:   [Font name] — [Weight: Light/Italic] (optional)
-  - Quotes, highlights, special elements
+Agent(subagent_type: "mos-design", prompt: "Brief de design completo para [project type]. Brand: [brand context]. Purpose: [purpose]. Audiência: [audiência]. Plataformas: [plataformas]. Style: [style]. Considere memory existente do cliente neste projeto. Entregue: visual direction (style + mood + 3-5 adjetivos descritivos + references), color palette completa (primary, secondary, accent, neutral, background, surface — 6 cores com hex e usage), typography (heading + body + accent fonts com weights e scale), layout principles (grid + spacing unit + border radius + shadows), component specs detalhadas (dimensões, layout, elementos, estados), dimensions table por plataforma com formatos e DPI, design checklist (cores, tipografia, espaçamento, mobile, contraste WCAG AA, exports). Aplicar quality gates globais (sem travessão, sem 'brutal', PT-BR correto).")
 ```
 
-**Combinações seguras:**
-
-| Heading | Body | Style |
-|---------|------|-------|
-| Inter | Inter | Clean, moderno |
-| Montserrat | Open Sans | Profissional |
-| Playfair Display | Lato | Elegante |
-| Poppins | Roboto | Amigável |
-| DM Sans | DM Sans | Minimalista |
-
-### Layout Principles
+## Dispatch Paralelo (identidade completa, single message)
 
 ```
-GRID:          [12 columns / 8 columns / Free]
-SPACING:       Base unit: [8px] — Multiples: 8, 16, 24, 32, 48, 64
-BORDER RADIUS: [0px sharp / 4px subtle / 8px rounded / 16px soft / Full pill]
-SHADOWS:       [None flat / Subtle / Medium / Strong]
+- Agent(subagent_type: "mos-brand", prompt: "Identidade de marca para [brand name] em [indústria]. Audiência: [audiência]. Purpose: [purpose]. Style preference: [style]. Considere memory existente do cliente neste projeto. Entregue: arquétipo de marca, posicionamento, manifesto, tom de voz (3-5 atributos + do/don't), paleta de cores justificada por psicologia + nicho (primary, secondary, accent, neutral — com hex e racional), tipografia recomendada (heading + body + accent com personalidade da fonte), brand voice examples (3 exemplos curtos de copy no tom da marca), aplicação em diferentes contextos. Aplicar quality gates globais.")
+
+- Agent(subagent_type: "mos-design", prompt: "Brief de design técnico para [project type]. Brand: [brand context]. Purpose: [purpose]. Plataformas: [plataformas]. Considere memory existente do cliente neste projeto. Aguarde paleta + tipografia do mos-brand e construa em cima delas. Entregue: layout principles (grid + spacing + border radius + shadows), component specs detalhadas (dimensões, layout, elementos, estados), dimensions table por plataforma com formatos e DPI, hierarquia visual, mobile responsive specs, design checklist (acessibilidade WCAG AA, exports). Aplicar quality gates globais.")
 ```
 
-## Output Structure
-
-Deliver the design brief in this format:
+## Adicional (paralelo, se usuário pediu prompts de IA)
 
 ```
-## DESIGN BRIEF
+- Agent(subagent_type: "mos-ai-tools", prompt: "Prompts otimizados para gerar visuais com IA (Midjourney + Flux + Ideogram + DALL-E) para [project type]. Brand context: [brand context]. Style: [style]. Mood: [mood — pegar de mos-brand se houver]. Audiência: [audiência]. Entregue: 3-5 prompts por uso principal (hero image, supporting visual, background pattern, social asset, etc.), com aspect ratio e parâmetros específicos por ferramenta (--ar, --style, etc.), variações de tom/composição, prompt para variações A/B. Não use cenas com pessoas reais identificáveis sem aviso. Aplicar quality gates globais.")
+```
 
-🎨 PROJECT: [Project type]
-🏷️ BRAND: [Brand name]
-📱 PLATFORMS: [Target platforms]
-🎯 PURPOSE: [Design goal]
+## Consolidação
 
----
+Após os agents retornarem, entregue:
 
-### VISUAL DIRECTION
+```markdown
+## Design Brief: [Project Type]
 
-**Style:** [Minimalist / Bold / Corporate / Playful / Premium]
-**Mood:** [3-5 adjectives describing the visual feel]
-**References:** [Inspiration notes or links]
+Brand: [...] | Purpose: [...] | Plataformas: [...] | Style: [...]
 
----
+### Visual Direction
+- Style: [...]
+- Mood: [3-5 adjetivos]
+- References: [...]
+- Arquétipo de marca (se mos-brand): [...]
+- Tom de voz (se mos-brand): [...]
 
-### COLOR PALETTE
+### Color Palette (de mos-brand quando houver, senão mos-design)
+| Role | Swatch | Hex | Usage |
+|------|--------|-----|-------|
+| Primary | ■ | #[...] | [...] |
+| Secondary | ■ | #[...] | [...] |
+| Accent | ■ | #[...] | [...] |
+| Neutral | ■ | #[...] | [...] |
+| Background | ■ | #[...] | [...] |
+| Surface | ■ | #[...] | [...] |
 
-| Role | Color | Hex | Usage |
-|------|-------|-----|-------|
-| Primary | [Swatch] | #[hex] | [Usage] |
-| Secondary | [Swatch] | #[hex] | [Usage] |
-| Accent | [Swatch] | #[hex] | [Usage] |
-| Neutral | [Swatch] | #[hex] | [Usage] |
-| Background | [Swatch] | #[hex] | [Usage] |
-| Surface | [Swatch] | #[hex] | [Usage] |
+Racional da paleta (se mos-brand): [psicologia + nicho]
 
----
+### Typography
+- Heading: [Font] — [Weight] (personalidade: ...)
+- Body: [Font] — [Weight]
+- Accent: [Font] — [Weight] (se aplicável)
+- Scale: H1/H2/H3/Body/Small/Caption (size px / line-height)
 
-### TYPOGRAPHY
+### Layout & Spacing (de mos-design)
+- Grid: [12 cols | 8 cols | free]
+- Spacing unit: [base px] — multiples
+- Border radius: [...]
+- Shadows: [...]
 
-**Heading:** [Font] — [Weight]
-**Body:** [Font] — [Weight]
-**Sizes:** [Scale defined]
-
----
-
-### LAYOUT & SPACING
-
-**Grid:** [Grid system]
-**Spacing unit:** [Base unit]
-**Border radius:** [Radius]
-**Shadows:** [Shadow style]
-
----
-
-### COMPONENT SPECS
-
-[Detailed specs for each component/section needed]
-
+### Component Specs (de mos-design)
 **Component 1: [Name]**
-- Dimensions: [WxH]
-- Layout: [Description]
-- Elements: [What goes inside]
-- States: [Default, hover, active, disabled]
+- Dimensões: [W x H]
+- Layout: [...]
+- Elementos: [...]
+- Estados: default, hover, active, disabled
 
----
+[Repetir por componente]
 
-### DIMENSIONS TABLE
-
+### Dimensions Table
 | Asset | Width | Height | Format | DPI |
 |-------|-------|--------|--------|-----|
-| [Asset 1] | [W] | [H] | [PNG/JPG/SVG] | [72/300] |
-| [Asset 2] | [W] | [H] | [PNG/JPG/SVG] | [72/300] |
+| [...] | [...] | [...] | PNG/JPG/SVG | 72/300 |
 
----
+### Brand Voice Examples (se mos-brand)
+1. [Exemplo de copy 1]
+2. [Exemplo de copy 2]
+3. [Exemplo de copy 3]
 
-### AI IMAGE PROMPTS (if applicable)
+### AI Image Prompts (se mos-ai-tools)
+**Prompt 1 — [Uso]:**
+"[Prompt detalhado para Midjourney/Flux/Ideogram, com aspect ratio e parâmetros]"
 
-**Prompt 1 — [Usage]:**
-"[Detailed prompt for Midjourney/DALL-E/Flux]"
+[Repetir por uso]
 
-**Prompt 2 — [Usage]:**
-"[Detailed prompt]"
-
----
-
-### DESIGN CHECKLIST
-
+### Design Checklist
 - [ ] Cores aplicadas conforme palette
-- [ ] Tipografia consistente
+- [ ] Tipografia consistente em todos os componentes
 - [ ] Espaçamento seguindo grid
 - [ ] Mobile responsive verificado
-- [ ] Contrastes acessíveis (WCAG AA)
+- [ ] Contraste WCAG AA validado
 - [ ] Assets exportados nos formatos corretos
 - [ ] Marca/logo posicionados corretamente
+
+### Próximos passos
+- Conectar brief ao Figma via MCP
+- Gerar copy que acompanha o design
+- Adaptar brief pra plataformas adicionais
+- Especificação de component library completa
 ```
 
-## Final Ask
+## Quality Gates (antes de entregar)
 
-After delivering the design brief, ask:
+Aplicar gates globais do `skills/marketing-os/SKILL.md`:
+- Sem `—`, sem "brutal", sem CAPS gratuito
+- Acentuação PT-BR correta
+- Contraste WCAG AA validado em qualquer combinação cor+texto
+- Hex codes corretos (6 dígitos, sem #ABC abreviado)
+- Dimensões em pixels com unidades explícitas
+- Compliance regulatório se nicho saúde/finanças/suplementos (claims visuais)
+- Prompts de IA não devem gerar pessoas reais identificáveis sem aviso
 
-"Would you like me to:
-1. Generate specific AI image prompts for the visuals?
-2. Create the copy that goes with this design?
-3. Adapt this brief for additional platforms?
-4. Create a detailed component library specification?
-5. Connect this brief to your Figma project (via MCP)?"
+## Por que esse dispatch
+
+1 peça com identidade existente: `mos-design` resolve sozinho (knowledge profunda de specs por plataforma, layout principles, component patterns). Identidade completa: `mos-brand` define a alma (paleta com racional, tipografia com personalidade, arquétipo, tom) e `mos-design` constrói o esqueleto técnico em cima — paralelizam porque são camadas independentes (mos-brand não precisa de specs técnicas, mos-design pode trabalhar layout/grid sem cor final). `mos-ai-tools` adicional só quando pedido explicitamente, porque prompts de IA têm escopo próprio e não dependem de specs nem de identidade pra começar.

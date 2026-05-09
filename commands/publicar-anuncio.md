@@ -1,179 +1,167 @@
 ---
-description: Create and publish ad campaigns directly to Meta Ads platform with copy, targeting, and budget configuration.
+description: Publish ad campaigns to Meta Ads. Dispatches mos-ads first to validate copy, targeting, and budget against quality gates, then executes Meta Ads MCP tools to launch.
 argument-hint: "<campaign type and goal, e.g., 'lead generation campaign for course launch' or 'conversion campaign for product'>"
 ---
 
-# Publish Ad Campaign
+# /publicar-anuncio: Publicar Campanha Meta Ads
 
-> Requires: Meta Ads MCP integration active (Especializei). See [CONNECTORS.md](../CONNECTORS.md) for setup.
+Utility de publicação. **Sempre** dispatcha `mos-ads` antes de tocar no Meta Ads MCP — copy não validada vai pro ar com travessão, "brutal", CAPS, ou targeting frouxo. O dispatch protege a conta.
 
-Create and publish ad campaigns directly to Meta Ads (Facebook/Instagram) using the Meta Ads MCP integration. Works in coordination with `/criar-anuncio` (which generates copy) to then publish directly.
+> Requires: Meta Ads MCP integration ativa (Especializei). Ver `CONNECTORS.md`.
 
-## Trigger
+## Required inputs (ask if missing)
 
-This command is invoked when the user says `/publicar-anuncio` followed by a campaign goal, or when they ask to publish, launch, or create a live ad campaign on Meta/Facebook/Instagram.
+1. **Objetivo da campanha** (obrigatório): Awareness, Traffic, Engagement, Leads, Conversions, Sales
+2. **Copy** (obrigatório): vinda de `/criar-anuncio` ou colada pelo usuário
+3. **Audience** (obrigatório): demographics, interests, behaviors, custom audiences
+4. **Budget** (obrigatório): diário ou lifetime em BRL
+5. **Duração** (obrigatório): start + end dates
+6. **Placement** (opcional): Instagram Feed, Stories, Facebook Feed, Audience Network, All (default: All)
+7. **Criativo** (opcional): URLs de imagem/vídeo ou descrição pra geração via IA
+8. **Landing Page URL** (opcional): destino dos cliques
 
-## Inputs
+## Fase 1 (dispatch obrigatório): Validação via mos-ads
 
-Gather the following information. If any required field is missing, ask the user before proceeding:
+**Antes** de qualquer chamada ao Meta Ads MCP, despache:
 
-1. **Campaign Objective** (required) — Awareness, Traffic, Engagement, Leads, Conversions, Sales
-2. **Ad Copy** (required) — Generated from `/criar-anuncio` or provided directly
-3. **Target Audience** (required) — Demographics, interests, behaviors, custom audiences
-4. **Budget** (required) — Daily or lifetime budget in BRL
-5. **Duration** (required) — Start and end dates
-6. **Placement** (optional) — Instagram Feed, Instagram Stories, Facebook Feed, Audience Network, All (default: All)
-7. **Creative Assets** (optional) — Image/video URLs or descriptions for AI generation
-8. **Landing Page URL** (optional) — Destination URL for clicks
+```
+- Agent(subagent_type: "mos-ads", prompt: "Validar pré-publicação no Meta Ads.
 
-## Campaign Structure
+INPUTS:
+- Objetivo: [objetivo]
+- Copy proposta: [colar copy completa: primary text, headline, description, CTA]
+- Audiência: [demographics + interests + custom audiences]
+- Budget: [valor + diário/lifetime]
+- Duração: [start → end]
+- Placement: [placements]
+- Landing page: [URL]
 
-### Campaign Level (Objetivo)
+TAREFAS:
+1. Aplicar quality gates globais na copy (sem '—', sem 'brutal', sem CAPS, sem aspas em falas, máx 1-2 emojis, PT-BR correto)
+2. Refinar targeting (sugerir interests/behaviors adicionais ou cortes; flag se audiência muito ampla/estreita)
+3. Sancionar budget vs objetivo (CPL/CPA estimado para o nicho; flag se subdimensionado)
+4. Gerar 2-3 variações de headline + 2 variações de primary text pra A/B
+5. Validar bid strategy adequada ao objetivo
+6. Flag de compliance se nicho saúde/finanças/suplementos
 
-| Objective | When to Use | Optimization |
-|-----------|------------|-------------|
-| Awareness | Brand visibility, reach | Impressions |
-| Traffic | Drive to website/LP | Link clicks |
+OUTPUT esperado:
+- Copy aprovada (versão final + variações A/B)
+- Targeting refinado
+- Budget ajustado (com justificativa se mudou)
+- Warnings (compliance, audiência, criativos faltando)
+- Memory check: considere memory existente do cliente em `.claude/agent-memory/marketing-os-mos-ads/` se houver.")
+```
+
+**Se mos-ads retornar warnings críticos** (compliance, copy reprovada nos gates, audiência inviável), **pare** e retorne ao usuário antes de publicar. Não force publicação de copy ruim.
+
+## Fase 2: Publicação via Meta Ads MCP
+
+Com a copy aprovada da Fase 1, execute na ordem:
+
+```
+1. get_ad_accounts          → seleciona ad account
+2. get_account_pages        → identifica Facebook Page
+3. estimate_audience_size   → confirma reach esperado
+4. create_campaign          → seta objetivo + nome
+5. create_adset             → targeting refinado + budget + schedule + bid strategy
+6. create_ad_creative       → upload do criativo + copy aprovada
+7. create_ad                → linka criativo ao adset
+```
+
+**Para A/B test** (recomendado): repetir steps 6-7 para cada variação retornada pelo mos-ads.
+
+## Estrutura de campanha
+
+### Objetivos
+| Objective | Quando usar | Otimização |
+|-----------|-------------|------------|
+| Awareness | Visibilidade de marca | Impressions |
+| Traffic | Drive pra site/LP | Link clicks |
 | Engagement | Likes, comments, shares | Post engagement |
 | Leads | Lead form fills | Cost per lead |
 | Conversions | Sales, signups | Cost per conversion |
-| Sales | E-commerce purchases | ROAS |
+| Sales | E-commerce | ROAS |
 
-### Ad Set Level (Segmentação)
+## MCP tools usados
 
-**Targeting configuration:**
-- Location (país, estado, cidade, raio)
-- Age range
-- Gender
-- Interests (detailed targeting)
-- Behaviors
-- Custom audiences (if available)
-- Lookalike audiences (if available)
+| Tool | Propósito |
+|------|-----------|
+| `get_ad_accounts` | Lista contas disponíveis |
+| `get_account_pages` | Páginas Facebook |
+| `estimate_audience_size` | Estima reach pré-launch |
+| `create_campaign` | Cria campanha + objetivo |
+| `create_adset` | Targeting + budget + schedule |
+| `create_ad_creative` | Cria criativo com copy + visual |
+| `create_ad` | Finaliza e launcha |
+| `get_insights` | Tracking pós-launch |
 
-**Budget and schedule:**
-- Daily vs. lifetime budget
-- Start/end dates
-- Ad scheduling (specific hours)
-- Bid strategy
+## Output
 
-### Ad Level (Criativo)
+```markdown
+## Campanha Meta Ads Publicada
 
-**Required elements:**
-- Primary text (copy principal)
-- Headline
-- Description
-- CTA button (Learn More, Sign Up, Shop Now, etc.)
-- Creative (image or video)
-- Destination URL
+Objetivo: [objetivo]
+Budget: R$ [valor]/[diário|lifetime]
+Duração: [start] → [end]
+Placement: [placements]
 
-## Workflow
+### Detalhes
+- **Campaign ID:** [ID]
+- **Campaign Name:** [nome]
+- **Status:** [Active | Scheduled | In Review]
 
-### Step 1: Generate Ad Copy
-If not already created, use `/criar-anuncio` first to generate:
-- Primary text variations (3+)
-- Headline variations (3+)
-- Description variations
-- CTA options
+### Ad Set
+- Targeting: [resumo]
+- Reach estimado: [X pessoas]
+- Budget: R$ [valor]
+- Schedule: [periodo]
 
-### Step 2: Configure Campaign
-Using Meta Ads MCP tools:
+### Ad Creative (final, aprovado por mos-ads)
+- Primary text: [copy]
+- Headline: [headline]
+- Description: [description]
+- CTA: [botão]
+- Destino: [URL]
 
-```
-1. get_ad_accounts      → Select the ad account
-2. create_campaign      → Set objective and name
-3. create_adset         → Define targeting, budget, schedule
-4. create_ad_creative   → Upload creative and copy
-5. create_ad            → Link creative to ad set
-```
+### Variações A/B publicadas
+| Variant | Mudança | Hipótese |
+|---------|---------|----------|
+| A (Control) | Original | Baseline |
+| B | Headline alternativa | [hipótese de mos-ads] |
+| C | Primary text alternativo | [hipótese de mos-ads] |
 
-### Step 3: Review and Launch
-- Verify all settings
-- Confirm budget
-- Launch or schedule
-
-## MCP Tools Used
-
-| Tool | Purpose |
-|------|---------|
-| `get_ad_accounts` | List available ad accounts |
-| `get_account_pages` | Get Facebook pages for ads |
-| `create_campaign` | Create campaign with objective |
-| `create_adset` | Set targeting, budget, schedule |
-| `create_ad_creative` | Create ad with copy and visuals |
-| `create_ad` | Finalize and launch ad |
-| `get_insights` | Track performance after launch |
-| `estimate_audience_size` | Estimate reach before launch |
-
-## Output Structure
-
-```
-## AD CAMPAIGN PUBLISHED
-
-🎯 OBJECTIVE: [Campaign objective]
-💰 BUDGET: R$ [budget]/day
-📅 DURATION: [Start] → [End]
-📍 PLACEMENTS: [Placements]
-
----
-
-### CAMPAIGN DETAILS
-
-**Campaign ID:** [ID]
-**Campaign Name:** [Name]
-**Status:** [Active / Scheduled / In Review]
-
----
-
-### AD SET
-
-**Targeting:**
-- Location: [Location]
-- Age: [Range]
-- Interests: [Interests]
-- Estimated reach: [X] people
-
-**Budget:** R$ [amount]/day
-**Schedule:** [Start] to [End]
-
----
-
-### AD CREATIVE
-
-**Primary text:** "[Copy]"
-**Headline:** "[Headline]"
-**Description:** "[Description]"
-**CTA:** [Button text]
-**Destination:** [URL]
-
----
-
-### PERFORMANCE TRACKING
-
-After 24-48 hours, check metrics with:
-- Impressions and reach
-- CTR (click-through rate)
-- CPC (cost per click)
-- Conversions (if tracked)
-- ROAS (if e-commerce)
-
----
-
-### A/B TEST PLAN
-
-| Variant | Element Changed | Hypothesis |
-|---------|----------------|------------|
-| A (Control) | Original copy | Baseline |
-| B | Different headline | Test hook |
-| C | Different CTA | Test action |
+### Tracking pós-launch (24-48h)
+- Impressions e reach
+- CTR
+- CPC / CPL / CPA
+- Conversions (se rastreado)
+- ROAS (se e-commerce)
 ```
 
-## Final Ask
+## Quality Gates (já aplicados na Fase 1, reconfirme antes do create_ad)
 
-After publishing the campaign, ask:
+- Sem `—`, sem "brutal", sem CAPS gratuito
+- Sem aspas em falas
+- Máximo 1-2 emojis
+- Acentuação PT-BR correta
+- Compliance regulatório (saúde/finanças/suplementos)
+- Disclaimer "Resultados não garantidos" se promessa quantitativa
 
-"Would you like me to:
-1. Create additional ad variations for A/B testing?
-2. Set up a retargeting audience for non-converters?
-3. Generate a reporting dashboard setup?
-4. Create the landing page for this campaign?
-5. Monitor performance and suggest optimizations?"
+## Follow-up ao usuário
+
+"Quer que eu:
+1. Crie variações adicionais pra A/B?
+2. Configure audiência de retargeting pra não-convertidos?
+3. Setup dashboard de reporting?
+4. Crie a landing page dessa campanha? (roteia pra /criar-landing-page)
+5. Monitore performance e sugira otimizações em 48h?"
+
+## Por que dispatch obrigatório pré-publicação
+
+Publicar copy direto pelo MCP, sem mos-ads, é arriscado:
+- Travessão `—` reprovado em ads policy
+- "Brutal" / CAPS gera baixa qualidade no leilão
+- Targeting amplo demais queima budget; estreito demais não escala
+- Faltando memory do cliente, repete erros de campanhas anteriores
+
+mos-ads aplica os gates + refina targeting + gera A/B variants num único call. Custa 1 dispatch, evita campanha queimada.

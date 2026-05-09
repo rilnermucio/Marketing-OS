@@ -84,7 +84,7 @@ Apresente o critique LOGO ABAIXO do Brief. Termine com: "Vale ajustar alguma con
 
 **OBRIGATÓRIO em research de impacto** (research que vai informar lançamento, decisão de pivot, ou que descobriu insight significativo):
 
-Atualize `.claude/agent-memory/mos-research/MEMORY.md` com:
+**Memory opt-in** — se `.claude/agent-memory/mos-research/MEMORY.md` existir (ative com `python3 scripts/init_agent_memory.py`), atualize-o com:
 
 - Hipóteses iniciais → validadas/invalidadas (com evidência)
 - Fontes BR confiáveis descobertas no nicho

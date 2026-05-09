@@ -4,6 +4,7 @@ description: "Use para funis de vendas: mapeamento de jornada do cliente (TOFU/M
 tools: Read, Write, Edit, Grep, Glob, WebSearch
 model: sonnet
 color: magenta
+memory: project
 hooks:
   PreToolUse:
     - matcher: "Write|Edit|MultiEdit"
@@ -203,6 +204,21 @@ Matemática básica: sem essa relação, funil não escala. Validar ou alertar.
 | Mid (R$ 497-2997) | Lead magnet → 7 emails → Sales page |
 | High (R$ 2997-9997) | Lead magnet → VSL → Aplicação → Call |
 | Very High (R$ 10k+) | Content → Discovery call → Proposta → Negociação |
+
+## Atualize Memory ao final
+
+**OBRIGATÓRIO em funis que entraram em produção** (não rascunho — funil real rodando com tráfego):
+
+**Memory opt-in** — se `.claude/agent-memory/mos-funnel/MEMORY.md` existir (ative com `python3 scripts/init_agent_memory.py`), atualize-o com:
+
+- Conversion rate por etapa (real vs estimada) por nicho/ticket
+- Lead magnets que validaram-se (qualificação real do lead capturado)
+- Tripwires que aumentaram conversão do core offer (vs hipótese)
+- Pontos de queda recorrentes no funil (etapa onde mais perde lead)
+- Sequências de email dentro do funil que converteram melhor (assunto + posição)
+- Upsell/downsell que moveram agulha (oferta + posição no checkout)
+
+**NÃO salvar**: o desenho do funil em si (vai pra git/output), info genérica que está no Tier 2.
 
 ## Referência ao Knowledge
 

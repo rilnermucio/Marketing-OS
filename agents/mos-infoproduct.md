@@ -86,7 +86,7 @@ Apresente critique LOGO ABAIXO da estrutura. Termine com: "Vale ajustar antes de
 
 **OBRIGATÓRIO em projetos de infoproduto** (não só rascunho, projeto real):
 
-Atualize `.claude/agent-memory/mos-infoproduct/MEMORY.md` com:
+**Memory opt-in** — se `.claude/agent-memory/mos-infoproduct/MEMORY.md` existir (ative com `python3 scripts/init_agent_memory.py`), atualize-o com:
 
 - Nicho + tipo de produto + ticket validado
 - Aluno ideal (real vs hipótese)

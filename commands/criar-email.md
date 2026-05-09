@@ -1,326 +1,120 @@
 ---
-description: Create email marketing content including single emails, complete sequences, newsletters, and automated flows with subject lines and preview text.
+description: Create email marketing content (single, welcome, nurture, launch, abandoned cart, re-engagement, newsletter). Dispatches mos-email simples ou mos-email + mos-copy em paralelo para sequências.
 argument-hint: "<type and purpose, e.g., 'welcome sequence for SaaS' or 'launch email for course'>"
 ---
 
-# Create Email Marketing
+# /criar-email: Email Marketing (Dispatch-Based)
 
-> See [CONNECTORS.md](../CONNECTORS.md) for connected services that can provide subscriber data and email platform integrations.
+Cria copy de email orquestrando subagent(s) especializados via `Agent(subagent_type: "mos-*")`. Não produz inline.
 
-Create complete email marketing content optimized for opens, clicks, and conversions.
+## Required inputs (ask if missing)
 
-## Trigger
+1. **Tipo** (obrigatório): single, welcome (3-5 emails), nurture, launch (7-10 emails), abandoned cart (3 emails), re-engagement, newsletter
+2. **Purpose/Goal** (obrigatório): o que o email deve gerar (conversão, nurture, recuperação, atualização)
+3. **Audiência** (obrigatório): quem recebe (segmento, dor, momento da jornada)
+4. **Produto/Oferta** (opcional, obrigatório se launch/cart): o que está sendo promovido
+5. **Tom** (opcional): friendly, profissional, urgente, casual, inspiracional
+6. **CTA** (opcional): ação específica desejada
+7. **Sequence length** (opcional): número de emails se for sequência
 
-This command is invoked when the user says `/criar-email` followed by a type and purpose, or when they ask to create an email, newsletter, or email sequence.
-
-## Inputs
-
-Gather the following information. If any required field is missing, ask the user before proceeding:
-
-1. **Type** (required) — Single email, welcome sequence, nurture sequence, launch sequence, abandoned cart, re-engagement, or newsletter
-2. **Purpose/Goal** (required) — What the email should achieve
-3. **Audience** (required) — Who is receiving this email
-4. **Product/Offer** (optional) — What you're promoting (if applicable)
-5. **Tone** (optional) — Friendly, professional, urgent, casual, or inspirational
-6. **CTA** (optional) — Desired action from the reader
-7. **Sequence length** (optional) — Number of emails if sequence
-
-## Email Types and Structures
-
-### Single Email
-
-For one-off emails (announcements, promotions, updates):
+## Dispatch Decision Tree
 
 ```
-SUBJECT LINE — Hook that earns the open
-PREVIEW TEXT — Complements and extends the subject
-OPENING — Hook that keeps them reading
-BODY — Value delivery or story
-CTA — Clear single action
-PS — Secondary hook or urgency (optional)
+Briefing recebido
+  ├── Single email (announcement, promo, update isolado)?
+  │     └── Dispatch SIMPLES: mos-email
+  │
+  ├── Sequência (welcome / launch / cart / re-engagement / nurture)?
+  │     └── Dispatch PARALELO: mos-email + mos-copy
+  │         (mos-email cuida da arquitetura da sequência;
+  │          mos-copy refina subject lines + CTAs em paralelo)
+  │
+  └── Newsletter recorrente?
+        └── Dispatch SIMPLES: mos-email (com schema próprio de newsletter)
 ```
 
-### Welcome Sequence (3-5 emails)
+`mos-email` não tem memory persistente — passe todos os inputs no prompt.
 
-**Email 1 (Immediate): The Welcome**
-- Deliver promised lead magnet
-- Set expectations for future emails
-- Quick win or immediate value
-- CTA: Reply or small engagement action
-
-**Email 2 (Day 1-2): The Story**
-- Share your/brand story
-- Build connection and relatability
-- Show the transformation journey
-- CTA: Consume content
-
-**Email 3 (Day 3-4): The Value**
-- Best piece of content
-- Actionable tip they can use today
-- Demonstrate expertise
-- CTA: Try the tip
-
-**Email 4 (Day 5-6): Social Proof**
-- Case study or testimonial
-- Results others have achieved
-- "You can do this too" message
-- CTA: Learn about offer
-
-**Email 5 (Day 7): The Offer**
-- Introduce product/service
-- Benefits over features
-- Overcome main objection
-- CTA: Purchase/sign up
-
-### Launch Sequence (7-10 emails)
-
-**Pre-Launch Phase:**
-- Email 1: Tease announcement
-- Email 2: Behind-the-scenes/story
-- Email 3: Waitlist/early access
-
-**Launch Phase:**
-- Email 4: Doors open + main benefits
-- Email 5: Full details + FAQ
-- Email 6: Case study/testimonial
-- Email 7: Overcome objection #1
-- Email 8: Overcome objection #2
-- Email 9: Bonus announcement
-- Email 10: Final hours + doors closing
-
-### Abandoned Cart (3 emails)
-
-**Email 1 (1 hour): Gentle Reminder**
-- "Did you forget something?"
-- Show cart items
-- Simple return CTA
-- No discount
-
-**Email 2 (24 hours): Address Objections**
-- Social proof (reviews)
-- Answer common questions
-- Hint at urgency
-- CTA: Complete purchase
-
-**Email 3 (72 hours): Last Chance + Incentive**
-- Discount or free shipping
-- Final urgency
-- Scarcity message
-- Strong CTA
-
-### Newsletter
+## Dispatch Simples (single email ou newsletter)
 
 ```
-HEADER — Branding, date
-INTRO — Personal touch, brief update
-MAIN CONTENT — Primary value (1-3 items)
-SECONDARY — Additional resources or curated content
-CTA — Primary action
-FOOTER — Social links, unsubscribe
+Agent(subagent_type: "mos-email", prompt: "Crie [single email | newsletter] sobre [tópico/oferta]. Goal: [goal]. Audiência: [audiência]. Tom: [tom]. CTA: [cta]. Produto/oferta (se aplica): [produto]. Entregue: 3 opções de subject line (curiosidade, benefício, urgência), preview text, opening hook, body com framework adequado (PAS, AIDA, ou newsletter schema), CTA único e forte, PS estratégico, send timing recomendado, sugestões de A/B test (subject + CTA). Aplicar quality gates globais (sem travessão, sem 'brutal', máx 1 emoji em subject, PT-BR correto).")
 ```
 
-## Subject Line Framework
-
-### Subject Line Formulas
-
-| Formula | Template | Example |
-|---------|----------|---------|
-| Curiosity | "This changed everything..." | "This changed everything about my mornings..." |
-| Benefit | "[Result] in [Timeframe]" | "Double your leads in 30 days" |
-| Question | "Are you [pain point]?" | "Are you making this mistake?" |
-| Urgency | "[Time limit]: [Offer]" | "24 hours left: 50% off" |
-| Personal | "[Name], [personal hook]" | "[Name], quick question" |
-| Number | "[X] ways to [result]" | "5 ways to write better emails" |
-| FOMO | "Everyone's talking about..." | "Everyone's talking about this trick" |
-
-### Subject Line Best Practices
-
-- Length: 30-50 characters (mobile-friendly)
-- Use personalization when available
-- Max 1 emoji, only if brand-appropriate
-- Test lowercase vs. title case
-- Avoid spam trigger words
-- Create urgency without being clickbait
-
-### Preview Text Strategy
-
-Preview text should:
-- Complement, not repeat the subject
-- Add curiosity or context
-- Be under 90 characters
-- Never be left empty (shows "View in browser")
-
-**Formula:**
-```
-Subject: [Hook]
-Preview: [Expansion or payoff of hook]
-
-Example:
-Subject: "You're leaving money on the table"
-Preview: "Here's the 5-minute fix (no fancy tools needed)"
-```
-
-## Email Body Framework
-
-### Opening Hooks
-
-| Type | Example |
-|------|---------|
-| Question | "What would you do with 10 extra hours per week?" |
-| Bold statement | "Everything you've been told about [topic] is wrong." |
-| Personal | "I've been thinking about you and wanted to share..." |
-| Story | "Last Tuesday, something unexpected happened..." |
-| Data | "73% of [audience] struggle with this. Are you one?" |
-| Direct | "I'm going to show you exactly how to [result]." |
-
-### Body Structure (PAS)
+## Dispatch Paralelo (sequências, single message)
 
 ```
-PROBLEM
-[Identify the pain point. Make them feel understood.]
+- Agent(subagent_type: "mos-email", prompt: "Crie sequência [welcome/launch/abandoned cart/re-engagement/nurture] com [N] emails sobre [tópico/oferta]. Goal: [goal]. Audiência: [audiência]. Tom: [tom]. Produto/oferta: [produto]. Entregue: arquitetura completa da sequência (timing email-a-email, função de cada um, progressão narrativa), corpo completo de cada email (opening + body + CTA + PS), send timing por email, transição entre emails. Aplicar quality gates globais.")
 
-AGITATE
-[Expand on consequences. Build emotional urgency.]
-
-SOLUTION
-[Present your answer. Show the transformation.]
-
-CTA
-[Clear, single call to action.]
+- Agent(subagent_type: "mos-copy", prompt: "Refine subject lines e CTAs para sequência de [N] emails sobre [tópico/oferta]. Audiência: [audiência]. Para CADA email da sequência entregue: 3 variações de subject line (curiosidade, benefício, urgência), 1 preview text complementar, 2 variações de CTA (botão + link de texto). Foco em open rate (subject) e click-through (CTA). Aplicar quality gates globais (sem travessão, sem 'brutal', máx 1 emoji em subject).")
 ```
 
-### Body Structure (AIDA)
+## Consolidação
 
-```
-ATTENTION
-[Hook that stops them from deleting.]
+Após os agents retornarem, entregue:
 
-INTEREST
-[Relevant details that engage.]
+```markdown
+## Email: [Tipo] — [Tópico/Oferta]
 
-DESIRE
-[Paint the outcome. Benefits, proof.]
+Tipo: [single | welcome | nurture | launch | cart | re-engagement | newsletter] | Goal: [goal] | Audiência: [audiência]
 
-ACTION
-[Clear CTA with reason to act now.]
-```
+### Sequence Overview (se sequência)
+| Email | Timing | Subject (recomendado) | Goal |
+|-------|--------|------------------------|------|
+| 1 | Day 0 | [...] | [...] |
+| 2 | Day [X] | [...] | [...] |
+| ... | ... | ... | ... |
 
-### CTA Best Practices
+### Email 1 (de mos-email + subject lines de mos-copy)
 
-| Weak | Strong |
-|------|--------|
-| Submit | Get My Free Guide |
-| Click Here | Start My Free Trial |
-| Learn More | Show Me How |
-| Buy Now | Get Instant Access |
-| Download | Send Me the Checklist |
+**Subject lines (3 opções)**
+- Recomendado (curiosidade): [...]
+- Variação A (benefício): [...]
+- Variação B (urgência): [...]
 
-**CTA guidelines:**
-- One primary CTA per email
-- Use action verbs
-- Make it benefit-driven
-- Place 2-3 times in longer emails
-- Button + text link for accessibility
+**Preview text**
+[...]
 
-### PS Strategy
+**Body**
+[Greeting + opening hook + body + CTA + PS]
 
-Use PS for:
-- Repeat CTA differently
-- Add urgency/scarcity
-- Include bonus or incentive
-- Personal note
-- Address common objection
+**CTA variations**
+- Botão recomendado: [...]
+- Link de texto: [...]
 
-## Output Structure
+**Send timing recomendado**
+[Dia + hora]
 
-Deliver the email in this format:
+### Email 2, 3, ... N
+[Mesmo schema]
 
-```
-## EMAIL
+### A/B Test Suggestions
+| Email | Elemento | Versão A | Versão B | Hipótese |
+|-------|----------|----------|----------|----------|
+| 1 | Subject | [...] | [...] | [...] |
+| ... | ... | ... | ... | ... |
 
-📧 TYPE: [Welcome / Launch / Newsletter / etc.]
-📍 SEQUENCE POSITION: [Email X of Y] (if applicable)
-🎯 GOAL: [What this email should achieve]
-⏰ SEND TIMING: [Recommended day/time]
+### Notes
+- Objection-chave abordada: [...]
+- Próximo passo da jornada após sequência: [...]
 
----
-
-### SUBJECT LINE OPTIONS
-
-**Primary (Recommended):**
-"[Subject line]"
-
-**Variation A (Curiosity):**
-"[Subject line]"
-
-**Variation B (Benefit):**
-"[Subject line]"
-
----
-
-### PREVIEW TEXT
-
-"[Preview text that complements subject]"
-
----
-
-### EMAIL BODY
-
----
-
-[Greeting]
-
-**[Opening hook paragraph]**
-
-[Body content following structure]
-
-[Transition to CTA]
-
-**[CTA Button/Link]**
-[CTA text]
-
-[Closing]
-
-[Signature]
-
-**P.S.** [Secondary hook or urgency]
-
----
-
----
-
-### NOTES
-
-- **Goal:** [What we want reader to do/feel]
-- **Key objection addressed:** [If applicable]
-- **Next email preview:** [For sequences]
-
----
-
-### A/B TEST SUGGESTIONS
-
-| Element | Version A | Version B |
-|---------|-----------|-----------|
-| Subject | [Option 1] | [Option 2] |
-| CTA | [Option 1] | [Option 2] |
-
----
-
-### SEQUENCE OVERVIEW (if applicable)
-
-| Email | Timing | Subject | Goal |
-|-------|--------|---------|------|
-| 1 | Day 0 | [Subject] | [Goal] |
-| 2 | Day 1 | [Subject] | [Goal] |
-| 3 | Day 3 | [Subject] | [Goal] |
+### Próximos passos
+- Sequência de re-engagement para non-openers
+- Adaptação de tom para outro segmento
+- Variações por persona
 ```
 
-## Final Ask
+## Quality Gates (antes de entregar)
 
-After delivering the email, ask:
+Aplicar gates globais do `skills/marketing-os/SKILL.md`:
+- Sem `—`, sem "brutal", sem CAPS gratuito
+- Subject lines com máx 1 emoji (só se brand-appropriate); body com máx 1-2 emojis
+- Subject 30-50 chars (mobile-friendly), preview <90 chars
+- Acentuação PT-BR correta
+- Sem palavras gatilho de spam
+- Compliance regulatório se nicho saúde/finanças/suplementos
+- Fact-check via WebSearch para stat/case/citação
 
-"Would you like me to:
-1. Create the full sequence with all emails written out?
-2. Generate more subject line variations for A/B testing?
-3. Adapt the tone or length for a different audience?
-4. Create a re-engagement sequence for non-openers?"
+## Por que esse dispatch
+
+Single email = `mos-email` resolve sozinho (knowledge profunda de framework PAS/AIDA, subject formulas, hook patterns). Sequências têm 2 problemas independentes que paralelizam bem: arquitetura narrativa (mos-email — qual email faz qual coisa, timing, progressão) e copy de subject+CTA (mos-copy — onde mora open rate e CTR). Roda em 1 message, ganho de qualidade sem custo de latência.

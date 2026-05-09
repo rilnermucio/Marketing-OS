@@ -1,217 +1,239 @@
 ---
-description: Generate multiple pieces of content at once for a specific theme or campaign, across multiple formats and platforms.
-argument-hint: "<quantity> <type> <theme>, e.g., '10 posts about AI tools' or '5 emails for product launch'>"
+description: Generate multiple pieces of content at once with hook/angle/framework variation. Routes the batch to N parallel (or sequential when needed) Agent dispatches based on content type.
+argument-hint: "<quantity> <type> <theme>, e.g., '10 posts about AI tools' or '5 emails for product launch'"
 ---
 
-# Batch Content Production
+# /batch: Produção em Lote (Roteador Multi-Paralelo)
 
-> See [CONNECTORS.md](../CONNECTORS.md) for connected services that can schedule and publish content.
+Roteador que despacha **N Agent calls** em paralelo (ou sequencial quando há dependência), uma por peça do batch, com hook/angle/framework rotacionados pra evitar que tudo saia clone uma da outra.
 
-Generate multiple pieces of content at once with variation in hooks, angles, and formats — all maintaining a unified theme and messaging.
+## Required inputs (ask if missing)
 
-## Trigger
+1. **Quantity** (obrigatório): 3, 5, 10, 15, 20, 30
+2. **Content type** (obrigatório): posts, carousels, reels scripts, emails, articles, ads, mixed
+3. **Theme** (obrigatório): tema central que unifica todas as peças
+4. **Platforms** (opcional): Instagram, LinkedIn, TikTok, Twitter/X, email, blog (default: Instagram p/ social)
+5. **Audience** (opcional): persona alvo
+6. **Tone** (opcional): profissional, casual, educational, entertaining
+7. **Clone voice** (opcional): clone de copywriter (Hormozi, Ogilvy, Halbert, Brunson, etc.)
+8. **Campaign context** (opcional): faz parte de campanha maior? Qual fase do funil?
 
-This command is invoked when the user says `/batch` followed by a quantity, content type, and theme, or when they ask to create multiple pieces of content, produce content in bulk, or batch-create content.
+## Dispatch Decision Tree (por tipo)
 
-## Inputs
+```
+posts          → N × Agent(mos-social)         em paralelo (single message)
+carousels      → N × workflow #8               cada um = (mos-social + mos-copy + mos-design) em paralelo interno
+reels scripts  → N × Agent(mos-video)          em paralelo  (ou mos-social se Reels curtos < 30s)
+emails         → N × Agent(mos-email)          em paralelo
+articles       → N × (mos-research → mos-seo)  sequencial por peça (research é caro), batches paralelos entre peças
+ads            → N × Agent(mos-ads)            em paralelo
+mixed          → breakdown da tabela abaixo, dispatchar por bucket em paralelo
+```
 
-Gather the following information. If any required field is missing, ask the user before proceeding:
+## Variation Engine (rotacionar a cada peça do batch)
 
-1. **Quantity** (required) — How many pieces to generate (3, 5, 10, 15, 20, 30)
-2. **Content Type** (required) — Posts, carousels, reels scripts, emails, articles, ads, mixed
-3. **Theme/Topic** (required) — Central theme for all pieces
-4. **Platforms** (optional) — Instagram, LinkedIn, TikTok, Twitter/X, email, blog (default: Instagram)
-5. **Audience** (optional) — Target audience
-6. **Tone** (optional) — Professional, casual, educational, entertaining
-7. **Clone Voice** (optional) — Expert clone to apply (Hormozi, Ogilvy, etc.)
-8. **Campaign Context** (optional) — Part of a larger campaign? Funnel stage?
+Cada Agent call recebe um conjunto único de hook + angle + framework. Isso evita que as N peças saiam iguais.
 
-## Batch Type Specifications
+### Hook Rotation (1-10)
 
-### Posts Batch (Social Media)
-
-**Per piece:** Hook + body copy + CTA + hashtags
-**Variation engine:** Each post uses a different hook type and angle
-
-| Post # | Hook Type | Angle | Framework |
-|--------|-----------|-------|-----------|
-| 1 | Curiosity | Problem-aware | PAS |
-| 2 | Promise | Solution-aware | AIDA |
-| 3 | Question | Unaware | Education |
-| 4 | Story | Most-aware | Testimonial |
-| 5 | Controversy | Problem-aware | Myth-busting |
-| 6 | List | Solution-aware | Tips |
-| 7 | Statistic | Unaware | Data-driven |
-| 8 | Challenge | Problem-aware | Transformation |
-| 9 | Behind-scenes | Most-aware | Authenticity |
-| 10 | Prediction | Solution-aware | Authority |
-
-### Carousel Batch
-
-**Per piece:** Cover slide + 7-9 content slides + CTA slide
-**Variation:** Different structures (how-to, myths, checklist, before/after, tips)
-
-### Reels/TikTok Script Batch
-
-**Per piece:** Hook (3s) + content (15-55s) + CTA
-**Variation:** Different hooks, formats (talking head, text-on-screen, tutorial, story)
-
-### Email Batch
-
-**Per piece:** Subject line + preview text + body + CTA
-**Variation:** Different subject line formulas, email structures, CTA placements
-
-### Article/Blog Batch
-
-**Per piece:** Title + meta description + outline + key sections
-**Variation:** Different SEO angles, content formats (listicle, how-to, guide, case study)
-
-### Ad Copy Batch
-
-**Per piece:** Headline + primary text + description + CTA
-**Variation:** Different hooks, benefit angles, audience segments
-
-### Mixed Batch
-
-**Combination of multiple types for a unified campaign:**
-
-| Quantity | Type | Platform | Purpose |
-|----------|------|----------|---------|
-| 5 | Posts | Instagram | Awareness |
-| 3 | Carousels | Instagram | Education |
-| 3 | Reels scripts | Instagram/TikTok | Engagement |
-| 5 | Emails | Email | Nurture |
-| 2 | Articles | Blog | SEO |
-| 2 | Ad copy | Meta Ads | Traffic |
-
-## Variation Engine
-
-### Hook Rotation
-
-Each piece must use a DIFFERENT hook type. Available hooks:
-
-1. **Curiosity:** "Isso mudou tudo sobre como eu [tema]..."
-2. **Controversy:** "Opinião impopular: [afirmação ousada]"
-3. **Promise:** "Aqui está exatamente como [resultado]..."
-4. **Question:** "Por que ninguém fala sobre [tema]?"
-5. **Story:** "[Tempo] atrás, eu estava [ponto de dor]..."
-6. **List:** "[Número] coisas que eu gostaria de saber sobre [tema]"
-7. **Statistic:** "[Dado impactante] — e aqui está o porquê..."
-8. **Challenge:** "Eu tentei [ação] por [tempo] e isso aconteceu..."
-9. **Behind-scenes:** "O que eu não mostro sobre [tema]..."
-10. **Prediction:** "Em [ano/tempo], [previsão ousada]..."
+| # | Hook Type | Template |
+|---|-----------|----------|
+| 1 | Curiosidade | "Isso mudou tudo sobre como eu [tema]..." |
+| 2 | Controvérsia | "Opinião impopular: [afirmação ousada]" |
+| 3 | Promessa | "Aqui está exatamente como [resultado]..." |
+| 4 | Pergunta | "Por que ninguém fala sobre [tema]?" |
+| 5 | História | "[Tempo] atrás, eu estava [ponto de dor]..." |
+| 6 | Lista | "[N] coisas que eu gostaria de saber sobre [tema]" |
+| 7 | Estatística | "[Dado impactante] e aqui está o porquê..." |
+| 8 | Desafio | "Eu tentei [ação] por [tempo] e isso aconteceu..." |
+| 9 | Bastidor | "O que eu não mostro sobre [tema]..." |
+| 10 | Predição | "Em [ano/tempo], [previsão ousada]..." |
 
 ### Angle Rotation
 
-Each piece approaches the theme from a different angle:
-
-| Angle | Focus | Best For |
-|-------|-------|----------|
-| Educational | Como fazer, tutorial, guia | Autoridade |
+| Angle | Foco | Best for |
+|-------|------|----------|
+| Educacional | Como fazer, tutorial | Autoridade |
 | Inspiracional | Resultados, transformação | Engajamento |
 | Contrário | Desmistificação, mitos | Viralidade |
-| Pessoal | História própria, vulnerabilidade | Conexão |
+| Pessoal | História própria | Conexão |
 | Dados | Estatísticas, pesquisa | Credibilidade |
 | Prático | Dicas rápidas, checklist | Salvamentos |
-| Tendência | Novidade, trend, atualidade | Alcance |
+| Tendência | Novidade, trend | Alcance |
 | Comparativo | Antes/depois, X vs Y | Clareza |
 
 ### Framework Rotation
 
-Alternate copy frameworks to avoid repetition:
+PAS · AIDA · BAB · Education · Story (alternar a cada peça)
 
-- PAS (Problema → Agitar → Solução)
-- AIDA (Atenção → Interesse → Desejo → Ação)
-- BAB (Antes → Depois → Ponte)
-- Education (Contexto → Pontos → Aplicação)
-- Story (Situação → Conflito → Resolução)
+## Dispatch (por tipo)
 
-## Output Structure
-
-Deliver the batch in this format:
+### Posts (paralelo, single message com N Agent calls)
 
 ```
-## BATCH CONTENT PRODUCTION
+Para cada peça i de 1..N:
+  - Agent(subagent_type: "mos-social", prompt: "Post [plataforma] sobre [tema].
+    Hook tipo: [Hook #i da rotação]
+    Angle: [Angle #i]
+    Framework: [Framework #i]
+    Audiência: [audiência]. Tom: [tom]. Clone: [clone se aplicável].
+    Aplicar quality gates globais. Incluir: hook + body + CTA + hashtags + sugestão de enquete.
+    Considere memory existente em .claude/agent-memory/marketing-os-mos-social/ se houver.")
+```
 
-🎯 THEME: [Central theme]
-📊 QUANTITY: [X] pieces
-📱 PLATFORMS: [Platforms]
-🎨 TYPE: [Content type(s)]
-🗣️ CLONE: [Clone voice, if applicable]
+### Carousels (paralelo de workflows #8)
+
+Para cada peça do batch, executar **internamente** o workflow #8 (mos-social + mos-copy + mos-design). Como cada workflow já dispatcha 3 agents, batches grandes (10+) podem ser sequenciais em chunks de 3 pra não saturar.
+
+```
+Para cada peça i de 1..N (em chunks de 2-3 paralelos):
+  Workflow #8 com tipo da rotação (how-to, myths, checklist, before/after, tips)
+  - Tema: [tema]
+  - Tipo do carrossel #i: [varia por peça]
+```
+
+### Reels scripts (paralelo)
+
+```
+Para cada peça i de 1..N:
+  - Agent(subagent_type: "mos-video", prompt: "Roteiro Reel/TikTok 30-60s sobre [tema].
+    Hook (3s primeiros): [Hook #i da rotação]
+    Formato: [talking head | text-on-screen | tutorial | story] (varia por peça)
+    Estrutura: hook (3s) + content (15-55s) + CTA.
+    Aplicar quality gates + sugestão de enquete.")
+```
+
+### Emails (paralelo)
+
+```
+Para cada peça i de 1..N:
+  - Agent(subagent_type: "mos-email", prompt: "Email sobre [tema].
+    Subject formula: [varia: pergunta | urgência | curiosidade | benefício | controvérsia]
+    Estrutura: [varia: PAS | AIDA | BAB | Story | Education]
+    Inclui: subject line + preview text + body + CTA.
+    Audiência: [audiência]. Tom: [tom]. Clone: [clone se aplicável].
+    Considere memory em .claude/agent-memory/marketing-os-mos-email/ se houver.")
+```
+
+### Articles (sequencial por peça — research é caro)
+
+```
+Para cada peça i de 1..N:
+  Passo 1: Agent(subagent_type: "mos-research", prompt: "Research compacto sobre [sub-ângulo #i de [tema]]")
+  Passo 2: Agent(subagent_type: "mos-seo", prompt: "Artigo SEO sobre [sub-ângulo #i] usando research: [colar].
+    Formato: [varia: listicle | how-to | guide | case study]
+    Inclui: title + meta description + outline + key sections + headings + internal linking.")
+
+(N peças podem rodar em chunks de 2-3 sequencias paralelas pra acelerar)
+```
+
+### Ads (paralelo)
+
+```
+Para cada peça i de 1..N:
+  - Agent(subagent_type: "mos-ads", prompt: "Anúncio Meta Ads sobre [tema].
+    Hook: [Hook #i]
+    Benefit angle: [varia: aspiracional | dor | prova | curiosidade]
+    Audience segment: [varia conforme funil]
+    Inclui: headline + primary text + description + CTA + creative direction.
+    Aplicar quality gates + compliance.")
+```
+
+### Mixed Batch (despachar por bucket em paralelo)
+
+Para `/batch mixed`, breakdown padrão (ajustar conforme briefing):
+
+| Quantity | Type | Bucket dispatch | Platform | Purpose |
+|----------|------|-----------------|----------|---------|
+| 5 | Posts | 5 × mos-social | Instagram | Awareness |
+| 3 | Carousels | 3 × workflow #8 | Instagram | Education |
+| 3 | Reels scripts | 3 × mos-video | Instagram/TikTok | Engagement |
+| 5 | Emails | 5 × mos-email | Email | Nurture |
+| 2 | Articles | 2 × (mos-research → mos-seo) | Blog | SEO |
+| 2 | Ad copy | 2 × mos-ads | Meta Ads | Traffic |
+
+Cada bucket vira um conjunto de Agent calls em paralelo. Buckets independentes podem rodar simultaneamente.
+
+## Memory note
+
+Vários dos agents têm memory project (`.claude/agent-memory/marketing-os-<agent>/`). Em batches do mesmo cliente, **mencione no prompt** que considere memory existente — evita repetir hooks já usados, mantém consistência de tom, e respeita restrições de compliance previamente registradas.
+
+## Consolidação do output
+
+```markdown
+## Batch Content Production
+
+Tema: [tema]
+Quantidade: [N] peças
+Plataformas: [plataformas]
+Tipo: [content type]
+Clone: [clone se aplicável]
+
+### Tabela resumo
+| # | Type | Hook | Angle | Framework | Platform | Status |
+|---|------|------|-------|-----------|----------|--------|
+| 1 | [...] | [...] | [...] | [...] | [...] | [pronto] |
+| ... | ... | ... | ... | ... | ... | ... |
+
+### Peça #1
+**Plataforma:** [...]
+**Hook tipo:** [...] · **Angle:** [...] · **Framework:** [...]
+
+[Output completo do agent dispatchado: hook + body + CTA + hashtags + enquete (se social)]
 
 ---
 
-### SUMMARY TABLE
-
-| # | Type | Hook | Angle | Platform | Status |
-|---|------|------|-------|----------|--------|
-| 1 | [Type] | [Hook type] | [Angle] | [Platform] | ✓ |
-| 2 | [Type] | [Hook type] | [Angle] | [Platform] | ✓ |
-| ... | ... | ... | ... | ... | ✓ |
+### Peça #2
+[...]
 
 ---
 
-### PIECE #1
-
-📱 Platform: [Platform]
-🎯 Angle: [Angle]
-📝 Framework: [Framework used]
-
-**HOOK:**
-"[Hook text]"
-
-**CONTENT:**
-[Full content/copy]
-
-**CTA:**
-[Call to action]
-
-**HASHTAGS:**
-[Hashtags if applicable]
+[N peças...]
 
 ---
 
-### PIECE #2
-[Same structure, different hook/angle/framework]
-
----
-
-[Continue for all pieces...]
-
----
-
-### CALENDAR PLACEMENT SUGGESTIONS
-
-| Week | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
-|------|-----|-----|-----|-----|-----|-----|-----|
+### Calendar placement (sugestão)
+| Semana | Seg | Ter | Qua | Qui | Sex | Sáb | Dom |
+|--------|-----|-----|-----|-----|-----|-----|-----|
 | 1 | #1 | #2 | — | #3 | #4 | — | #5 |
 | 2 | #6 | #7 | — | #8 | #9 | — | #10 |
 
-**Best posting times:**
-- Instagram: [Times]
-- LinkedIn: [Times]
-- TikTok: [Times]
+**Best posting times:** Instagram [...], LinkedIn [...], TikTok [...]
 
----
-
-### BATCH STATISTICS
-
-| Metric | Value |
-|--------|-------|
-| Total pieces | [X] |
-| Unique hooks used | [X] |
-| Unique angles used | [X] |
-| Frameworks applied | [X] |
-| Estimated content days | [X] days |
+### Estatísticas do batch
+| Métrica | Valor |
+|---------|-------|
+| Total de peças | [N] |
+| Hooks únicos usados | [X] |
+| Angles únicos | [X] |
+| Frameworks aplicados | [X] |
+| Dias estimados de conteúdo | [N] |
 ```
 
-## Final Ask
+## Quality Gates (antes de entregar o batch inteiro)
 
-After delivering the batch, ask:
+Aplicar gates globais do `skills/marketing-os/SKILL.md` em **toda peça**:
+- Sem `—`, sem "brutal", sem CAPS gratuito
+- Sem aspas em roteiros/falas
+- Máximo 1-2 emojis por peça (preferir 0)
+- Acentuação PT-BR correta
+- Enquete obrigatória em conteúdo social
+- Compliance regulatório se nicho saúde/finanças/suplementos
+- Hooks não-repetidos entre peças (Hook Rotation garante isso)
 
-"Would you like me to:
-1. Generate more pieces with new angles and hooks?
-2. Create visual direction for each piece?
-3. Adapt the batch for additional platforms?
-4. Create A/B variations of the top 3 pieces?
-5. Schedule these into a complete editorial calendar?"
+Se alguma peça falhar nos gates, refaça **só essa peça** (re-dispatch único), não o batch todo.
+
+## Follow-up ao usuário
+
+"Quer que eu:
+1. Gere mais peças com hooks/angles diferentes?
+2. Crie direção visual de cada peça? (dispatch mos-design por peça)
+3. Adapte o batch pra plataformas adicionais?
+4. Crie variações A/B das top 3 peças? (dispatch mos-ab-testing)
+5. Publique tudo num calendário Notion? (roteia pra /publicar-notion)"
+
+## Por que dispatch multi-paralelo
+
+Batch executado inline (1 LLM gerando 10 posts) sai homogêneo: mesmo ritmo, mesmo vocabulário, mesma estrutura. Dispatchar N agents com prompts variando hook+angle+framework garante diversidade real. Cada agent tem context isolado e aplica os gates do seu domínio.
+
+Para batches grandes (15+), considerar chunks de 3-5 paralelos por vez pra não estourar limites e manter latência razoável.

@@ -1,270 +1,111 @@
 ---
-description: Create a coordinated multi-channel content sequence across email, social media, and ads with unified messaging and timeline.
-argument-hint: "<campaign goal and channels, e.g., 'product launch across email + Instagram + Meta Ads' or '30-day nurture sequence'>"
+description: Create a coordinated multi-channel content sequence (email + social + ads) with unified messaging. Dispatches mos-email + mos-social + mos-ads in parallel, com mos-launch ou mos-funnel adicionais por tipo de sequência.
+argument-hint: "<campaign goal and channels, e.g., 'launch sequence 14 days email + Instagram + Meta Ads' or 'nurture 30 dias'>"
 ---
 
-# Create Multi-Channel Sequence
+# /criar-sequencia: Sequência Multi-canal (Dispatch composto)
 
-> See [CONNECTORS.md](../CONNECTORS.md) for connected services that can publish to platforms and automate workflows.
+Cria sequência coordenada (mensagem unificada + timeline) orquestrando subagents especializados conforme o tipo escolhido. Não produz conteúdo inline.
 
-Create a coordinated multi-channel content sequence with unified messaging, timeline, and content for each touchpoint across email, social media, and ads.
+## Required inputs (ask if missing)
 
-## Trigger
+1. **Tipo** (obrigatório): launch (7-14 dias), nurture (30 dias), promotion (5-7 dias), re-engagement (14 dias) ou custom
+2. **Canais** (obrigatório): combinação entre email, Instagram, LinkedIn, TikTok, Twitter/X, YouTube, Meta Ads, Google Ads, WhatsApp
+3. **Duração** (obrigatório): número de dias
+4. **Produto/Oferta** (obrigatório): o que está sendo promovido
+5. **Audiência** (obrigatório): persona + nível de awareness
+6. **Goal** (obrigatório): launch, conversion, awareness, retention, re-engagement
+7. **Budget** (opcional): orçamento de mídia paga (se canais ads incluídos)
+8. **Tom** (opcional): profissional, casual, urgente, storytelling, educacional
+9. **Existing assets** (opcional): tamanho da lista, audiência social, biblioteca de conteúdo
 
-This command is invoked when the user says `/criar-sequencia` followed by a campaign goal and channels, or when they ask to create a multi-channel campaign, content sequence, or coordinated marketing campaign.
+## Dispatch (paralelo, single message)
 
-## Inputs
+Em **um único message**, dispare os agents-base. Adicione os agents condicionais conforme tipo.
 
-Gather the following information. If any required field is missing, ask the user before proceeding:
-
-1. **Campaign Goal** (required) — Launch, promotion, nurture, re-engagement, awareness, conversion
-2. **Channels** (required) — Email, Instagram, LinkedIn, TikTok, Twitter/X, YouTube, Meta Ads, Google Ads, WhatsApp
-3. **Duration** (required) — 7 days, 14 days, 30 days, or custom
-4. **Product/Offer** (required) — What is being promoted
-5. **Audience** (required) — Target audience and their awareness level
-6. **Budget** (optional) — Paid media budget
-7. **Existing Assets** (optional) — Email list size, social following, content library
-8. **Tone** (optional) — Professional, casual, urgent, storytelling, educational
-
-## Sequence Type Specifications
-
-### Launch Sequence (7-14 days)
-
-**Phases:**
-```
-PRE-LAUNCH (Days 1-5)    → Build anticipation
-LAUNCH (Days 6-8)        → Cart open, maximum exposure
-CLOSING (Days 9-11)      → Urgency, last chance
-POST-LAUNCH (Days 12-14) → Results, onboarding
-```
-
-**Channel orchestration:**
-
-| Phase | Email | Social | Ads |
-|-------|-------|--------|-----|
-| Pre-launch | Teaser series (3 emails) | Behind-the-scenes, countdown | Awareness campaign |
-| Launch | Announcement + benefits | Launch post + stories | Conversion campaign |
-| Closing | Urgency + testimonials | Social proof + countdown | Retargeting |
-| Post | Buyer welcome / non-buyer nurture | Results + celebration | Lookalike |
-
-### Nurture Sequence (30 days)
-
-**Phases:**
-```
-WEEK 1: Introduction & Value     → Who you are, why follow
-WEEK 2: Education & Authority    → Teach, demonstrate expertise
-WEEK 3: Social Proof & Trust     → Case studies, testimonials
-WEEK 4: Conversion & Offer       → Present solution, CTA
-```
-
-### Promotion Sequence (5-7 days)
-
-**Phases:**
-```
-DAY 1: Announcement              → The offer is live
-DAY 2: Benefits deep dive        → Why this matters
-DAY 3: Social proof              → Others love it
-DAY 4: Objection handling        → FAQ, concerns addressed
-DAY 5: Bonus/incentive           → Extra value for action
-DAY 6: Last day warning          → Urgency
-DAY 7: Final hours               → Now or never
-```
-
-### Re-engagement Sequence (14 days)
-
-**Phases:**
-```
-DAYS 1-3: "We miss you"          → Reconnect emotionally
-DAYS 4-7: Fresh value            → New content, updated offer
-DAYS 8-11: Social proof          → What others are doing
-DAYS 12-14: Final offer          → Special comeback incentive
-```
-
-## Unified Messaging Framework
-
-### Core Message Architecture
-
-Before creating channel-specific content, define:
+### Base (sempre)
 
 ```
-CORE MESSAGE:
-"[One sentence that captures the entire campaign message]"
+- Agent(subagent_type: "mos-email", prompt: "Sequência de email tipo [tipo] de [N] dias para [produto]. Audiência: [audiência]. Goal: [goal]. Inclua subject lines, preview text, body completo de cada email, send time sugerido e CTA. Considere memory existente do cliente neste projeto.")
 
-KEY PROMISE:
-"[The primary transformation/benefit]"
+- Agent(subagent_type: "mos-social", prompt: "Posts coordenados para [lista de canais sociais] ao longo de [N] dias, alinhados com a sequência [tipo] do produto [produto]. Audiência: [audiência]. Inclua hook, copy completo, formato (feed/stories/reels/thread), hashtags, horário sugerido e enquete obrigatória por post. Considere memory existente do cliente neste projeto.")
 
-SUPPORTING POINTS:
-1. [Proof point / benefit #1]
-2. [Proof point / benefit #2]
-3. [Proof point / benefit #3]
+- Agent(subagent_type: "mos-ads", prompt: "Campanhas de ads complementares à sequência [tipo] em [Meta Ads/Google Ads/etc]. Produto: [produto]. Budget: [budget ou 'sugerir mínimo viável']. Por fase do funil: awareness, conversion, retargeting. Inclua copy primário, headline, descrição e creative direction. Considere memory existente do cliente neste projeto.")
+```
+*(omitir `mos-ads` se nenhum canal ads foi escolhido)*
 
-EMOTIONAL HOOK:
-"[The feeling you want to evoke]"
+### Condicional por tipo
 
-PRIMARY CTA:
-"[The one action you want across all channels]"
+**Se tipo = launch** (acrescentar à mesma message):
+```
+- Agent(subagent_type: "mos-launch", prompt: "Estratégia de fases para lançamento de [duração]: pré-launch, launch, closing, pós-launch. Posicionamento da oferta, pitch timing, escassez e ritmo de exposição. Produto: [produto]. Considere memory existente do cliente neste projeto.")
 ```
 
-### Channel Adaptation Rules
-
-| Channel | Tone Adjustment | Format | CTA Style |
-|---------|----------------|--------|-----------|
-| Email | Personal, direct | Long-form, storytelling | Button + link |
-| Instagram Feed | Visual, aspirational | Carousel or single image | "Link na bio" |
-| Instagram Stories | Casual, behind-scenes | Polls, questions, swipe-up | Sticker link |
-| Instagram Reels | Entertaining, fast-paced | 15-30s video | Caption CTA |
-| LinkedIn | Professional, insightful | Text post or article | "Comment below" |
-| Twitter/X | Concise, provocative | Thread or single tweet | Link in thread |
-| TikTok | Authentic, trend-driven | Native video, 15-60s | Bio link |
-| Meta Ads | Direct, benefit-focused | Image/video + copy | Button CTA |
-| Google Ads | Search-intent focused | Headlines + descriptions | Site link |
-| WhatsApp | Intimate, conversational | Message + media | Reply CTA |
-
-## Timeline Generation
-
-### Daily Touchpoint Map
-
-For each day of the sequence, define:
-
+**Se tipo = nurture** (acrescentar à mesma message):
 ```
-DAY [N] — [Phase name]
-
-THEME: [Daily theme/message angle]
-
-📧 EMAIL:
-  Subject: "[Subject line]"
-  Preview: "[Preview text]"
-  Key message: [1-2 sentences]
-  CTA: [Action]
-  Send time: [HH:MM]
-
-📱 INSTAGRAM:
-  Format: [Feed / Stories / Reels]
-  Content: [Description]
-  Caption: [First 2 lines]
-  Hashtags: [5-10 relevant]
-  Post time: [HH:MM]
-
-💼 LINKEDIN:
-  Format: [Post / Article]
-  Hook: [First line]
-  Content: [Key points]
-  Post time: [HH:MM]
-
-📢 ADS:
-  Platform: [Meta / Google]
-  Objective: [Awareness / Traffic / Conversion]
-  Creative: [Description]
-  Copy: [Primary text]
-  Budget: R$ [daily budget]
-
-💬 WHATSAPP (if applicable):
-  Message: [Short message]
-  Media: [Image/video if any]
-  Send time: [HH:MM]
+- Agent(subagent_type: "mos-funnel", prompt: "Mapa de funil que orienta sequência de nurture de [duração]: TOFU (intro/valor) → MOFU (educação/autoridade) → BOFU (oferta). Audiência: [audiência]. Identifique pontos de queda esperados e o gancho de conversão.")
 ```
 
-## Output Structure
+## Consolidação
 
-Deliver the sequence in this format:
+Após os agents retornarem, consolide em entrega única:
 
-```
-## MULTI-CHANNEL SEQUENCE
+```markdown
+## Sequência Multi-canal: [Nome da campanha]
 
-🎯 CAMPAIGN: [Campaign name]
-📅 DURATION: [X] days
-📢 CHANNELS: [List of channels]
-💰 PRODUCT: [Product/offer]
-👤 AUDIENCE: [Target audience]
+Tipo: [launch | nurture | promotion | re-engagement] | Duração: [N] dias | Canais: [lista]
+Produto: [produto] | Audiência: [audiência] | Goal: [goal]
 
----
+### Mensagem Unificada
+- Core message: [uma frase]
+- Promessa-chave: [transformação]
+- Gancho emocional: [sentimento]
+- CTA primário: [ação]
 
-### UNIFIED MESSAGE FRAMEWORK
+### Estratégia de Fases (de mos-launch ou mos-funnel, se aplicável)
+[Fases com timing, objetivo de cada uma]
 
-**Core message:** "[One sentence]"
-**Key promise:** "[Transformation]"
-**Emotional hook:** "[Feeling]"
-**Primary CTA:** "[Action]"
-
----
-
-### SEQUENCE OVERVIEW
-
-[Visual timeline showing all touchpoints across all channels]
-
-| Day | Email | Social | Ads | Theme |
-|-----|-------|--------|-----|-------|
-| 1 | [Brief] | [Brief] | [Brief] | [Theme] |
-| 2 | [Brief] | [Brief] | [Brief] | [Theme] |
+### Timeline Resumida
+| Dia | Email | Social | Ads | Tema |
+|-----|-------|--------|-----|------|
+| 1 | [resumo] | [resumo] | [resumo] | [tema] |
 | ... | ... | ... | ... | ... |
 
----
+### Email Sequence (de mos-email)
+[Subject + preview + body + CTA + horário, dia a dia]
 
-### DETAILED DAY-BY-DAY CONTENT
+### Social Posts (de mos-social)
+[Por canal, dia a dia: formato, hook, copy, hashtags, horário, enquete]
 
-**DAY 1 — [Theme]**
+### Ads (de mos-ads, se aplicável)
+[Por fase: copy primário, headline, descrição, creative, budget sugerido, segmentação]
 
-📧 **Email:**
-Subject: "[Subject]"
-[Full email copy]
+### Coordenação Cross-channel
+[Como cada canal reforça os outros, frequency caps, sequenciamento]
 
-📱 **Instagram:**
-Format: [Type]
-[Full caption + hashtags]
+### Métricas Sugeridas
+| Canal | KPI | Benchmark | Tracking |
+|-------|-----|-----------|----------|
+| Email | Open / CTR | >25% / >3% | ESP |
+| Social | Engagement rate | >3% IG, >2% LI | Insights |
+| Ads | ROAS | >3:1 | Ads Manager |
 
-💼 **LinkedIn:**
-[Full post copy]
-
-📢 **Ads:**
-[Ad copy + creative direction]
-
-[Repeat for all days...]
-
----
-
-### EMAIL SEQUENCE COMPLETE
-
-[All emails with subject lines, preview text, and full body copy]
-
----
-
-### SOCIAL MEDIA CONTENT CALENDAR
-
-[Grid view of all social posts with dates, platforms, and content type]
-
----
-
-### AD CREATIVES BRIEF
-
-[All ad copy variations with targeting suggestions]
-
----
-
-### CROSS-CHANNEL COORDINATION NOTES
-
-[How channels reinforce each other, timing considerations, frequency caps]
-
----
-
-### METRICS DASHBOARD
-
-| Channel | KPI | Target | Tracking |
-|---------|-----|--------|----------|
-| Email | Open rate | > 25% | [Tool] |
-| Email | Click rate | > 3% | [Tool] |
-| Instagram | Engagement rate | > 4% | Insights |
-| LinkedIn | Impressions | [Target] | Analytics |
-| Ads | ROAS | > 3:1 | Ads Manager |
-| Overall | Conversions | [Target] | UTM tracking |
+### Próximos passos
+- Setup de UTMs e tracking
+- Criação de creatives (brief separado se preciso)
+- Variação A/B em hook ou subject
 ```
 
-## Final Ask
+## Quality Gates (antes de entregar)
 
-After delivering the sequence, ask:
+Aplicar gates globais do `skills/marketing-os/SKILL.md`:
+- Sem `—`, sem "brutal", sem CAPS gratuito, sem aspas em falas
+- Acentuação PT-BR correta
+- Máximo 1-2 emojis no output final (não nos posts em si — esses seguem regra do canal)
+- Enquete obrigatória em cada post social
+- Compliance regulatório se nicho saúde/finanças/suplementos
+- Fact-check (CONFIRMADO / PROVÁVEL) em qualquer claim citável
 
-"Would you like me to:
-1. Expand the full copy for a specific channel's sequence?
-2. Create additional ad creative variations?
-3. Add another channel to the sequence?
-4. Generate the visual direction for social posts?
-5. Create a detailed budget allocation plan?"
+## Por que esse dispatch composto
+
+Sequência multi-canal sem `mos-email` = email genérico. Sem `mos-social` = posts desalinhados com a fase. Sem `mos-ads` = mídia paga descolada do narrativo. `mos-launch` no tipo launch garante estratégia de oferta (sem ela, vira só "calendário com vendas"). `mos-funnel` no nurture garante que cada fase converse com o estágio do lead.

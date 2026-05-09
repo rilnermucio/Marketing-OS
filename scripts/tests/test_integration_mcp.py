@@ -259,6 +259,7 @@ class TestCoberturaDeSscripts:
         "tiktok_trends_scraper.py",  # scraper assíncrono (não CLI direto)
         "validate_agents.py",   # utilitário de validação de infra (não CLI MOS)
         "voice_extractor.py",   # invocado direto por /criar-meu-clone, não pelo CLI mos.py
+        "init_agent_memory.py", # bootstrap one-shot de memory opt-in (não CLI MOS)
     }
 
     def test_scripts_relevantes_estao_no_command_map(self):

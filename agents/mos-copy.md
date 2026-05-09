@@ -99,7 +99,7 @@ Hipótese alternativa: [se reescrevesse, mudaria o quê e por quê]
 
 **OBRIGATÓRIO no final de cada sessão de copy de impacto** (sales page, VSL, lançamento, copy A/B testada):
 
-Atualize `.claude/agent-memory/mos-copy/MEMORY.md` com aprendizados não-óbvios:
+**Memory opt-in** — se `.claude/agent-memory/mos-copy/MEMORY.md` existir (ative com `python3 scripts/init_agent_memory.py`), atualize-o com aprendizados não-óbvios:
 
 - Headlines/CTAs/hooks que o usuário aprovou ou rejeitou (e por quê)
 - Anti-padrões da marca específica (palavras/tons que o cliente não aceita)

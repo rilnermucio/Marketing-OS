@@ -1,6 +1,6 @@
-# Validation Guide — Marketing OS v6.3.0
+# Validation Guide — Marketing OS v6.5.0
 
-Test cases pra validar que o orquestrador está dispatching corretamente nos workflows da v6.x.
+Test cases pra validar que o orquestrador está dispatching corretamente nos workflows da v6.x e que os 25 slash commands cumprem o contrato de dispatch padronizado a partir da v6.5.0.
 
 ## Como rodar os testes
 
@@ -114,8 +114,13 @@ Test cases pra validar que o orquestrador está dispatching corretamente nos wor
 
 **Setup:**
 1. Pasta `~/Code/clientes/test-cliente-A`
-2. Rodar Test 3 acima nessa pasta
-3. Sair do Claude Code, voltar pra mesma pasta dias depois
+2. Bootstrap dos diretórios de memory (uma vez por projeto):
+   ```bash
+   python3 scripts/init_agent_memory.py
+   ```
+   Isso cria os 9 diretórios `.claude/agent-memory/mos-{copy,research,brand,seo,social,ads,email,funnel,design}/` no formato canônico.
+3. Rodar Test 3 acima nessa pasta
+4. Sair do Claude Code, voltar pra mesma pasta dias depois
 
 **Briefing follow-up:**
 ```
@@ -123,7 +128,7 @@ Test cases pra validar que o orquestrador está dispatching corretamente nos wor
 ```
 
 **Esperado:**
-- ✅ `mos-copy` carrega memory de `.claude/agent-memory/marketing-os-mos-copy/`
+- ✅ `mos-copy` carrega memory de `.claude/agent-memory/mos-copy/` (path canônico padronizado no P1-3 — antes era `marketing-os-mos-copy/`)
 - ✅ Não pergunta nicho/avatar/ticket de novo (já tem no memory)
 - ✅ Headlines coerentes com posicionamento da sessão anterior
 
@@ -187,6 +192,105 @@ Test cases pra validar que o orquestrador está dispatching corretamente nos wor
 
 ---
 
+### Test 11 — Slash command direto: `/criar-anuncio`
+
+**Briefing:**
+```
+/criar-anuncio Meta Ads pra curso de Copy de R$ 1.997, audiência empreendedores BR
+```
+
+**Esperado:**
+- ✅ Dispatch `mos-ads` (em paralelo com `mos-research` se nicho/avatar pouco conhecido)
+- ✅ Output: 5 versões com angles diferentes (problema/solução, social proof, contraste, FOMO, autoridade)
+- ✅ Cada versão com primary text + headline + description + CTA + creative direction
+- ✅ Quality gates aplicados (sem CAPS abusivo, sem `—`, sem "brutal", PT-BR correto)
+
+**Como saber se está certo:** se a saída tem só uma variação ou pula a creative direction → falta de seguir o output schema do `mos-ads`.
+
+---
+
+### Test 12 — Slash command direto: `/criar-artigo`
+
+**Briefing:**
+```
+/criar-artigo sobre 'estrutura de funil de vendas' targeting 'funil de vendas SaaS'
+```
+
+**Esperado:**
+- ✅ Dispatch sequencial: `mos-research` (intenção + SERP) → `mos-seo` (keyword map + meta) → opcional `mos-copy` (corpo do artigo)
+- ✅ Output: keyword map (primária + LSI) + meta tags (title + description) + outline H2/H3 + artigo completo (≥ 1.500 palavras) + SEO checklist (densidade, links internos, alt text)
+- ✅ Compliance: claims baseados em fonte verificada (cita fonte explícita)
+
+**Como saber se está certo:** se o output pula meta tags ou SEO checklist → command rodou inline em vez de dispatchar.
+
+---
+
+### Test 13 — Slash command direto: `/criar-clone`
+
+**Briefing:**
+```
+/criar-clone Russell Brunson (slug: brunson)
+```
+
+**Esperado:**
+- ✅ Dispatch sequencial: `mos-research` (web research do expert + frameworks + cases) → `mos-copy` (gera os 4 arquivos em `assets/clones/brunson/`)
+- ✅ 4 arquivos criados:
+  - `profile.md` (bio, posicionamento, audiência)
+  - `voice.md` (tom, ritmo, vocabulário, regras)
+  - `frameworks.md` (Hook-Story-Offer, Perfect Webinar, etc.)
+  - `examples.md` (sales letters, scripts, posts reais)
+- ✅ Total ~700 linhas de conteúdo (não placeholders)
+- ✅ `assets/clones/clone-manifest.yaml` atualizado com a nova entrada
+
+**Como saber se está certo:** rode `ls assets/clones/brunson/` — se faltar algum dos 4 arquivos ou o manifest não estiver atualizado → command rodou parcialmente.
+
+---
+
+### Test 14 — Workflow multi-fase: `/campanha lancamento`
+
+**Briefing:**
+```
+/campanha lancamento --produto='Curso de IA' --clone=brunson --ticket=997
+```
+
+**Esperado:**
+- ✅ Dispatch multi-fase orquestrado:
+  - **Fase 1 (paralelo):** `mos-research` (mercado + concorrência) + `mos-launch` (estrutura de lançamento) + `mos-funnel` (TOFU/MOFU/BOFU)
+  - **Fase 2 (paralelo):** `mos-copy` (sales page + emails) + `mos-storytelling` (big idea + arco) + `mos-social` (aquecimento) + `mos-email` (sequência de lançamento)
+  - **Fase 3 (sequencial):** `mos-design` (visual stack) → `mos-ads` (campanhas pagas) → `mos-analytics` (KPIs + funil de medição)
+- ✅ Output consolidado:
+  - Cronograma completo (aquecimento → lançamento → fechamento)
+  - Checklist de Lançamento por fase
+  - KPIs por etapa
+  - Sequência de emails (≥ 7 emails)
+  - Posts de aquecimento (≥ 5)
+  - Briefing de criativos pagos
+- ✅ Voice clone Brunson aplicado em copy + emails (lê `assets/clones/brunson/`)
+
+**Como saber se está certo:** se o output só faz Fase 1 e para → orquestrador não seguiu o workflow multi-fase. Se a copy não soa Brunson → voice clone não foi carregado.
+
+---
+
+### Test 15 — Roteador multi-paralelo: `/batch`
+
+**Briefing:**
+```
+/batch 10 posts sobre 'IA aplicada a marketing' Instagram
+```
+
+**Esperado:**
+- ✅ Dispatch multi-paralelo: 10x `mos-social` em chunks de 3-5 paralelos (cada chunk em single message com múltiplas Agent calls)
+- ✅ Cada peça com hook, angle e framework diferente da rotação interna do `mos-social`
+- ✅ Output com estatísticas de diversidade no topo:
+  - Hooks únicos: 10/10
+  - Angles únicos: ≥ 8/10
+  - Frameworks usados (lista)
+- ✅ Cada post com: hook + corpo + CTA + caption + hashtags + sugestão de enquete obrigatória
+
+**Como saber se está certo:** se 3+ posts repetem o mesmo hook/angle → rotação não aplicada. Se rodou tudo sequencial em vez de paralelo → ineficiência (mas funcional).
+
+---
+
 ## Checklist de validação completa
 
 Marque cada um após rodar:
@@ -201,11 +305,17 @@ Marque cada um após rodar:
 - [ ] Test 8: compliance regulatório (saúde + finanças)
 - [ ] Test 9: voice clone (Halbert)
 - [ ] Test 10: skill collision com frontend-design
+- [ ] Test 11: `/criar-anuncio` → mos-ads
+- [ ] Test 12: `/criar-artigo` → mos-research → mos-seo → mos-copy
+- [ ] Test 13: `/criar-clone` → mos-research → mos-copy (4 arquivos)
+- [ ] Test 14: `/campanha lancamento` → workflow multi-fase
+- [ ] Test 15: `/batch` → multi-paralelo com rotação
 
-Se 9+ passam: orquestração está saudável.
-Se <8 passam: abrir issue com casos que falharam.
+Se 13+ passam: orquestração está saudável.
+Se <12 passam: abrir issue com casos que falharam.
 
 ## Conhecidos limites
 
-- **23 slash commands não dispatcham mos-* diretamente** (bug v6.3.0 conhecido). Workaround: use `/marketing-os` em linguagem natural em vez do command direto até v6.4.x.
-- **Tier 2 smoke tests deferred:** rodar localmente com `python -m pytest scripts/tests/test_agents_smoke.py -v -m smoke` se quiser cobertura mais profunda.
+- **24/25 slash commands dispatcham `mos-*` diretamente a partir da v6.5.0** (a reescritura cobriu os 16 commands que ainda não dispatchavam na v6.4.x). O único utility puro é `/publicar-notion`, que roteia para outros `/criar-*` quando precisa gerar conteúdo e só usa o Notion MCP diretamente.
+- **Validação estática automatizada:** rodar `python -m pytest scripts/tests/test_commands_dispatch.py -v` valida estrutura de dispatch dos 25 commands em CI sem precisar Claude Code interativo (~148 test cases).
+- **Tier 2 smoke tests deferred:** rodar localmente com `python -m pytest scripts/tests/test_agents_smoke.py -v -m smoke` se quiser cobertura mais profunda (precisa Claude Code rodando).

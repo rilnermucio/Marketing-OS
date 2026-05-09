@@ -1,114 +1,110 @@
 ---
-description: Capture screenshots of landing pages, social profiles, or competitor websites for analysis and reference.
+description: Capture screenshots of landing pages, social profiles, or competitor sites via Playwright MCP. Optionally dispatches mos-research or mos-design for analysis after capture.
 argument-hint: "<URL to capture, e.g., 'https://competitor.com' or 'Instagram profile @username'>"
 ---
 
-# Capture Screenshot
+# /capturar-tela: Captura de Tela
 
-> Requires: Playwright MCP integration active. See [CONNECTORS.md](../CONNECTORS.md) for setup.
+Utility de captura via Playwright MCP. Operação principal é a captura visual. Análise pós-captura é dispatch opcional baseado na intenção do usuário.
 
-Capture screenshots of websites, landing pages, social profiles, and competitor content for analysis, reference, and comparison.
+## Required inputs (ask if missing)
 
-## Trigger
+1. **URL** (obrigatório): página a capturar
+2. **Tipo de captura** (opcional): full page, above the fold, seção específica, mobile view, multiple viewports
+3. **Device** (opcional): Desktop (1920x1080), Tablet (768x1024), Mobile (375x812)
+4. **Propósito** (opcional): análise, referência, auditoria competitiva, inspiração de design
 
-This command is invoked when the user says `/capturar-tela` followed by a URL, or when they ask to screenshot, capture, or save a visual reference of a webpage.
+## Tipos de captura
 
-## Inputs
-
-Gather the following information. If any required field is missing, ask the user before proceeding:
-
-1. **URL** (required) — The webpage URL to capture
-2. **Capture Type** (optional) — Full page, above the fold, specific section, mobile view
-3. **Device** (optional) — Desktop (1920x1080), Tablet (768x1024), Mobile (375x812)
-4. **Purpose** (optional) — Analysis, reference, competitive audit, design inspiration
-
-## Capture Types
-
-### Full Page
-Captures the entire page from top to bottom, scrolling as needed.
-
-### Above the Fold
-Captures only what's visible without scrolling — the most critical section.
-
-### Mobile View
-Captures the page as it appears on a mobile device (iPhone 14 size).
-
-### Multiple Viewports
-Captures the same page across desktop, tablet, and mobile for responsive analysis.
-
-## MCP Tools Used
-
-| Tool | Purpose |
-|------|---------|
-| `browser_navigate` | Load the target URL |
-| `browser_take_screenshot` | Capture the visual |
-| `browser_snapshot` | Get accessibility tree for analysis |
-| `browser_resize` | Set viewport for different devices |
-| `browser_evaluate` | Extract specific data from the page |
+- **Full Page**: página inteira de cima a baixo, com scroll
+- **Above the Fold**: só o que aparece sem scroll (hero + CTA principal)
+- **Mobile View**: como aparece em iPhone 14 (375x812)
+- **Multiple Viewports**: mesma página em desktop + tablet + mobile pra análise responsiva
 
 ## Workflow
 
 ```
-1. Navigate to URL (browser_navigate)
-2. Set viewport size (browser_resize) — if specific device requested
-3. Wait for page load (3 seconds or specific element)
-4. Take screenshot (browser_take_screenshot)
-5. Optionally: Get page snapshot for text analysis (browser_snapshot)
-6. Analyze the captured content
+1. browser_navigate            → carrega URL
+2. browser_resize              → seta viewport (se device específico)
+3. wait 3s ou elemento âncora  → garante carregamento
+4. browser_take_screenshot     → captura
+5. browser_snapshot (opcional) → árvore de acessibilidade pra análise textual
+6. browser_evaluate (opcional) → extrai dados específicos da página
 ```
 
-## Output Structure
+## MCP tools usados
+
+| Tool | Propósito |
+|------|-----------|
+| `browser_navigate` | Carrega URL |
+| `browser_resize` | Seta viewport |
+| `browser_take_screenshot` | Captura visual |
+| `browser_snapshot` | Árvore de acessibilidade |
+| `browser_evaluate` | Extrai dados específicos |
+
+## Dispatch opcional pós-captura (analyze intent)
+
+Se o usuário pediu **análise** junto com a captura, despache **após** a captura concluída:
 
 ```
-## SCREENSHOT CAPTURED
+Intenção do usuário                          → Dispatch
+─────────────────────────────────────────────────────────────────────
+"analise este hero / above-the-fold"         → Agent(subagent_type: "mos-research", prompt: "Análise UX/conversão do above-the-fold capturado: positioning, headline clarity, hierarquia, CTA visibility, prova social, fricções óbvias. Screenshot/snapshot anexo: [referência].")
 
-🌐 URL: [URL captured]
-📐 VIEWPORT: [Dimensions]
-📱 DEVICE: [Desktop / Tablet / Mobile]
-📅 CAPTURED: [Date and time]
+"avalia o design / paleta / tipografia"      → Agent(subagent_type: "mos-design", prompt: "Análise visual da página capturada: paleta, tipografia, hierarquia, mood, cohesion, comparação com benchmarks de [nicho]. Screenshot anexo: [referência].")
 
----
+"extrai estratégia / clona padrões"          → roteia pra /clonar-estrategia (mencionar)
 
-### SCREENSHOT
+"compara com concorrentes"                   → roteia pra /analisar-concorrencia (mencionar)
 
-[Screenshot image displayed]
-
----
-
-### PAGE ANALYSIS
-
-**Title:** [Page title]
-**Type:** [Landing page / Blog / Social profile / E-commerce]
-
-**Above the fold elements:**
-- [ ] Headline visible
-- [ ] CTA visible
-- [ ] Value proposition clear
-- [ ] Visual hierarchy effective
-
-**Key observations:**
-1. [Observation about design/layout]
-2. [Observation about copy/messaging]
-3. [Observation about CTA placement]
-
----
-
-### COMPETITIVE INSIGHTS (if competitor)
-
-| Element | Their Approach | Opportunity |
-|---------|---------------|-------------|
-| Headline | [What they do] | [What you could do better] |
-| CTA | [Their CTA] | [Your improved version] |
-| Social Proof | [How they use it] | [How to adapt] |
-| Design | [Style notes] | [Differentiation ideas] |
+(sem pedido de análise — só captura)         → Pular dispatch, entregar screenshot puro
 ```
 
-## Final Ask
+## Output
 
-After capturing the screenshot, ask:
+```markdown
+## Captura de Tela
 
-"Would you like me to:
-1. Analyze this page's conversion elements in detail?
-2. Capture the same page on mobile view?
-3. Compare with another competitor's page?
-4. Create a landing page inspired by this design?"
+URL: [URL]
+Viewport: [dimensions]
+Device: [Desktop | Tablet | Mobile]
+Capturado em: [data/hora]
+
+### Screenshot
+[imagem]
+
+### Análise da página (se dispatch rodou)
+**Tipo:** [Landing page | Blog | Social profile | E-commerce]
+
+**Above the fold:**
+- [ ] Headline visível e clara
+- [ ] CTA visível
+- [ ] Value proposition clara
+- [ ] Hierarquia visual eficaz
+
+**Observações** (de mos-research ou mos-design):
+[Output do agent dispatchado]
+
+### Insights competitivos (se for análise de concorrente)
+| Elemento | Abordagem deles | Oportunidade |
+|----------|-----------------|--------------|
+| Headline | [...] | [...] |
+| CTA | [...] | [...] |
+| Prova social | [...] | [...] |
+| Design | [...] | [...] |
+```
+
+## Quality Gates (na análise, se dispatch rodou)
+
+Aplicar gates globais do `skills/marketing-os/SKILL.md` em qualquer texto de análise:
+- Sem `—`, sem "brutal", sem CAPS gratuito
+- Acentuação PT-BR correta
+- Máximo 1-2 emojis
+
+## Follow-up ao usuário
+
+"Quer que eu:
+1. Capture a versão mobile da mesma página?
+2. Compare com outro concorrente?
+3. Crie landing page inspirada nesse design? (roteia pra /criar-landing-page)
+4. Analise os elementos de conversão em profundidade? (dispatch mos-research)"

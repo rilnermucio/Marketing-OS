@@ -35,17 +35,25 @@ Quando o usuário não fornece contexto suficiente, **NÃO chute** — pergunte 
 5. **Urgência** — publicar hoje, semana, planejamento futuro?
 
 **Pule perguntas que já têm resposta:**
-- Se há memory em `.claude/agent-memory/marketing-os-mos-*/` com briefing do cliente, use esse contexto
+- Se há memory em `.claude/agent-memory/mos-*/` com briefing do cliente, use esse contexto
 - Se o user já mencionou alguma dessas 5 dimensões na mensagem inicial, não pergunte de novo
 - Se for óbvio do contexto (ex: pasta chamada "wellness-science" → nicho saúde)
 
-### Memory automática
+### Memory opt-in
 
-8 dos 18 agents têm `memory: project` no frontmatter — carregam automaticamente contexto persistente quando rodam em pasta com `.claude/agent-memory/marketing-os-<agent>/`:
+9 dos 18 agents têm `memory: project` no frontmatter e instruem persistir aprendizados em `.claude/agent-memory/mos-<agent>/MEMORY.md`:
 
 `mos-copy`, `mos-funnel`, `mos-design`, `mos-brand`, `mos-launch`, `mos-research`, `mos-social`, `mos-infoproduct`, `mos-ads`
 
-Quando dispatchar qualquer um desses, **explicite no prompt**: "considere memory existente do cliente neste projeto". Os outros 9 agents (`mos-analytics`, `mos-ai-tools`, `mos-audio`, `mos-email`, `mos-seo`, `mos-storytelling`, `mos-video`, `mos-growth`, `mos-ab-testing`) não persistem memory — passe todos os inputs no prompt.
+Memory é **opt-in**: o diretório `.claude/agent-memory/` está gitignored (memory é per-projeto, não distribuída pelo plugin). Pra ativar nesse projeto, rode uma vez:
+
+```bash
+python3 scripts/init_agent_memory.py
+```
+
+Isso cria os 9 arquivos `MEMORY.md` placeholder. Depois disso os agents passam a gravar/ler patterns transferíveis (não conteúdo bruto). Sem o bootstrap, os agents seguem funcionando normalmente — só não persistem memory entre sessões.
+
+Quando dispatchar qualquer dos 9 agents acima e o memory estiver ativo, **explicite no prompt**: "considere memory existente do cliente neste projeto". Os outros 9 agents (`mos-analytics`, `mos-ai-tools`, `mos-audio`, `mos-email`, `mos-seo`, `mos-storytelling`, `mos-video`, `mos-growth`, `mos-ab-testing`) não têm memory — passe todos os inputs no prompt.
 
 ## Mapa de Dispatch (18 Agents)
 
@@ -151,7 +159,7 @@ Fase 3: Quality gates globais sobre o output final + sugestões de teste A/B (mo
 - Sem `mos-design`: visual sai com cara genérica de template, não de nicho premium
 - `frontend-design` é excelente em build técnico, mas não conhece padrões de conversão — é executor da Fase 2, não decisor da Fase 1
 
-**Quando usar memory de contexto:** se a pasta atual já tem `.claude/agent-memory/marketing-os-mos-copy/` ou `.claude/agent-memory/marketing-os-mos-funnel/` com briefings/feedback de cliente anteriores, esses contextos carregam automaticamente nos agents — explicite isso no prompt do Fase 1 ("considere memory existente do cliente").
+**Quando usar memory de contexto:** se a pasta atual já tem `.claude/agent-memory/mos-copy/` ou `.claude/agent-memory/mos-funnel/` com briefings/feedback de cliente anteriores (criados via `python3 scripts/init_agent_memory.py`), explicite isso no prompt do Fase 1 ("considere memory existente do cliente").
 
 ### 6. Workflow: Webinar (live ou perpetual)
 

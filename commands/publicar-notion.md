@@ -1,111 +1,104 @@
 ---
-description: Publish editorial calendars, content plans, or generated content directly to your Notion workspace.
+description: Publish editorial calendars, content plans, or generated content directly to your Notion workspace via Notion MCP. Routes to creation commands first when content does not yet exist.
 argument-hint: "<what to publish, e.g., 'editorial calendar for March' or 'content plan for product launch'>"
 ---
 
-# Publish to Notion
+# /publicar-notion: Publicar no Notion
 
-> Requires: Notion MCP integration active. See [CONNECTORS.md](../CONNECTORS.md) for setup.
+Utility de publicação. Quando o conteúdo já existe, publica direto via Notion MCP. Quando precisa gerar antes, dispatcha o command de criação adequado e só publica depois.
 
-Publish marketing content, editorial calendars, and project plans directly to your Notion workspace using the Notion MCP integration.
+## Required inputs (ask if missing)
 
-## Trigger
+1. **Tipo de conteúdo** (obrigatório): calendário editorial, plano de conteúdo, brief de campanha, post único, documentação de projeto
+2. **Status do conteúdo** (obrigatório): já gerado (colar/referenciar) ou precisa ser criado
+3. **Destino no Notion** (opcional): página, database, ou área específica do workspace
+4. **Formato** (opcional): página, linha de database, database com template
 
-This command is invoked when the user says `/publicar-notion` followed by what they want to publish, or when they ask to send content to Notion, create a Notion page, or sync with Notion.
-
-## Inputs
-
-Gather the following information. If any required field is missing, ask the user before proceeding:
-
-1. **Content Type** (required) — Editorial Calendar, Content Plan, Campaign Brief, Single Post, Project Documentation
-2. **Content Source** (required) — Generated content from a previous command, or new content to create
-3. **Notion Destination** (optional) — Specific page, database, or workspace area
-4. **Format** (optional) — Page, Database Row, Database with Template
-
-## Publication Types
-
-### Editorial Calendar → Notion Database
-
-Create a Notion database with columns:
-- **Date** (date) — Publication date
-- **Platform** (select) — Instagram, LinkedIn, TikTok, etc.
-- **Content Type** (select) — Post, Carousel, Reels, Article, etc.
-- **Status** (select) — Draft, Review, Approved, Published
-- **Topic** (text) — Content topic
-- **Copy** (rich text) — Full post copy
-- **Hashtags** (text) — Hashtags list
-- **Notes** (text) — Additional notes
-
-**MCP tools used:**
-- `notion-search` — Find existing calendar database
-- `notion-create-database` — Create new calendar if needed
-- `notion-create-pages` — Add entries to the calendar
-
-### Content Plan → Notion Page
-
-Create a structured page with:
-- Campaign overview
-- Content pillars
-- Channel strategy
-- Timeline
-- KPIs and targets
-
-**MCP tools used:**
-- `notion-create-pages` — Create the content plan page
-
-### Campaign Brief → Notion Page
-
-Create a campaign brief page with:
-- Objectives
-- Target audience
-- Messaging framework
-- Channel breakdown
-- Budget allocation
-- Timeline
-
-### Single Post → Notion Database Row
-
-Add a single content piece to an existing content database:
-- All post details (copy, hashtags, visual direction)
-- Status tracking
-- Platform assignment
-
-## Output Structure
+## Decision Tree
 
 ```
-## NOTION PUBLICATION
-
-📱 TYPE: [Publication type]
-📍 DESTINATION: [Notion page/database location]
-📊 STATUS: [Published / Error]
-
----
-
-### CONTENT PUBLISHED
-
-[Summary of what was published to Notion]
-
----
-
-### NOTION LINKS
-
-🔗 [Direct link to created page/database]
-
----
-
-### NEXT STEPS
-
-1. Review the content in Notion
-2. Assign team members to tasks
-3. Update statuses as content progresses
+Conteúdo já existe?
+  ├── SIM → Publica direto via Notion MCP (Fase 2)
+  │
+  └── NÃO → Dispatch para command de criação primeiro (Fase 1), depois publica (Fase 2)
+            ├── "calendário editorial" → /criar-calendario
+            ├── "plano de conteúdo / campanha" → /campanha
+            ├── "posts em lote pra encher database" → /batch
+            └── "post único" → /criar-post
 ```
 
-## Final Ask
+## Fase 1 (opcional): Geração de conteúdo
 
-After publishing to Notion, ask:
+Se o input pede algo que ainda não foi gerado, **antes** de tocar no Notion MCP, roteie:
 
-"Would you like me to:
-1. Add more content entries to the same database?
-2. Create a related content plan page?
-3. Set up a different Notion view (calendar, board, timeline)?
-4. Generate additional content to populate the calendar?"
+- "publica calendário pra março" sem calendário pronto → executar `/criar-calendario` primeiro com o briefing extraído
+- "publica plano de campanha de lançamento" sem plano → executar `/campanha lancamento` (ou preset adequado)
+- "publica 10 posts no database" sem posts → executar `/batch 10 posts <tema>`
+- "publica este post" com copy colada → pular Fase 1
+
+Após geração, **consolide o output** e siga pra Fase 2.
+
+## Fase 2: Publicação via Notion MCP
+
+Sequência de tools:
+
+```
+1. notion-search           → procura database/página de destino existente
+2. notion-create-database  → cria database se não existir (apenas para calendário/plano novo)
+3. notion-create-pages     → adiciona entries (post a post, ou página única)
+```
+
+### Schemas por tipo
+
+**Calendário editorial → database** com colunas:
+- Date (date), Platform (select), Content Type (select), Status (select: Draft/Review/Approved/Published), Topic (text), Copy (rich text), Hashtags (text), Notes (text)
+
+**Plano de conteúdo → página estruturada** com: campaign overview, content pillars, channel strategy, timeline, KPIs
+
+**Brief de campanha → página** com: objectives, target audience, messaging framework, channel breakdown, budget, timeline
+
+**Post único → linha de database existente** com: copy, hashtags, visual direction, status, platform
+
+## Output
+
+```markdown
+## Publicação Notion
+
+Tipo: [calendário | plano | brief | post]
+Destino: [URL ou nome da database/página]
+Status: [Publicado | Erro]
+
+### Resumo do que foi publicado
+[N entries adicionadas / página criada / database criada]
+
+### Links
+- [URL direta da página ou database]
+
+### Próximos passos
+1. Revisar no Notion e ajustar status
+2. Atribuir responsáveis
+3. Atualizar conforme progresso
+```
+
+## Quality Gates (antes de publicar)
+
+Aplicar gates globais do `skills/marketing-os/SKILL.md` no conteúdo **antes** de mandar pro Notion:
+- Sem `—`, sem "brutal", sem CAPS gratuito
+- Sem aspas em roteiros/falas
+- Máximo 1-2 emojis
+- Acentuação PT-BR correta
+- Fatos verificados
+
+Conteúdo que não passa nos gates **não vai pro Notion** — refaça primeiro.
+
+## Follow-up ao usuário
+
+"Quer que eu:
+1. Adicione mais entries na mesma database?
+2. Crie uma view alternativa (calendar, board, timeline)?
+3. Gere mais conteúdo pra popular o calendário?
+4. Configure templates de páginas pra o database?"
+
+## Por que decision tree
+
+Sem checagem de "conteúdo existe?", o usuário acaba pedindo `/publicar-notion` esperando que o Notion crie o conteúdo. Isso falha. Roteando pra `/criar-calendario` ou `/batch` primeiro garante que entra conteúdo de qualidade na database, não placeholder.

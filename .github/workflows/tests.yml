@@ -77,6 +77,25 @@ jobs:
             --exclude=scripts/tests/ \
             || true
 
+  validate-agents:
+    name: Validar native subagents
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar PyYAML
+        run: pip install pyyaml
+
+      - name: Rodar validate_agents.py (modo strict)
+        run: python scripts/validate_agents.py --strict
+
   validate-yaml:
     name: Validar arquivos YAML
     runs-on: ubuntu-latest

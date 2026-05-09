@@ -1,230 +1,80 @@
 ---
-description: Generate optimized prompts for AI image generation tools including Midjourney, DALL-E, Flux, Ideogram, and other platforms.
-argument-hint: "<description and tool, e.g., 'product photo for Flux' or 'illustration for Midjourney'>"
+description: Generate optimized AI image prompts for Midjourney, DALL-E, Flux, Ideogram, Leonardo or Stable Diffusion. Dispatches mos-ai-tools (single agent).
+argument-hint: "<description and tool, e.g., 'product photo for Flux' or 'illustration for Midjourney 9:16'>"
 ---
 
-# Generate AI Image Prompt
+# /gerar-imagem: Prompt para IA gerar imagem (Dispatch simples)
 
-> See [CONNECTORS.md](../CONNECTORS.md) for connected AI image generation services and integrations.
+Cria prompt otimizado para geração de imagem por IA, despachando o subagent especialista. Não produz prompt inline.
 
-Create optimized prompts for AI image generation that produce consistent, high-quality results across different tools.
+## Required inputs (ask if missing)
 
-## Trigger
+1. **Subject** (obrigatório): o que a imagem deve mostrar
+2. **Purpose** (opcional): social media, website, produto, marketing, arte
+3. **Tool** (opcional): Midjourney, DALL-E 3, Flux, Ideogram, Leonardo, Stable Diffusion (default: Midjourney pra arte/conceito, Flux pra fotorrealismo)
+4. **Style** (opcional): photorealistic, illustration, 3D, minimalist, cinematic, etc.
+5. **Aspect ratio** (opcional): 1:1, 16:9, 9:16, 4:3 ou custom
+6. **Mood** (opcional): profissional, lúdico, dramático, warm, minimal
 
-This command is invoked when the user says `/gerar-imagem` followed by a description and/or tool, or when they ask to create an image prompt, AI image, or visual content generation.
-
-## Inputs
-
-Gather the following information. If any required field is missing, ask the user before proceeding:
-
-1. **Subject** (required) — What the image should show
-2. **Purpose** (optional) — Social media, website, product, marketing, art
-3. **Tool** (optional) — Midjourney, DALL-E 3, Flux, Ideogram, Leonardo, or Stable Diffusion
-4. **Style** (optional) — Photorealistic, illustration, 3D, minimalist, cinematic
-5. **Aspect Ratio** (optional) — 1:1, 16:9, 9:16, 4:3, or custom
-6. **Mood/Atmosphere** (optional) — Professional, playful, dramatic, warm, minimal
-
-## Tool Capabilities
-
-### Tool Comparison
-
-| Tool | Best For | Strengths | Aspect Ratios |
-|------|----------|-----------|---------------|
-| **Midjourney** | Art, concepts, stylized | Aesthetic quality, consistency | 1:1, 16:9, 9:16, 4:3 |
-| **DALL-E 3** | Versatility, text in images | Text rendering, editing | 1:1, 16:9, 9:16 |
-| **Flux Pro** | Photorealism, products | Detail, realism | Custom |
-| **Ideogram** | Text in images, logos | Typography, branding | 1:1, 16:9, 9:16 |
-| **Leonardo** | Game art, characters | Consistency, models | Custom |
-| **Stable Diffusion** | Control, customization | ControlNet, LoRAs | Custom |
-
-### Style Strengths by Tool
-
-| Style | Best Tool | Second Choice |
-|-------|-----------|---------------|
-| Photorealistic | Flux Pro | DALL-E 3 |
-| Illustration | Midjourney | Leonardo |
-| 3D Render | Leonardo | Midjourney |
-| Text/Logo | Ideogram | DALL-E 3 |
-| Artistic/Abstract | Midjourney | Stable Diffusion |
-| Product Photos | Flux Pro | DALL-E 3 |
-
-## Prompt Architecture
-
-### Universal Prompt Structure
+## Dispatch (simples, single agent)
 
 ```
-[SUBJECT] + [ACTION/POSE] + [ENVIRONMENT] + [STYLE] + [LIGHTING] + [CAMERA] + [QUALITY]
+Agent(subagent_type: "mos-ai-tools", prompt: "Gere prompt otimizado para [tool] do subject: [subject]. Purpose: [purpose]. Style: [style]. Aspect ratio: [ar]. Mood: [mood]. Entregue: 1 prompt principal completo (com parâmetros tool-specific tipo --ar/--v/--s pra Midjourney quando aplicável), 3 variações (ângulo/estilo/mood diferentes), negative prompt quando aplicável, e 3-5 dicas tool-specific pra extrair melhor resultado. Estruture em markdown.")
 ```
 
-### Component Breakdown
+`mos-ai-tools` não tem memory project — passe todo o contexto no prompt.
 
-| Component | Purpose | Examples |
-|-----------|---------|----------|
-| **Subject** | Main focus | "A woman in her 30s", "A modern laptop" |
-| **Action/Pose** | What subject is doing | "Looking at camera", "floating in space" |
-| **Environment** | Setting/background | "In a minimalist office", "against white background" |
-| **Style** | Visual aesthetic | "Photorealistic", "watercolor illustration" |
-| **Lighting** | Light quality | "Soft natural light", "dramatic side lighting" |
-| **Camera** | Perspective/lens | "Shot on 85mm", "wide angle", "macro" |
-| **Quality** | Technical specs | "8K", "high detail", "sharp focus" |
+## Consolidação
 
-### Midjourney-Specific Parameters
+Após o agent retornar:
 
-| Parameter | Effect | Values |
-|-----------|--------|--------|
-| `--ar` | Aspect ratio | 1:1, 16:9, 9:16, 4:3, 3:2 |
-| `--v` | Version | 5, 5.1, 5.2, 6, 6.1 |
-| `--style` | Style preset | raw, cute, scenic |
-| `--stylize` or `--s` | Stylization | 0-1000 (default 100) |
-| `--chaos` or `--c` | Variation | 0-100 |
-| `--quality` or `--q` | Quality | 0.25, 0.5, 1, 2 |
-| `--no` | Negative prompt | --no text, watermark |
+```markdown
+## Prompt para [Tool]
 
-### DALL-E 3 Optimization
+Subject: [subject] | Purpose: [purpose] | Aspect ratio: [ar] | Style: [style]
 
-```
-Best practices:
-- Be specific and detailed
-- Describe composition explicitly
-- Mention text placement if needed
-- Specify style clearly
-- Use natural language (less technical)
-```
+### Prompt Principal
+[Prompt completo, com parâmetros se aplicável]
 
-### Flux Pro Optimization
+### Variações (3)
+**Variação A** — [ângulo/perspectiva diferente]
+[Prompt]
 
-```
-Best practices:
-- Focus on photorealistic descriptions
-- Include technical camera details
-- Specify lighting precisely
-- Use professional photography terms
-- Describe materials and textures
+**Variação B** — [estilo diferente]
+[Prompt]
+
+**Variação C** — [mood diferente]
+[Prompt]
+
+### Negative Prompt (se aplicável)
+[Lista de exclusões: blurry, watermark, text, etc.]
+
+### Dicas tool-specific
+- [Dica 1]
+- [Dica 2]
+- [Dica 3]
+
+### Iteração sugerida
+- Pra mais [X]: adicionar "[keyword]"
+- Pra menos [Y]: remover "[keyword]" ou jogar pro negative
+- Pra trocar estilo: substituir "[atual]" por "[alternativo]"
 ```
 
-## Style Keywords Library
+## Quality Gates (antes de entregar)
 
-### Photography Styles
+Aplicar gates globais do `skills/marketing-os/SKILL.md`:
+- Texto descritivo do prompt em PT-BR ou EN consistente (escolha um e mantenha)
+- Sem `—`, sem "brutal", sem CAPS gratuito no texto que envolve o prompt
+- Acentuação PT-BR correta nos títulos e descrições
 
-| Style | Keywords |
-|-------|----------|
-| Portrait | "portrait photography, shallow depth of field, 85mm lens, soft bokeh" |
-| Product | "commercial product photography, clean background, studio lighting" |
-| Editorial | "editorial photography, magazine style, high fashion" |
-| Documentary | "documentary style, candid, natural light, authentic" |
-| Lifestyle | "lifestyle photography, warm tones, natural environment" |
+## Follow-up
 
-### Artistic Styles
+Pergunte ao usuário se quer:
+1. Variações para outro mood/estilo
+2. Adaptar o mesmo subject para outra tool
+3. Série visual coerente (3-5 prompts com mesma identidade)
+4. Prompt para vídeo (Veo, Sora, Kling, Runway) com mesma cena
 
-| Style | Keywords |
-|-------|----------|
-| Minimalist | "minimalist, clean lines, negative space, simple composition" |
-| Cinematic | "cinematic, dramatic lighting, film grain, anamorphic" |
-| Surreal | "surrealism, dreamlike, impossible geometry, magical realism" |
-| Vintage | "vintage aesthetic, retro, film photography, nostalgic" |
-| Modern | "contemporary, sleek, sophisticated, clean design" |
+## Por que dispatch (mesmo sendo simples)
 
-### Lighting Keywords
-
-| Type | Keywords |
-|------|----------|
-| Natural | "golden hour, soft daylight, overcast, dappled light" |
-| Studio | "softbox lighting, rim light, key light, three-point lighting" |
-| Dramatic | "chiaroscuro, high contrast, moody, low key" |
-| Bright | "high key, bright, airy, luminous, well-lit" |
-| Neon | "neon glow, cyberpunk lighting, colored light, RGB" |
-
-## Output Structure
-
-Deliver the prompt in this format:
-
-```
-## AI IMAGE PROMPT
-
-🎨 TOOL: [Midjourney / DALL-E 3 / Flux / Ideogram]
-📐 ASPECT RATIO: [1:1 / 16:9 / 9:16 / custom]
-🎯 PURPOSE: [Social media / Website / Product / Marketing]
-✨ STYLE: [Photorealistic / Illustration / 3D / etc.]
-
----
-
-### PRIMARY PROMPT
-
-**Full Prompt:**
-[Complete, optimized prompt for the selected tool]
-
-**With Parameters (if applicable):**
-[Prompt with tool-specific parameters like --ar, --v, --s]
-
----
-
-### PROMPT BREAKDOWN
-
-| Component | Content |
-|-----------|---------|
-| Subject | [Main subject description] |
-| Action/Pose | [What subject is doing] |
-| Environment | [Setting/background] |
-| Style | [Visual aesthetic] |
-| Lighting | [Light description] |
-| Camera | [Perspective/technical] |
-| Quality | [Quality modifiers] |
-
----
-
-### VARIATIONS
-
-**Variation A (Different angle/perspective):**
-[Alternative prompt focusing on different composition]
-
-**Variation B (Different style):**
-[Alternative prompt with different aesthetic]
-
-**Variation C (Different mood):**
-[Alternative prompt with different atmosphere]
-
----
-
-### NEGATIVE PROMPT (if applicable)
-
-**Exclude:**
-[Elements to avoid: blurry, low quality, distorted, watermark, text, etc.]
-
----
-
-### TOOL-SPECIFIC TIPS
-
-**For [Selected Tool]:**
-- [Tip 1 for best results]
-- [Tip 2 for best results]
-- [Tip 3 for best results]
-
----
-
-### ITERATION SUGGESTIONS
-
-**If results need adjustment:**
-- To make more [X]: Add "[keyword]"
-- To reduce [Y]: Remove "[keyword]" or add to negative
-- To change style: Replace "[current]" with "[alternative]"
-
----
-
-### RECOMMENDED SETTINGS
-
-| Setting | Value | Reason |
-|---------|-------|--------|
-| [Parameter 1] | [Value] | [Why this works] |
-| [Parameter 2] | [Value] | [Why this works] |
-| [Parameter 3] | [Value] | [Why this works] |
-```
-
-## Final Ask
-
-After delivering the prompt, ask:
-
-"Would you like me to:
-1. Create variations for different styles or moods?
-2. Optimize this prompt for a different AI tool?
-3. Generate prompts for a complete visual series?
-4. Add specific elements or adjust the composition?"
+Centraliza a lógica de prompt engineering no `mos-ai-tools` (que conhece parâmetros, swipe files de estilos, e padrões por tool). Evita que o orquestrador chute parâmetros desatualizados ou misture sintaxe entre tools.

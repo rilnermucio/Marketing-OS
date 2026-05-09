@@ -1,215 +1,115 @@
 ---
-description: Analyze YouTube or TikTok videos to extract hooks, CTAs, retention strategies, content structure, and actionable insights.
-argument-hint: "<video URL or description, e.g., 'https://youtube.com/watch?v=...' or 'analyze MrBeast's latest video strategy'>"
+description: Reverse-engineer videos (YouTube long, Shorts, Reels, TikTok, VSL) extracting hooks, CTAs, retention, structure. Dispatches mos-video, with optional mos-research handoff for unknown creators.
+argument-hint: "<video URL or transcript, e.g., 'https://youtube.com/watch?v=...' or 'analyze MrBeast latest video'>"
 ---
 
-# Analyze Video
+# /analisar-video: Análise de Vídeo (Dispatch sequencial opcional)
 
-> See [CONNECTORS.md](../CONNECTORS.md) for connected services that can capture screenshots and access video data.
+Analisa vídeo extraindo hooks, estrutura, retention, CTAs, narrativa, técnica. Despacha `mos-video` (com `mos-research` antes só quando o creator é desconhecido e o briefing pede análise profunda).
 
-Analyze any video (YouTube, TikTok, Instagram Reels) to reverse-engineer its hooks, structure, retention strategies, CTAs, and engagement techniques into actionable insights.
+## Required inputs (ask if missing)
 
-## Trigger
+1. **Video source** (obrigatório): URL, transcript ou descrição do vídeo
+2. **Analysis focus** (opcional): hooks, retention, CTAs, storytelling, editing, all (default: all)
+3. **Content type** (opcional): YouTube long-form, Shorts, Reels, TikTok, VSL (autodetectar pela URL se possível)
+4. **Purpose** (opcional): aprender, replicar estilo, melhorar próprio conteúdo, análise competitiva
+5. **Your niche** (opcional): pra contextualizar insights e adaptation blueprint
+6. **Creator** (opcional): nome do creator/canal, se conhecido
 
-This command is invoked when the user says `/analisar-video` followed by a video URL or description, or when they ask to analyze, break down, or reverse-engineer a video's strategy.
-
-## Inputs
-
-Gather the following information. If any required field is missing, ask the user before proceeding:
-
-1. **Video Source** (required) — URL, transcript, or description of the video to analyze
-2. **Analysis Focus** (optional) — Hooks, retention, CTAs, storytelling, editing, all
-3. **Content Type** (optional) — YouTube long-form, Shorts, Reels, TikTok, VSL
-4. **Purpose** (optional) — Learn from it, replicate style, improve own content, competitive analysis
-5. **Your Niche** (optional) — To contextualize insights for your specific market
-
-## Analysis Framework
-
-### 1. Hook Analysis (First 3-30 seconds)
-
-Break down the opening into:
-
-| Element | Analysis |
-|---------|----------|
-| **Hook type** | Curiosity, controversy, promise, story, question, shock |
-| **First words** | Exact opening line and why it works |
-| **Visual hook** | What appears on screen in first 3 seconds |
-| **Pattern interrupt** | What stops the scroll |
-| **Tension created** | What open loop keeps viewers watching |
-
-**Hook effectiveness score:** Rate 1-10 based on scroll-stopping power
-
-### 2. Content Structure Map
-
-Map the complete video structure with timestamps:
+## Dispatch Decision Tree
 
 ```
-[00:00-00:XX] HOOK — [Type and description]
-[00:XX-XX:XX] SETUP — [Context and framing]
-[XX:XX-XX:XX] CONTENT BLOCK 1 — [Topic and technique]
-[XX:XX-XX:XX] RETENTION BUMP — [Re-engagement technique]
-[XX:XX-XX:XX] CONTENT BLOCK 2 — [Topic and technique]
-[XX:XX-XX:XX] CLIMAX — [Peak value moment]
-[XX:XX-XX:XX] CTA — [Call to action]
-[XX:XX-XX:XX] OUTRO — [Closing strategy]
+Briefing recebido
+  ├── Default (creator conhecido OU análise rápida)
+  │     └── Dispatch SIMPLES: mos-video
+  │
+  └── Análise profunda + creator desconhecido pelo orquestrador
+        └── Dispatch SEQUENCIAL: mos-research → mos-video
+            (research dá contexto de canal/audiência/posicionamento;
+             video usa esse contexto pra interpretar escolhas táticas)
 ```
 
-### 3. Retention Strategy Analysis
-
-| Technique | Timestamp | Effect |
-|-----------|-----------|--------|
-| Open loops | [Where used] | Keeps viewer watching to close the loop |
-| Pattern interrupts | [Where used] | Resets attention when focus drops |
-| Curiosity gaps | [Where used] | Creates "I need to know" moments |
-| Visual changes | [Where used] | Scene cuts, B-roll, graphics |
-| Pacing changes | [Where used] | Speed up/slow down energy |
-| Preview/teases | [Where used] | Shows what's coming next |
-| Emotional shifts | [Where used] | Moves between emotions |
-
-**Retention curve estimate:** Predict where audience drops off and why
-
-### 4. CTA Analysis
-
-| CTA | Timestamp | Type | Placement |
-|-----|-----------|------|-----------|
-| [CTA 1] | [Time] | Subscribe/Follow | [In content or outro] |
-| [CTA 2] | [Time] | Like/Save | [Contextual or explicit] |
-| [CTA 3] | [Time] | Comment | [Question-driven or challenge] |
-| [CTA 4] | [Time] | Link/Product | [Description, pinned, spoken] |
-
-**CTA integration quality:** Seamless vs. disruptive (1-10 scale)
-
-### 5. Storytelling/Narrative Analysis
-
-| Element | Description |
-|---------|-------------|
-| **Narrative arc** | Hero's journey, problem-solution, before-after, list, tutorial |
-| **Emotional journey** | What emotions are triggered and when |
-| **Characters** | Who appears and their role in the narrative |
-| **Conflict/tension** | What creates stakes and interest |
-| **Resolution** | How the story/content resolves |
-| **Transformation** | Before/after state of the viewer |
-
-### 6. Technical/Editing Analysis
-
-| Aspect | Observation |
-|--------|-------------|
-| **Cuts per minute** | Editing pace and rhythm |
-| **B-roll usage** | Supporting visuals |
-| **Text overlays** | On-screen text, captions, graphics |
-| **Music/sound** | Audio layers and transitions |
-| **Transitions** | Cut types (jump cuts, transitions, match cuts) |
-| **Thumbnail** | Click-worthiness analysis |
-| **Title** | SEO and curiosity optimization |
-
-### 7. Engagement Triggers
-
-Identify specific techniques used to drive engagement:
-
-- **Comment bait:** Questions, polls, challenges
-- **Share triggers:** Relatable moments, tag-a-friend, controversial takes
-- **Save triggers:** Actionable tips, frameworks, step-by-step
-- **Follow triggers:** Series teasers, consistent value promise
-
-## Output Structure
-
-Deliver the analysis in this format:
+### Dispatch simples (caso comum)
 
 ```
-## VIDEO ANALYSIS
-
-🎬 VIDEO: [Title or description]
-📱 PLATFORM: [YouTube / TikTok / Instagram]
-⏱️ DURATION: [Length]
-👤 CREATOR: [Creator name]
-🎯 PURPOSE: [Video's primary goal]
-
----
-
-### EXECUTIVE SUMMARY
-
-[2-3 sentences summarizing the video's strategy and why it works or doesn't]
-
-**Overall score:** [X]/10
-**Best element:** [What stands out most]
-**Weakest element:** [What could be improved]
-
----
-
-### HOOK BREAKDOWN
-
-**Opening line:** "[Exact first words]"
-**Hook type:** [Classification]
-**Why it works:** [Analysis]
-**Hook score:** [X]/10
-
-**Alternative hooks (if you were making this video):**
-1. "[Improved hook option A]"
-2. "[Improved hook option B]"
-3. "[Improved hook option C]"
-
----
-
-### STRUCTURE MAP
-
-[Complete timestamped structure with annotations]
-
----
-
-### RETENTION TECHNIQUES
-
-[Table of all retention techniques with timestamps]
-
-**Estimated retention curve:**
-[ASCII chart or description of where viewers likely drop]
-
----
-
-### CTA CATALOG
-
-[All CTAs with timestamps, types, and effectiveness]
-
----
-
-### STORYTELLING ANALYSIS
-
-[Narrative arc, emotional journey, transformation]
-
----
-
-### TECHNICAL ANALYSIS
-
-[Editing, visuals, audio, title, thumbnail]
-
----
-
-### KEY TAKEAWAYS
-
-📌 **Top 5 techniques to replicate:**
-1. [Technique + how to apply]
-2. [Technique + how to apply]
-3. [Technique + how to apply]
-4. [Technique + how to apply]
-5. [Technique + how to apply]
-
----
-
-### ADAPTATION BLUEPRINT
-
-**How to apply this to your content:**
-
-[Specific recommendations for the user's niche and format]
-
-**Script template inspired by this analysis:**
-[A reusable template based on the video's structure]
+Agent(subagent_type: "mos-video", prompt: "Análise reverse-engineered do vídeo: [URL ou transcript]. Plataforma: [content type]. Focus: [focus]. Purpose: [purpose]. Nicho do user: [niche]. Entregue: hook breakdown (tipo, primeiras palavras, score), structure map com timestamps, retention techniques (open loops, pattern interrupts, curiosity gaps), CTA catalog, storytelling analysis (arco, emoção, transformação), technical analysis (cuts, B-roll, thumbnail, título), top 5 técnicas replicáveis e adaptation blueprint pro nicho do user. Score geral 1-10.")
 ```
 
-## Final Ask
+### Dispatch sequencial (creator desconhecido + análise profunda)
 
-After delivering the analysis, ask:
+```
+Passo 1:
+Agent(subagent_type: "mos-research", prompt: "Contexto rápido sobre o creator/canal [nome/URL]: posicionamento, audiência, ticket médio se vendedor, conteúdo recorrente, conquistas verificáveis. WebSearch + análise pública. Considere memory existente do cliente neste projeto. Retorne brief compacto pra contextualizar análise tática do vídeo.")
+  → Aguarde research brief
 
-"Would you like me to:
-1. Create a script using this video's structure for your topic?
-2. Generate hook variations inspired by this analysis?
-3. Analyze another video from the same creator for pattern detection?
-4. Create a full content strategy based on these techniques?"
+Passo 2:
+Agent(subagent_type: "mos-video", prompt: "Análise reverse-engineered do vídeo: [URL]. Use este contexto do creator: [colar research brief]. [resto igual ao dispatch simples]")
+```
+
+`mos-research` tem memory project; `mos-video` não — passe todo o contexto no prompt do segundo.
+
+## Consolidação
+
+Após o(s) agent(s) retornar(em):
+
+```markdown
+## Análise: [Título do vídeo ou descrição]
+
+Plataforma: [YouTube / TikTok / Reels / Shorts / VSL] | Duração: [tempo]
+Creator: [nome] | Score geral: [X/10]
+Best element: [destaque] | Weakest: [ponto fraco]
+
+### Resumo Executivo (2-3 frases)
+[Por que funciona ou não funciona]
+
+### Hook Breakdown
+- Primeiras palavras: "[exatas]"
+- Tipo: [curiosidade | controvérsia | promessa | história | choque]
+- Por que funciona: [análise]
+- Score: [X/10]
+- Hooks alternativos:
+  1. "[opção A]"
+  2. "[opção B]"
+  3. "[opção C]"
+
+### Structure Map (timestamps)
+[Mapa completo do vídeo: hook → setup → blocos → climax → CTA → outro]
+
+### Retention Techniques
+[Tabela com técnica | timestamp | efeito]
+Curva de retenção estimada: [onde caem e por quê]
+
+### CTA Catalog
+[Tabela com CTA | timestamp | tipo | placement | quality]
+
+### Storytelling
+[Arco narrativo, jornada emocional, transformação prometida vs entregue]
+
+### Technical Analysis
+[Cuts/min, B-roll, overlays, áudio, transições, thumbnail, título]
+
+### Top 5 Técnicas Replicáveis
+1. [Técnica + como aplicar no nicho do user]
+...
+
+### Adaptation Blueprint (pro nicho [niche])
+[Recomendações específicas + template de roteiro inspirado]
+
+### Research Context (se Fase research foi rodada)
+[Resumo do creator/canal]
+```
+
+## Quality Gates (antes de entregar)
+
+Aplicar gates globais do `skills/marketing-os/SKILL.md`:
+- Sem `—`, sem "brutal", sem CAPS gratuito, sem aspas em falas (escrever direto)
+- Acentuação PT-BR correta
+- Fact-check (CONFIRMADO / PROVÁVEL) em qualquer claim sobre métricas, conquistas ou estatísticas do creator
+
+## Follow-up
+
+Pergunte se quer:
+1. Roteiro novo usando essa estrutura pro tema do user
+2. Variações de hook inspiradas na análise
+3. Análise de outro vídeo do mesmo creator (detecção de padrão)
+4. Estratégia completa de conteúdo baseada nas técnicas
