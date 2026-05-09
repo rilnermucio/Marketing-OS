@@ -28,10 +28,11 @@ def _slug_from_landing(url: str) -> str:
 
 
 def _normalize_landing(url: str) -> str:
+    """Strip trailing slash for root URLs without query/fragment."""
     parsed = urlparse(url)
-    if parsed.path == "/" and not parsed.query and not parsed.fragment:
+    if parsed.path in ("", "/") and not parsed.query and not parsed.fragment:
         return f"{parsed.scheme}://{parsed.netloc}"
-    return url.rstrip("/") if not parsed.path or parsed.path == "/" else url
+    return url
 
 
 def detect(input_str: str) -> dict:

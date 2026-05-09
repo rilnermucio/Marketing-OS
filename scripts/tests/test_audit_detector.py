@@ -2,9 +2,12 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pytest
 
@@ -34,4 +37,9 @@ class TestLandingDetection:
 
     def test_url_with_subdomain(self):
         result = detect("https://blog.stripe.com")
+        assert result["slug"] == "stripe"
+
+    def test_url_with_query_preserves_query(self):
+        result = detect("https://stripe.com/?ref=1")
+        assert result["normalized"] == "https://stripe.com/?ref=1"
         assert result["slug"] == "stripe"
