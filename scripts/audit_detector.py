@@ -14,6 +14,7 @@ from urllib.parse import urlparse
 
 
 _URL_RE = re.compile(r"^https?://", re.IGNORECASE)
+_IG_HANDLE_RE = re.compile(r"^@?[a-z0-9_.]+$", re.IGNORECASE)
 
 
 def _slug_from_landing(url: str) -> str:
@@ -53,6 +54,14 @@ def detect(input_str: str) -> dict:
             "type": "landing",
             "normalized": _normalize_landing(s),
             "slug": _slug_from_landing(s),
+        }
+
+    if _IG_HANDLE_RE.match(s):
+        handle = s.lstrip("@").lower()
+        return {
+            "type": "instagram",
+            "normalized": handle,
+            "slug": handle,
         }
 
     raise ValueError(f"Não consegui interpretar: {input_str!r}")

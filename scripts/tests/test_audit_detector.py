@@ -43,3 +43,31 @@ class TestLandingDetection:
         result = detect("https://stripe.com/?ref=1")
         assert result["normalized"] == "https://stripe.com/?ref=1"
         assert result["slug"] == "stripe"
+
+
+class TestInstagramDetection:
+    def test_at_prefix(self):
+        result = detect("@ericorocha")
+        assert result["type"] == "instagram"
+        assert result["normalized"] == "ericorocha"
+        assert result["slug"] == "ericorocha"
+
+    def test_no_prefix_letters_only(self):
+        result = detect("ericorocha")
+        assert result["type"] == "instagram"
+        assert result["normalized"] == "ericorocha"
+
+    def test_with_dot(self):
+        result = detect("@joao.silva")
+        assert result["type"] == "instagram"
+        assert result["normalized"] == "joao.silva"
+
+    def test_with_underscore(self):
+        result = detect("@user_name_123")
+        assert result["type"] == "instagram"
+        assert result["normalized"] == "user_name_123"
+
+    def test_uppercase_lowercased(self):
+        result = detect("@EricoRocha")
+        assert result["normalized"] == "ericorocha"
+        assert result["slug"] == "ericorocha"
