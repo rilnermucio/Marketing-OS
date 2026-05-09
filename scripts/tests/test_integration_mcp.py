@@ -265,6 +265,10 @@ class TestCoberturaDeSscripts:
         "audit_scoring.py",     # invocado direto por /auditoria, não pelo CLI mos.py
         "audit_config.py",      # helper interno do pdf_generator (sem entry em mos.py)
         "pdf_generator.py",     # invocado direto por /auditoria, não pelo CLI mos.py
+        "audit_glossary.py",    # helper interno do /auditoria-pro (sem CLI próprio)
+        "audit_radar_chart.py", # invocado direto por /auditoria-pro, não pelo CLI mos.py
+        "audit_screenshot.py",  # invocado direto por /auditoria-pro, não pelo CLI mos.py
+        "audit_roadmap_generator.py",  # invocado direto por /auditoria-pro, não pelo CLI mos.py
     }
 
     def test_scripts_relevantes_estao_no_command_map(self):
