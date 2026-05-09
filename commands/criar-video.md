@@ -25,7 +25,7 @@ VSLs precisam de copy de venda + storytelling + ciência de retenção em vídeo
 ```
 - Agent(subagent_type: "mos-storytelling", prompt: "Arco narrativo da VSL para [produto]: hook → problema → vilão → solução → prova → oferta → urgência. Aplicar hero's journey adaptado pra venda.")
 
-- Agent(subagent_type: "mos-copy", prompt: "Estrutura de copy de venda no formato VSL: headline, big idea, mecanismo único, anti-avatar, stack value, garantia, FAQ falado. Audiência: [audiência], ticket: [ticket]. Considerar memory de cliente.")
+- Agent(subagent_type: "mos-copy", prompt: "Estrutura de copy de venda no formato VSL: headline, big idea, mecanismo único, anti-avatar, stack value, garantia, FAQ falado. Audiência: [audiência], ticket: [ticket]. Considere memory existente do cliente neste projeto.")
 
 - Agent(subagent_type: "mos-video", prompt: "Ciência de retenção em VSL de [duração]: timestamps de queda esperados, transições, B-roll, ritmo, padrões de re-engajamento. Adaptar pro nicho [nicho].")
 ```
@@ -44,7 +44,7 @@ Se precisar de validação de tópico/concorrência antes:
 
 ```
 Paralelo:
-- Agent(subagent_type: "mos-research", prompt: "Mapear vídeos top-performing sobre [tema] no YouTube BR, hooks usados, durações comuns, ângulos diferenciados.")
+- Agent(subagent_type: "mos-research", prompt: "Mapear vídeos top-performing sobre [tema] no YouTube BR, hooks usados, durações comuns, ângulos diferenciados. Considere memory existente do cliente neste projeto.")
 - Agent(subagent_type: "mos-video", prompt: "[após receber research] Roteiro YouTube...")
 ```
 
@@ -62,9 +62,12 @@ Para Reels com clone de voz:
 - Agent(subagent_type: "mos-video", prompt: "Roteiro Reels no estilo de [creator/copywriter de assets/clones/], aplicar voice profile correspondente.")
 ```
 
-## Quality Gates
+## Quality Gates (antes de entregar)
 
-- Gates globais (sem `—`, sem "brutal", PT-BR correto, sem aspas em falas/roteiros)
+Aplicar gates globais do `skills/marketing-os/SKILL.md`:
+- Sem `—`, sem "brutal", sem CAPS gratuito
+- Sem aspas em falas/roteiros (escrever direto)
+- Acentuação PT-BR correta
 - Compliance regulatório por nicho
 - Para VSL: gates de substância (promessas com backup, sem linguagem absoluta, garantia clara)
 

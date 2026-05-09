@@ -17,15 +17,15 @@ Engenharia reversa de estratégia de concorrente/expert conforme **workflow #10*
 ## Dispatch — Fase 1 (paralelo, single message)
 
 ```
-- Agent(subagent_type: "mos-research", prompt: "Mapeamento completo de [alvo]: produtos vendidos + ticket, posicionamento (Schwartz nível, big idea), fontes de tráfego ativas, conteúdo orgânico (frequência/formatos/temas), ads ativos (Meta/Google ad library), depoimentos públicos, autoridade construída. WebSearch + análise de perfis públicos.")
+- Agent(subagent_type: "mos-research", prompt: "Mapeamento completo de [alvo]: produtos vendidos + ticket, posicionamento (Schwartz nível, big idea), fontes de tráfego ativas, conteúdo orgânico (frequência/formatos/temas), ads ativos (Meta/Google ad library), depoimentos públicos, autoridade construída. WebSearch + análise de perfis públicos. Considere memory existente do cliente neste projeto.")
 
-- Agent(subagent_type: "mos-brand", prompt: "Extrair positioning, arquétipo, voz/tom de [alvo] a partir de samples reais (posts, lives, ads). Gerar brand spec replicável: arquétipo principal, sub-arquétipos, voz, tom, valores comunicados, vocabulário recorrente. Comparar com [sua marca] e identificar gaps/oportunidades.")
+- Agent(subagent_type: "mos-brand", prompt: "Extrair positioning, arquétipo, voz/tom de [alvo] a partir de samples reais (posts, lives, ads). Gerar brand spec replicável: arquétipo principal, sub-arquétipos, voz, tom, valores comunicados, vocabulário recorrente. Comparar com [sua marca] e identificar gaps/oportunidades. Considere memory existente do cliente neste projeto.")
 ```
 
 ## Fase 2 (sequencial, depende dos outputs da Fase 1)
 
 ```
-- Agent(subagent_type: "mos-copy", prompt: "Voice clone de [alvo]: extrair padrões de copy a partir do mapeamento da Fase 1: estruturas de headline, padrões de CTA, vocabulário distintivo, ritmo de frase, gatilhos emocionais usados, framework de prova social. SE [alvo] é copywriter conhecido (Halbert, Hopkins, Sugarman, etc.), referenciar perfil em assets/clones/. Gerar 3-5 samples adaptados pra [sua marca/avatar/produto].")
+- Agent(subagent_type: "mos-copy", prompt: "Voice clone de [alvo]: extrair padrões de copy a partir do mapeamento da Fase 1: estruturas de headline, padrões de CTA, vocabulário distintivo, ritmo de frase, gatilhos emocionais usados, framework de prova social. SE [alvo] é copywriter conhecido (Halbert, Hopkins, Sugarman, etc.), referenciar perfil em assets/clones/. Gerar 3-5 samples adaptados pra [sua marca/avatar/produto]. Considere memory existente do cliente neste projeto.")
 ```
 
 ## Fase 3: Brief Consolidado de Estratégia Clonada
@@ -74,11 +74,14 @@ Saída final:
 - [item]
 ```
 
-## Quality Gates
+## Quality Gates (antes de entregar)
 
+Aplicar gates globais do `skills/marketing-os/SKILL.md`:
+- Sem `—`, sem "brutal", sem CAPS gratuito
+- Acentuação PT-BR correta
 - Não usar nada que viole IP do concorrente (ideias e frameworks são ok; copy literal não)
 - Compliance regulatório por nicho
-- Verificar fatos citados (CONFIRMADO/PROVÁVEL) via WebSearch
+- Verificar fatos citados via WebSearch (CONFIRMADO/PROVÁVEL)
 - Adaptar pra avatar/produto da marca atual, não copiar cego
 
 ## Por que essa orquestração

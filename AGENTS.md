@@ -24,6 +24,10 @@ python -m pytest scripts/tests/test_subagents.py::test_subagent_files_exist -v
 python scripts/validate_agents.py
 python scripts/validate_agents.py --strict   # falha em warnings também
 
+# Bootstrap memory opt-in (cria .claude/agent-memory/mos-*/MEMORY.md no projeto atual)
+python3 scripts/init_agent_memory.py            # todos os agents com memory: project
+python3 scripts/init_agent_memory.py mos-copy   # apenas um agent
+
 # CLI unificado das ferramentas (29 scripts)
 python scripts/mos.py seo analyze artigo.md "keyword"
 python scripts/mos.py headlines score "Sua headline"
@@ -35,10 +39,12 @@ Não há `npm run lint` / `npm run build` — o repositório é Python + Markdow
 
 A arquitetura crítica de entender antes de mexer em qualquer agent:
 
-- **Tier 1** — `agents/mos-*.md` (18 arquivos, ~250 linhas cada). System prompts enxutos com YAML frontmatter (`name`, `description`, `tools`, `model`, `color`, `hooks`). Carregados automaticamente pelo Claude Code quando a sessão abre. Contêm dispatch protocol, output schema e quality gates.
-- **Tier 2** — `subagents/*-agent.md` (18 arquivos, ~3500 linhas cada). Knowledge base profunda: frameworks, cases, tabelas, exemplos. Lida sob demanda via `Read` pelos agents tier-1 quando precisam de profundidade.
+- **Tier 1** — `agents/mos-*.md` (18 arquivos, ~250 linhas cada). System prompts enxutos com YAML frontmatter (`name`, `description`, `tools`, `model`, `color`, `hooks`, opcional `memory`). Carregados automaticamente pelo Claude Code quando a sessão abre. Contêm dispatch protocol, output schema e quality gates.
+- **Tier 2** — `subagents/*-agent.md` (18 arquivos, profundidade variável de ~2 mil a ~5 mil linhas). Knowledge base profunda: frameworks, cases, tabelas, exemplos. Lida sob demanda via `Read` pelos agents tier-1 quando precisam de profundidade. Os mais densos hoje: `copy-agent.md` (5316 linhas, inclui PARTE II-C Big Idea + Value Stack) e `funnel-agent.md` (3496 linhas, inclui Webinar Funnel 3.4, Página de Aplicação BOFU 3.5 e Anti-Avatar 4.6).
 
 Isso mantém contextos leves, carrega profundidade só quando precisa, e permite evoluir knowledge sem mexer no dispatch.
+
+9 dos 18 agents declaram `memory: project` no frontmatter (`mos-ads`, `mos-brand`, `mos-copy`, `mos-design`, `mos-funnel`, `mos-infoproduct`, `mos-launch`, `mos-research`, `mos-social`). Ver "Memory opt-in (per-projeto)" abaixo.
 
 A skill em `skills/marketing-os/SKILL.md` é um **orquestrador** — ela mapeia briefings de usuário para `Agent(subagent_type: "mos-*")` calls. Os symlinks dentro de `skills/marketing-os/` (`assets`, `references`, `scripts`, `subagents`, `workflows`) apontam para os diretórios da raiz.
 
@@ -55,6 +61,8 @@ Para qualquer pedido de produção de marketing (copy, SEO, post, anúncio, víd
 | Pergunta sobre o próprio sistema | Inline |
 
 Mapeamento completo briefing → agent em `skills/marketing-os/SKILL.md` (seção "Mapa de Dispatch").
+
+Hoje 24 dos 25 slash commands em `commands/` dispatcham subagents (o único utility puro é `/publicar-notion`). O teste `scripts/tests/test_commands_dispatch.py` (148 cases) trava regressão de cobertura: se você adicionar um command novo de produção, ele precisa dispatchar ou o teste falha.
 
 ## Quality Gates Globais (aplicar SEMPRE antes de entregar)
 
@@ -91,6 +99,16 @@ Hook de quality gate: `scripts/hooks/quality_gate_hook.py` é invocado via `PreT
 
 `/criar-meu-clone` é o caso especial: usa amostras locais do usuário em `workspace/` (não copywriters externos).
 
+## Memory opt-in (per-projeto)
+
+Agents com `memory: project` no frontmatter persistem aprendizado por projeto em `.claude/agent-memory/mos-*/MEMORY.md` (path canônico, padronizado na v6.5.0). O bootstrap é explícito: o usuário roda `python3 scripts/init_agent_memory.py` no projeto pra criar os arquivos. Sem o bootstrap, a instrução do agent fica condicional (só lê se o diretório existir), evitando ruído em projetos novos.
+
+Regras pra mexer:
+
+1. Pra adicionar memory a um agent novo: declarar `memory: project` no frontmatter e referenciar `.claude/agent-memory/<nome-do-agent>/MEMORY.md` em modo condicional no system prompt.
+2. Não escrever no diretório de memory dentro do plugin install dir. É sempre relativo ao CWD do projeto do usuário.
+3. `init_agent_memory.py` é idempotente: roda quantas vezes quiser, não sobrescreve conteúdo existente.
+
 ## Plugin distribution gotchas (aprendidos no debug de v6.1.0–v6.1.6)
 
 Antes de mexer em `.claude-plugin/plugin.json` ou `.claude-plugin/marketplace.json`, leia. Cada item abaixo quebrou install via marketplace numa versão específica e exigiu um patch.
@@ -116,6 +134,8 @@ Antes de mexer em `.claude-plugin/plugin.json` ou `.claude-plugin/marketplace.js
 4. Update `CHANGELOG.md`
 5. Commit + tag `vX.Y.Z` + push
 6. **Teste real de install:** rode `/plugin install marketing-os@mos-marketplace` num projeto novo. `claude plugin validate` é necessário mas não suficiente.
+
+CI tem job `validate-agents` que roda `python scripts/validate_agents.py --strict` em todo PR/push e bloqueia merge em frontmatter inválido, name collision ou knowledge ref quebrado. Pega regressão antes de chegar em release.
 
 **Quando o install falha sem mensagem clara:**
 

@@ -21,11 +21,11 @@ Cria página de aplicação / landing page / página de vendas conforme **workfl
 ## Dispatch — Fase 1 (paralelo, single message)
 
 ```
-- Agent(subagent_type: "mos-funnel", prompt: "Estruturar página BOFU para [produto/avatar/ticket]: CTA placement, escassez, anti-avatar, FAQ, prova social, stack value, hierarquia de seções. Tipo: [aplicação/vendas/captura].")
+- Agent(subagent_type: "mos-funnel", prompt: "Estruturar página BOFU para [produto/avatar/ticket]: CTA placement, escassez, anti-avatar, FAQ, prova social, stack value, hierarquia de seções. Tipo: [aplicação/vendas/captura]. Considere memory existente do cliente neste projeto.")
 
-- Agent(subagent_type: "mos-copy", prompt: "[Se copy fornecida: revisar/melhorar: colar conteúdo do PDF]. [Senão: gerar copy do zero pra produto X, avatar Y]. Aplicar quality gates globais. Sugerir variações de headline/CTA. Considerar memory existente do cliente em .claude/agent-memory/marketing-os-mos-copy/ se houver.")
+- Agent(subagent_type: "mos-copy", prompt: "[Se copy fornecida: revisar/melhorar: colar conteúdo do PDF]. [Senão: gerar copy do zero pra produto X, avatar Y]. Considere memory existente do cliente neste projeto. Aplicar quality gates globais. Sugerir variações de headline/CTA.")
 
-- Agent(subagent_type: "mos-design", prompt: "Direção visual para página BOFU em [nicho]: paleta (premium/médica/tech/etc.), tipografia, hierarquia visual, mood, exemplos de referência. Ticket: [low/mid/high]. Tom: profissional/acolhedor/etc.")
+- Agent(subagent_type: "mos-design", prompt: "Direção visual para página BOFU em [nicho]: paleta (premium/médica/tech/etc.), tipografia, hierarquia visual, mood, exemplos de referência. Ticket: [low/mid/high]. Tom: profissional/acolhedor/etc. Considere memory existente do cliente neste projeto.")
 ```
 
 ## Fase 2 (sequencial, depende dos outputs da Fase 1)
@@ -51,7 +51,8 @@ Consolidar os 3 outputs num **brief único**:
 
 ## Fase 3: Quality Gates + Compliance
 
-- Gates globais: sem `—`, sem "brutal", PT-BR correto, sem placeholders publicados
+Aplicar gates globais do `skills/marketing-os/SKILL.md`:
+- Sem `—`, sem "brutal", PT-BR correto, sem placeholders publicados
 - Gates de substância: promessas com backup, garantia clara, sem linguagem absoluta
 - Compliance regulatório (auto-aplicado por nicho):
   - Saúde: CRM visível + "resultados variam" + sem "cura"

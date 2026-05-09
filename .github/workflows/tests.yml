@@ -38,7 +38,7 @@ jobs:
             --cov=scripts \
             --cov-report=term-missing \
             --cov-report=xml \
-            --cov-fail-under=50
+            --cov-fail-under=70
 
       - name: Upload relatório de cobertura
         uses: codecov/codecov-action@v4

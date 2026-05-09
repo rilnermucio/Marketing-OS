@@ -22,11 +22,11 @@ Cria carrossel orquestrando 3 subagents em paralelo conforme **workflow #8** doc
 Em **um único message**, invoque os 3 agents simultaneamente:
 
 ```
-- Agent(subagent_type: "mos-social", prompt: "Estrutura de carrossel pra [plataforma], tipo [tipo], [N] slides: hook na capa, padrão de retenção entre slides, ritmo de revelação de informação, CTA final. Tópico: [tópico]. Audiência: [audiência].")
+- Agent(subagent_type: "mos-social", prompt: "Estrutura de carrossel pra [plataforma], tipo [tipo], [N] slides: hook na capa, padrão de retenção entre slides, ritmo de revelação de informação, CTA final. Tópico: [tópico]. Audiência: [audiência]. Considere memory existente do cliente neste projeto.")
 
-- Agent(subagent_type: "mos-copy", prompt: "Texto de cada um dos [N] slides para carrossel sobre [tópico]: hook na capa, body com peso/leveza alternada, CTA específico no slide final. Aplicar quality gates globais (sem travessão, sem 'brutal', PT-BR correto). Audiência: [audiência].")
+- Agent(subagent_type: "mos-copy", prompt: "Texto de cada um dos [N] slides para carrossel sobre [tópico]: hook na capa, body com peso/leveza alternada, CTA específico no slide final. Audiência: [audiência]. Considere memory existente do cliente neste projeto. Aplicar quality gates globais (sem travessão, sem 'brutal', PT-BR correto).")
 
-- Agent(subagent_type: "mos-design", prompt: "Direção visual para carrossel [plataforma] de [N] slides: paleta, tipografia, hierarquia, formato de capa vs body, consistência visual entre slides. Nicho: [nicho/tema].")
+- Agent(subagent_type: "mos-design", prompt: "Direção visual para carrossel [plataforma] de [N] slides: paleta, tipografia, hierarquia, formato de capa vs body, consistência visual entre slides. Nicho: [nicho/tema]. Considere memory existente do cliente neste projeto.")
 ```
 
 **Opcional (paralelo, mesma message):**

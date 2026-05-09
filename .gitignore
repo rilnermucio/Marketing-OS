@@ -36,6 +36,10 @@ Roteiro_*.md
 __pycache__/
 *.pyc
 .pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
 
 # Node
 node_modules/

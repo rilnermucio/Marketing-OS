@@ -46,15 +46,15 @@ Quando o briefing é novo/amplo:
 ```
 Em um único message, invoque em paralelo:
 
-- Agent(subagent_type: "mos-research", prompt: "Pesquisa rápida: tendências atuais de [tema], concorrentes ativos em [plataforma] BR, dores do público [audiência], dados/estatísticas relevantes dos últimos 90 dias. Retorne research brief compacto.")
+- Agent(subagent_type: "mos-research", prompt: "Pesquisa rápida: tendências atuais de [tema], concorrentes ativos em [plataforma] BR, dores do público [audiência], dados/estatísticas relevantes dos últimos 90 dias. Considere memory existente do cliente neste projeto. Retorne research brief compacto.")
 
-- Agent(subagent_type: "mos-social", prompt: "Crie post [plataforma] sobre [tema]. Audiência: [descrição]. Tom: [tom]. Goal: [goal]. Format: [format]. CTA: [cta]. Aplique schema padrão + 3 hooks + variações A/B + hashtags + horário + enquete de engajamento.")
+- Agent(subagent_type: "mos-social", prompt: "Crie post [plataforma] sobre [tema]. Audiência: [descrição]. Tom: [tom]. Goal: [goal]. Format: [format]. CTA: [cta]. Considere memory existente do cliente neste projeto. Aplique schema padrão + 3 hooks + variações A/B + hashtags + horário + enquete de engajamento.")
 ```
 
 Se `mos-social` ainda não existir (durante migração), fallback:
 
 ```
-- Agent(subagent_type: "mos-copy", prompt: "Post para [plataforma]: hook + copy + CTA + variações A/B. Tópico: [tema]...")
+- Agent(subagent_type: "mos-copy", prompt: "Post para [plataforma]: hook + copy + CTA + variações A/B. Tópico: [tema]. Considere memory existente do cliente neste projeto...")
 ```
 
 ### Exemplo de dispatch sequencial
@@ -128,19 +128,18 @@ Tendências ativas: [Lista com datas]
 [Prompt otimizado para geração visual]
 ```
 
-## Quality Gates (aplicar antes de entregar ao usuário)
+## Quality Gates (antes de entregar)
 
-1. **Sem travessão `—`** (substituir por `.` `,` `:` ou quebrar frase)
-2. **Sem "brutal"** (usar: intenso, forte, pesado, impactante, poderoso)
-3. **Sem CAPS** gratuito
-4. **Sem aspas** em roteiros/falas (escrever direto)
-5. **Máximo 1-2 emojis** (preferir zero)
-6. **Acentuação PT-BR correta** em todas as palavras
-7. **Fatos verificados** (se cita pessoa/stat/evento, WebSearch antes)
-8. **Enquete presente** (obrigatório para conteúdo social)
-9. **Adequação à plataforma** (limites de chars, formato, hashtags)
+Aplicar gates globais do `skills/marketing-os/SKILL.md`:
+- Sem `—`, sem "brutal", sem CAPS gratuito
+- Sem aspas em roteiros/falas (escrever direto)
+- Máximo 1-2 emojis (preferir zero)
+- Acentuação PT-BR correta
+- Fatos verificados via WebSearch (CONFIRMADO/PROVÁVEL)
+- Enquete obrigatória (conteúdo social)
+- Adequação à plataforma (chars, formato, hashtags)
 
-Se QUALQUER gate falhar, refaça antes de entregar. Não entregue com ressalva.
+Se QUALQUER gate falhar, refaça antes de entregar.
 
 ## Follow-up ao Usuário
 
@@ -158,4 +157,3 @@ Após entregar, pergunte:
 - **Nunca** produza o post inline sem dispatchar. O dispatch garante profundidade, contexto isolado e quality gates consistentes.
 - **Prefira paralelo** sobre sequencial sempre que não houver dependência real. 3 Agents em paralelo custam ~1x o tempo de 1 call sequencial (mais tokens, menos latência).
 - **Sempre inclua enquete** em conteúdo social. Regra do SKILL.md.
-- Referências complementares em `../CONNECTORS.md` (para marca/audience data).

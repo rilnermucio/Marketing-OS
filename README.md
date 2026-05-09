@@ -1,15 +1,15 @@
 # Marketing OS
 
-> Plugin Claude Code com **18 subagentes especializados** em marketing digital + 25 slash commands + 35 voice clones de copywriters lendários.
+> Plugin Claude Code com **18 subagentes especializados** em marketing digital + 25 slash commands + 36 voice clones de copywriters lendários.
 
-[![Version](https://img.shields.io/badge/version-6.3.0-blue.svg)](./CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-6.5.0-blue.svg)](./CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 ## O que é
 
-Marketing OS é um plugin para o [Claude Code](https://www.anthropic.com/claude-code) que orquestra 18 subagentes nativos especializados em domínios distintos do marketing digital. O plugin reivindica território explícito sobre briefings de marketing — quando você pede "cria página de aplicação" ou "monta um webinar", ele dispatcha os subagents corretos em paralelo, com camada estratégica antes de qualquer execução técnica.
+Marketing OS é um plugin para o [Claude Code](https://www.anthropic.com/claude-code) que orquestra 18 subagentes nativos especializados em domínios distintos do marketing digital. O plugin reivindica território explícito sobre briefings de marketing. Quando você pede "cria página de aplicação" ou "monta um webinar", ele dispatcha os subagents corretos em paralelo, com camada estratégica antes de qualquer execução técnica.
 
-**Conteúdo PT-BR otimizado para o mercado brasileiro.**
+**24 dos 25 slash commands** dispatcham subagents `mos-*` (o único utility puro é `/publicar-notion`, intencional). **Conteúdo PT-BR otimizado para o mercado brasileiro.**
 
 ## Instalação
 
@@ -22,7 +22,7 @@ No Claude Code (CLI ou Desktop):
 /plugin install marketing-os@mos-marketplace
 ```
 
-Auto-update fica ligado por padrão — cada `git push` no repo vira atualização automática no startup da próxima sessão.
+Auto-update fica ligado por padrão. Cada `git push` no repo vira atualização automática no startup da próxima sessão.
 
 ### Via clone local (desenvolvimento)
 
@@ -30,7 +30,7 @@ Auto-update fica ligado por padrão — cada `git push` no repo vira atualizaç�
 git clone https://github.com/rilnermucio/Marketing-OS.git "Marketing OS"
 cd "Marketing OS"
 
-# Deps Python pra rodar testes/validações
+# Deps Python pra rodar testes e validações
 pip install -r requirements.txt
 
 # Validar native agents
@@ -45,7 +45,7 @@ claude --plugin-dir .
 
 ### Workspace pessoal (gitignored)
 
-Crie sua área de trabalho local — não distribuída pelo plugin:
+Crie sua área de trabalho local, não distribuída pelo plugin:
 
 ```bash
 mkdir -p workspace/{drafts,outputs,brand,research,landing-pages,media}
@@ -57,26 +57,32 @@ Invocados pelo orquestrador (skill `/marketing-os`) ou diretamente via `@<agente
 
 | Agente | Domínio | Memory |
 |---|---|---|
-| `@mos-copy` | Copywriting persuasivo (headlines, CTAs, sales letters) | ✓ project |
-| `@mos-seo` | Otimização de busca (keywords, on-page, E-E-A-T, AI-SEO) | — |
-| `@mos-social` | Posts e estratégia em redes sociais (cross-platform) | ✓ project |
-| `@mos-video` | Roteiros (YouTube, Reels, TikTok, VSL, Shorts) | — |
-| `@mos-audio` | Podcasts, audiobooks, spots, sound design | — |
-| `@mos-design` | Direção visual, paletas, tipografia, design specs | ✓ project |
-| `@mos-ai-tools` | Prompts pra Midjourney, Flux, Runway, Sora, etc. | — |
-| `@mos-analytics` | Métricas, KPIs, dashboards, GA4 | — |
-| `@mos-email` | Email marketing (welcome, nurture, vendas, automação) | — |
-| `@mos-ads` | Anúncios pagos (Meta, Google, TikTok, LinkedIn) | ✓ project |
-| `@mos-research` | Trend spotting, audience research, validação | ✓ project |
-| `@mos-brand` | Identidade de marca, arquétipos, manifesto | ✓ project |
-| `@mos-storytelling` | Narrativa aplicada (hero's journey, StoryBrand) | — |
-| `@mos-funnel` | Funis de conversão, jornada (TOFU/MOFU/BOFU) | ✓ project |
-| `@mos-growth` | Growth hacking, AARRR, retention | — |
-| `@mos-launch` | Lançamentos (PLF, semente, relâmpago, perpétuo) | ✓ project |
-| `@mos-infoproduct` | Cursos, memberships, mentorias, ebooks | ✓ project |
-| `@mos-ab-testing` | A/B/MVT, ICE prioritization, significância estatística |  — |
+| `@mos-copy` | Copywriting persuasivo (headlines, CTAs, sales letters) | sim |
+| `@mos-seo` | Otimização de busca (keywords, on-page, E-E-A-T, AI-SEO) | nao |
+| `@mos-social` | Posts e estratégia em redes sociais (cross-platform) | sim |
+| `@mos-video` | Roteiros (YouTube, Reels, TikTok, VSL, Shorts) | nao |
+| `@mos-audio` | Podcasts, audiobooks, spots, sound design | nao |
+| `@mos-design` | Direção visual, paletas, tipografia, design specs | sim |
+| `@mos-ai-tools` | Prompts pra Midjourney, Flux, Runway, Sora, etc. | nao |
+| `@mos-analytics` | Métricas, KPIs, dashboards, GA4 | nao |
+| `@mos-email` | Email marketing (welcome, nurture, vendas, automação) | nao |
+| `@mos-ads` | Anúncios pagos (Meta, Google, TikTok, LinkedIn) | sim |
+| `@mos-research` | Trend spotting, audience research, validação | sim |
+| `@mos-brand` | Identidade de marca, arquétipos, manifesto | sim |
+| `@mos-storytelling` | Narrativa aplicada (hero's journey, StoryBrand) | nao |
+| `@mos-funnel` | Funis de conversão, jornada (TOFU/MOFU/BOFU) | sim |
+| `@mos-growth` | Growth hacking, AARRR, retention | nao |
+| `@mos-launch` | Lançamentos (PLF, semente, relâmpago, perpétuo) | sim |
+| `@mos-infoproduct` | Cursos, memberships, mentorias, ebooks | sim |
+| `@mos-ab-testing` | A/B/MVT, ICE prioritization, significância estatística | nao |
 
-**Memory `project`:** 9 agents persistem contexto por projeto (briefing do cliente, feedback) em `.claude/agent-memory/marketing-os-<agent>/`. Recarregam automaticamente em sessões futuras na mesma pasta.
+**Memory opt-in (9 agents).** `mos-copy`, `mos-funnel`, `mos-design`, `mos-brand`, `mos-launch`, `mos-research`, `mos-social`, `mos-infoproduct` e `mos-ads` podem persistir aprendizados entre sessões em `.claude/agent-memory/mos-*/MEMORY.md`. Para ativar, rode o bootstrap uma vez na raiz do projeto:
+
+```bash
+python3 scripts/init_agent_memory.py
+```
+
+Sem o bootstrap os agents seguem funcionando normalmente, só não persistem patterns. Modos `--check` (read-only) e `--force` (sobrescreve) disponíveis.
 
 ## Workflows orquestrados
 
@@ -88,18 +94,18 @@ Invocados pelo orquestrador (skill `/marketing-os`) ou diretamente via `@<agente
 | 2 | Dispatch paralelo | múltiplos agents independentes |
 | 3 | Dispatch sequencial | agents com dependência (ex: research → seo → copy) |
 | 4 | Content pipeline | research+brand → seo/copy/social + design |
-| 5 | **Página de aplicação / landing / vendas (BOFU)** | mos-funnel + mos-copy + mos-design → opt. handoff a `frontend-design` |
+| 5 | **Página de aplicação / landing / vendas (BOFU)** | mos-funnel + mos-copy + mos-design, opcionalmente handoff a `frontend-design` |
 | 6 | **Webinar (live ou perpetual)** | launch + funnel + video → copy + email |
 | 7 | **Lançamento de infoproduto** | research → infoproduct + launch + funnel → copy + email + ads |
 | 8 | **Carrossel completo** | social + copy + design (+ ai-tools) |
 | 9 | **VSL completa** | storytelling + copy + video |
 | 10 | **Análise de concorrente + clone** | research + brand → copy (voice clone) |
 
-Ver SKILL.md pra detalhes de cada workflow + "por que essa ordem importa".
+Ver SKILL.md pra detalhes de cada workflow e "por que essa ordem importa". Tier 2 cobre profundidade: `subagents/funnel-agent.md` documenta webinar funnel, página de aplicação BOFU e anti-avatar (workflows #5, #6, #9); `subagents/copy-agent.md` cobre big idea e value stack.
 
 ## Slash commands rápidos
 
-25 commands em `commands/` cobrindo workflows comuns. Quando você invoca direto (`/criar-carrossel`), segue lógica do command file. Quando pede em linguagem natural ("cria carrossel sobre X"), o orquestrador da skill dispatcha conforme tabela acima.
+25 commands em `commands/` cobrindo workflows comuns. **24 deles dispatcham subagents `mos-*`** seguindo os workflows da tabela acima (o único utility puro é `/publicar-notion`, que roteia pra commands de criação quando precisa gerar conteúdo). Quando você invoca direto (`/criar-carrossel`), segue lógica do command file. Quando pede em linguagem natural ("cria carrossel sobre X"), o orquestrador da skill dispatcha conforme tabela.
 
 | Categoria | Commands |
 |---|---|
@@ -122,10 +128,10 @@ Marketing OS/
 ├── agents/                 # 18 native subagents (mos-*.md)
 ├── skills/marketing-os/    # Skill entrypoint (SKILL.md = orquestrador)
 ├── subagents/              # Tier 2 knowledge bases (~3500 linhas cada)
-├── commands/               # 25 slash commands
-├── workflows/              # 9 workflows end-to-end documentados
+├── commands/               # 25 slash commands (24 com dispatch)
+├── workflows/              # 10 workflows end-to-end documentados
 ├── assets/                 # Frameworks, personas, prompts, swipe files,
-│   ├── clones/             #   templates, 35 voice clones
+│   ├── clones/             #   templates, 36 voice clones
 │   ├── frameworks/
 │   ├── personas/
 │   ├── prompts/
@@ -142,7 +148,7 @@ Marketing OS/
 └── workspace/              # Área pessoal (gitignored)
 ```
 
-## Voice clones (35 perfis em `assets/clones/`)
+## Voice clones (36 perfis em `assets/clones/`)
 
 Copywriters/marketers lendários referenciados pelo `mos-copy` quando o briefing pede estilo específico:
 
@@ -152,32 +158,36 @@ Cada um com `profile.md`, `frameworks.md`, `voice.md`, `examples.md`.
 
 ## Desenvolvimento
 
-Ver [`AGENTS.md`](./AGENTS.md) pra guia completo de desenvolvimento (arquitetura, dispatch protocol, plugin distribution gotchas, quality gates). `CLAUDE.md` é shim que importa AGENTS.md — Claude Code lê automaticamente.
+Ver [`AGENTS.md`](./AGENTS.md) pra guia completo de desenvolvimento (arquitetura, dispatch protocol, plugin distribution gotchas, quality gates). `CLAUDE.md` é shim que importa AGENTS.md, Claude Code lê automaticamente.
 
 ```bash
-# Tier 1 test suite (estática, rápida — sem Claude Code login)
+# Tier 1 test suite (estática, rápida, sem Claude Code login)
 python -m pytest scripts/tests/ -v -m "not smoke"
 
 # Validar native agents (frontmatter, knowledge base refs)
 python scripts/validate_agents.py
+python scripts/validate_agents.py --strict   # falha em warnings também
 
 # Validar plugin manifest
 claude plugin validate .
+
+# Bootstrap memory (opt-in, 9 agents)
+python3 scripts/init_agent_memory.py
 
 # CLI unificado das ferramentas
 python scripts/mos.py --help
 ```
 
-CI rodando em `.github/workflows/tests.yml` (922 testes Tier 1 + cobertura ≥70%).
+CI rodando em `.github/workflows/tests.yml`: 1070 testes Tier 1 (incluindo 148 test cases de dispatch dos commands), cobertura ≥50%, e job `validate-agents` em modo `--strict` em todo PR/push (pega regressão de frontmatter, knowledge refs quebrados, name collisions). Estado atual: **18/18 agents clean** no validator.
 
 ## Documentação adicional
 
-- **[docs/GETTING-STARTED.md](./docs/GETTING-STARTED.md)** — primeiros passos com 5 exemplos de briefings
-- **[docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md)** — problemas comuns de install/configuração e como resolver
-- **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)** — arquitetura two-tier (system prompts enxutos + knowledge bases profundas)
-- **[CHANGELOG.md](./CHANGELOG.md)** — histórico completo de releases
-- **[AGENTS.md](./AGENTS.md)** — guia canônico pra contributors / agentes de IA
+- **[docs/GETTING-STARTED.md](./docs/GETTING-STARTED.md)**: primeiros passos com 5 exemplos de briefings
+- **[docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md)**: problemas comuns de install/configuração e como resolver
+- **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)**: arquitetura two-tier (system prompts enxutos + knowledge bases profundas)
+- **[CHANGELOG.md](./CHANGELOG.md)**: histórico completo de releases
+- **[AGENTS.md](./AGENTS.md)**: guia canônico pra contributors e agentes de IA
 
 ## Licença
 
-MIT — ver [LICENSE](./LICENSE).
+MIT, ver [LICENSE](./LICENSE).
