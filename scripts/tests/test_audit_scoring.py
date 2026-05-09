@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pytest
 
-from audit_scoring import RUBRICS, validate_rubrics, compute
+from audit_scoring import RUBRICS, validate_rubrics, compute, top_wins, top_fixes
 
 
 class TestRubrics:
@@ -84,3 +84,46 @@ class TestCompute:
         scores = {k: None for k in RUBRICS["landing"]}
         with pytest.raises(ValueError, match="todas as dimensões"):
             compute("landing", scores, {}, {})
+
+
+class TestOrdering:
+    def _full_landing(self, score_overrides=None):
+        scores = {k: 50 for k in RUBRICS["landing"]}
+        if score_overrides:
+            scores.update(score_overrides)
+        evidences = {k: "" for k in scores}
+        fixes = {k: {"text": "", "priority": "media"} for k in scores}
+        return compute("landing", scores, evidences, fixes)
+
+    def test_top_wins_descending(self):
+        result = self._full_landing({
+            "Conversão (CTA, friction, funil)": 95,
+            "Copy (headline, value prop)": 90,
+            "SEO (technical + content)": 30,
+        })
+        wins = top_wins(result, n=3)
+        assert wins[0]["dimension"] == "Conversão (CTA, friction, funil)"
+        assert wins[1]["dimension"] == "Copy (headline, value prop)"
+        assert wins[0]["score"] >= wins[1]["score"] >= wins[2]["score"]
+
+    def test_top_fixes_priority_then_score(self):
+        scores = {k: 50 for k in RUBRICS["landing"]}
+        scores["SEO (technical + content)"] = 20
+        scores["Trust signals"] = 30
+        evidences = {k: "" for k in scores}
+        fixes = {k: {"text": "", "priority": "media"} for k in scores}
+        fixes["SEO (technical + content)"] = {"text": "", "priority": "alta"}
+        fixes["Trust signals"] = {"text": "", "priority": "alta"}
+        result = compute("landing", scores, evidences, fixes)
+        priorities = top_fixes(result, n=3)
+        assert priorities[0]["dimension"] == "SEO (technical + content)"
+        assert priorities[1]["dimension"] == "Trust signals"
+
+    def test_top_skips_none(self):
+        scores = {k: 50 for k in RUBRICS["landing"]}
+        scores["Copy (headline, value prop)"] = None
+        evidences = {k: "" for k in scores if scores[k] is not None}
+        fixes = {k: {"text": "", "priority": "baixa"} for k in scores if scores[k] is not None}
+        result = compute("landing", scores, evidences, fixes)
+        wins = top_wins(result, n=3)
+        assert all(w["dimension"] != "Copy (headline, value prop)" for w in wins)

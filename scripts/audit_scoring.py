@@ -107,3 +107,34 @@ def compute(
         "dimensions": dimensions,
         "type": audit_type,
     }
+
+
+_PRIORITY_ORDER = {"alta": 0, "media": 1, "baixa": 2}
+
+
+def top_wins(result: dict, n: int = 3) -> list[dict]:
+    """Top N dimensions by score (descending). Skips None scores."""
+    scored = [
+        {"dimension": d, "score": v["score"], "evidence": v["evidence"]}
+        for d, v in result["dimensions"].items()
+        if v["score"] is not None
+    ]
+    return sorted(scored, key=lambda x: -x["score"])[:n]
+
+
+def top_fixes(result: dict, n: int = 3) -> list[dict]:
+    """Top N dimensions to fix, ordered by (priority, lowest score)."""
+    scored = [
+        {
+            "dimension": d,
+            "score": v["score"],
+            "fix": v["fix"]["text"],
+            "priority": v["fix"]["priority"],
+        }
+        for d, v in result["dimensions"].items()
+        if v["score"] is not None
+    ]
+    return sorted(
+        scored,
+        key=lambda x: (_PRIORITY_ORDER.get(x["priority"], 99), x["score"]),
+    )[:n]
