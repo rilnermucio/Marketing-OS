@@ -7,6 +7,66 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [6.5.0] — 2026-05-08 (audit cleanup: dispatch coverage + Tier 2 expansion + memory bootstrap)
+
+Fecha os 5 itens P0/P1 da auditoria do fluxo de criação de conteúdo identificados na sessão anterior. Resolve TODOS os "Deferred (v6.5.x)" da v6.4.0.
+
+### Added (commands dispatch — completed)
+
+17 commands restantes reescritos no padrão dispatch-based. Agora **24 de 25 commands** dispatcham subagents `mos-*` corretamente (era 8 de 25). O único utility puro remanescente é `/publicar-notion` (Notion MCP, intencional — roteia pra commands de criação quando precisa gerar conteúdo).
+
+Commands afetados:
+- Content production: `/criar-anuncio`, `/criar-artigo`, `/criar-email`, `/criar-podcast`, `/criar-calendario`, `/criar-brief-design`
+- Mixed: `/criar-sequencia`, `/gerar-imagem`, `/analisar-video`, `/analisar-concorrencia`, `/criar-clone`, `/criar-meu-clone`
+- Orchestration + utilities: `/batch`, `/campanha` (6 presets), `/capturar-tela`, `/publicar-anuncio`, `/publicar-notion`
+
+Padrões aplicados: dispatch simples, decision tree (simples ↔ paralelo), sequencial, multi-paralelo, e workflow estruturado (campanha presets).
+
+### Added (memory protocol opt-in)
+
+- `scripts/init_agent_memory.py`: bootstrap dos 9 diretórios `.claude/agent-memory/mos-*/MEMORY.md`. Modos `--check` (read-only) e `--force` (sobrescreve). Memory continua opt-in: sem rodar o bootstrap, agents seguem funcionando, só não persistem patterns entre sessões.
+- `mos-funnel` ganhou `memory: project` no frontmatter + bloco "Atualize Memory ao final" no body (consistência com SKILL.md que já listava 9 agents).
+
+### Added (Tier 2 expansion)
+
+Gaps confirmados no audit v6.4.0 fechados:
+
+- `subagents/funnel-agent.md`: **2287 → 3496 linhas** (+1209)
+  - 3.4 Webinar Funnel (live e evergreen, ~330 linhas)
+  - 3.5 Página de Aplicação BOFU high-ticket (~340 linhas)
+  - 4.6 Anti-Avatar conceito transversal (~330 linhas)
+- `subagents/copy-agent.md`: **4203 → 5316 linhas** (+1113)
+  - PARTE II-C: Big Idea (~480 linhas) + Value Stack (~620 linhas)
+
+Cobertura pros workflows #5 (página de aplicação), #6 (webinar) e #9 (VSL).
+
+### Added (validation infra)
+
+- `docs/VALIDATION-GUIDE.md` atualizado pra v6.5.0: **15 test cases** (era 10). Novos Tests 11-15 cobrem `/criar-anuncio`, `/criar-artigo`, `/criar-clone`, `/campanha lancamento`, `/batch`. Test 7 corrigido (path memory canônico + bootstrap mencionado).
+- `scripts/tests/test_commands_dispatch.py`: **148 test cases** automatizados validam estrutura dos 25 commands (frontmatter, dispatch real, agents existentes, consolidação, quality gates, utility declaration). Pega regressão de dispatch antes do merge.
+- CI ganhou novo job `validate-agents` que roda `validate_agents.py --strict` em todo PR/push.
+
+### Fixed
+
+- `scripts/validate_agents.py`: path hardcoded `.claude/agents/` → `agents/` (validador nunca rodou contra o estado real desde a reorganização). Agora 18/18 agents passam clean em modo `--strict`.
+- Memory paths inconsistentes entre 8 agents (`mos-X/`) e SKILL.md (`marketing-os-mos-X/`) — padronizados em `mos-X/` (canônico, mais curto, alinhado com path real dos agents).
+- `mos-funnel` listado no SKILL.md como agent com memory mas sem `memory: project` no frontmatter — gap real fechado.
+
+### Resolved (deferred from v6.4.0)
+
+- ✅ 16 commands restantes pra dispatch-based pattern (na verdade 17 — incluiu `/criar-meu-clone` que estava parcialmente compatível)
+- ✅ Expansão Tier 2: `funnel-agent` (webinar funnel + página aplicação + anti-avatar) e `copy-agent` (big idea + value stack)
+- ✅ Validation real: substituiu intenção manual por teste automatizado estrutural + VALIDATION-GUIDE atualizado
+
+### Stats da release
+
+- pytest: **1070 passed** (era 922, +148 novos), zero regressão
+- validate_agents --strict: 18/18 clean
+- Diff: 35 files changed, +4599 insertions / -4170 deletions
+- Commits desde v6.4.0: 1 (squash de toda a sessão de cleanup)
+
+---
+
 ## [6.4.0] — 2026-05-07 (commands dispatch + release automation + Tier 2 audit)
 
 ### Added (release automation)
