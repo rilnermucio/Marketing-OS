@@ -45,10 +45,15 @@ DEFAULT_TIMEOUT = 90
 
 
 def build_input(query: str, max_results: int = DEFAULT_MAX_RESULTS) -> Dict[str, Any]:
-    """Constrói input do Actor apify/google-search-scraper para PT-BR."""
+    """
+    Constrói input do Actor apify/google-search-scraper para PT-BR.
+
+    O Actor aceita 'queries' como string (queries separadas por newline pra batch).
+    Pra uma query única, passamos a string direto.
+    """
     capped = max(1, min(max_results, HARD_CAP_RESULTS))
     return {
-        "queries": [query],
+        "queries": query,
         "resultsPerPage": capped,
         "maxPagesPerQuery": 1,
         "countryCode": "br",
@@ -58,11 +63,23 @@ def build_input(query: str, max_results: int = DEFAULT_MAX_RESULTS) -> Dict[str,
     }
 
 
+def _dedupe_preserve_order(items: List[str]) -> List[str]:
+    """Remove duplicatas preservando a ordem da primeira ocorrência."""
+    seen = set()
+    out = []
+    for x in items:
+        if x and x not in seen:
+            seen.add(x)
+            out.append(x)
+    return out
+
+
 def parse_serp_results(raw: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
     Extrai estrutura limpa do output do Actor.
 
     O Actor retorna lista de "search results" (um por query). Pegamos o primeiro.
+    PAA e related vêm duplicados do Actor (top + footer da SERP) — dedupa.
     """
     empty = {"organic": [], "people_also_ask": [], "related": []}
     if not raw or not isinstance(raw, list):
@@ -88,8 +105,8 @@ def parse_serp_results(raw: List[Dict[str, Any]]) -> Dict[str, Any]:
 
     return {
         "organic": organic,
-        "people_also_ask": [p for p in paa if p],
-        "related": [r for r in related if r],
+        "people_also_ask": _dedupe_preserve_order(paa),
+        "related": _dedupe_preserve_order(related),
     }
 
 
@@ -171,7 +188,6 @@ def main() -> int:
     if args.dry_run:
         print(f"Dry-run: SERP scraping de '{args.query}'")
         print(f"  Actor: {SERP_ACTOR_ID}")
-        print(f"  Queries: {len(actor_input['queries'])}")
         print(f"  Results per page: {actor_input['resultsPerPage']}")
         print(f"  Country/Lang: {actor_input['countryCode']}/{actor_input['languageCode']}")
         print(f"  Custo estimado: ${cost:.4f} USD")

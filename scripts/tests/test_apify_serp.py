@@ -44,9 +44,11 @@ SCRIPT_PATH = os.path.join(
 
 
 class TestBuildInput:
-    def test_inclui_query_em_lista(self):
+    def test_inclui_query_como_string(self):
+        # Apify google-search-scraper espera 'queries' como string
+        # (newline-separated em batch; pra single query, é só a string)
         inp = build_input("infoproduto bofu", max_results=10)
-        assert inp["queries"] == ["infoproduto bofu"]
+        assert inp["queries"] == "infoproduto bofu"
 
     def test_max_results_propagado(self):
         inp = build_input("x", max_results=20)
@@ -171,6 +173,38 @@ class TestParseSerpResults:
         ]
         parsed = parse_serp_results(raw)
         assert parsed["people_also_ask"] == ["Pergunta válida?"]
+
+    def test_related_dedupe_preservando_ordem(self):
+        # Apify Actor retorna related duplicado (top + footer da SERP).
+        # Parser deve dedupe preservando a ordem da primeira ocorrência.
+        raw = [
+            {
+                "organicResults": [],
+                "relatedQueries": [
+                    {"title": "x"},
+                    {"title": "y"},
+                    {"title": "x"},
+                    {"title": "z"},
+                    {"title": "y"},
+                ],
+            }
+        ]
+        parsed = parse_serp_results(raw)
+        assert parsed["related"] == ["x", "y", "z"]
+
+    def test_paa_dedupe_preservando_ordem(self):
+        raw = [
+            {
+                "organicResults": [],
+                "peopleAlsoAsk": [
+                    {"question": "Q1?"},
+                    {"question": "Q2?"},
+                    {"question": "Q1?"},
+                ],
+            }
+        ]
+        parsed = parse_serp_results(raw)
+        assert parsed["people_also_ask"] == ["Q1?", "Q2?"]
 
 
 # ---------------------------------------------------------------------------
