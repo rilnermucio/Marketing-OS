@@ -1,5 +1,7 @@
 # Plano de Expansão: Subagentes Avançados do Marketing OS
 
+> ⚠️ **Documento histórico/aspiracional.** Este é um plano de expansão antigo (meta de 32 subagentes). O estado atual do repo é 18 agents Tier-1. Não reflete a arquitetura vigente; mantido para contexto. Fonte canônica da arquitetura: `AGENTS.md` e `docs/ARCHITECTURE.md`.
+
 > **Objetivo:** Criar o sistema operacional de marketing digital mais completo do planeta com 32 subagentes especializados cobrindo 100% das necessidades de marketing digital.
 
 ---
