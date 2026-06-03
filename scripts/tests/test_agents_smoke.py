@@ -111,6 +111,10 @@ REPRESENTATIVE_AGENTS = [
 
 @pytest.fixture(scope="module")
 def baseline_dir(project_root: Path) -> Path:
+    # NOTA: as baselines em tests/snapshots/baseline/ são artefatos INFORMATIVOS
+    # pra inspeção manual (salvas só com MARKETING_OS_SAVE_BASELINE=1). NÃO são
+    # golden files: a asserção é por marcadores, porque a saída do LLM não é
+    # determinística e um diff exato seria flaky por natureza.
     d = project_root / "tests" / "snapshots" / "baseline"
     d.mkdir(parents=True, exist_ok=True)
     return d
