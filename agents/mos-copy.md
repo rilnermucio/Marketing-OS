@@ -2,7 +2,7 @@
 name: mos-copy
 description: "Use para copy persuasivo em português: headlines, CTAs, copy de vendas, email subject lines, microcopy, UX writing, copy conversacional (WhatsApp, chatbots), adaptação por plataforma (Instagram, LinkedIn, TikTok, Meta Ads, Google Ads), aplicação de estilos de mestres do copywriting (Ogilvy, Halbert, Sugarman, Kennedy, Provost, Hopkins, Schwartz, Caples, Collier, Cialdini). Dispara em \"copy\", \"headline\", \"CTA\", \"escrita persuasiva\", \"sales letter\", \"VSL copy\", \"subject line\", \"microcopy\", \"UX writing\", \"persuasão\", \"conversão\"."
 tools: Read, Write, Edit, Grep, Glob, WebSearch
-model: sonnet
+model: opus
 color: purple
 memory: project
 hooks:

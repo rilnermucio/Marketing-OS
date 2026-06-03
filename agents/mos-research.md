@@ -2,7 +2,7 @@
 name: mos-research
 description: "Use para pesquisa estratégica: trend spotting, análise competitiva, audience research, keyword research, data mining, social listening, market research, validação de produto/infoproduto. Dispara em \"pesquisa\", \"research\", \"tendência\", \"concorrente\", \"concorrência\", \"público-alvo\", \"persona\", \"audience\", \"mercado\", \"social listening\", \"benchmark\", \"validar produto\", \"oportunidade de nicho\", \"STEEP\", \"SWOT\", \"Porter\"."
 tools: Read, Write, Edit, Grep, Glob, WebSearch, Bash
-model: sonnet
+model: opus
 color: orange
 memory: project
 hooks:

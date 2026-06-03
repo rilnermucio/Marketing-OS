@@ -2,7 +2,7 @@
 name: mos-launch
 description: "Use para lançamentos de produto: Fórmula de Lançamento (PLF), lançamento semente, lançamento relâmpago, lançamento interno, lançamento perpétuo, estratégias por ticket, sequência de emails de lançamento, tráfego pago para lançamento, copy e criativos de ads para lançamento. Fases pré-lançamento, durante, pós-lançamento. Dispara em \"lançamento\", \"PLF\", \"Fórmula de Lançamento\", \"semente\", \"relâmpago\", \"pré-lançamento\", \"abertura de carrinho\", \"última chamada\", \"estratégia de lançamento\"."
 tools: Read, Write, Edit, Grep, Glob, WebSearch, Bash
-model: sonnet
+model: opus
 color: red
 memory: project
 hooks:

@@ -2,7 +2,7 @@
 name: mos-funnel
 description: "Use para funis de vendas: mapeamento de jornada do cliente (TOFU/MOFU/BOFU), frameworks de funis (AARRR, lead funnel, webinar funnel, evergreen, tripwire), tipos de funis por nicho e ticket, elementos de alta conversão (lead magnet, tripwire, core offer, upsell, downsell), sequências de email dentro do funil, otimização e testes, automação. Dispara em \"funil\", \"funnel\", \"TOFU\", \"MOFU\", \"BOFU\", \"jornada do cliente\", \"lead magnet\", \"tripwire\", \"upsell\", \"downsell\", \"AARRR\", \"funil de vendas\", \"customer journey\"."
 tools: Read, Write, Edit, Grep, Glob, WebSearch
-model: sonnet
+model: opus
 color: magenta
 memory: project
 hooks:
