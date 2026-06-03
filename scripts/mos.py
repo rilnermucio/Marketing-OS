@@ -105,6 +105,24 @@ COMMAND_MAP: Dict[str, Dict[str, Tuple[str, str]]] = {
         "tiktok": ("apify_tiktok.py", "TikTok profile scraping (opcional)"),
         "youtube": ("apify_youtube.py", "YouTube channel scraping (opcional)"),
     },
+    "youtube": {
+        "channel": ("youtube_analytics.py", "Métricas gerais do canal (requer YouTube API)"),
+        "videos": ("youtube_analytics.py", "Lista de vídeos com métricas"),
+        "top-videos": ("youtube_analytics.py", "Vídeos com melhor performance"),
+        "demographics": ("youtube_analytics.py", "Dados demográficos da audiência"),
+        "traffic-sources": ("youtube_analytics.py", "Fontes de tráfego do canal"),
+        "full-report": ("youtube_analytics.py", "Relatório completo do canal"),
+    },
+    "gsc": {
+        "queries": ("gsc_analyzer.py", "Principais queries de busca (requer Search Console API)"),
+        "top-pages": ("gsc_analyzer.py", "Páginas com melhor performance"),
+        "ctr-opportunities": ("gsc_analyzer.py", "Oportunidades de CTR"),
+        "position-changes": ("gsc_analyzer.py", "Variações de posição"),
+        "full-report": ("gsc_analyzer.py", "Relatório completo do site"),
+    },
+    "report": {
+        "weekly": ("weekly_report.py", "Relatório semanal consolidado"),
+    },
 }
 
 # Comandos especiais que precisam de argumentos transformados
@@ -119,6 +137,19 @@ SPECIAL_ARGS: Dict[Tuple[str, str], Callable[[List[str]], List[str]]] = {
     ("project", "aprovar"): lambda args: ["aprovar"] + args,
     ("project", "rejeitar"): lambda args: ["rejeitar"] + args,
 }
+
+# Categorias cujo script tem subparser próprio (dest="comando"): o comando do mos
+# precisa ser repassado como 1º argumento posicional pro parser interno do script.
+_PASSTHROUGH_SUBCOMMANDS: Dict[str, List[str]] = {
+    "youtube": ["channel", "videos", "top-videos", "demographics",
+                "traffic-sources", "full-report"],
+    "gsc": ["queries", "top-pages", "ctr-opportunities",
+            "position-changes", "full-report"],
+}
+for _cat, _cmds in _PASSTHROUGH_SUBCOMMANDS.items():
+    for _cmd in _cmds:
+        # bind _cmd por valor pra cada lambda não capturar a variável de loop
+        SPECIAL_ARGS[(_cat, _cmd)] = (lambda c: lambda args: [c] + args)(_cmd)
 
 
 def print_help() -> None:
