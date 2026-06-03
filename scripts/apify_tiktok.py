@@ -32,7 +32,6 @@ from apify_client import (
     save_result,
 )
 
-
 TIKTOK_ACTOR_ID = "clockworks/free-tiktok-scraper"
 DEFAULT_OUTPUT_DIR = "workspace/research/apify"
 DEFAULT_MAX_VIDEOS = 30

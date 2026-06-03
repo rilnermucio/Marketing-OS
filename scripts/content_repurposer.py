@@ -17,7 +17,6 @@ import re
 import sys
 import argparse
 from typing import Dict, List, Optional
-from datetime import datetime
 
 from output_formatter import add_output_args, OutputFormatter
 
@@ -25,19 +24,31 @@ from output_formatter import add_output_args, OutputFormatter
 def extract_key_points(text: str, max_points: int = 7) -> List[str]:
     """Extrai pontos-chave do texto."""
     # Procura por listas numeradas ou com bullet points
-    list_items = re.findall(r'(?:^|\n)\s*(?:\d+[.)]\s*|[-•*]\s*)(.+?)(?=\n|$)', text)
+    list_items = re.findall(r"(?:^|\n)\s*(?:\d+[.)]\s*|[-•*]\s*)(.+?)(?=\n|$)", text)
 
     if list_items:
         return list_items[:max_points]
 
     # Se não encontrar listas, divide em sentenças e pega as mais importantes
-    sentences = re.split(r'[.!?]+', text)
+    sentences = re.split(r"[.!?]+", text)
     sentences = [s.strip() for s in sentences if len(s.strip()) > 30]
 
     # Prioriza sentenças com palavras-chave importantes
-    important_words = ["importante", "principal", "essencial", "fundamental",
-                       "primeiro", "segundo", "terceiro", "dica", "segredo",
-                       "aprenda", "descubra", "como", "por que"]
+    important_words = [
+        "importante",
+        "principal",
+        "essencial",
+        "fundamental",
+        "primeiro",
+        "segundo",
+        "terceiro",
+        "dica",
+        "segredo",
+        "aprenda",
+        "descubra",
+        "como",
+        "por que",
+    ]
 
     scored: List[tuple] = []
     for s in sentences:
@@ -50,19 +61,19 @@ def extract_key_points(text: str, max_points: int = 7) -> List[str]:
 
 def extract_title(text: str) -> str:
     """Tenta extrair o título do texto."""
-    lines = text.strip().split('\n')
+    lines = text.strip().split("\n")
 
     for line in lines[:5]:
         line = line.strip()
         # Procura por títulos com # ou linhas curtas no início
-        if line.startswith('#'):
-            return line.lstrip('#').strip()
-        if len(line) < 100 and len(line) > 10 and not line.endswith('.'):
+        if line.startswith("#"):
+            return line.lstrip("#").strip()
+        if len(line) < 100 and len(line) > 10 and not line.endswith("."):
             return line
 
     # Se não encontrar, usa as primeiras palavras
     words = text.split()[:10]
-    return ' '.join(words) + '...'
+    return " ".join(words) + "..."
 
 
 def estimate_read_time(text: str) -> int:
@@ -79,12 +90,14 @@ def to_instagram_carousel(text: str, num_slides: int = 10) -> Dict:
     slides: List[Dict] = []
 
     # Slide 1: Capa
-    slides.append({
-        "slide": 1,
-        "type": "capa",
-        "content": title,
-        "notes": "Design impactante, fonte grande, parar o scroll"
-    })
+    slides.append(
+        {
+            "slide": 1,
+            "type": "capa",
+            "content": title,
+            "notes": "Design impactante, fonte grande, parar o scroll",
+        }
+    )
 
     # Slides de conteúdo
     for i, point in enumerate(points, 2):
@@ -92,28 +105,35 @@ def to_instagram_carousel(text: str, num_slides: int = 10) -> Dict:
         if len(point) > 150:
             point = point[:147] + "..."
 
-        slides.append({
-            "slide": i,
-            "type": "conteudo",
-            "content": point,
-            "notes": "1 ideia por slide, fonte legível (24pt+)"
-        })
+        slides.append(
+            {
+                "slide": i,
+                "type": "conteudo",
+                "content": point,
+                "notes": "1 ideia por slide, fonte legível (24pt+)",
+            }
+        )
 
     # Slide de resumo
-    slides.append({
-        "slide": len(slides) + 1,
-        "type": "resumo",
-        "content": "📌 Resumo:\n" + "\n".join([f"• {p[:50]}..." for p in points[:5]]),
-        "notes": "Recap dos pontos principais"
-    })
+    slides.append(
+        {
+            "slide": len(slides) + 1,
+            "type": "resumo",
+            "content": "📌 Resumo:\n"
+            + "\n".join([f"• {p[:50]}..." for p in points[:5]]),
+            "notes": "Recap dos pontos principais",
+        }
+    )
 
     # Slide CTA
-    slides.append({
-        "slide": len(slides) + 1,
-        "type": "cta",
-        "content": "💾 Salva esse post!\n📤 Compartilha com quem precisa\n👉 Segue pra mais dicas",
-        "notes": "Call-to-action claro"
-    })
+    slides.append(
+        {
+            "slide": len(slides) + 1,
+            "type": "cta",
+            "content": "💾 Salva esse post!\n📤 Compartilha com quem precisa\n👉 Segue pra mais dicas",
+            "notes": "Call-to-action claro",
+        }
+    )
 
     # Caption
     caption = f"""✨ {title}
@@ -132,7 +152,7 @@ Qual desses pontos você vai aplicar primeiro? 👇
         "slides": slides,
         "total_slides": len(slides),
         "caption": caption,
-        "hashtags_sugeridas": 15
+        "hashtags_sugeridas": 15,
     }
 
 
@@ -178,7 +198,7 @@ Qual desses você já faz? 👇
         "platform": "Instagram Reels",
         "script": script,
         "duracao_sugerida": "30-45 segundos",
-        "formato": "Vertical 9:16"
+        "formato": "Vertical 9:16",
     }
 
 
@@ -190,18 +210,18 @@ def to_twitter_thread(text: str) -> Dict:
     tweets: List[Dict] = []
 
     # Tweet 1: Hook
-    tweets.append({
-        "number": 1,
-        "content": f"{title}\n\n🧵👇",
-        "chars": len(f"{title}\n\n🧵👇")
-    })
+    tweets.append(
+        {"number": 1, "content": f"{title}\n\n🧵👇", "chars": len(f"{title}\n\n🧵👇")}
+    )
 
     # Tweet 2: Contexto
-    tweets.append({
-        "number": 2,
-        "content": f"Muita gente não sabe, mas isso pode mudar completamente seus resultados.\n\nVou explicar:",
-        "chars": 95
-    })
+    tweets.append(
+        {
+            "number": 2,
+            "content": f"Muita gente não sabe, mas isso pode mudar completamente seus resultados.\n\nVou explicar:",
+            "chars": 95,
+        }
+    )
 
     # Tweets de conteúdo
     for i, point in enumerate(points, 3):
@@ -210,31 +230,32 @@ def to_twitter_thread(text: str) -> Dict:
         if len(content) > 270:
             content = content[:267] + "..."
 
-        tweets.append({
-            "number": i,
-            "content": content,
-            "chars": len(content)
-        })
+        tweets.append({"number": i, "content": content, "chars": len(content)})
 
     # Tweet de resumo
-    tweets.append({
-        "number": len(tweets) + 1,
-        "content": f"Resumindo:\n\n" + "\n".join([f"✅ {p[:40]}..." for p in points[:5]]),
-        "chars": 0  # Calcular depois
-    })
+    tweets.append(
+        {
+            "number": len(tweets) + 1,
+            "content": f"Resumindo:\n\n"
+            + "\n".join([f"✅ {p[:40]}..." for p in points[:5]]),
+            "chars": 0,  # Calcular depois
+        }
+    )
 
     # Tweet CTA
-    tweets.append({
-        "number": len(tweets) + 1,
-        "content": "Se essa thread foi útil:\n\n1. RT o primeiro tweet\n2. Me segue pra mais\n\nQual desses você vai aplicar? 👇",
-        "chars": 105
-    })
+    tweets.append(
+        {
+            "number": len(tweets) + 1,
+            "content": "Se essa thread foi útil:\n\n1. RT o primeiro tweet\n2. Me segue pra mais\n\nQual desses você vai aplicar? 👇",
+            "chars": 105,
+        }
+    )
 
     return {
         "platform": "Twitter/X Thread",
         "tweets": tweets,
         "total_tweets": len(tweets),
-        "nota": "Postar com 1-2 min de intervalo entre tweets"
+        "nota": "Postar com 1-2 min de intervalo entre tweets",
     }
 
 
@@ -246,7 +267,7 @@ def to_linkedin_post(text: str) -> Dict:
     hook_options = [
         f"Isso mudou minha perspectiva sobre {title.lower()[:30]}.",
         f"Depois de anos estudando isso, aprendi que...",
-        f"A maioria ignora isso, mas faz toda diferença:"
+        f"A maioria ignora isso, mas faz toda diferença:",
     ]
 
     post = f"""{hook_options[0]}
@@ -272,7 +293,7 @@ Qual desses pontos ressoou mais com você?
         "post": post,
         "chars": len(post),
         "max_chars": 3000,
-        "dica": "Postar entre 7h-8h ou 17h-18h (dias úteis)"
+        "dica": "Postar entre 7h-8h ou 17h-18h (dias úteis)",
     }
 
 
@@ -332,7 +353,7 @@ P.S.: Se conhece alguém que precisa ler isso, encaminha esse email!
             f"[Novo] {title}",
             f"Sobre {title.lower()[:30]}...",
         ],
-        "tempo_leitura": f"{read_time} min"
+        "tempo_leitura": f"{read_time} min",
     }
 
 
@@ -410,7 +431,7 @@ NOTAS DE PRODUÇÃO
         "platform": "YouTube",
         "script": script,
         "duracao_estimada": f"{len(points) * 3 + 5} minutos",
-        "estrutura": f"Hook + Intro + {len(points)} pontos + Fechamento"
+        "estrutura": f"Hook + Intro + {len(points)} pontos + Fechamento",
     }
 
 
@@ -420,29 +441,29 @@ def repurpose_all(text: str) -> Dict:
         "original": {
             "title": extract_title(text),
             "key_points": extract_key_points(text),
-            "read_time": estimate_read_time(text)
+            "read_time": estimate_read_time(text),
         },
         "instagram_carousel": to_instagram_carousel(text),
         "instagram_reels": to_instagram_reels(text),
         "twitter_thread": to_twitter_thread(text),
         "linkedin": to_linkedin_post(text),
         "email": to_email_newsletter(text),
-        "youtube": to_youtube_script(text)
+        "youtube": to_youtube_script(text),
     }
 
 
 def print_output(result: Dict, platform: Optional[str] = None) -> None:
     """Imprime o resultado formatado."""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("📦 CONTENT REPURPOSER")
-    print("="*60)
+    print("=" * 60)
 
     if platform and platform != "todos":
         # Mostrar apenas uma plataforma
         data = result.get(platform, result.get(f"instagram_{platform}"))
         if data:
             print(f"\n📱 {data.get('platform', platform.upper())}")
-            print("-"*60)
+            print("-" * 60)
 
             if "slides" in data:
                 for slide in data["slides"]:
@@ -472,15 +493,27 @@ def print_output(result: Dict, platform: Optional[str] = None) -> None:
         print(f"   Tempo de leitura: {result['original']['read_time']} min")
 
         print("\n📱 VERSÕES GERADAS:")
-        print("-"*60)
+        print("-" * 60)
 
         platforms = [
-            ("instagram_carousel", "Instagram Carrossel", f"{result['instagram_carousel']['total_slides']} slides"),
-            ("instagram_reels", "Instagram Reels", result['instagram_reels']['duracao_sugerida']),
-            ("twitter_thread", "Twitter/X Thread", f"{result['twitter_thread']['total_tweets']} tweets"),
+            (
+                "instagram_carousel",
+                "Instagram Carrossel",
+                f"{result['instagram_carousel']['total_slides']} slides",
+            ),
+            (
+                "instagram_reels",
+                "Instagram Reels",
+                result["instagram_reels"]["duracao_sugerida"],
+            ),
+            (
+                "twitter_thread",
+                "Twitter/X Thread",
+                f"{result['twitter_thread']['total_tweets']} tweets",
+            ),
             ("linkedin", "LinkedIn Post", f"{result['linkedin']['chars']} chars"),
-            ("email", "Email Newsletter", result['email']['tempo_leitura']),
-            ("youtube", "YouTube Script", result['youtube']['duracao_estimada'])
+            ("email", "Email Newsletter", result["email"]["tempo_leitura"]),
+            ("youtube", "YouTube Script", result["youtube"]["duracao_estimada"]),
         ]
 
         for key, name, detail in platforms:
@@ -489,15 +522,19 @@ def print_output(result: Dict, platform: Optional[str] = None) -> None:
         print("\n💡 Use --platform [plataforma] para ver versão específica")
         print("   Opções: carousel, reels, twitter, linkedin, email, youtube")
 
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Adapta conteúdo entre plataformas")
     parser.add_argument("text", nargs="*", help="Texto para adaptar")
     parser.add_argument("--file", "-f", help="Arquivo de texto")
-    parser.add_argument("--platform", "-p", default="todos",
-                        help="Plataforma: carousel, reels, twitter, linkedin, email, youtube, todos")
+    parser.add_argument(
+        "--platform",
+        "-p",
+        default="todos",
+        help="Plataforma: carousel, reels, twitter, linkedin, email, youtube, todos",
+    )
     # --output/-o (salvar em arquivo) e --json vêm de add_output_args (padrão dos demais scripts).
     add_output_args(parser)
 
@@ -508,13 +545,13 @@ def main() -> None:
     text = ""
 
     if args.file:
-        with open(args.file, 'r', encoding='utf-8') as f:
+        with open(args.file, "r", encoding="utf-8") as f:
             text = f.read()
     elif args.text:
         text = " ".join(args.text)
     else:
         print("Uso: python content_repurposer.py --file artigo.txt --platform todos")
-        print("     python content_repurposer.py \"Texto aqui\" --platform twitter")
+        print('     python content_repurposer.py "Texto aqui" --platform twitter')
         sys.exit(1)
 
     if len(text) < 100:

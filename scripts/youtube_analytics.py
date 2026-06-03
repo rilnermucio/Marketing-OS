@@ -22,10 +22,20 @@ import json
 import os
 import sys
 from datetime import datetime, timedelta, timezone
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
-from output_formatter import add_output_args, OutputFormatter, print_json, print_table, print_key_value
-from validators import ValidationError, validar_inteiro, validar_texto, handle_validation_error
+from output_formatter import (
+    add_output_args,
+    OutputFormatter,
+    print_json,
+    print_table,
+    print_key_value,
+)
+from validators import (
+    ValidationError,
+    validar_inteiro,
+    handle_validation_error,
+)
 
 # ---------------------------------------------------------------------------
 # Configuração
@@ -47,15 +57,28 @@ YT_DATA_SCOPE = "https://www.googleapis.com/auth/youtube.readonly"
 
 # Dimensões e métricas disponíveis
 METRICAS_VIDEO = [
-    "views", "estimatedMinutesWatched", "averageViewDuration",
-    "averageViewPercentage", "likes", "dislikes", "comments",
-    "shares", "subscribersGained", "subscribersLost",
+    "views",
+    "estimatedMinutesWatched",
+    "averageViewDuration",
+    "averageViewPercentage",
+    "likes",
+    "dislikes",
+    "comments",
+    "shares",
+    "subscribersGained",
+    "subscribersLost",
 ]
 
 METRICAS_CANAL = [
-    "views", "estimatedMinutesWatched", "averageViewDuration",
-    "likes", "comments", "shares",
-    "subscribersGained", "subscribersLost", "videosAddedToPlaylists",
+    "views",
+    "estimatedMinutesWatched",
+    "averageViewDuration",
+    "likes",
+    "comments",
+    "shares",
+    "subscribersGained",
+    "subscribersLost",
+    "videosAddedToPlaylists",
 ]
 
 DIMENSOES_DEMOGRAFICAS = ["ageGroup", "gender"]
@@ -65,6 +88,7 @@ DIMENSOES_TRAFEGO = ["insightTrafficSourceType"]
 # ---------------------------------------------------------------------------
 # Exceções
 # ---------------------------------------------------------------------------
+
 
 class YouTubeAnalyticsError(Exception):
     """Erro da API do YouTube Analytics."""
@@ -80,12 +104,12 @@ class YouTubeAnalyticsError(Exception):
 
 class YouTubeAuthError(YouTubeAnalyticsError):
     """Erro de autenticação com as APIs do Google."""
-    pass
 
 
 # ---------------------------------------------------------------------------
 # Autenticação (Service Account via JWT — mesma lógica do gsc_analyzer)
 # ---------------------------------------------------------------------------
+
 
 def _load_credentials() -> Dict:
     """Carrega credenciais de variáveis de ambiente (YouTube ou GSC como fallback)."""
@@ -103,7 +127,9 @@ def _load_credentials() -> Dict:
         creds_file = os.environ.get(env_file, "").strip()
         if creds_file:
             if not os.path.exists(creds_file):
-                raise YouTubeAuthError(f"Arquivo de credenciais não encontrado: '{creds_file}'")
+                raise YouTubeAuthError(
+                    f"Arquivo de credenciais não encontrado: '{creds_file}'"
+                )
             with open(creds_file, "r", encoding="utf-8") as f:
                 try:
                     return json.load(f)
@@ -163,17 +189,23 @@ def _get_access_token(credentials: Dict, scope: str) -> str:
     signature = private_key.sign(signing_input, padding.PKCS1v15(), hashes.SHA256())
     jwt_token = f"{header}.{payload}.{b64url(signature)}"
 
-    post_data = urllib.parse.urlencode({
-        "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
-        "assertion": jwt_token,
-    }).encode("utf-8")
+    post_data = urllib.parse.urlencode(
+        {
+            "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+            "assertion": jwt_token,
+        }
+    ).encode("utf-8")
 
     try:
-        req = urllib.request.Request(credentials.get("token_uri", OAUTH_TOKEN_URL), data=post_data, method="POST")
+        req = urllib.request.Request(
+            credentials.get("token_uri", OAUTH_TOKEN_URL), data=post_data, method="POST"
+        )
         with urllib.request.urlopen(req, timeout=30) as resp:
             result = json.loads(resp.read().decode("utf-8"))
     except urllib.error.HTTPError as e:
-        raise YouTubeAuthError(f"Falha ao obter token OAuth: {e.read().decode('utf-8')}")
+        raise YouTubeAuthError(
+            f"Falha ao obter token OAuth: {e.read().decode('utf-8')}"
+        )
     except urllib.error.URLError as e:
         raise YouTubeAuthError(f"Erro de conexão ao obter token: {e.reason}")
 
@@ -186,6 +218,7 @@ def _get_access_token(credentials: Dict, scope: str) -> str:
 # ---------------------------------------------------------------------------
 # Cliente HTTP
 # ---------------------------------------------------------------------------
+
 
 def _api_get(url: str, token: str, params: Optional[Dict] = None) -> Dict:
     """GET autenticado para APIs do Google."""
@@ -221,9 +254,12 @@ def _api_get(url: str, token: str, params: Optional[Dict] = None) -> Dict:
 # Utilitários de data
 # ---------------------------------------------------------------------------
 
+
 def _date_range(days: int) -> Tuple[str, str]:
     """Retorna (start_date, end_date) como YYYY-MM-DD."""
-    end = datetime.now(tz=timezone.utc).date() - timedelta(days=2)  # delay de ~2 dias no YT
+    end = datetime.now(tz=timezone.utc).date() - timedelta(
+        days=2
+    )  # delay de ~2 dias no YT
     start = end - timedelta(days=days - 1)
     return start.isoformat(), end.isoformat()
 
@@ -234,13 +270,16 @@ def _get_channel_id(token: str) -> str:
     result = _api_get(f"{YT_DATA_BASE}/channels", token, params)
     items = result.get("items", [])
     if not items:
-        raise YouTubeAnalyticsError("Nenhum canal encontrado para as credenciais fornecidas.")
+        raise YouTubeAnalyticsError(
+            "Nenhum canal encontrado para as credenciais fornecidas."
+        )
     return items[0]["id"]
 
 
 # ---------------------------------------------------------------------------
 # Funções principais
 # ---------------------------------------------------------------------------
+
 
 def get_channel_stats(
     token: str,
@@ -292,7 +331,8 @@ def get_channel_stats(
         "shares": int(data.get("shares", 0)),
         "subscribers_gained": int(data.get("subscribersGained", 0)),
         "subscribers_lost": int(data.get("subscribersLost", 0)),
-        "net_subscribers": int(data.get("subscribersGained", 0)) - int(data.get("subscribersLost", 0)),
+        "net_subscribers": int(data.get("subscribersGained", 0))
+        - int(data.get("subscribersLost", 0)),
     }
 
 
@@ -334,14 +374,18 @@ def get_top_videos(
     videos = []
     for row in rows:
         data = dict(zip(col_headers, row))
-        videos.append({
-            "video_id": data.get("video", ""),
-            "views": int(data.get("views", 0)),
-            "watch_time_minutos": round(float(data.get("estimatedMinutesWatched", 0)), 0),
-            "likes": int(data.get("likes", 0)),
-            "comments": int(data.get("comments", 0)),
-            "shares": int(data.get("shares", 0)),
-        })
+        videos.append(
+            {
+                "video_id": data.get("video", ""),
+                "views": int(data.get("views", 0)),
+                "watch_time_minutos": round(
+                    float(data.get("estimatedMinutesWatched", 0)), 0
+                ),
+                "likes": int(data.get("likes", 0)),
+                "comments": int(data.get("comments", 0)),
+                "shares": int(data.get("shares", 0)),
+            }
+        )
 
     return videos
 
@@ -376,7 +420,7 @@ def get_video_list(
     titles: Dict[str, str] = {}
 
     for i in range(0, len(video_ids), 50):
-        batch = video_ids[i:i + 50]
+        batch = video_ids[i : i + 50]
         params = {
             "part": "snippet",
             "id": ",".join(batch),
@@ -393,16 +437,18 @@ def get_video_list(
         engagements = v["likes"] + v["comments"] + v["shares"]
         engagement_rate = round((engagements / views * 100), 2) if views > 0 else 0.0
 
-        enriched.append({
-            "video_id": vid_id,
-            "titulo": titles.get(vid_id, f"Video {vid_id}"),
-            "views": views,
-            "watch_time_minutos": v["watch_time_minutos"],
-            "likes": v["likes"],
-            "comments": v["comments"],
-            "shares": v["shares"],
-            "engagement_rate": engagement_rate,
-        })
+        enriched.append(
+            {
+                "video_id": vid_id,
+                "titulo": titles.get(vid_id, f"Video {vid_id}"),
+                "views": views,
+                "watch_time_minutos": v["watch_time_minutos"],
+                "likes": v["likes"],
+                "comments": v["comments"],
+                "shares": v["shares"],
+                "engagement_rate": engagement_rate,
+            }
+        )
 
     return enriched
 
@@ -497,12 +543,16 @@ def get_traffic_sources(
     fontes = []
     for row in rows:
         source, views, watch_time = row[0], int(row[1]), float(row[2])
-        fontes.append({
-            "source": source,
-            "views": views,
-            "watch_time_minutos": round(watch_time, 0),
-            "percentual_views": round((views / total_views * 100), 1) if total_views > 0 else 0.0,
-        })
+        fontes.append(
+            {
+                "source": source,
+                "views": views,
+                "watch_time_minutos": round(watch_time, 0),
+                "percentual_views": (
+                    round((views / total_views * 100), 1) if total_views > 0 else 0.0
+                ),
+            }
+        )
 
     return fontes
 
@@ -517,6 +567,7 @@ def get_credentials_and_token(scope: str = YT_ANALYTICS_SCOPE) -> str:
 # Helpers de impressão
 # ---------------------------------------------------------------------------
 
+
 def _print_channel_stats(stats: Dict) -> None:
     """Imprime estatísticas do canal em formato legível."""
     print(f"\n📺 CANAL — {stats['periodo']}")
@@ -528,7 +579,7 @@ def _print_channel_stats(stats: Dict) -> None:
     print(f"   🔗 Compartilhamentos:  {stats.get('shares', 0):,}")
     print(f"   ➕ Inscritos ganhos:   {stats.get('subscribers_gained', 0):,}")
     print(f"   ➖ Inscritos perdidos: {stats.get('subscribers_lost', 0):,}")
-    net = stats.get('net_subscribers', 0)
+    net = stats.get("net_subscribers", 0)
     sinal = "+" if net >= 0 else ""
     print(f"   📈 Saldo inscritos:    {sinal}{net:,}")
 
@@ -542,7 +593,13 @@ def _print_video_table(videos: List[Dict]) -> None:
         {"key": "titulo", "label": "TÍTULO", "width": 45},
         {"key": "views", "label": "VIEWS", "width": 10, "align": "right"},
         {"key": "likes", "label": "LIKES", "width": 8, "align": "right"},
-        {"key": "engagement_rate", "label": "ENGAJ%", "width": 7, "align": "right", "format": ".1f"},
+        {
+            "key": "engagement_rate",
+            "label": "ENGAJ%",
+            "width": 7,
+            "align": "right",
+            "format": ".1f",
+        },
     ]
     print_table(videos, cols)
 
@@ -550,6 +607,7 @@ def _print_video_table(videos: List[Dict]) -> None:
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
+
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -634,12 +692,33 @@ def main() -> None:
         elif args.comando == "top-videos":
             limit = validar_inteiro(args.limit, campo="limit", min_val=1, max_val=200)
             data = get_top_videos(token, days=days, limit=limit)
-            fmt.print(data, human_fn=lambda d: print_table(d, [
-                {"key": "video_id", "label": "VIDEO ID", "width": 15},
-                {"key": "views", "label": "VIEWS", "width": 10, "align": "right"},
-                {"key": "likes", "label": "LIKES", "width": 8, "align": "right"},
-                {"key": "watch_time_minutos", "label": "WATCH(min)", "width": 10, "align": "right"},
-            ]))
+            fmt.print(
+                data,
+                human_fn=lambda d: print_table(
+                    d,
+                    [
+                        {"key": "video_id", "label": "VIDEO ID", "width": 15},
+                        {
+                            "key": "views",
+                            "label": "VIEWS",
+                            "width": 10,
+                            "align": "right",
+                        },
+                        {
+                            "key": "likes",
+                            "label": "LIKES",
+                            "width": 8,
+                            "align": "right",
+                        },
+                        {
+                            "key": "watch_time_minutos",
+                            "label": "WATCH(min)",
+                            "width": 10,
+                            "align": "right",
+                        },
+                    ],
+                ),
+            )
 
         elif args.comando == "demographics":
             data = get_demographics(token, days=days)
@@ -652,11 +731,28 @@ def main() -> None:
 
         elif args.comando == "traffic-sources":
             data = get_traffic_sources(token, days=days)
-            fmt.print(data, human_fn=lambda d: print_table(d, [
-                {"key": "source", "label": "FONTE", "width": 35},
-                {"key": "views", "label": "VIEWS", "width": 10, "align": "right"},
-                {"key": "percentual_views", "label": "%", "width": 6, "align": "right", "format": ".1f"},
-            ]))
+            fmt.print(
+                data,
+                human_fn=lambda d: print_table(
+                    d,
+                    [
+                        {"key": "source", "label": "FONTE", "width": 35},
+                        {
+                            "key": "views",
+                            "label": "VIEWS",
+                            "width": 10,
+                            "align": "right",
+                        },
+                        {
+                            "key": "percentual_views",
+                            "label": "%",
+                            "width": 6,
+                            "align": "right",
+                            "format": ".1f",
+                        },
+                    ],
+                ),
+            )
 
         elif args.comando == "full-report":
             fmt.print_human(f"\n⏳ Gerando relatório completo (últimos {days} dias)...")

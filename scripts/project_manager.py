@@ -16,6 +16,7 @@ Uso:
     python project_manager.py aprovar lancamento-curso-ia
     python project_manager.py rejeitar lancamento-curso-ia "feedback"
 """
+
 from __future__ import annotations
 
 import argparse
@@ -37,12 +38,17 @@ PROJECT_TYPES = ("lancamento", "perpetuo", "consultoria", "mentoria")
 
 # ---------- helpers ----------
 
+
 def slugify(text: str) -> str:
     """Converte texto livre em slug URL-safe."""
     text = text.lower().strip()
     accent_map = {
-        "[àáâãä]": "a", "[èéêë]": "e", "[ìíîï]": "i",
-        "[òóôõö]": "o", "[ùúûü]": "u", "[ç]": "c",
+        "[àáâãä]": "a",
+        "[èéêë]": "e",
+        "[ìíîï]": "i",
+        "[òóôõö]": "o",
+        "[ùúûü]": "u",
+        "[ç]": "c",
     }
     for pattern, repl in accent_map.items():
         text = re.sub(pattern, repl, text)
@@ -92,10 +98,13 @@ def _read_jsonl(path: Path) -> list[dict]:
 
 # ---------- create ----------
 
+
 def create_project(name: str, project_type: str) -> Path:
     """Cria estrutura nova do projeto em workspace/projects/<slug>/."""
     if project_type not in PROJECT_TYPES:
-        raise ValueError(f"invalid type '{project_type}'. Valid: {', '.join(PROJECT_TYPES)}")
+        raise ValueError(
+            f"invalid type '{project_type}'. Valid: {', '.join(PROJECT_TYPES)}"
+        )
 
     slug = slugify(name)
     project_dir = PROJECTS_ROOT / slug
@@ -120,6 +129,7 @@ def create_project(name: str, project_type: str) -> Path:
 
 # ---------- list ----------
 
+
 def list_projects() -> list[dict]:
     """Lista todos os projetos com snapshot de estado."""
     if not PROJECTS_ROOT.exists():
@@ -132,17 +142,20 @@ def list_projects() -> list[dict]:
         if not project_md.is_file():
             continue
         fm, _ = parse_frontmatter(project_md.read_text(encoding="utf-8"))
-        out.append({
-            "slug": fm.get("slug", entry.name),
-            "name": fm.get("name", entry.name),
-            "type": fm.get("type", "?"),
-            "status": fm.get("status", "?"),
-            "current_stage": fm.get("current_stage", "?"),
-        })
+        out.append(
+            {
+                "slug": fm.get("slug", entry.name),
+                "name": fm.get("name", entry.name),
+                "type": fm.get("type", "?"),
+                "status": fm.get("status", "?"),
+                "current_stage": fm.get("current_stage", "?"),
+            }
+        )
     return out
 
 
 # ---------- status ----------
+
 
 def project_status(slug: str) -> dict:
     """Snapshot completo do estado de um projeto."""
@@ -169,6 +182,7 @@ def project_status(slug: str) -> dict:
 
 # ---------- run log ----------
 
+
 def append_run(slug: str, run: dict) -> dict:
     """Appenda uma linha em runs.jsonl. Preenche run_id e started_at se faltarem."""
     project_dir = PROJECTS_ROOT / slug
@@ -186,6 +200,7 @@ def append_run(slug: str, run: dict) -> dict:
 
 
 # ---------- state machine ----------
+
 
 def _update_frontmatter(slug: str, updates: dict) -> dict:
     """Mescla updates no frontmatter do project.md e regrava."""
@@ -239,7 +254,9 @@ def _rewrite_runs(slug: str, runs: list[dict]) -> None:
     )
 
 
-def _append_decision(slug: str, stage_id: str, run_id: str, decision: str, feedback: Optional[str]) -> None:
+def _append_decision(
+    slug: str, stage_id: str, run_id: str, decision: str, feedback: Optional[str]
+) -> None:
     when = datetime.now().strftime("%Y-%m-%d %H:%M")
     block = [f"\n## {when} {stage_id} ({run_id})", f"- **Decisao:** {decision}"]
     if feedback:
@@ -265,14 +282,17 @@ def advance_stage(slug: str) -> dict:
     folder = stage_folder(slug, stage_def["id"])
     folder.mkdir(parents=True, exist_ok=True)
 
-    run = append_run(slug, {
-        "stage_id": stage_def["id"],
-        "agent": stage_def["agent"],
-        "iteration": iteration,
-        "status": "pending",
-        "source": "pipeline",
-        "folder": str(folder.relative_to(PROJECTS_ROOT / slug)),
-    })
+    run = append_run(
+        slug,
+        {
+            "stage_id": stage_def["id"],
+            "agent": stage_def["agent"],
+            "iteration": iteration,
+            "status": "pending",
+            "source": "pipeline",
+            "folder": str(folder.relative_to(PROJECTS_ROOT / slug)),
+        },
+    )
     return run
 
 
@@ -298,7 +318,11 @@ def complete_run(slug: str, output_path: Optional[str] = None) -> dict:
 
     state = project_status(slug)
     stage_def = _current_stage_def(state["pipeline"], last["stage_id"])
-    approval = stage_def.get("approval", state["default_approval"]) if stage_def else "required"
+    approval = (
+        stage_def.get("approval", state["default_approval"])
+        if stage_def
+        else "required"
+    )
     if approval == "skip":
         return approve_stage(slug)
     return state
@@ -316,7 +340,9 @@ def approve_stage(slug: str) -> dict:
 
     last = runs[-1]
     if last.get("status") not in ("pending", "running", "pending_approval"):
-        raise ValueError(f"ultimo run nao esta aguardando aprovacao: {last.get('status')}")
+        raise ValueError(
+            f"ultimo run nao esta aguardando aprovacao: {last.get('status')}"
+        )
 
     last["status"] = "approved"
     last["approved_at"] = datetime.now().isoformat(timespec="seconds")
@@ -347,11 +373,14 @@ def reject_stage(slug: str, feedback: str) -> dict:
     last["feedback"] = feedback
     _rewrite_runs(slug, runs)
 
-    _append_decision(slug, last["stage_id"], last["run_id"], "rejeitado", feedback=feedback)
+    _append_decision(
+        slug, last["stage_id"], last["run_id"], "rejeitado", feedback=feedback
+    )
     return project_status(slug)
 
 
 # ---------- CLI ----------
+
 
 def _print_status(state: dict) -> None:
     print(f"\nProjeto: {state['name']} ({state['slug']})")
@@ -400,12 +429,18 @@ def main():
     p_status = sub.add_parser("status", help="Mostrar estado de um projeto")
     p_status.add_argument("slug")
 
-    p_avancar = sub.add_parser("avancar", help="Cria run pendente pro stage atual + auto-cria pasta")
+    p_avancar = sub.add_parser(
+        "avancar", help="Cria run pendente pro stage atual + auto-cria pasta"
+    )
     p_avancar.add_argument("slug")
 
-    p_completar = sub.add_parser("completar", help="Marca run pending como pending_approval (com output)")
+    p_completar = sub.add_parser(
+        "completar", help="Marca run pending como pending_approval (com output)"
+    )
     p_completar.add_argument("slug")
-    p_completar.add_argument("--output", help="Path relativo do output (ex: 01-research/draft-v1.md)")
+    p_completar.add_argument(
+        "--output", help="Path relativo do output (ex: 01-research/draft-v1.md)"
+    )
 
     p_aprovar = sub.add_parser("aprovar", help="Aprova ultimo run e avanca stage")
     p_aprovar.add_argument("slug")
@@ -430,17 +465,25 @@ def main():
             _print_status(project_status(args.slug))
         elif args.cmd == "avancar":
             run = advance_stage(args.slug)
-            print(f"Run pendente criado: {run['run_id']} stage={run['stage_id']} agent={run['agent']}")
+            print(
+                f"Run pendente criado: {run['run_id']} stage={run['stage_id']} agent={run['agent']}"
+            )
             print(f"Pasta do stage: workspace/projects/{args.slug}/{run['folder']}/")
-            print("Agora /projeto despacha o agente. Quando terminar, use 'completar' + 'aprovar'/'rejeitar'.")
+            print(
+                "Agora /projeto despacha o agente. Quando terminar, use 'completar' + 'aprovar'/'rejeitar'."
+            )
         elif args.cmd == "completar":
             state = complete_run(args.slug, args.output)
-            print(f"Run completado. Stage: {state['current_stage']} status={state['status']}")
+            print(
+                f"Run completado. Stage: {state['current_stage']} status={state['status']}"
+            )
             if state.get("last_run", {}).get("status") == "approved":
                 print(f"(approval: skip detectado, auto-aprovado e avancado)")
         elif args.cmd == "aprovar":
             state = approve_stage(args.slug)
-            print(f"Stage aprovado. Novo stage atual: {state['current_stage']} (status={state['status']})")
+            print(
+                f"Stage aprovado. Novo stage atual: {state['current_stage']} (status={state['status']})"
+            )
         elif args.cmd == "rejeitar":
             state = reject_stage(args.slug, args.feedback)
             print(f"Stage rejeitado. Stage atual continua: {state['current_stage']}")

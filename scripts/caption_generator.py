@@ -22,9 +22,9 @@ ESTRUTURAS = {
             "HOOK (primeira linha)",
             "CONTEXTO (2-3 linhas)",
             "PERGUNTA ENGAJADORA",
-            "HASHTAGS"
+            "HASHTAGS",
         ],
-        "tamanho": "curta-média (100-200 palavras)"
+        "tamanho": "curta-média (100-200 palavras)",
     },
     "educativo": {
         "nome": "Legenda Educativa",
@@ -34,9 +34,9 @@ ESTRUTURAS = {
             "CONTEÚDO (bullets ou lista)",
             "CONCLUSÃO com insight",
             "CTA para salvar",
-            "HASHTAGS"
+            "HASHTAGS",
         ],
-        "tamanho": "média-longa (200-400 palavras)"
+        "tamanho": "média-longa (200-400 palavras)",
     },
     "storytelling": {
         "nome": "Legenda Storytelling",
@@ -48,9 +48,9 @@ ESTRUTURAS = {
             "RESOLUÇÃO",
             "LIÇÃO/MORAL",
             "CTA emocional",
-            "HASHTAGS"
+            "HASHTAGS",
         ],
-        "tamanho": "longa (300-500 palavras)"
+        "tamanho": "longa (300-500 palavras)",
     },
     "vendas": {
         "nome": "Legenda de Vendas",
@@ -62,9 +62,9 @@ ESTRUTURAS = {
             "PROVA SOCIAL",
             "OFERTA + URGÊNCIA",
             "CTA direto",
-            "HASHTAGS"
+            "HASHTAGS",
         ],
-        "tamanho": "média (200-300 palavras)"
+        "tamanho": "média (200-300 palavras)",
     },
     "autoridade": {
         "nome": "Legenda de Autoridade",
@@ -75,9 +75,9 @@ ESTRUTURAS = {
             "EXPERIÊNCIA pessoal",
             "CONCLUSÃO forte",
             "CTA para debate",
-            "HASHTAGS"
+            "HASHTAGS",
         ],
-        "tamanho": "média (200-300 palavras)"
+        "tamanho": "média (200-300 palavras)",
     },
     "conexao": {
         "nome": "Legenda de Conexão",
@@ -88,10 +88,10 @@ ESTRUTURAS = {
             "NORMALIZAR",
             "MENSAGEM de apoio",
             "PERGUNTA para conectar",
-            "HASHTAGS"
+            "HASHTAGS",
         ],
-        "tamanho": "média (150-250 palavras)"
-    }
+        "tamanho": "média (150-250 palavras)",
+    },
 }
 
 # Hooks por objetivo
@@ -103,7 +103,7 @@ HOOKS = {
         "Você concorda ou discorda?",
         "Isso mudou completamente minha perspectiva sobre {tema}",
         "A verdade que ninguém quer admitir sobre {tema}",
-        "Se você {situação}, precisa ler isso até o final"
+        "Se você {situação}, precisa ler isso até o final",
     ],
     "educativo": [
         "{Número} coisas sobre {tema} que vão mudar sua vida",
@@ -112,7 +112,7 @@ HOOKS = {
         "Os erros que 90% das pessoas cometem com {tema}",
         "O que eu queria ter aprendido antes sobre {tema}",
         "O método que transformou meu {área}",
-        "Se você quer {resultado}, leia isso:"
+        "Se você quer {resultado}, leia isso:",
     ],
     "storytelling": [
         "Tudo começou quando...",
@@ -121,7 +121,7 @@ HOOKS = {
         "Eu quase desisti de {tema}. Deixa eu te contar...",
         "Há {tempo} atrás, eu estava {situação difícil}",
         "Essa história me ensinou a lição mais importante da minha vida",
-        "Hoje eu preciso compartilhar algo com vocês..."
+        "Hoje eu preciso compartilhar algo com vocês...",
     ],
     "vendas": [
         "Cansado(a) de {problema}? Tenho a solução.",
@@ -130,7 +130,7 @@ HOOKS = {
         "Eu estava exatamente onde você está agora",
         "Finalmente: {solução} que realmente funciona",
         "{Número} pessoas já {resultado} com isso",
-        "Se {problema} está te impedindo de {objetivo}, leia isso:"
+        "Se {problema} está te impedindo de {objetivo}, leia isso:",
     ],
     "autoridade": [
         "Opinião impopular sobre {tema}:",
@@ -139,7 +139,7 @@ HOOKS = {
         "Vou te contar o que {anos} de experiência me ensinaram",
         "Essa é a verdade que o mercado não quer que você saiba",
         "Por que eu discordo de {crença comum}",
-        "{Número} anos fazendo {atividade} me mostraram que..."
+        "{Número} anos fazendo {atividade} me mostraram que...",
     ],
     "conexao": [
         "Preciso ser honesto(a) com vocês...",
@@ -148,8 +148,8 @@ HOOKS = {
         "Isso é algo que eu demorei pra aceitar...",
         "Se você está passando por isso, quero que saiba que...",
         "Às vezes a gente precisa ouvir que tá tudo bem não estar bem",
-        "Uma coisa que eu gostaria de ter ouvido antes..."
-    ]
+        "Uma coisa que eu gostaria de ter ouvido antes...",
+    ],
 }
 
 # CTAs por objetivo
@@ -161,7 +161,7 @@ CTAS = {
         "Qual foi sua maior sacada? Comenta aqui 👇",
         "Deixa um 🔥 se você se identificou",
         "Compartilha com quem precisa ouvir isso",
-        "E você, como lida com isso? Quero saber!"
+        "E você, como lida com isso? Quero saber!",
     ],
     "educativo": [
         "Salva esse post para consultar depois 📌",
@@ -170,7 +170,7 @@ CTAS = {
         "Compartilha com alguém que está começando em {tema}",
         "Salva e compartilha para ajudar mais pessoas!",
         "Tem dúvidas? Comenta aqui que eu respondo",
-        "Quer o passo a passo completo? Link na bio!"
+        "Quer o passo a passo completo? Link na bio!",
     ],
     "storytelling": [
         "Você já passou por algo parecido? Me conta...",
@@ -179,7 +179,7 @@ CTAS = {
         "Qual lição você tira disso?",
         "Comenta um 💜 se você se conectou com essa história",
         "Às vezes a gente precisa compartilhar... obrigado por ler",
-        "Se quiser mais histórias assim, me segue!"
+        "Se quiser mais histórias assim, me segue!",
     ],
     "vendas": [
         "Link na bio para saber mais!",
@@ -188,7 +188,7 @@ CTAS = {
         "Clica no link e aproveita a oferta especial",
         "Quer transformar seu {área}? Me chama no direct",
         "⚡ Oferta válida até {data}! Link na bio",
-        "Já são +{número} pessoas transformadas. Você é o(a) próximo(a)?"
+        "Já são +{número} pessoas transformadas. Você é o(a) próximo(a)?",
     ],
     "autoridade": [
         "Concorda ou discorda? Vamos debater nos comentários",
@@ -197,7 +197,7 @@ CTAS = {
         "Compartilha com alguém que precisa de outra perspectiva",
         "Comenta sua visão sobre {tema}",
         "Isso é só o começo... siga para mais insights",
-        "Quer aprofundar? Link do artigo completo na bio"
+        "Quer aprofundar? Link do artigo completo na bio",
     ],
     "conexao": [
         "Se você se identificou, deixa um 💙",
@@ -206,21 +206,58 @@ CTAS = {
         "Você não está sozinho(a). Comenta aqui 🤝",
         "Obrigado(a) por fazer parte da minha jornada",
         "Se precisar conversar, meu direct está aberto",
-        "Juntos somos mais fortes. Deixa seu comentário!"
-    ]
+        "Juntos somos mais fortes. Deixa seu comentário!",
+    ],
 }
 
 # Hashtags por nicho
 HASHTAGS: Dict[str, List[str]] = {
-    "geral": ["#conteudo", "#dicas", "#aprendizado", "#conhecimento", "#desenvolvimento"],
-    "marketing": ["#marketingdigital", "#socialmedia", "#marketing", "#empreendedorismo", "#negocios"],
-    "produtividade": ["#produtividade", "#gestaodotempo", "#foco", "#organizacao", "#habitos"],
+    "geral": [
+        "#conteudo",
+        "#dicas",
+        "#aprendizado",
+        "#conhecimento",
+        "#desenvolvimento",
+    ],
+    "marketing": [
+        "#marketingdigital",
+        "#socialmedia",
+        "#marketing",
+        "#empreendedorismo",
+        "#negocios",
+    ],
+    "produtividade": [
+        "#produtividade",
+        "#gestaodotempo",
+        "#foco",
+        "#organizacao",
+        "#habitos",
+    ],
     "carreira": ["#carreira", "#trabalho", "#emprego", "#profissional", "#crescimento"],
-    "mindset": ["#mindset", "#mentalidade", "#motivacao", "#autoconhecimento", "#evolucao"],
-    "financas": ["#financas", "#investimentos", "#dinheiro", "#educacaofinanceira", "#renda"],
-    "saude": ["#saude", "#bemestar", "#vidasaudavel", "#qualidadedevida", "#equilibrio"],
-    "tech": ["#tecnologia", "#inovacao", "#ia", "#futuro", "#digital"]
+    "mindset": [
+        "#mindset",
+        "#mentalidade",
+        "#motivacao",
+        "#autoconhecimento",
+        "#evolucao",
+    ],
+    "financas": [
+        "#financas",
+        "#investimentos",
+        "#dinheiro",
+        "#educacaofinanceira",
+        "#renda",
+    ],
+    "saude": [
+        "#saude",
+        "#bemestar",
+        "#vidasaudavel",
+        "#qualidadedevida",
+        "#equilibrio",
+    ],
+    "tech": ["#tecnologia", "#inovacao", "#ia", "#futuro", "#digital"],
 }
+
 
 def gerar_legenda(tema: str, objetivo: str) -> Dict:
     """Gera legenda completa baseada no objetivo."""
@@ -244,7 +281,7 @@ def gerar_legenda(tema: str, objetivo: str) -> Dict:
         solução="a solução",
         anos=random.choice(["3", "5", "8", "10"]),
         atividade=tema,
-        crença_comum="a maioria"
+        crença_comum="a maioria",
     )
 
     cta = random.choice(CTAS[objetivo]).format(
@@ -253,7 +290,7 @@ def gerar_legenda(tema: str, objetivo: str) -> Dict:
         palavra="EU QUERO",
         área=tema,
         data="sexta-feira",
-        número=random.choice(["500", "1.000", "5.000"])
+        número=random.choice(["500", "1.000", "5.000"]),
     )
 
     # Selecionar hashtags
@@ -263,7 +300,9 @@ def gerar_legenda(tema: str, objetivo: str) -> Dict:
             nicho = key
             break
 
-    hashtags_selecionadas = random.sample(HASHTAGS[nicho], 3) + random.sample(HASHTAGS["geral"], 2)
+    hashtags_selecionadas = random.sample(HASHTAGS[nicho], 3) + random.sample(
+        HASHTAGS["geral"], 2
+    )
 
     resultado = {
         "tema": tema,
@@ -271,10 +310,11 @@ def gerar_legenda(tema: str, objetivo: str) -> Dict:
         "estrutura": estrutura,
         "hook": hook,
         "cta": cta,
-        "hashtags": hashtags_selecionadas
+        "hashtags": hashtags_selecionadas,
     }
 
     return resultado
+
 
 def gerar_exemplo_completo(legenda: Dict) -> str:
     """Gera um exemplo de legenda completa."""
@@ -297,7 +337,6 @@ O mais interessante é que a maioria das pessoas nem considera essa perspectiva.
 .
 .
 {' '.join(legenda['hashtags'])}""",
-
         "educativo": f"""{legenda['hook']}
 
 Vou compartilhar o que realmente funciona:
@@ -321,7 +360,6 @@ O segredo é consistência. Comece aplicando uma dessas dicas hoje mesmo.
 .
 .
 {' '.join(legenda['hashtags'])}""",
-
         "storytelling": f"""{legenda['hook']}
 
 Era 2019 e eu estava completamente perdido(a) com {tema}.
@@ -342,7 +380,6 @@ A lição mais importante? [moral da história]
 .
 .
 {' '.join(legenda['hashtags'])}""",
-
         "vendas": f"""{legenda['hook']}
 
 Se você está cansado(a) de:
@@ -368,7 +405,6 @@ Já são +[número] pessoas transformando seu [área] com isso.
 .
 .
 {' '.join(legenda['hashtags'])}""",
-
         "autoridade": f"""{legenda['hook']}
 
 E vou te explicar o porquê.
@@ -391,7 +427,6 @@ O que você acha?
 .
 .
 {' '.join(legenda['hashtags'])}""",
-
         "conexao": f"""{legenda['hook']}
 
 Esses últimos dias não têm sido fáceis com {tema}.
@@ -415,10 +450,11 @@ O importante é não desistir. ❤️
 .
 .
 .
-{' '.join(legenda['hashtags'])}"""
+{' '.join(legenda['hashtags'])}""",
     }
 
     return exemplos.get(objetivo, exemplos["engajamento"])
+
 
 def formatar_saida(legenda: Dict) -> str:
     """Formata a legenda para exibição."""
@@ -474,6 +510,7 @@ def formatar_saida(legenda: Dict) -> str:
 
     return saida
 
+
 def listar_objetivos() -> None:
     """Lista todos os objetivos disponíveis."""
 
@@ -481,6 +518,7 @@ def listar_objetivos() -> None:
     for key, value in ESTRUTURAS.items():
         print(f"  • {key}: {value['nome']}")
     print()
+
 
 USO_CAPTION = (
     'Uso: python caption_generator.py "tema" [objetivo] [--json]\n'
@@ -503,7 +541,11 @@ def main() -> None:
 
     try:
         tema = validar_texto(args_clean[0], campo="tema", max_len=200)
-        objetivo = validar_texto(args_clean[1], campo="objetivo", max_len=50) if len(args_clean) > 1 else "engajamento"
+        objetivo = (
+            validar_texto(args_clean[1], campo="objetivo", max_len=50)
+            if len(args_clean) > 1
+            else "engajamento"
+        )
     except ValidationError as e:
         handle_validation_error(e, mostrar_uso=USO_CAPTION)
         return
@@ -513,6 +555,7 @@ def main() -> None:
         print_json(legenda)
     else:
         print(formatar_saida(legenda))
+
 
 if __name__ == "__main__":
     main()

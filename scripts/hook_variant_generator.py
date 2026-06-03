@@ -155,8 +155,18 @@ VARIAVEIS_NICHO = {
     "marketing": {
         "coisas_tema": ["estratégias", "ferramentas", "técnicas", "métricas", "canais"],
         "acoes_tema": ["geram leads", "convertem", "engajam", "vendem", "escalam"],
-        "erros_tema": ["erros de anúncio", "falhas de copy", "problemas de funil", "erros de métrica"],
-        "resultado": ["mais vendas", "ROI de 300%", "10K seguidores", "leads qualificados"],
+        "erros_tema": [
+            "erros de anúncio",
+            "falhas de copy",
+            "problemas de funil",
+            "erros de métrica",
+        ],
+        "resultado": [
+            "mais vendas",
+            "ROI de 300%",
+            "10K seguidores",
+            "leads qualificados",
+        ],
         "problema_tema": ["não vende", "não engaja", "não converte", "perde dinheiro"],
         "beneficio": ["convertem", "engajam", "geram leads", "aumentam vendas"],
         "autoridade": ["grandes marcas", "top marketeiros", "agências de sucesso"],
@@ -165,37 +175,87 @@ VARIAVEIS_NICHO = {
     "financas": {
         "coisas_tema": ["investimentos", "economias", "hábitos", "estratégias", "apps"],
         "acoes_tema": ["economizam", "rendem mais", "multiplicam", "protegem"],
-        "erros_tema": ["erros de investimento", "gastos invisíveis", "dívidas", "desperdícios"],
-        "resultado": ["R$10K economizados", "renda extra", "liberdade financeira", "carteira sólida"],
-        "problema_tema": ["não sobra dinheiro", "dívidas crescem", "não consegue investir"],
+        "erros_tema": [
+            "erros de investimento",
+            "gastos invisíveis",
+            "dívidas",
+            "desperdícios",
+        ],
+        "resultado": [
+            "R$10K economizados",
+            "renda extra",
+            "liberdade financeira",
+            "carteira sólida",
+        ],
+        "problema_tema": [
+            "não sobra dinheiro",
+            "dívidas crescem",
+            "não consegue investir",
+        ],
         "beneficio": ["economizam", "rendem", "multiplicam patrimônio"],
         "autoridade": ["investidores de sucesso", "economistas", "milionários"],
         "tempo": ["6 meses", "1 ano", "5 anos"],
     },
     "fitness": {
         "coisas_tema": ["exercícios", "alimentos", "suplementos", "rotinas", "treinos"],
-        "acoes_tema": ["queimam gordura", "ganham músculo", "melhoram saúde", "aumentam energia"],
+        "acoes_tema": [
+            "queimam gordura",
+            "ganham músculo",
+            "melhoram saúde",
+            "aumentam energia",
+        ],
         "erros_tema": ["erros de treino", "falhas de dieta", "lesões", "estagnação"],
         "resultado": ["10kg a menos", "shape definido", "mais energia", "saúde melhor"],
-        "problema_tema": ["não emagrece", "não ganha músculo", "falta energia", "lesiona"],
+        "problema_tema": [
+            "não emagrece",
+            "não ganha músculo",
+            "falta energia",
+            "lesiona",
+        ],
         "beneficio": ["emagrecem", "definem", "fortalecem", "energizam"],
         "autoridade": ["atletas", "nutricionistas", "personal trainers"],
         "tempo": ["3 meses", "12 semanas", "30 dias"],
     },
     "desenvolvimento": {
         "coisas_tema": ["hábitos", "mindsets", "técnicas", "livros", "práticas"],
-        "acoes_tema": ["transformam", "melhoram produtividade", "aumentam foco", "desenvolvem"],
-        "erros_tema": ["erros de mindset", "crenças limitantes", "procrastinação", "autossabotagem"],
-        "resultado": ["mais produtividade", "clareza mental", "sucesso pessoal", "realização"],
+        "acoes_tema": [
+            "transformam",
+            "melhoram produtividade",
+            "aumentam foco",
+            "desenvolvem",
+        ],
+        "erros_tema": [
+            "erros de mindset",
+            "crenças limitantes",
+            "procrastinação",
+            "autossabotagem",
+        ],
+        "resultado": [
+            "mais produtividade",
+            "clareza mental",
+            "sucesso pessoal",
+            "realização",
+        ],
         "problema_tema": ["procrastina", "falta foco", "ansiedade", "estagnação"],
         "beneficio": ["focam", "motivam", "transformam", "desenvolvem"],
         "autoridade": ["líderes", "autores best-seller", "coaches de sucesso"],
         "tempo": ["21 dias", "3 meses", "1 ano"],
     },
     "empreendedorismo": {
-        "coisas_tema": ["estratégias", "modelos de negócio", "táticas", "ferramentas", "decisões"],
+        "coisas_tema": [
+            "estratégias",
+            "modelos de negócio",
+            "táticas",
+            "ferramentas",
+            "decisões",
+        ],
         "acoes_tema": ["escalam", "faturam", "vendem", "crescem"],
-        "erros_tema": ["erros de gestão", "falhas de venda", "problemas de fluxo", "contratações erradas"],
+        "erros_tema": [
+            "erros de gestão",
+            "falhas de venda",
+            "problemas de fluxo",
+            "contratações erradas",
+        ],
         "resultado": ["6 dígitos", "empresa escalável", "liberdade", "time forte"],
         "problema_tema": ["não vende", "não escala", "sem lucro", "sem tempo"],
         "beneficio": ["faturam", "escalam", "lucram", "crescem"],
@@ -205,9 +265,23 @@ VARIAVEIS_NICHO = {
     "tecnologia": {
         "coisas_tema": ["ferramentas", "apps", "atalhos", "linguagens", "frameworks"],
         "acoes_tema": ["automatizam", "economizam tempo", "facilitam", "otimizam"],
-        "erros_tema": ["erros de código", "bugs", "más práticas", "ferramentas erradas"],
-        "resultado": ["mais produtividade", "automação", "carreira tech", "projetos prontos"],
-        "problema_tema": ["código não funciona", "leva muito tempo", "não consegue aprender"],
+        "erros_tema": [
+            "erros de código",
+            "bugs",
+            "más práticas",
+            "ferramentas erradas",
+        ],
+        "resultado": [
+            "mais produtividade",
+            "automação",
+            "carreira tech",
+            "projetos prontos",
+        ],
+        "problema_tema": [
+            "código não funciona",
+            "leva muito tempo",
+            "não consegue aprender",
+        ],
         "beneficio": ["automatizam", "aceleram", "simplificam", "otimizam"],
         "autoridade": ["big techs", "devs sênior", "CTOs"],
         "tempo": ["1 semana", "1 mês", "6 meses"],
@@ -321,7 +395,7 @@ def adaptar_para_formato(hook: str, formato: str) -> str:
 
     # Truncar se necessário
     if len(hook) > config["max_caracteres"]:
-        hook = hook[:config["max_caracteres"] - 3] + "..."
+        hook = hook[: config["max_caracteres"] - 3] + "..."
 
     return hook
 
@@ -331,7 +405,7 @@ def gerar_variantes(
     quantidade: int = 5,
     nicho: str = "geral",
     formato: str = "card",
-    categorias: Optional[List[str]] = None
+    categorias: Optional[List[str]] = None,
 ) -> List[Dict]:
     """Gera múltiplas variantes de hooks para um tema."""
 
@@ -360,12 +434,14 @@ def gerar_variantes(
         hook = preencher_variaveis(formula, tema, nicho)
         hook = adaptar_para_formato(hook, formato)
 
-        variantes.append({
-            "hook": hook,
-            "categoria": categoria,
-            "formato": formato,
-            "caracteres": len(hook),
-        })
+        variantes.append(
+            {
+                "hook": hook,
+                "categoria": categoria,
+                "formato": formato,
+                "caracteres": len(hook),
+            }
+        )
 
     return variantes
 
@@ -405,7 +481,7 @@ def formatar_saida_markdown(variantes: List[Dict], tema: str) -> str:
     # Agrupar por categoria
     por_categoria = {}
     for v in variantes:
-        cat = v['categoria']
+        cat = v["categoria"]
         if cat not in por_categoria:
             por_categoria[cat] = []
         por_categoria[cat].append(v)
@@ -496,7 +572,7 @@ def main() -> None:
     """Função principal."""
     args = sys.argv[1:]
 
-    if not args or '-h' in args or '--help' in args:
+    if not args or "-h" in args or "--help" in args:
         mostrar_ajuda()
         return
 
@@ -512,22 +588,22 @@ def main() -> None:
     while i < len(args):
         arg = args[i]
 
-        if arg == '--quantidade' and i + 1 < len(args):
+        if arg == "--quantidade" and i + 1 < len(args):
             quantidade = int(args[i + 1])
             i += 2
-        elif arg == '--nicho' and i + 1 < len(args):
+        elif arg == "--nicho" and i + 1 < len(args):
             nicho = args[i + 1].lower()
             i += 2
-        elif arg == '--formato' and i + 1 < len(args):
+        elif arg == "--formato" and i + 1 < len(args):
             formato = args[i + 1].lower()
             i += 2
-        elif arg == '--categoria' and i + 1 < len(args):
+        elif arg == "--categoria" and i + 1 < len(args):
             categoria = args[i + 1].lower()
             i += 2
-        elif arg == '--output' and i + 1 < len(args):
+        elif arg == "--output" and i + 1 < len(args):
             output = args[i + 1].lower()
             i += 2
-        elif not arg.startswith('--') and tema is None:
+        elif not arg.startswith("--") and tema is None:
             tema = arg
             i += 1
         else:
@@ -562,7 +638,7 @@ def main() -> None:
         quantidade=quantidade,
         nicho=nicho,
         formato=formato,
-        categorias=categorias
+        categorias=categorias,
     )
 
     # Formatar saída

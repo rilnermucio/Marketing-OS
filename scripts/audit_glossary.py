@@ -6,8 +6,8 @@ não-técnico mas educado. Cada definição: 1-2 frases, sem jargão circular.
 Uso: render_glossary_md(used_terms) filtra apenas os termos efetivamente
 mencionados no relatório, mantendo a seção de glossário enxuta.
 """
-from __future__ import annotations
 
+from __future__ import annotations
 
 GLOSSARY: dict[str, str] = {
     "CWV": "Core Web Vitals. Métricas do Google que medem performance percebida pelo usuário: LCP (Largest Contentful Paint), INP (Interaction to Next Paint) e CLS (Cumulative Layout Shift).",
@@ -88,7 +88,8 @@ def render_glossary_md(used_terms: set[str] | None = None) -> str:
         terms_to_render = GLOSSARY
     else:
         terms_to_render = {
-            k: v for k, v in GLOSSARY.items()
+            k: v
+            for k, v in GLOSSARY.items()
             if any(t.lower() in k.lower() or k.lower() in t.lower() for t in used_terms)
         }
 

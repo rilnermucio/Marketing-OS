@@ -26,9 +26,9 @@ Saida:
 
 Sem dependencias externas (stdlib only).
 """
+
 import argparse
 import json
-import os
 import re
 import sys
 from collections import Counter
@@ -81,19 +81,23 @@ def read_files(paths: list) -> list:
             continue
         if path.is_file():
             try:
-                samples.append({
-                    'name': path.name,
-                    'text': path.read_text(encoding='utf-8'),
-                })
+                samples.append(
+                    {
+                        "name": path.name,
+                        "text": path.read_text(encoding="utf-8"),
+                    }
+                )
             except Exception as e:
                 print(f"AVISO: falha lendo {p}: {e}", file=sys.stderr)
         elif path.is_dir():
-            for f in sorted(path.rglob('*.md')) + sorted(path.rglob('*.txt')):
+            for f in sorted(path.rglob("*.md")) + sorted(path.rglob("*.txt")):
                 try:
-                    samples.append({
-                        'name': str(f.relative_to(path)),
-                        'text': f.read_text(encoding='utf-8'),
-                    })
+                    samples.append(
+                        {
+                            "name": str(f.relative_to(path)),
+                            "text": f.read_text(encoding="utf-8"),
+                        }
+                    )
                 except Exception as e:
                     print(f"AVISO: falha lendo {f}: {e}", file=sys.stderr)
     return samples
@@ -101,24 +105,24 @@ def read_files(paths: list) -> list:
 
 def normalize(text: str) -> str:
     """Remove markdown headers, links, code blocks, e excesso de whitespace."""
-    text = re.sub(r'```[^`]*```', ' ', text, flags=re.DOTALL)
-    text = re.sub(r'`[^`]+`', ' ', text)
-    text = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', text)
-    text = re.sub(r'^#{1,6}\s.*$', '', text, flags=re.MULTILINE)
-    text = re.sub(r'^---+$', '', text, flags=re.MULTILINE)
-    text = re.sub(r'\s+', ' ', text)
+    text = re.sub(r"```[^`]*```", " ", text, flags=re.DOTALL)
+    text = re.sub(r"`[^`]+`", " ", text)
+    text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
+    text = re.sub(r"^#{1,6}\s.*$", "", text, flags=re.MULTILINE)
+    text = re.sub(r"^---+$", "", text, flags=re.MULTILINE)
+    text = re.sub(r"\s+", " ", text)
     return text.strip()
 
 
 def tokenize_words(text: str) -> list:
     """Tokeniza em palavras, lowercase, mantendo acentos PT-BR."""
-    words = re.findall(r'[a-záàâãéêíïóôõúüç]+', text.lower())
+    words = re.findall(r"[a-záàâãéêíïóôõúüç]+", text.lower())
     return [w for w in words if len(w) >= 4 and w not in STOPWORDS]
 
 
 def tokenize_sentences(text: str) -> list:
     """Tokeniza em frases simples (split por . ! ? + quebras de paragrafo)."""
-    sentences = re.split(r'(?<=[.!?])\s+|\n\n+', text)
+    sentences = re.split(r"(?<=[.!?])\s+|\n\n+", text)
     return [s.strip() for s in sentences if len(s.strip()) > 5]
 
 
@@ -128,7 +132,7 @@ def extract_distinctive_words(samples: list, top_n: int, min_freq: int) -> list:
     sample_presence = {}
 
     for sample in samples:
-        text = normalize(sample['text'])
+        text = normalize(sample["text"])
         words = tokenize_words(text)
         unique_words = set(words)
         for w in words:
@@ -152,43 +156,48 @@ def extract_ngrams(samples: list, n: int, top_k: int, min_freq: int) -> list:
     """N-grams (n=2 ou 3) mais frequentes, com filtro de stopwords nas bordas."""
     counter = Counter()
     for sample in samples:
-        text = normalize(sample['text'])
-        words = re.findall(r'[a-záàâãéêíïóôõúüç]+', text.lower())
+        text = normalize(sample["text"])
+        words = re.findall(r"[a-záàâãéêíïóôõúüç]+", text.lower())
         for i in range(len(words) - n + 1):
-            ngram = words[i:i+n]
+            ngram = words[i : i + n]
             if ngram[0] in STOPWORDS or ngram[-1] in STOPWORDS:
                 continue
             if any(len(w) < 3 for w in ngram):
                 continue
-            counter[' '.join(ngram)] += 1
+            counter[" ".join(ngram)] += 1
 
     return [(ng, c) for ng, c in counter.most_common(top_k) if c >= min_freq]
 
 
 def sentence_length_distribution(samples: list) -> dict:
     """Distribuicao de tamanho de frase em palavras."""
-    buckets = {'< 8 palavras': 0, '8-15 palavras': 0, '15-25 palavras': 0, '> 25 palavras': 0}
+    buckets = {
+        "< 8 palavras": 0,
+        "8-15 palavras": 0,
+        "15-25 palavras": 0,
+        "> 25 palavras": 0,
+    }
     total = 0
     lengths = []
 
     for sample in samples:
-        text = normalize(sample['text'])
+        text = normalize(sample["text"])
         sentences = tokenize_sentences(text)
         for s in sentences:
             n = len(s.split())
             lengths.append(n)
             total += 1
             if n < 8:
-                buckets['< 8 palavras'] += 1
+                buckets["< 8 palavras"] += 1
             elif n < 15:
-                buckets['8-15 palavras'] += 1
+                buckets["8-15 palavras"] += 1
             elif n < 25:
-                buckets['15-25 palavras'] += 1
+                buckets["15-25 palavras"] += 1
             else:
-                buckets['> 25 palavras'] += 1
+                buckets["> 25 palavras"] += 1
 
     if total == 0:
-        return {'distribution': buckets, 'avg': 0, 'median': 0, 'total_sentences': 0}
+        return {"distribution": buckets, "avg": 0, "median": 0, "total_sentences": 0}
 
     lengths.sort()
     median = lengths[len(lengths) // 2]
@@ -196,11 +205,11 @@ def sentence_length_distribution(samples: list) -> dict:
 
     distribution_pct = {k: round(100 * v / total, 1) for k, v in buckets.items()}
     return {
-        'distribution_pct': distribution_pct,
-        'distribution_abs': buckets,
-        'avg_words_per_sentence': round(avg, 1),
-        'median_words_per_sentence': median,
-        'total_sentences': total,
+        "distribution_pct": distribution_pct,
+        "distribution_abs": buckets,
+        "avg_words_per_sentence": round(avg, 1),
+        "median_words_per_sentence": median,
+        "total_sentences": total,
     }
 
 
@@ -208,35 +217,35 @@ def punctuation_analysis(samples: list) -> dict:
     """Conta uso de pontuacao distintiva."""
     total_chars = 0
     counts = {
-        'em_dash': 0,
-        'colon': 0,
-        'parens_open': 0,
-        'question': 0,
-        'exclamation': 0,
-        'ellipsis': 0,
-        'hyphen': 0,
-        'semicolon': 0,
+        "em_dash": 0,
+        "colon": 0,
+        "parens_open": 0,
+        "question": 0,
+        "exclamation": 0,
+        "ellipsis": 0,
+        "hyphen": 0,
+        "semicolon": 0,
     }
     for sample in samples:
-        text = sample['text']
+        text = sample["text"]
         total_chars += len(text)
-        counts['em_dash'] += text.count('—')
-        counts['colon'] += text.count(':')
-        counts['parens_open'] += text.count('(')
-        counts['question'] += text.count('?')
-        counts['exclamation'] += text.count('!')
-        counts['ellipsis'] += text.count('...') + text.count('…')
-        counts['hyphen'] += text.count(' - ')
-        counts['semicolon'] += text.count(';')
+        counts["em_dash"] += text.count("—")
+        counts["colon"] += text.count(":")
+        counts["parens_open"] += text.count("(")
+        counts["question"] += text.count("?")
+        counts["exclamation"] += text.count("!")
+        counts["ellipsis"] += text.count("...") + text.count("…")
+        counts["hyphen"] += text.count(" - ")
+        counts["semicolon"] += text.count(";")
 
     if total_chars == 0:
         return counts
     return {
-        'counts_absolute': counts,
-        'per_1000_chars': {
+        "counts_absolute": counts,
+        "per_1000_chars": {
             k: round(1000 * v / total_chars, 2) for k, v in counts.items()
         },
-        'total_chars': total_chars,
+        "total_chars": total_chars,
     }
 
 
@@ -245,14 +254,14 @@ def opening_closing_sentences(samples: list) -> dict:
     openings = []
     closings = []
     for sample in samples:
-        text = normalize(sample['text'])
+        text = normalize(sample["text"])
         sentences = tokenize_sentences(text)
         if not sentences:
             continue
-        openings.append({'sample': sample['name'], 'sentence': sentences[0][:200]})
+        openings.append({"sample": sample["name"], "sentence": sentences[0][:200]})
         if len(sentences) > 1:
-            closings.append({'sample': sample['name'], 'sentence': sentences[-1][:200]})
-    return {'openings': openings[:15], 'closings': closings[:15]}
+            closings.append({"sample": sample["name"], "sentence": sentences[-1][:200]})
+    return {"openings": openings[:15], "closings": closings[:15]}
 
 
 def render_markdown(report: dict) -> str:
@@ -268,71 +277,85 @@ def render_markdown(report: dict) -> str:
     out.append("")
     out.append("| Posicao | Palavra | Freq Total | Presenca em N amostras | Score |")
     out.append("|---------|---------|-----------|----------------------|-------|")
-    for i, (word, freq, presence, score) in enumerate(report['top_words'], 1):
+    for i, (word, freq, presence, score) in enumerate(report["top_words"], 1):
         out.append(f"| {i} | `{word}` | {freq} | {presence} | {round(score, 1)} |")
     out.append("")
 
     out.append("## Cadencia (Tamanho de Frase)")
     out.append("")
-    sld = report['sentence_length']
+    sld = report["sentence_length"]
     out.append(f"- Media: **{sld['avg_words_per_sentence']}** palavras/frase")
     out.append(f"- Mediana: **{sld['median_words_per_sentence']}** palavras/frase")
     out.append(f"- Total de frases analisadas: {sld['total_sentences']}")
     out.append("")
     out.append("Distribuicao:")
-    for bucket, pct in sld['distribution_pct'].items():
+    for bucket, pct in sld["distribution_pct"].items():
         out.append(f"- **{bucket}**: {pct}%")
     out.append("")
 
     out.append("## Top Bigramas")
     out.append("")
-    for ng, c in report['bigrams']:
+    for ng, c in report["bigrams"]:
         out.append(f"- `{ng}` ({c}x)")
     out.append("")
 
     out.append("## Top Trigramas")
     out.append("")
-    for ng, c in report['trigrams']:
+    for ng, c in report["trigrams"]:
         out.append(f"- `{ng}` ({c}x)")
     out.append("")
 
     out.append("## Pontuacao Distintiva (por 1000 chars)")
     out.append("")
-    pa = report['punctuation']
-    if 'per_1000_chars' in pa:
-        for k, v in pa['per_1000_chars'].items():
+    pa = report["punctuation"]
+    if "per_1000_chars" in pa:
+        for k, v in pa["per_1000_chars"].items():
             out.append(f"- **{k}**: {v}")
     out.append("")
 
     out.append("## Primeiras Frases (Aberturas)")
     out.append("")
-    for o in report['opening_closing']['openings']:
+    for o in report["opening_closing"]["openings"]:
         out.append(f"- *[{o['sample']}]* {o['sentence']}")
     out.append("")
 
     out.append("## Ultimas Frases (Fechamentos)")
     out.append("")
-    for c in report['opening_closing']['closings']:
+    for c in report["opening_closing"]["closings"]:
         out.append(f"- *[{c['sample']}]* {c['sentence']}")
     out.append("")
 
-    return '\n'.join(out)
+    return "\n".join(out)
 
 
 def main():
     parser = argparse.ArgumentParser(
         description="Extrai dados objetivos de amostras de copy para voice cloning",
     )
-    parser.add_argument('--input', nargs='+', required=True,
-                        help="Arquivos ou diretorios com amostras (.md, .txt)")
-    parser.add_argument('--output', choices=['md', 'json'], default='md',
-                        help="Formato do relatorio (padrao: md)")
-    parser.add_argument('--top-words', type=int, default=30,
-                        help="Quantas palavras distintivas listar (padrao: 30)")
-    parser.add_argument('--top-ngrams', type=int, default=20,
-                        help="Quantos n-grams listar (padrao: 20)")
-    parser.add_argument('--min-freq', type=int, default=2,
-                        help="Frequencia minima (padrao: 2)")
+    parser.add_argument(
+        "--input",
+        nargs="+",
+        required=True,
+        help="Arquivos ou diretorios com amostras (.md, .txt)",
+    )
+    parser.add_argument(
+        "--output",
+        choices=["md", "json"],
+        default="md",
+        help="Formato do relatorio (padrao: md)",
+    )
+    parser.add_argument(
+        "--top-words",
+        type=int,
+        default=30,
+        help="Quantas palavras distintivas listar (padrao: 30)",
+    )
+    parser.add_argument(
+        "--top-ngrams", type=int, default=20, help="Quantos n-grams listar (padrao: 20)"
+    )
+    parser.add_argument(
+        "--min-freq", type=int, default=2, help="Frequencia minima (padrao: 2)"
+    )
     args = parser.parse_args()
 
     samples = read_files(args.input)
@@ -341,26 +364,34 @@ def main():
         return 1
 
     if len(samples) < 5:
-        print(f"AVISO: apenas {len(samples)} amostras. Recomendado >= 10 para qualidade.",
-              file=sys.stderr)
+        print(
+            f"AVISO: apenas {len(samples)} amostras. Recomendado >= 10 para qualidade.",
+            file=sys.stderr,
+        )
 
-    total_words = sum(len(re.findall(r'[a-záàâãéêíïóôõúüç]+', s['text'].lower()))
-                      for s in samples)
+    total_words = sum(
+        len(re.findall(r"[a-záàâãéêíïóôõúüç]+", s["text"].lower())) for s in samples
+    )
 
     from datetime import datetime
+
     report = {
-        'generated_at': datetime.now().isoformat(timespec='seconds'),
-        'samples_count': len(samples),
-        'total_words': total_words,
-        'top_words': extract_distinctive_words(samples, args.top_words, args.min_freq),
-        'sentence_length': sentence_length_distribution(samples),
-        'bigrams': extract_ngrams(samples, n=2, top_k=args.top_ngrams, min_freq=args.min_freq),
-        'trigrams': extract_ngrams(samples, n=3, top_k=args.top_ngrams, min_freq=args.min_freq),
-        'punctuation': punctuation_analysis(samples),
-        'opening_closing': opening_closing_sentences(samples),
+        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "samples_count": len(samples),
+        "total_words": total_words,
+        "top_words": extract_distinctive_words(samples, args.top_words, args.min_freq),
+        "sentence_length": sentence_length_distribution(samples),
+        "bigrams": extract_ngrams(
+            samples, n=2, top_k=args.top_ngrams, min_freq=args.min_freq
+        ),
+        "trigrams": extract_ngrams(
+            samples, n=3, top_k=args.top_ngrams, min_freq=args.min_freq
+        ),
+        "punctuation": punctuation_analysis(samples),
+        "opening_closing": opening_closing_sentences(samples),
     }
 
-    if args.output == 'json':
+    if args.output == "json":
         print(json.dumps(report, indent=2, ensure_ascii=False))
     else:
         print(render_markdown(report))
@@ -368,5 +399,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

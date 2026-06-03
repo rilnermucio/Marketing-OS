@@ -16,7 +16,7 @@ import json
 import re
 import argparse
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional
 
 # Diretório base
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,9 +29,9 @@ OUTPUT_DIR = os.path.join(BASE_DIR, "output", "reports")
 
 BENCHMARKS = {
     "instagram": {
-        "taxa_engajamento": 3.0,        # %
-        "alcance_por_seguidor": 0.15,   # 15% dos seguidores
-        "saves_rate": 1.0,              # % dos alcançados
+        "taxa_engajamento": 3.0,  # %
+        "alcance_por_seguidor": 0.15,  # 15% dos seguidores
+        "saves_rate": 1.0,  # % dos alcançados
         "shares_rate": 0.5,
     },
     "linkedin": {
@@ -40,18 +40,18 @@ BENCHMARKS = {
         "cliques_rate": 0.5,
     },
     "email": {
-        "taxa_abertura": 25.0,          # %
+        "taxa_abertura": 25.0,  # %
         "taxa_clique": 3.0,
         "taxa_conversao": 1.0,
         "taxa_descadastro": 0.2,
     },
     "blog": {
-        "tempo_leitura": 180,           # segundos
-        "taxa_rejeicao": 60.0,          # %
+        "tempo_leitura": 180,  # segundos
+        "taxa_rejeicao": 60.0,  # %
         "paginas_por_sessao": 1.5,
     },
     "youtube": {
-        "taxa_retencao": 40.0,          # %
+        "taxa_retencao": 40.0,  # %
         "ctr_thumbnail": 4.0,
         "likes_rate": 4.0,
     },
@@ -73,6 +73,7 @@ CONTENT_THEMES_BY_DAY = {
 # Utilitários de data
 # ──────────────────────────────────────────────
 
+
 def get_current_week() -> str:
     """Retorna a semana atual no formato ISO YYYY-Www."""
     now = datetime.now()
@@ -82,21 +83,25 @@ def get_current_week() -> str:
 
 def get_week_dates(week_str: str) -> tuple:
     """Retorna as datas de início e fim de uma semana ISO."""
-    match = re.match(r'^(\d{4})-W(\d{2})$', week_str)
+    match = re.match(r"^(\d{4})-W(\d{2})$", week_str)
     if not match:
-        raise ValueError(f"Formato de semana inválido: '{week_str}'. Use YYYY-Www (ex: 2026-W07)")
+        raise ValueError(
+            f"Formato de semana inválido: '{week_str}'. Use YYYY-Www (ex: 2026-W07)"
+        )
     year = int(match.group(1))
     week = int(match.group(2))
     # Segunda-feira da semana ISO
     jan4 = datetime(year, 1, 4)
-    start = jan4 + timedelta(weeks=week - jan4.isocalendar()[1], days=-jan4.isocalendar()[2] + 1)
+    start = jan4 + timedelta(
+        weeks=week - jan4.isocalendar()[1], days=-jan4.isocalendar()[2] + 1
+    )
     end = start + timedelta(days=6)
     return start, end
 
 
 def parse_week_number(week_str: str) -> int:
     """Extrai o número da semana de uma string YYYY-Www."""
-    match = re.match(r'^\d{4}-W(\d{2})$', week_str)
+    match = re.match(r"^\d{4}-W(\d{2})$", week_str)
     if not match:
         raise ValueError(f"Formato inválido: {week_str}")
     return int(match.group(1))
@@ -105,6 +110,7 @@ def parse_week_number(week_str: str) -> int:
 # ──────────────────────────────────────────────
 # Análise de dados de conteúdo
 # ──────────────────────────────────────────────
+
 
 def collect_content_metrics(content_list: List[Dict]) -> Dict:
     """
@@ -213,14 +219,19 @@ def collect_seo_metrics(urls: List[Dict]) -> Dict:
 
     impressoes_total = sum(u.get("impressoes", 0) for u in urls)
     cliques_total = sum(u.get("cliques", 0) for u in urls)
-    ctr_medio = (cliques_total / impressoes_total * 100) if impressoes_total > 0 else 0.0
+    ctr_medio = (
+        (cliques_total / impressoes_total * 100) if impressoes_total > 0 else 0.0
+    )
 
-    posicoes = [u.get("posicao_media", 0) for u in urls if u.get("posicao_media", 0) > 0]
+    posicoes = [
+        u.get("posicao_media", 0) for u in urls if u.get("posicao_media", 0) > 0
+    ]
     posicao_media_geral = sum(posicoes) / len(posicoes) if posicoes else 0.0
 
     # Quick wins: posição entre 4-15 e CTR abaixo de 5%
     quick_wins = [
-        u for u in urls
+        u
+        for u in urls
         if 4 <= u.get("posicao_media", 99) <= 15 and u.get("ctr", 99) < 5.0
     ]
     quick_wins.sort(key=lambda u: u.get("impressoes", 0), reverse=True)
@@ -264,7 +275,9 @@ def generate_next_week_recommendations(
     if por_plat:
         melhor = max(
             por_plat.items(),
-            key=lambda x: (x[1].get("engajamentos", 0) / max(x[1].get("alcance", 1), 1))
+            key=lambda x: (
+                x[1].get("engajamentos", 0) / max(x[1].get("alcance", 1), 1)
+            ),
         )
         recommendations.append(
             f"Melhor plataforma da semana: {melhor[0]} — considere aumentar frequência aqui"
@@ -298,14 +311,16 @@ def generate_next_week_recommendations(
 
     # Default se não há recomendações
     if not recommendations:
-        recommendations.append("Performance dentro do esperado — mantenha a consistência")
+        recommendations.append(
+            "Performance dentro do esperado — mantenha a consistência"
+        )
 
     return recommendations
 
 
 def generate_suggested_calendar(week_str: str, platforms: List[str]) -> List[Dict]:
     """Gera sugestão de calendário para a próxima semana."""
-    match = re.match(r'^(\d{4})-W(\d{2})$', week_str)
+    match = re.match(r"^(\d{4})-W(\d{2})$", week_str)
     if not match:
         return []
 
@@ -321,8 +336,7 @@ def generate_suggested_calendar(week_str: str, platforms: List[str]) -> List[Dic
 
     jan4 = datetime(next_year, 1, 4)
     start = jan4 + timedelta(
-        weeks=next_week - jan4.isocalendar()[1],
-        days=-jan4.isocalendar()[2] + 1
+        weeks=next_week - jan4.isocalendar()[1], days=-jan4.isocalendar()[2] + 1
     )
 
     calendario = []
@@ -331,13 +345,15 @@ def generate_suggested_calendar(week_str: str, platforms: List[str]) -> List[Dic
         tema_info = CONTENT_THEMES_BY_DAY[i]
         for plataforma in platforms:
             formato = tema_info["formatos"][0] if tema_info["formatos"] else "post"
-            calendario.append({
-                "data": dia.strftime("%Y-%m-%d"),
-                "dia_semana": dia.strftime("%A"),
-                "plataforma": plataforma,
-                "tema": tema_info["tema"],
-                "formato_sugerido": formato,
-            })
+            calendario.append(
+                {
+                    "data": dia.strftime("%Y-%m-%d"),
+                    "dia_semana": dia.strftime("%A"),
+                    "plataforma": plataforma,
+                    "tema": tema_info["tema"],
+                    "formato_sugerido": formato,
+                }
+            )
 
     return calendario
 
@@ -345,6 +361,7 @@ def generate_suggested_calendar(week_str: str, platforms: List[str]) -> List[Dic
 # ──────────────────────────────────────────────
 # Geração do relatório em Markdown
 # ──────────────────────────────────────────────
+
 
 def generate_weekly_report(week_data: Dict) -> str:
     """
@@ -367,7 +384,9 @@ def generate_weekly_report(week_data: Dict) -> str:
     except ValueError:
         periodo = week_str
 
-    week_num = parse_week_number(week_str) if re.match(r'^\d{4}-W\d{2}$', week_str) else 0
+    week_num = (
+        parse_week_number(week_str) if re.match(r"^\d{4}-W\d{2}$", week_str) else 0
+    )
 
     # Processar métricas
     content_list = week_data.get("content", [])
@@ -376,10 +395,14 @@ def generate_weekly_report(week_data: Dict) -> str:
 
     content_metrics = collect_content_metrics(content_list)
     seo_metrics = collect_seo_metrics(seo_list)
-    recommendations = generate_next_week_recommendations(content_metrics, seo_metrics, email_metrics)
+    recommendations = generate_next_week_recommendations(
+        content_metrics, seo_metrics, email_metrics
+    )
 
     # Plataformas ativas
-    plataformas_ativas = list(content_metrics.get("por_plataforma", {}).keys()) or ["instagram"]
+    plataformas_ativas = list(content_metrics.get("por_plataforma", {}).keys()) or [
+        "instagram"
+    ]
     calendario = generate_suggested_calendar(week_str, plataformas_ativas[:2])
 
     # ── Montar relatório ──
@@ -392,20 +415,27 @@ def generate_weekly_report(week_data: Dict) -> str:
     # ── Resumo Executivo ──
     linhas.append("\n---\n\n## Resumo Executivo\n")
 
-    meta_geral = week_data.get("meta_geral", {})
     linhas.append("| Métrica | Esta Semana | Meta |")
     linhas.append("|---------|-------------|------|")
     linhas.append(f"| Peças publicadas | {content_metrics['total_pecas']} | 5-7 |")
     linhas.append(f"| Alcance total | {content_metrics['alcance_total']:,} | — |")
     linhas.append(f"| Engajamentos | {content_metrics['engajamento_total']:,} | — |")
-    linhas.append(f"| Taxa de engajamento | {content_metrics['taxa_engajamento_media']:.1f}% | > 3% |")
+    linhas.append(
+        f"| Taxa de engajamento | {content_metrics['taxa_engajamento_media']:.1f}% | > 3% |"
+    )
 
     if email_metrics:
-        linhas.append(f"| Taxa de abertura (email) | {email_metrics.get('taxa_abertura', 0):.1f}% | > 25% |")
-        linhas.append(f"| Taxa de clique (email) | {email_metrics.get('taxa_clique', 0):.1f}% | > 3% |")
+        linhas.append(
+            f"| Taxa de abertura (email) | {email_metrics.get('taxa_abertura', 0):.1f}% | > 25% |"
+        )
+        linhas.append(
+            f"| Taxa de clique (email) | {email_metrics.get('taxa_clique', 0):.1f}% | > 3% |"
+        )
 
     if seo_metrics["impressoes_total"] > 0:
-        linhas.append(f"| Impressões orgânicas | {seo_metrics['impressoes_total']:,} | — |")
+        linhas.append(
+            f"| Impressões orgânicas | {seo_metrics['impressoes_total']:,} | — |"
+        )
         linhas.append(f"| Cliques orgânicos | {seo_metrics['cliques_total']:,} | — |")
         linhas.append(f"| CTR médio (SEO) | {seo_metrics['ctr_medio']:.1f}% | > 3% |")
 
@@ -423,13 +453,17 @@ def generate_weekly_report(week_data: Dict) -> str:
             alcance = dados.get("alcance", 0)
             eng = dados.get("engajamentos", 0)
             taxa = (eng / alcance * 100) if alcance > 0 else 0
-            linhas.append(f"| {plat} | {dados['pecas']} | {alcance:,} | {eng:,} | {taxa:.1f}% |")
+            linhas.append(
+                f"| {plat} | {dados['pecas']} | {alcance:,} | {eng:,} | {taxa:.1f}% |"
+            )
 
         # Por formato
         linhas.append("\n### Por Formato\n")
         linhas.append("| Formato | Quantidade |")
         linhas.append("|---------|------------|")
-        for fmt, qtd in sorted(content_metrics["por_formato"].items(), key=lambda x: x[1], reverse=True):
+        for fmt, qtd in sorted(
+            content_metrics["por_formato"].items(), key=lambda x: x[1], reverse=True
+        ):
             linhas.append(f"| {fmt} | {qtd} |")
 
         # Top conteúdos
@@ -440,8 +474,12 @@ def generate_weekly_report(week_data: Dict) -> str:
                 eng = c.get("engajamentos", 0)
                 taxa = (eng / alcance * 100) if alcance > 0 else 0
                 linhas.append(f"**{i}. {c.get('titulo', 'Sem título')}**")
-                linhas.append(f"- Plataforma: {c.get('plataforma', '—')} | Formato: {c.get('formato', '—')}")
-                linhas.append(f"- Alcance: {alcance:,} | Engajamentos: {eng:,} | Taxa: {taxa:.1f}%")
+                linhas.append(
+                    f"- Plataforma: {c.get('plataforma', '—')} | Formato: {c.get('formato', '—')}"
+                )
+                linhas.append(
+                    f"- Alcance: {alcance:,} | Engajamentos: {eng:,} | Taxa: {taxa:.1f}%"
+                )
                 linhas.append("")
 
         # Bottom conteúdos
@@ -452,8 +490,12 @@ def generate_weekly_report(week_data: Dict) -> str:
                 eng = c.get("engajamentos", 0)
                 taxa = (eng / alcance * 100) if alcance > 0 else 0
                 linhas.append(f"**{i}. {c.get('titulo', 'Sem título')}**")
-                linhas.append(f"- Plataforma: {c.get('plataforma', '—')} | Taxa: {taxa:.1f}%")
-                linhas.append(f"- Possível causa: hook fraco, horário inadequado ou tema com baixo interesse")
+                linhas.append(
+                    f"- Plataforma: {c.get('plataforma', '—')} | Taxa: {taxa:.1f}%"
+                )
+                linhas.append(
+                    f"- Possível causa: hook fraco, horário inadequado ou tema com baixo interesse"
+                )
                 linhas.append("")
 
     # ── Email Marketing ──
@@ -461,12 +503,22 @@ def generate_weekly_report(week_data: Dict) -> str:
         linhas.append("\n---\n\n## Email Marketing\n")
         linhas.append("| Métrica | Resultado | Benchmark |")
         linhas.append("|---------|-----------|-----------|")
-        linhas.append(f"| Emails enviados | {email_metrics.get('enviados', '—'):,} | — |")
-        linhas.append(f"| Taxa de abertura | {email_metrics.get('taxa_abertura', 0):.1f}% | > 25% |")
-        linhas.append(f"| Taxa de clique | {email_metrics.get('taxa_clique', 0):.1f}% | > 3% |")
-        linhas.append(f"| Taxa de conversão | {email_metrics.get('taxa_conversao', 0):.1f}% | > 1% |")
+        linhas.append(
+            f"| Emails enviados | {email_metrics.get('enviados', '—'):,} | — |"
+        )
+        linhas.append(
+            f"| Taxa de abertura | {email_metrics.get('taxa_abertura', 0):.1f}% | > 25% |"
+        )
+        linhas.append(
+            f"| Taxa de clique | {email_metrics.get('taxa_clique', 0):.1f}% | > 3% |"
+        )
+        linhas.append(
+            f"| Taxa de conversão | {email_metrics.get('taxa_conversao', 0):.1f}% | > 1% |"
+        )
         if email_metrics.get("taxa_descadastro") is not None:
-            linhas.append(f"| Taxa de descadastro | {email_metrics.get('taxa_descadastro', 0):.2f}% | < 0.2% |")
+            linhas.append(
+                f"| Taxa de descadastro | {email_metrics.get('taxa_descadastro', 0):.2f}% | < 0.2% |"
+            )
 
     # ── SEO ──
     if seo_metrics["total_urls"] > 0:
@@ -513,13 +565,17 @@ def generate_weekly_report(week_data: Dict) -> str:
 
     # ── Rodapé ──
     linhas.append("\n---")
-    linhas.append(f"\n_Relatório gerado automaticamente pelo Marketing OS Weekly Report._")
+    linhas.append(
+        f"\n_Relatório gerado automaticamente pelo Marketing OS Weekly Report._"
+    )
     linhas.append(f"_Para personalizar, edite `scripts/weekly_report.py`._")
 
     return "\n".join(linhas)
 
 
-def export_report(report: str, output_path: Optional[str] = None, fmt: str = "markdown") -> str:
+def export_report(
+    report: str, output_path: Optional[str] = None, fmt: str = "markdown"
+) -> str:
     """
     Exporta o relatório para arquivo.
     Retorna o caminho do arquivo salvo.
@@ -531,7 +587,7 @@ def export_report(report: str, output_path: Optional[str] = None, fmt: str = "ma
         filename = f"semana-{week}.md"
         output_path = os.path.join(OUTPUT_DIR, filename)
 
-    with open(output_path, 'w', encoding='utf-8') as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(report)
 
     return output_path
@@ -539,7 +595,7 @@ def export_report(report: str, output_path: Optional[str] = None, fmt: str = "ma
 
 def load_week_data(json_path: str) -> Dict:
     """Carrega dados da semana de um arquivo JSON."""
-    with open(json_path, 'r', encoding='utf-8') as f:
+    with open(json_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -553,34 +609,36 @@ Exemplos:
   python weekly_report.py --week 2026-W07
   python weekly_report.py --input dados.json --output relatorio.md
   python weekly_report.py --week 2026-W06 --output output/reports/semana-06.md
-        """
+        """,
     )
 
     parser.add_argument(
-        "--week", "-w",
+        "--week",
+        "-w",
         default=None,
-        help="Semana no formato YYYY-Www (padrão: semana atual)"
+        help="Semana no formato YYYY-Www (padrão: semana atual)",
     )
     parser.add_argument(
-        "--input", "-i",
-        default=None,
-        help="Arquivo JSON com dados da semana"
+        "--input", "-i", default=None, help="Arquivo JSON com dados da semana"
     )
     parser.add_argument(
-        "--output", "-o",
+        "--output",
+        "-o",
         default=None,
-        help="Arquivo de saída (padrão: output/reports/semana-YYYY-Www.md)"
+        help="Arquivo de saída (padrão: output/reports/semana-YYYY-Www.md)",
     )
     parser.add_argument(
-        "--format", "-f",
+        "--format",
+        "-f",
         default="markdown",
         choices=["markdown"],
-        help="Formato de saída (padrão: markdown)"
+        help="Formato de saída (padrão: markdown)",
     )
     parser.add_argument(
-        "--print", "-p",
+        "--print",
+        "-p",
         action="store_true",
-        help="Imprimir relatório no terminal além de salvar"
+        help="Imprimir relatório no terminal além de salvar",
     )
 
     args = parser.parse_args()

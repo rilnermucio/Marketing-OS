@@ -20,16 +20,34 @@ import argparse
 from typing import Dict, List, Tuple
 from collections import Counter
 
-from output_formatter import add_output_args, OutputFormatter, print_json
+from output_formatter import add_output_args, OutputFormatter
 
 # Conectivos e palavras de transição (bom sinal)
 TRANSITION_WORDS = [
-    "portanto", "porém", "contudo", "entretanto", "todavia",
-    "além disso", "ademais", "por outro lado", "em contrapartida",
-    "por exemplo", "ou seja", "isto é", "em outras palavras",
-    "em resumo", "em suma", "finalmente", "primeiramente",
-    "em seguida", "posteriormente", "consequentemente",
-    "assim", "dessa forma", "desse modo", "sendo assim"
+    "portanto",
+    "porém",
+    "contudo",
+    "entretanto",
+    "todavia",
+    "além disso",
+    "ademais",
+    "por outro lado",
+    "em contrapartida",
+    "por exemplo",
+    "ou seja",
+    "isto é",
+    "em outras palavras",
+    "em resumo",
+    "em suma",
+    "finalmente",
+    "primeiramente",
+    "em seguida",
+    "posteriormente",
+    "consequentemente",
+    "assim",
+    "dessa forma",
+    "desse modo",
+    "sendo assim",
 ]
 
 # Palavras difíceis comuns que podem ser simplificadas
@@ -43,15 +61,27 @@ COMPLEX_WORDS = {
     "viabilizar": "permitir",
     "disponibilizar": "oferecer",
     "priorizar": "dar prioridade",
-    "customizar": "personalizar"
+    "customizar": "personalizar",
 }
 
 # Jargões a evitar
 JARGON_WORDS = [
-    "sinergia", "paradigma", "disruptivo", "escalável",
-    "holístico", "proativo", "stakeholder", "mindset",
-    "benchmark", "brainstorm", "deadline", "feedback",
-    "insight", "expertise", "networking", "approach"
+    "sinergia",
+    "paradigma",
+    "disruptivo",
+    "escalável",
+    "holístico",
+    "proativo",
+    "stakeholder",
+    "mindset",
+    "benchmark",
+    "brainstorm",
+    "deadline",
+    "feedback",
+    "insight",
+    "expertise",
+    "networking",
+    "approach",
 ]
 
 
@@ -82,7 +112,7 @@ def count_syllables_pt(word: str) -> int:
 def get_sentences(text: str) -> List[str]:
     """Divide texto em sentenças."""
     # Divide por pontuação final
-    sentences = re.split(r'[.!?]+', text)
+    sentences = re.split(r"[.!?]+", text)
     # Remove vazios e limpa espaços
     return [s.strip() for s in sentences if s.strip()]
 
@@ -90,7 +120,7 @@ def get_sentences(text: str) -> List[str]:
 def get_words(text: str) -> List[str]:
     """Extrai palavras do texto."""
     # Remove pontuação e divide
-    words = re.findall(r'\b[a-záéíóúâêôãõç]+\b', text.lower())
+    words = re.findall(r"\b[a-záéíóúâêôãõç]+\b", text.lower())
     return words
 
 
@@ -144,7 +174,7 @@ def calculate_reading_time(text: str) -> Dict:
     speeds = {
         "leitura_rapida": 300,  # palavras por minuto
         "leitura_normal": 200,
-        "leitura_atenta": 150
+        "leitura_atenta": 150,
     }
 
     times: Dict[str, str] = {}
@@ -155,10 +185,7 @@ def calculate_reading_time(text: str) -> Dict:
         else:
             times[speed_name] = f"{round(minutes, 1)} minutos"
 
-    return {
-        "word_count": word_count,
-        "times": times
-    }
+    return {"word_count": word_count, "times": times}
 
 
 def analyze_sentences(text: str) -> Dict:
@@ -182,6 +209,7 @@ def analyze_sentences(text: str) -> Dict:
     # Variação (bom ter mix)
     if len(lengths) > 1:
         import statistics
+
         analysis["std_dev"] = round(statistics.stdev(lengths), 1)
         if analysis["std_dev"] > 5:
             analysis["variation"] = "✅ Boa variação"
@@ -225,10 +253,10 @@ def find_jargon(text: str) -> List[str]:
 
 def analyze_paragraphs(text: str) -> Dict:
     """Analisa estrutura de parágrafos."""
-    paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
 
     if not paragraphs:
-        paragraphs = [p.strip() for p in text.split('\n') if p.strip()]
+        paragraphs = [p.strip() for p in text.split("\n") if p.strip()]
 
     if not paragraphs:
         return {"error": "Sem parágrafos"}
@@ -240,7 +268,7 @@ def analyze_paragraphs(text: str) -> Dict:
         "avg_words": round(sum(lengths) / len(lengths), 1),
         "ideal_range": "50-150 palavras por parágrafo",
         "too_long": sum(1 for l in lengths if l > 150),
-        "too_short": sum(1 for l in lengths if l < 20)
+        "too_short": sum(1 for l in lengths if l < 20),
     }
 
 
@@ -266,22 +294,17 @@ def get_vocabulary_stats(text: str) -> Dict:
         "lexical_diversity": round(ttr, 3),
         "long_words_count": len(long_words),
         "long_words_percent": round(len(long_words) / len(words) * 100, 1),
-        "most_common": word_freq.most_common(10)
+        "most_common": word_freq.most_common(10),
     }
 
 
 def full_analysis(text: str) -> Dict:
     """Análise completa de legibilidade."""
-    results: Dict = {
-        "text_preview": text[:200] + "..." if len(text) > 200 else text
-    }
+    results: Dict = {"text_preview": text[:200] + "..." if len(text) > 200 else text}
 
     # Flesch
     flesch_score, flesch_level = calculate_flesch_pt(text)
-    results["flesch"] = {
-        "score": flesch_score,
-        "level": flesch_level
-    }
+    results["flesch"] = {"score": flesch_score, "level": flesch_level}
 
     # Tempo de leitura
     results["reading_time"] = calculate_reading_time(text)
@@ -335,59 +358,61 @@ def full_analysis(text: str) -> Dict:
 
 def print_report(results: Dict) -> None:
     """Imprime relatório formatado."""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("📖 ANÁLISE DE LEGIBILIDADE")
-    print("="*60)
+    print("=" * 60)
 
     print(f"\n🎯 SCORE GERAL: {results['overall_score']}/100")
     print(f"   {results['classification']}")
 
-    print("\n" + "-"*60)
+    print("\n" + "-" * 60)
     print("📊 MÉTRICAS PRINCIPAIS")
-    print("-"*60)
+    print("-" * 60)
 
     # Flesch
     print(f"\n📈 Índice Flesch: {results['flesch']['score']}")
     print(f"   Nível: {results['flesch']['level']}")
 
     # Tempo de leitura
-    rt = results['reading_time']
+    rt = results["reading_time"]
     print(f"\n⏱️ Tempo de Leitura ({rt['word_count']} palavras):")
     print(f"   • Leitura rápida: {rt['times']['leitura_rapida']}")
     print(f"   • Leitura normal: {rt['times']['leitura_normal']}")
     print(f"   • Leitura atenta: {rt['times']['leitura_atenta']}")
 
     # Sentenças
-    sent = results['sentences']
+    sent = results["sentences"]
     if "error" not in sent:
         print(f"\n📝 Sentenças ({sent['total_sentences']} total):")
         print(f"   • Média de palavras: {sent['avg_length']}")
         print(f"   • Mais curta: {sent['shortest']} | Mais longa: {sent['longest']}")
-        if sent['very_long'] > 0:
+        if sent["very_long"] > 0:
             print(f"   ⚠️ {sent['very_long']} sentenças muito longas (>25 palavras)")
         print(f"   • Variação: {sent['variation']}")
 
     # Parágrafos
-    para = results['paragraphs']
+    para = results["paragraphs"]
     if "error" not in para:
         print(f"\n📄 Parágrafos ({para['total']} total):")
         print(f"   • Média: {para['avg_words']} palavras")
         print(f"   • Ideal: {para['ideal_range']}")
 
     # Vocabulário
-    vocab = results['vocabulary']
+    vocab = results["vocabulary"]
     if "error" not in vocab:
         print(f"\n📚 Vocabulário:")
-        print(f"   • Palavras únicas: {vocab['unique_words']} de {vocab['total_words']}")
+        print(
+            f"   • Palavras únicas: {vocab['unique_words']} de {vocab['total_words']}"
+        )
         print(f"   • Diversidade lexical: {vocab['lexical_diversity']}")
         print(f"   • Palavras longas (4+ sílabas): {vocab['long_words_percent']}%")
 
-    print("\n" + "-"*60)
+    print("\n" + "-" * 60)
     print("💡 ANÁLISE QUALITATIVA")
-    print("-"*60)
+    print("-" * 60)
 
     # Transições
-    if results['transitions']:
+    if results["transitions"]:
         print(f"\n✅ Conectivos encontrados ({len(results['transitions'])}):")
         print(f"   {', '.join(results['transitions'][:8])}")
     else:
@@ -395,39 +420,41 @@ def print_report(results: Dict) -> None:
         print("   Considere adicionar: portanto, além disso, por exemplo...")
 
     # Palavras complexas
-    if results['complex_words']:
+    if results["complex_words"]:
         print(f"\n⚠️ Palavras que podem ser simplificadas:")
-        for complex_w, simple in results['complex_words'][:5]:
+        for complex_w, simple in results["complex_words"][:5]:
             print(f"   • '{complex_w}' → '{simple}'")
 
     # Jargões
-    if results['jargon']:
+    if results["jargon"]:
         print(f"\n⚠️ Jargões encontrados:")
         print(f"   {', '.join(results['jargon'])}")
         print("   Considere explicar ou substituir por termos mais simples")
 
-    print("\n" + "-"*60)
+    print("\n" + "-" * 60)
     print("📋 RECOMENDAÇÕES")
-    print("-"*60)
+    print("-" * 60)
 
     recommendations: List[str] = []
 
-    if results['flesch']['score'] < 50:
-        recommendations.append("Simplifique o texto: use frases mais curtas e palavras mais simples")
+    if results["flesch"]["score"] < 50:
+        recommendations.append(
+            "Simplifique o texto: use frases mais curtas e palavras mais simples"
+        )
 
-    if sent.get('very_long', 0) > 2:
+    if sent.get("very_long", 0) > 2:
         recommendations.append("Quebre sentenças longas em duas ou mais")
 
-    if not results['transitions']:
+    if not results["transitions"]:
         recommendations.append("Adicione conectivos para melhorar a fluidez")
 
-    if vocab.get('long_words_percent', 0) > 20:
+    if vocab.get("long_words_percent", 0) > 20:
         recommendations.append("Reduza o uso de palavras longas/técnicas")
 
-    if results['jargon']:
+    if results["jargon"]:
         recommendations.append("Substitua jargões por termos mais acessíveis")
 
-    if para.get('too_long', 0) > 0:
+    if para.get("too_long", 0) > 0:
         recommendations.append("Divida parágrafos muito longos")
 
     if not recommendations:
@@ -436,7 +463,7 @@ def print_report(results: Dict) -> None:
     for i, rec in enumerate(recommendations, 1):
         print(f"\n{i}. {rec}")
 
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
 
 
 def main() -> None:
@@ -451,12 +478,12 @@ def main() -> None:
     text = ""
 
     if args.file:
-        with open(args.file, 'r', encoding='utf-8') as f:
+        with open(args.file, "r", encoding="utf-8") as f:
             text = f.read()
     elif args.text:
         text = " ".join(args.text)
     else:
-        print("Uso: python readability_checker.py \"Seu texto aqui\"")
+        print('Uso: python readability_checker.py "Seu texto aqui"')
         print("     python readability_checker.py --file artigo.txt")
         sys.exit(1)
 

@@ -39,7 +39,6 @@ from apify_client import (
     save_result,
 )
 
-
 META_ADS_ACTOR_ID = "curious_coder/facebook-ads-library-scraper"
 DEFAULT_OUTPUT_DIR = "workspace/research/apify"
 DEFAULT_MAX_ADS = 30
@@ -145,10 +144,16 @@ def parse_meta_ads_results(raw: List[Dict[str, Any]]) -> Dict[str, Any]:
 
         # Fallback pra formato apify/facebook-ads-scraper (legacy)
         if not body:
-            bodies = item.get("ad_creative_bodies") or item.get("adCreativeBodies") or []
+            bodies = (
+                item.get("ad_creative_bodies") or item.get("adCreativeBodies") or []
+            )
             body = " | ".join(b for b in bodies if b)
         if not title:
-            titles = item.get("ad_creative_link_titles") or item.get("adCreativeLinkTitles") or []
+            titles = (
+                item.get("ad_creative_link_titles")
+                or item.get("adCreativeLinkTitles")
+                or []
+            )
             title = " | ".join(t for t in titles if t)
 
         ad = {

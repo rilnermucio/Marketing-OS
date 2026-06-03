@@ -26,7 +26,13 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
 
-from validators import ValidationError, validar_inteiro, validar_float, validar_texto, handle_validation_error
+from validators import (
+    ValidationError,
+    validar_inteiro,
+    validar_float,
+    validar_texto,
+    handle_validation_error,
+)
 
 # ---------------------------------------------------------------------------
 # Configuração
@@ -79,10 +85,13 @@ METRICAS_INSIGHTS = [
 # Exceções
 # ---------------------------------------------------------------------------
 
+
 class MetaAdsError(Exception):
     """Erro retornado pela API de Marketing do Meta."""
 
-    def __init__(self, message: str, code: Optional[int] = None, subcode: Optional[int] = None):
+    def __init__(
+        self, message: str, code: Optional[int] = None, subcode: Optional[int] = None
+    ):
         super().__init__(message)
         self.code = code
         self.subcode = subcode
@@ -96,12 +105,12 @@ class MetaAdsError(Exception):
 
 class MetaAdsAuthError(MetaAdsError):
     """Erro de autenticação (token inválido, expirado ou sem permissão)."""
-    pass
 
 
 # ---------------------------------------------------------------------------
 # Cliente HTTP
 # ---------------------------------------------------------------------------
+
 
 def _handle_error_body(body: str, default_code: Optional[int] = None) -> MetaAdsError:
     """Parseia body de erro do Meta e retorna exceção apropriada."""
@@ -158,6 +167,7 @@ def _post(url: str, params: Dict[str, Any]) -> Dict:
 # ---------------------------------------------------------------------------
 # Funções principais
 # ---------------------------------------------------------------------------
+
 
 def get_campaigns(
     ad_account_id: str,
@@ -216,10 +226,12 @@ def get_campaign_insights(
 
     params: Dict[str, Any] = {
         "fields": ",".join(metrics),
-        "time_range": json.dumps({
-            "since": start_date.isoformat(),
-            "until": end_date.isoformat(),
-        }),
+        "time_range": json.dumps(
+            {
+                "since": start_date.isoformat(),
+                "until": end_date.isoformat(),
+            }
+        ),
         "access_token": token,
     }
 
@@ -264,19 +276,30 @@ def get_ad_performance(
     start_date = end_date - timedelta(days=days - 1)
 
     metricas_performance = [
-        "campaign_name", "adset_name", "ad_name",
-        "impressions", "clicks", "ctr", "cpc", "cpm",
-        "spend", "reach", "frequency",
-        "actions", "cost_per_action_type",
+        "campaign_name",
+        "adset_name",
+        "ad_name",
+        "impressions",
+        "clicks",
+        "ctr",
+        "cpc",
+        "cpm",
+        "spend",
+        "reach",
+        "frequency",
+        "actions",
+        "cost_per_action_type",
     ]
 
     params: Dict[str, Any] = {
         "fields": ",".join(metricas_performance),
         "level": level,
-        "time_range": json.dumps({
-            "since": start_date.isoformat(),
-            "until": end_date.isoformat(),
-        }),
+        "time_range": json.dumps(
+            {
+                "since": start_date.isoformat(),
+                "until": end_date.isoformat(),
+            }
+        ),
         "limit": 100,
         "access_token": token,
     }
@@ -376,6 +399,7 @@ def resume_ad(ad_id: str, token: str) -> Dict:
 # Utilitários
 # ---------------------------------------------------------------------------
 
+
 def get_token() -> str:
     """Lê o token da variável de ambiente META_ACCESS_TOKEN."""
     token = os.environ.get(ENV_TOKEN, "").strip()
@@ -429,6 +453,7 @@ def print_campaigns_table(campaigns: List[Dict]) -> None:
 # CLI
 # ---------------------------------------------------------------------------
 
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Meta Ads API — Marketing OS",
@@ -450,27 +475,43 @@ def build_parser() -> argparse.ArgumentParser:
 
     # campaigns
     p_c = sub.add_parser("campaigns", help="Lista campanhas da conta")
-    p_c.add_argument("--status", choices=list(STATUS_VALIDOS), help="Filtrar por status")
-    p_c.add_argument("--limit", type=int, default=25, help="Máximo de campanhas (padrão: 25)")
+    p_c.add_argument(
+        "--status", choices=list(STATUS_VALIDOS), help="Filtrar por status"
+    )
+    p_c.add_argument(
+        "--limit", type=int, default=25, help="Máximo de campanhas (padrão: 25)"
+    )
     p_c.add_argument("--json", action="store_true", help="Saída em JSON")
 
     # campaign-insights
     p_ci = sub.add_parser("campaign-insights", help="Insights de uma campanha")
     p_ci.add_argument("campaign_id", help="ID da campanha")
-    p_ci.add_argument("--days", type=int, default=30, help="Dias retroativos (padrão: 30)")
+    p_ci.add_argument(
+        "--days", type=int, default=30, help="Dias retroativos (padrão: 30)"
+    )
     p_ci.add_argument("--json", action="store_true")
 
     # ad-performance
     p_ap = sub.add_parser("ad-performance", help="Performance de anúncios")
-    p_ap.add_argument("--days", type=int, default=7, help="Dias retroativos (padrão: 7)")
-    p_ap.add_argument("--level", default="ad", choices=["ad", "adset", "campaign", "account"])
+    p_ap.add_argument(
+        "--days", type=int, default=7, help="Dias retroativos (padrão: 7)"
+    )
+    p_ap.add_argument(
+        "--level", default="ad", choices=["ad", "adset", "campaign", "account"]
+    )
     p_ap.add_argument("--json", action="store_true")
 
     # create-campaign
     p_cc = sub.add_parser("create-campaign", help="Cria uma nova campanha")
     p_cc.add_argument("nome", help="Nome da campanha")
-    p_cc.add_argument("objetivo", choices=list(OBJETIVOS_CAMPANHA.keys()), help="Objetivo da campanha")
-    p_cc.add_argument("budget_diario", type=float, help="Orçamento diário em centavos (5000 = R$50,00)")
+    p_cc.add_argument(
+        "objetivo", choices=list(OBJETIVOS_CAMPANHA.keys()), help="Objetivo da campanha"
+    )
+    p_cc.add_argument(
+        "budget_diario",
+        type=float,
+        help="Orçamento diário em centavos (5000 = R$50,00)",
+    )
     p_cc.add_argument("--status", default="PAUSED", choices=["ACTIVE", "PAUSED"])
 
     # pause-ad
@@ -493,7 +534,9 @@ def main() -> None:
         if args.comando == "campaigns":
             account_id = get_ad_account_id(getattr(args, "account", None))
             limit = validar_inteiro(args.limit, campo="limit", min_val=1, max_val=100)
-            campaigns = get_campaigns(account_id, token, status=getattr(args, "status", None), limit=limit)
+            campaigns = get_campaigns(
+                account_id, token, status=getattr(args, "status", None), limit=limit
+            )
             if getattr(args, "json", False):
                 print_json(campaigns)
             else:
@@ -513,7 +556,9 @@ def main() -> None:
             if getattr(args, "json", False):
                 print_json(data)
             else:
-                print(f"\n📊 PERFORMANCE — {account_id} (últimos {days} dias, nível: {args.level})")
+                print(
+                    f"\n📊 PERFORMANCE — {account_id} (últimos {days} dias, nível: {args.level})"
+                )
                 print(f"   {len(data)} registros encontrados")
                 if data:
                     print_json(data[:5])
@@ -521,8 +566,15 @@ def main() -> None:
         elif args.comando == "create-campaign":
             account_id = get_ad_account_id(getattr(args, "account", None))
             nome = validar_texto(args.nome, campo="nome", max_len=256)
-            budget = validar_float(args.budget_diario, campo="budget_diario", min_val=100.0, max_val=10_000_000.0)
-            result = create_campaign(account_id, token, nome, args.objetivo, budget, status=args.status)
+            budget = validar_float(
+                args.budget_diario,
+                campo="budget_diario",
+                min_val=100.0,
+                max_val=10_000_000.0,
+            )
+            result = create_campaign(
+                account_id, token, nome, args.objetivo, budget, status=args.status
+            )
             print(f"\n✅ Campanha criada com sucesso!")
             print(f"   ID: {result['id']}")
             print(f"   Nome: {result['name']}")
@@ -539,14 +591,19 @@ def main() -> None:
         elif args.comando == "resume-ad":
             validar_texto(args.ad_id, campo="ad_id", max_len=50)
             result = resume_ad(args.ad_id, token)
-            print(f"\n▶ Anúncio {args.ad_id} reativado. Sucesso: {result.get('success')}")
+            print(
+                f"\n▶ Anúncio {args.ad_id} reativado. Sucesso: {result.get('success')}"
+            )
             print_json(result)
 
     except ValidationError as e:
         handle_validation_error(e)
     except MetaAdsAuthError as e:
         print(f"\n❌ Erro de autenticação: {e}", file=sys.stderr)
-        print(f"Verifique se o token em {ENV_TOKEN} é válido e tem as permissões necessárias.", file=sys.stderr)
+        print(
+            f"Verifique se o token em {ENV_TOKEN} é válido e tem as permissões necessárias.",
+            file=sys.stderr,
+        )
         sys.exit(1)
     except MetaAdsError as e:
         print(f"\n❌ Erro da API do Meta Ads: {e}", file=sys.stderr)

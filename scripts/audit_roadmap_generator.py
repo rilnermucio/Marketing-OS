@@ -7,11 +7,11 @@ Heuristic bucketing:
 
 Each item has: action, dimension, effort (S/M/L), impact (alto/medio/baixo), owner.
 """
+
 from __future__ import annotations
 
 import json
 import sys
-
 
 _OWNER_MAP = {
     "Conversão": "Growth Lead",
@@ -31,8 +31,15 @@ _OWNER_MAP = {
 
 
 _EFFORT_KEYWORDS_L = ["redesign", "refazer", "reestruturar", "criar do zero", "rebuild"]
-_EFFORT_KEYWORDS_M = ["reescrever", "criar", "implementar", "adicionar lead magnet",
-                      "construir", "desenvolver", "configurar"]
+_EFFORT_KEYWORDS_M = [
+    "reescrever",
+    "criar",
+    "implementar",
+    "adicionar lead magnet",
+    "construir",
+    "desenvolver",
+    "configurar",
+]
 
 
 def _estimate_effort(fix_text: str) -> str:
@@ -111,11 +118,13 @@ def _cli() -> int:
         fixes = []
         weights = {}
         for dim, info in payload["dimensions"].items():
-            fixes.append({
-                "dimension": dim,
-                "score": info["score"] if info["score"] is not None else 50,
-                "fix": info["fix"],
-            })
+            fixes.append(
+                {
+                    "dimension": dim,
+                    "score": info["score"] if info["score"] is not None else 50,
+                    "fix": info["fix"],
+                }
+            )
             weights[dim] = info["weight"]
     else:
         fixes = payload["fixes"]

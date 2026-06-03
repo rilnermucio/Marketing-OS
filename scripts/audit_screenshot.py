@@ -5,6 +5,7 @@ Pure I/O wrapper. Returns paths to PNG files. Errors degrade gracefully
 
 CLI: python audit_screenshot.py --url <url> --output-dir <dir>
 """
+
 from __future__ import annotations
 
 import argparse
@@ -14,13 +15,21 @@ import sys
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 
-
 try:
     from playwright.sync_api import sync_playwright
 except ImportError:  # pragma: no cover – optional dep
     sync_playwright = None  # type: ignore[assignment]
 
-_INTERNAL_KEYWORDS = ["pricing", "signup", "sign-up", "register", "contact", "features", "demo", "about"]
+_INTERNAL_KEYWORDS = [
+    "pricing",
+    "signup",
+    "sign-up",
+    "register",
+    "contact",
+    "features",
+    "demo",
+    "about",
+]
 _MAX_INTERNAL_PAGES = 3
 
 
@@ -34,7 +43,11 @@ def _detect_internal_pages(html: str, base_url: str) -> list[str]:
     href_pattern = re.compile(r'href=["\']([^"\']+)["\']', re.IGNORECASE)
     for match in href_pattern.finditer(html):
         href = match.group(1)
-        if href.startswith("#") or href.startswith("mailto:") or href.startswith("tel:"):
+        if (
+            href.startswith("#")
+            or href.startswith("mailto:")
+            or href.startswith("tel:")
+        ):
             continue
 
         absolute = urljoin(base_url, href)
@@ -97,8 +110,15 @@ def capture(
 
                 for internal_url in internal_urls:
                     try:
-                        page.goto(internal_url, wait_until="networkidle", timeout=timeout_ms)
-                        slug = re.sub(r"\W+", "-", urlparse(internal_url).path.strip("/"))[:40] or "page"
+                        page.goto(
+                            internal_url, wait_until="networkidle", timeout=timeout_ms
+                        )
+                        slug = (
+                            re.sub(r"\W+", "-", urlparse(internal_url).path.strip("/"))[
+                                :40
+                            ]
+                            or "page"
+                        )
                         internal_path = out_dir / f"{slug}.png"
                         page.screenshot(path=str(internal_path), full_page=True)
                         result["internals"].append(internal_path)
@@ -123,7 +143,9 @@ def _cli() -> int:
     args = parser.parse_args()
 
     w, h = args.viewport.split("x")
-    result = capture(args.url, args.output_dir, viewport=(int(w), int(h)), timeout_ms=args.timeout_ms)
+    result = capture(
+        args.url, args.output_dir, viewport=(int(w), int(h)), timeout_ms=args.timeout_ms
+    )
 
     out = {
         "homepage": str(result["homepage"]) if result["homepage"] else None,

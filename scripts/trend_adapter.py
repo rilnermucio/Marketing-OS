@@ -8,7 +8,6 @@ Exemplo: python trend_adapter.py "get ready with me" marketing
 """
 
 import sys
-import random
 from typing import Dict, List
 
 from output_formatter import print_json
@@ -19,87 +18,124 @@ TRENDS = {
     "get_ready_with_me": {
         "nome": "Get Ready With Me (GRWM)",
         "original": "Mostrar rotina de preparação enquanto conversa",
-        "estrutura": ["Setup (ambiente)", "Ação (se preparando)", "Conversa paralela", "Resultado final"],
+        "estrutura": [
+            "Setup (ambiente)",
+            "Ação (se preparando)",
+            "Conversa paralela",
+            "Resultado final",
+        ],
         "duracao": "60-90 segundos",
-        "audio": "Música trending ou voiceover"
+        "audio": "Música trending ou voiceover",
     },
     "day_in_my_life": {
         "nome": "Day in My Life",
         "original": "Mostrar um dia típico na sua rotina",
-        "estrutura": ["Manhã", "Trabalho/atividade principal", "Tarde/pausa", "Noite", "Reflexão"],
+        "estrutura": [
+            "Manhã",
+            "Trabalho/atividade principal",
+            "Tarde/pausa",
+            "Noite",
+            "Reflexão",
+        ],
         "duracao": "60-90 segundos",
-        "audio": "Música aesthetic ou narração"
+        "audio": "Música aesthetic ou narração",
     },
     "things_i_wish": {
         "nome": "Things I Wish I Knew",
         "original": "Compartilhar aprendizados tardios",
-        "estrutura": ["Hook: 'Coisas que eu queria ter sabido...'", "Lista de insights", "Conclusão"],
+        "estrutura": [
+            "Hook: 'Coisas que eu queria ter sabido...'",
+            "Lista de insights",
+            "Conclusão",
+        ],
         "duracao": "30-60 segundos",
-        "audio": "Música emocional ou voiceover"
+        "audio": "Música emocional ou voiceover",
     },
     "hot_takes": {
         "nome": "Hot Takes / Opiniões Impopulares",
         "original": "Compartilhar opinião controversa",
-        "estrutura": ["Statement forte", "Justificativa", "Prova/exemplo", "CTA para debate"],
+        "estrutura": [
+            "Statement forte",
+            "Justificativa",
+            "Prova/exemplo",
+            "CTA para debate",
+        ],
         "duracao": "15-30 segundos",
-        "audio": "Som trending de 'hot take'"
+        "audio": "Som trending de 'hot take'",
     },
     "pov": {
         "nome": "POV (Point of View)",
         "original": "Encenar situação do ponto de vista do viewer",
         "estrutura": ["Setup: 'POV: você...'", "Cena/reação", "Plot twist (opcional)"],
         "duracao": "15-30 segundos",
-        "audio": "Som específico do POV"
+        "audio": "Som específico do POV",
     },
     "expectativa_realidade": {
         "nome": "Expectativa vs Realidade",
         "original": "Comparar idealização com realidade",
         "estrutura": ["Expectativa (glamour)", "Transição", "Realidade (humor)"],
         "duracao": "15-30 segundos",
-        "audio": "Som de transição"
+        "audio": "Som de transição",
     },
     "storytime": {
         "nome": "Storytime",
         "original": "Contar história envolvente",
         "estrutura": ["Hook dramático", "Contexto", "Conflito", "Clímax", "Resolução"],
         "duracao": "60-180 segundos",
-        "audio": "Voiceover com música de fundo"
+        "audio": "Voiceover com música de fundo",
     },
     "tutorial_rapido": {
         "nome": "Tutorial Rápido",
         "original": "Ensinar algo de forma rápida e dinâmica",
-        "estrutura": ["Resultado primeiro", "Passo a passo rápido", "Resultado de novo"],
+        "estrutura": [
+            "Resultado primeiro",
+            "Passo a passo rápido",
+            "Resultado de novo",
+        ],
         "duracao": "15-30 segundos",
-        "audio": "Som trending upbeat"
+        "audio": "Som trending upbeat",
     },
     "antes_depois": {
         "nome": "Antes e Depois",
         "original": "Mostrar transformação",
         "estrutura": ["Antes (problema)", "Transição mágica", "Depois (resultado)"],
         "duracao": "15-30 segundos",
-        "audio": "Som de transição épico"
+        "audio": "Som de transição épico",
     },
     "react": {
         "nome": "React / Dueto",
         "original": "Reagir a outro conteúdo",
-        "estrutura": ["Mostrar conteúdo original", "Sua reação/opinião", "Comentário final"],
+        "estrutura": [
+            "Mostrar conteúdo original",
+            "Sua reação/opinião",
+            "Comentário final",
+        ],
         "duracao": "30-60 segundos",
-        "audio": "Original do vídeo + sua voz"
+        "audio": "Original do vídeo + sua voz",
     },
     "ranking": {
         "nome": "Ranking / Tier List",
         "original": "Classificar itens de melhor a pior",
-        "estrutura": ["Apresentar categorias", "Classificar cada item", "Justificar posições", "Pedir opinião"],
+        "estrutura": [
+            "Apresentar categorias",
+            "Classificar cada item",
+            "Justificar posições",
+            "Pedir opinião",
+        ],
         "duracao": "30-60 segundos",
-        "audio": "Música ou voiceover"
+        "audio": "Música ou voiceover",
     },
     "silent_vlog": {
         "nome": "Silent Vlog",
         "original": "Vlog sem narração, apenas visual e música",
-        "estrutura": ["Sequência de clips estéticos", "Momentos do dia", "Visual satisfatório"],
+        "estrutura": [
+            "Sequência de clips estéticos",
+            "Momentos do dia",
+            "Visual satisfatório",
+        ],
         "duracao": "60-90 segundos",
-        "audio": "Música lo-fi ou aesthetic"
-    }
+        "audio": "Música lo-fi ou aesthetic",
+    },
 }
 
 # Adaptações por nicho
@@ -116,7 +152,7 @@ ADAPTACOES = {
         "antes_depois": "Antes e depois de otimizar os ads do cliente",
         "react": "Reagindo a anúncios famosos / erros de marketing",
         "ranking": "Ranking das melhores ferramentas de marketing",
-        "silent_vlog": "Um dia de trabalho remoto em marketing"
+        "silent_vlog": "Um dia de trabalho remoto em marketing",
     },
     "empreendedorismo": {
         "get_ready_with_me": "GRWM para pitch com investidor / reunião importante",
@@ -130,7 +166,7 @@ ADAPTACOES = {
         "antes_depois": "Antes e depois de pivotar o modelo de negócio",
         "react": "Reagindo a erros clássicos de empreendedores",
         "ranking": "Ranking de habilidades essenciais para empreender",
-        "silent_vlog": "Rotina de trabalho como empreendedor"
+        "silent_vlog": "Rotina de trabalho como empreendedor",
     },
     "produtividade": {
         "get_ready_with_me": "GRWM para um dia super produtivo",
@@ -144,7 +180,7 @@ ADAPTACOES = {
         "antes_depois": "Antes e depois de implementar time blocking",
         "react": "Reagindo a rotinas virais de produtividade",
         "ranking": "Ranking das melhores técnicas de produtividade",
-        "silent_vlog": "Minha rotina matinal de alta performance"
+        "silent_vlog": "Minha rotina matinal de alta performance",
     },
     "tech": {
         "get_ready_with_me": "GRWM para codar um projeto novo",
@@ -158,7 +194,7 @@ ADAPTACOES = {
         "antes_depois": "Antes e depois de refatorar o código",
         "react": "Reagindo a código de iniciantes / código legado",
         "ranking": "Ranking das melhores linguagens para 2024",
-        "silent_vlog": "Coding session aesthetic"
+        "silent_vlog": "Coding session aesthetic",
     },
     "financas": {
         "get_ready_with_me": "GRWM para revisar minhas finanças do mês",
@@ -172,7 +208,7 @@ ADAPTACOES = {
         "antes_depois": "Antes e depois de organizar as finanças",
         "react": "Reagindo a dicas financeiras da internet",
         "ranking": "Ranking dos melhores investimentos para iniciantes",
-        "silent_vlog": "Minha rotina de controle financeiro"
+        "silent_vlog": "Minha rotina de controle financeiro",
     },
     "lifestyle": {
         "get_ready_with_me": "GRWM clássico com dicas de skincare/moda",
@@ -186,7 +222,7 @@ ADAPTACOES = {
         "antes_depois": "Transformação do quarto/casa/rotina",
         "react": "Reagindo a trends de lifestyle",
         "ranking": "Ranking das minhas coisas favoritas do momento",
-        "silent_vlog": "Um dia aesthetic na minha vida"
+        "silent_vlog": "Um dia aesthetic na minha vida",
     },
     "educacao": {
         "get_ready_with_me": "GRWM para estudar / preparar aula",
@@ -200,9 +236,10 @@ ADAPTACOES = {
         "antes_depois": "Antes e depois do método de estudo",
         "react": "Reagindo a métodos de estudo virais",
         "ranking": "Ranking das melhores técnicas de memorização",
-        "silent_vlog": "Study with me"
-    }
+        "silent_vlog": "Study with me",
+    },
 }
+
 
 def adaptar_trend(trend_key: str, nicho: str) -> Dict:
     """Adapta uma trend para o nicho especificado."""
@@ -220,16 +257,19 @@ def adaptar_trend(trend_key: str, nicho: str) -> Dict:
         nicho = "lifestyle"  # Default
 
     trend = TRENDS[trend_key]
-    adaptacao = ADAPTACOES[nicho].get(trend_key, f"Adapte '{trend['nome']}' para seu nicho")
+    adaptacao = ADAPTACOES[nicho].get(
+        trend_key, f"Adapte '{trend['nome']}' para seu nicho"
+    )
 
     resultado = {
         "trend": trend,
         "nicho": nicho,
         "adaptacao": adaptacao,
-        "ideias_adicionais": gerar_ideias_adicionais(trend_key, nicho)
+        "ideias_adicionais": gerar_ideias_adicionais(trend_key, nicho),
     }
 
     return resultado
+
 
 def gerar_ideias_adicionais(trend_key: str, nicho: str) -> List[str]:
     """Gera ideias adicionais de adaptação."""
@@ -238,35 +278,39 @@ def gerar_ideias_adicionais(trend_key: str, nicho: str) -> List[str]:
         "get_ready_with_me": [
             f"GRWM para evento importante do seu nicho",
             f"GRWM mostrando ferramentas que usa no trabalho",
-            f"GRWM com dicas rápidas enquanto se prepara"
+            f"GRWM com dicas rápidas enquanto se prepara",
         ],
         "day_in_my_life": [
             f"Versão 'caótica' vs versão 'organizada'",
             f"Comparar dias diferentes (segunda vs sexta)",
-            f"Focar em um aspecto específico do dia"
+            f"Focar em um aspecto específico do dia",
         ],
         "things_i_wish": [
             f"Versão por 'idade' (aos 20, aos 25, aos 30)",
             f"Focar em erros específicos que cometeu",
-            f"Coisas que ninguém te conta sobre [área]"
+            f"Coisas que ninguém te conta sobre [área]",
         ],
         "hot_takes": [
             f"Responder hot takes populares do nicho",
             f"Hot takes que mudaram de opinião",
-            f"Hot takes vs realidade"
+            f"Hot takes vs realidade",
         ],
         "pov": [
             f"POV de diferentes personas do nicho",
             f"POV de situações engraçadas/relatable",
-            f"POV de conquistas/momentos especiais"
-        ]
+            f"POV de conquistas/momentos especiais",
+        ],
     }
 
-    return ideias_base.get(trend_key, [
-        f"Adicione seu toque único de {nicho}",
-        "Combine com outra trend popular",
-        "Faça versão em série (parte 1, 2, 3)"
-    ])
+    return ideias_base.get(
+        trend_key,
+        [
+            f"Adicione seu toque único de {nicho}",
+            "Combine com outra trend popular",
+            "Faça versão em série (parte 1, 2, 3)",
+        ],
+    )
+
 
 def formatar_saida(resultado: Dict) -> str:
     """Formata o resultado para exibição."""
@@ -337,6 +381,7 @@ def formatar_saida(resultado: Dict) -> str:
 
     return saida
 
+
 def listar_trends() -> None:
     """Lista todas as trends disponíveis."""
 
@@ -345,6 +390,7 @@ def listar_trends() -> None:
         print(f"  • {key}: {value['nome']}")
     print()
 
+
 def listar_nichos() -> None:
     """Lista todos os nichos disponíveis."""
 
@@ -352,6 +398,7 @@ def listar_nichos() -> None:
     for nicho in ADAPTACOES.keys():
         print(f"  • {nicho}")
     print()
+
 
 USO_TREND_ADAPTER = (
     'Uso: python trend_adapter.py "trend" [nicho] [--json]\n'
@@ -375,11 +422,21 @@ def main() -> None:
         return
 
     json_mode = "--json" in sys.argv
-    args_clean = [a for a in sys.argv[1:] if a not in ("--json", "--trends", "--nichos")]
+    args_clean = [
+        a for a in sys.argv[1:] if a not in ("--json", "--trends", "--nichos")
+    ]
 
     try:
-        trend_raw = validar_texto(args_clean[0], campo="trend", max_len=100) if args_clean else ""
-        nicho_raw = validar_texto(args_clean[1], campo="nicho", max_len=50) if len(args_clean) > 1 else "lifestyle"
+        trend_raw = (
+            validar_texto(args_clean[0], campo="trend", max_len=100)
+            if args_clean
+            else ""
+        )
+        nicho_raw = (
+            validar_texto(args_clean[1], campo="nicho", max_len=50)
+            if len(args_clean) > 1
+            else "lifestyle"
+        )
     except ValidationError as e:
         handle_validation_error(e, mostrar_uso=USO_TREND_ADAPTER)
         return
@@ -392,6 +449,7 @@ def main() -> None:
         print_json(resultado)
     else:
         print(formatar_saida(resultado))
+
 
 if __name__ == "__main__":
     main()

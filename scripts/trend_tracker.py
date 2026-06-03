@@ -19,7 +19,7 @@ import re
 import urllib.request
 import urllib.parse
 import urllib.error
-from datetime import datetime, timedelta
+from datetime import datetime
 from html import unescape
 from typing import Optional
 import ssl
@@ -30,17 +30,24 @@ ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE
 
 
-def fazer_requisicao(url: str, headers: Optional[dict] = None, timeout: int = 10) -> Optional[str]:
+def fazer_requisicao(
+    url: str, headers: Optional[dict] = None, timeout: int = 10
+) -> Optional[str]:
     """Faz requisição HTTP e retorna o conteúdo."""
     try:
         req = urllib.request.Request(url)
-        req.add_header('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36')
+        req.add_header(
+            "User-Agent",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+        )
         if headers:
             for key, value in headers.items():
                 req.add_header(key, value)
 
-        with urllib.request.urlopen(req, timeout=timeout, context=ssl_context) as response:
-            return response.read().decode('utf-8')
+        with urllib.request.urlopen(
+            req, timeout=timeout, context=ssl_context
+        ) as response:
+            return response.read().decode("utf-8")
     except Exception as e:
         print(f"[trend_tracker] fetch falhou: {e}", file=sys.stderr)
         return None
@@ -58,7 +65,7 @@ def buscar_google_trends(termo: str, regiao: str = "BR") -> dict:
         "data_consulta": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "termos_relacionados": [],
         "sugestoes_busca": [],
-        "status": "sucesso"
+        "status": "sucesso",
     }
 
     try:
@@ -73,19 +80,25 @@ def buscar_google_trends(termo: str, regiao: str = "BR") -> dict:
                 resultados["sugestoes_busca"] = dados[1][:10]
 
         # Google Trends Daily (via RSS)
-        url_trends = f"https://trends.google.com/trends/trendingsearches/daily/rss?geo={regiao}"
+        url_trends = (
+            f"https://trends.google.com/trends/trendingsearches/daily/rss?geo={regiao}"
+        )
         resposta_trends = fazer_requisicao(url_trends)
 
         if resposta_trends:
             # Parse simples do RSS para extrair títulos
-            titulos = re.findall(r'<title><!\[CDATA\[(.*?)\]\]></title>', resposta_trends)
+            titulos = re.findall(
+                r"<title><!\[CDATA\[(.*?)\]\]></title>", resposta_trends
+            )
             # Remover o primeiro título que é do feed
             if titulos:
                 titulos = titulos[1:11]  # Pegar até 10 tendências
             resultados["tendencias_do_dia"] = titulos
 
             # Extrair tráfego aproximado
-            trafegos = re.findall(r'<ht:approx_traffic>(.*?)</ht:approx_traffic>', resposta_trends)
+            trafegos = re.findall(
+                r"<ht:approx_traffic>(.*?)</ht:approx_traffic>", resposta_trends
+            )
             if trafegos:
                 resultados["trafego_aproximado"] = trafegos[:10]
 
@@ -95,7 +108,9 @@ def buscar_google_trends(termo: str, regiao: str = "BR") -> dict:
     return resultados
 
 
-def buscar_reddit(termo: str, subreddit: str = "all", limite: int = 10, periodo: str = "week") -> dict:
+def buscar_reddit(
+    termo: str, subreddit: str = "all", limite: int = 10, periodo: str = "week"
+) -> dict:
     """
     Busca posts populares no Reddit relacionados ao termo.
     Períodos: hour, day, week, month, year, all
@@ -107,7 +122,7 @@ def buscar_reddit(termo: str, subreddit: str = "all", limite: int = 10, periodo:
         "periodo": periodo,
         "data_consulta": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "posts": [],
-        "status": "sucesso"
+        "status": "sucesso",
     }
 
     try:
@@ -121,17 +136,23 @@ def buscar_reddit(termo: str, subreddit: str = "all", limite: int = 10, periodo:
             if "data" in dados and "children" in dados["data"]:
                 for post in dados["data"]["children"]:
                     post_data = post.get("data", {})
-                    resultados["posts"].append({
-                        "titulo": post_data.get("title", ""),
-                        "subreddit": post_data.get("subreddit", ""),
-                        "score": post_data.get("score", 0),
-                        "comentarios": post_data.get("num_comments", 0),
-                        "url": f"https://reddit.com{post_data.get('permalink', '')}",
-                        "criado_em": datetime.fromtimestamp(
-                            post_data.get("created_utc", 0)
-                        ).strftime("%Y-%m-%d %H:%M") if post_data.get("created_utc") else "",
-                        "upvote_ratio": post_data.get("upvote_ratio", 0)
-                    })
+                    resultados["posts"].append(
+                        {
+                            "titulo": post_data.get("title", ""),
+                            "subreddit": post_data.get("subreddit", ""),
+                            "score": post_data.get("score", 0),
+                            "comentarios": post_data.get("num_comments", 0),
+                            "url": f"https://reddit.com{post_data.get('permalink', '')}",
+                            "criado_em": (
+                                datetime.fromtimestamp(
+                                    post_data.get("created_utc", 0)
+                                ).strftime("%Y-%m-%d %H:%M")
+                                if post_data.get("created_utc")
+                                else ""
+                            ),
+                            "upvote_ratio": post_data.get("upvote_ratio", 0),
+                        }
+                    )
 
                 # Calcular métricas agregadas
                 if resultados["posts"]:
@@ -142,7 +163,9 @@ def buscar_reddit(termo: str, subreddit: str = "all", limite: int = 10, periodo:
                         "score_total": sum(scores),
                         "score_medio": round(sum(scores) / len(scores), 1),
                         "comentarios_total": sum(comentarios),
-                        "subreddits_unicos": len(set(p["subreddit"] for p in resultados["posts"]))
+                        "subreddits_unicos": len(
+                            set(p["subreddit"] for p in resultados["posts"])
+                        ),
                     }
 
     except Exception as e:
@@ -161,25 +184,35 @@ def buscar_youtube_trends(termo: str, regiao: str = "BR", limite: int = 10) -> d
         "regiao": regiao,
         "data_consulta": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "videos": [],
-        "status": "sucesso"
+        "status": "sucesso",
     }
 
     try:
         termo_encoded = urllib.parse.quote(termo)
         # YouTube RSS feed de busca
-        url = f"https://www.youtube.com/results?search_query={termo_encoded}&sp=CAM%253D"
+        url = (
+            f"https://www.youtube.com/results?search_query={termo_encoded}&sp=CAM%253D"
+        )
 
         resposta = fazer_requisicao(url)
         if resposta:
             # Extrair dados do JSON embutido na página
-            match = re.search(r'var ytInitialData = ({.*?});', resposta)
+            match = re.search(r"var ytInitialData = ({.*?});", resposta)
             if match:
                 try:
                     dados = json.loads(match.group(1))
-                    contents = dados.get("contents", {}).get("twoColumnSearchResultsRenderer", {}).get("primaryContents", {}).get("sectionListRenderer", {}).get("contents", [])
+                    contents = (
+                        dados.get("contents", {})
+                        .get("twoColumnSearchResultsRenderer", {})
+                        .get("primaryContents", {})
+                        .get("sectionListRenderer", {})
+                        .get("contents", [])
+                    )
 
                     for section in contents:
-                        items = section.get("itemSectionRenderer", {}).get("contents", [])
+                        items = section.get("itemSectionRenderer", {}).get(
+                            "contents", []
+                        )
                         for item in items[:limite]:
                             video = item.get("videoRenderer", {})
                             if video:
@@ -192,8 +225,13 @@ def buscar_youtube_trends(termo: str, regiao: str = "BR", limite: int = 10) -> d
                                     views = video["viewCountText"].get("simpleText", "")
 
                                 canal = ""
-                                if "ownerText" in video and "runs" in video["ownerText"]:
-                                    canal = video["ownerText"]["runs"][0].get("text", "")
+                                if (
+                                    "ownerText" in video
+                                    and "runs" in video["ownerText"]
+                                ):
+                                    canal = video["ownerText"]["runs"][0].get(
+                                        "text", ""
+                                    )
 
                                 duracao = ""
                                 if "lengthText" in video:
@@ -201,19 +239,23 @@ def buscar_youtube_trends(termo: str, regiao: str = "BR", limite: int = 10) -> d
 
                                 publicado = ""
                                 if "publishedTimeText" in video:
-                                    publicado = video["publishedTimeText"].get("simpleText", "")
+                                    publicado = video["publishedTimeText"].get(
+                                        "simpleText", ""
+                                    )
 
                                 video_id = video.get("videoId", "")
 
                                 if titulo:
-                                    resultados["videos"].append({
-                                        "titulo": titulo,
-                                        "canal": canal,
-                                        "visualizacoes": views,
-                                        "duracao": duracao,
-                                        "publicado": publicado,
-                                        "url": f"https://youtube.com/watch?v={video_id}"
-                                    })
+                                    resultados["videos"].append(
+                                        {
+                                            "titulo": titulo,
+                                            "canal": canal,
+                                            "visualizacoes": views,
+                                            "duracao": duracao,
+                                            "publicado": publicado,
+                                            "url": f"https://youtube.com/watch?v={video_id}",
+                                        }
+                                    )
                 except json.JSONDecodeError:
                     pass
 
@@ -232,7 +274,7 @@ def buscar_hacker_news(termo: str, limite: int = 10) -> dict:
         "termo_buscado": termo,
         "data_consulta": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "posts": [],
-        "status": "sucesso"
+        "status": "sucesso",
     }
 
     try:
@@ -244,14 +286,21 @@ def buscar_hacker_news(termo: str, limite: int = 10) -> dict:
             dados = json.loads(resposta)
 
             for hit in dados.get("hits", []):
-                resultados["posts"].append({
-                    "titulo": hit.get("title", ""),
-                    "url": hit.get("url", "") or f"https://news.ycombinator.com/item?id={hit.get('objectID', '')}",
-                    "pontos": hit.get("points", 0),
-                    "comentarios": hit.get("num_comments", 0),
-                    "autor": hit.get("author", ""),
-                    "criado_em": hit.get("created_at", "")[:10] if hit.get("created_at") else ""
-                })
+                resultados["posts"].append(
+                    {
+                        "titulo": hit.get("title", ""),
+                        "url": hit.get("url", "")
+                        or f"https://news.ycombinator.com/item?id={hit.get('objectID', '')}",
+                        "pontos": hit.get("points", 0),
+                        "comentarios": hit.get("num_comments", 0),
+                        "autor": hit.get("author", ""),
+                        "criado_em": (
+                            hit.get("created_at", "")[:10]
+                            if hit.get("created_at")
+                            else ""
+                        ),
+                    }
+                )
 
             # Métricas agregadas
             if resultados["posts"]:
@@ -259,7 +308,7 @@ def buscar_hacker_news(termo: str, limite: int = 10) -> dict:
                 resultados["metricas"] = {
                     "total_posts": len(resultados["posts"]),
                     "pontos_total": sum(pontos),
-                    "pontos_medio": round(sum(pontos) / len(pontos), 1)
+                    "pontos_medio": round(sum(pontos) / len(pontos), 1),
                 }
 
     except Exception as e:
@@ -279,7 +328,7 @@ def buscar_twitter_trends(regiao: str = "BR") -> dict:
         "data_consulta": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "tendencias": [],
         "status": "sucesso",
-        "nota": "Dados aproximados via fontes públicas. Para dados em tempo real, use a API oficial do X."
+        "nota": "Dados aproximados via fontes públicas. Para dados em tempo real, use a API oficial do X.",
     }
 
     try:
@@ -289,14 +338,14 @@ def buscar_twitter_trends(regiao: str = "BR") -> dict:
             "Para trending topics do Twitter/X em tempo real:",
             "1. Use a API oficial do X (requer autenticação)",
             "2. Acesse: https://twitter.com/explore/tabs/trending",
-            "3. Ferramentas: Trendsmap, GetDayTrends, Trendogate"
+            "3. Ferramentas: Trendsmap, GetDayTrends, Trendogate",
         ]
 
         # Alternativa: buscar menções em outras plataformas
         resultados["alternativas"] = {
             "trendsmap": "https://www.trendsmap.com/local/brazil",
             "getdaytrends": f"https://getdaytrends.com/{regiao.lower()}",
-            "twittertrends": f"https://twitter-trends.iamrohit.in/{regiao.lower()}"
+            "twittertrends": f"https://twitter-trends.iamrohit.in/{regiao.lower()}",
         }
 
     except Exception as e:
@@ -314,7 +363,7 @@ def buscar_noticias_tech(termo: str, limite: int = 10) -> dict:
         "termo_buscado": termo,
         "data_consulta": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "noticias": [],
-        "status": "sucesso"
+        "status": "sucesso",
     }
 
     # Feeds RSS de tecnologia
@@ -331,18 +380,24 @@ def buscar_noticias_tech(termo: str, limite: int = 10) -> dict:
             resposta = fazer_requisicao(url)
             if resposta:
                 # Parse simples do RSS
-                items = re.findall(r'<item>(.*?)</item>', resposta, re.DOTALL)
+                items = re.findall(r"<item>(.*?)</item>", resposta, re.DOTALL)
                 if not items:
-                    items = re.findall(r'<entry>(.*?)</entry>', resposta, re.DOTALL)
+                    items = re.findall(r"<entry>(.*?)</entry>", resposta, re.DOTALL)
 
                 for item in items[:20]:  # Verificar até 20 itens por feed
-                    titulo_match = re.search(r'<title[^>]*>(.*?)</title>', item, re.DOTALL)
-                    link_match = re.search(r'<link[^>]*>(.*?)</link>', item, re.DOTALL)
+                    titulo_match = re.search(
+                        r"<title[^>]*>(.*?)</title>", item, re.DOTALL
+                    )
+                    link_match = re.search(r"<link[^>]*>(.*?)</link>", item, re.DOTALL)
                     if not link_match:
                         link_match = re.search(r'<link[^>]*href="([^"]*)"', item)
 
                     if titulo_match:
-                        titulo = unescape(re.sub(r'<!\[CDATA\[(.*?)\]\]>', r'\1', titulo_match.group(1)))
+                        titulo = unescape(
+                            re.sub(
+                                r"<!\[CDATA\[(.*?)\]\]>", r"\1", titulo_match.group(1)
+                            )
+                        )
 
                         # Filtrar por termo
                         if termo_lower in titulo.lower():
@@ -351,15 +406,17 @@ def buscar_noticias_tech(termo: str, limite: int = 10) -> dict:
                                 link = link_match.group(1).strip()
 
                             # Extrair data
-                            data_match = re.search(r'<pubDate>(.*?)</pubDate>', item)
+                            data_match = re.search(r"<pubDate>(.*?)</pubDate>", item)
                             data = data_match.group(1)[:16] if data_match else ""
 
-                            resultados["noticias"].append({
-                                "titulo": titulo,
-                                "fonte": nome_fonte,
-                                "url": link,
-                                "data": data
-                            })
+                            resultados["noticias"].append(
+                                {
+                                    "titulo": titulo,
+                                    "fonte": nome_fonte,
+                                    "url": link,
+                                    "data": data,
+                                }
+                            )
 
                             if len(resultados["noticias"]) >= limite:
                                 break
@@ -381,7 +438,7 @@ def obter_trending_geral(regiao: str = "BR") -> dict:
         "tipo": "Trending Geral",
         "regiao": regiao,
         "data_consulta": datetime.now().strftime("%Y-%m-%d %H:%M"),
-        "fontes": {}
+        "fontes": {},
     }
 
     # Google Trends do dia
@@ -390,7 +447,7 @@ def obter_trending_geral(regiao: str = "BR") -> dict:
     if google.get("tendencias_do_dia"):
         resultados["fontes"]["google_trends"] = {
             "tendencias": google["tendencias_do_dia"],
-            "trafego": google.get("trafego_aproximado", [])
+            "trafego": google.get("trafego_aproximado", []),
         }
 
     # Reddit popular
@@ -403,11 +460,13 @@ def obter_trending_geral(regiao: str = "BR") -> dict:
             posts = []
             for post in dados.get("data", {}).get("children", []):
                 post_data = post.get("data", {})
-                posts.append({
-                    "titulo": post_data.get("title", ""),
-                    "subreddit": post_data.get("subreddit", ""),
-                    "score": post_data.get("score", 0)
-                })
+                posts.append(
+                    {
+                        "titulo": post_data.get("title", ""),
+                        "subreddit": post_data.get("subreddit", ""),
+                        "score": post_data.get("score", 0),
+                    }
+                )
             resultados["fontes"]["reddit_popular"] = posts
         except Exception:
             pass
@@ -421,15 +480,19 @@ def obter_trending_geral(regiao: str = "BR") -> dict:
             top_ids = json.loads(resposta)[:10]
             hn_posts = []
             for story_id in top_ids:
-                story_url = f"https://hacker-news.firebaseio.com/v0/item/{story_id}.json"
+                story_url = (
+                    f"https://hacker-news.firebaseio.com/v0/item/{story_id}.json"
+                )
                 story_resp = fazer_requisicao(story_url)
                 if story_resp:
                     story = json.loads(story_resp)
-                    hn_posts.append({
-                        "titulo": story.get("title", ""),
-                        "pontos": story.get("score", 0),
-                        "url": story.get("url", "")
-                    })
+                    hn_posts.append(
+                        {
+                            "titulo": story.get("title", ""),
+                            "pontos": story.get("score", 0),
+                            "url": story.get("url", ""),
+                        }
+                    )
             resultados["fontes"]["hacker_news"] = hn_posts
         except Exception:
             pass
@@ -448,7 +511,9 @@ def formatar_resultado_tabela(dados: dict) -> str:
 
     if dados.get("termo_buscado"):
         linhas.append(f" Termo: {dados['termo_buscado']}")
-    linhas.append(f" Data: {dados.get('data_consulta', datetime.now().strftime('%Y-%m-%d %H:%M'))}")
+    linhas.append(
+        f" Data: {dados.get('data_consulta', datetime.now().strftime('%Y-%m-%d %H:%M'))}"
+    )
     linhas.append("-" * 70)
 
     # Posts do Reddit
@@ -493,7 +558,7 @@ def formatar_resultado_tabela(dados: dict) -> str:
         linhas.append("-" * 70)
         trafegos = dados.get("trafego_aproximado", [])
         for i, trend in enumerate(dados["tendencias_do_dia"], 1):
-            trafego = trafegos[i-1] if i <= len(trafegos) else ""
+            trafego = trafegos[i - 1] if i <= len(trafegos) else ""
             linhas.append(f" {i:2}. {trend} ({trafego})")
 
     # Notícias
@@ -515,7 +580,14 @@ def formatar_resultado_tabela(dados: dict) -> str:
             if isinstance(conteudo, list):
                 for i, item in enumerate(conteudo[:10], 1):
                     if isinstance(item, dict):
-                        titulo = item.get("titulo", item.get("tendencias", [""])[0] if isinstance(item.get("tendencias"), list) else "")[:55]
+                        titulo = item.get(
+                            "titulo",
+                            (
+                                item.get("tendencias", [""])[0]
+                                if isinstance(item.get("tendencias"), list)
+                                else ""
+                            ),
+                        )[:55]
                         score = item.get("score") or item.get("pontos", "")
                         if score:
                             linhas.append(f" {i:2}. [{score:>6}] {titulo}")
@@ -546,7 +618,9 @@ def formatar_resultado_markdown(dados: dict) -> str:
 
     if dados.get("termo_buscado"):
         linhas.append(f"**Termo:** {dados['termo_buscado']}")
-    linhas.append(f"**Data:** {dados.get('data_consulta', datetime.now().strftime('%Y-%m-%d %H:%M'))}")
+    linhas.append(
+        f"**Data:** {dados.get('data_consulta', datetime.now().strftime('%Y-%m-%d %H:%M'))}"
+    )
     linhas.append("")
 
     # Posts
@@ -592,7 +666,7 @@ def formatar_resultado_markdown(dados: dict) -> str:
         linhas.append("")
         trafegos = dados.get("trafego_aproximado", [])
         for i, trend in enumerate(dados["tendencias_do_dia"], 1):
-            trafego = trafegos[i-1] if i <= len(trafegos) else ""
+            trafego = trafegos[i - 1] if i <= len(trafegos) else ""
             linhas.append(f"{i}. **{trend}** ({trafego})")
         linhas.append("")
 
@@ -601,7 +675,9 @@ def formatar_resultado_markdown(dados: dict) -> str:
         linhas.append("## Notícias")
         linhas.append("")
         for noticia in dados["noticias"]:
-            linhas.append(f"- [{noticia.get('titulo', '')}]({noticia.get('url', '')}) - *{noticia.get('fonte', '')}*")
+            linhas.append(
+                f"- [{noticia.get('titulo', '')}]({noticia.get('url', '')}) - *{noticia.get('fonte', '')}*"
+            )
         linhas.append("")
 
     # Trending geral
@@ -675,7 +751,7 @@ NOTAS:
 
 
 def main() -> None:
-    if len(sys.argv) < 2 or sys.argv[1] in ['-h', '--help', 'help']:
+    if len(sys.argv) < 2 or sys.argv[1] in ["-h", "--help", "help"]:
         mostrar_ajuda()
         return
 
@@ -735,7 +811,9 @@ def main() -> None:
 
         print(f"Buscando tendências para '{termo}'...", file=sys.stderr)
 
-        periodo_reddit = "week" if periodo <= 7 else ("month" if periodo <= 30 else "year")
+        periodo_reddit = (
+            "week" if periodo <= 7 else ("month" if periodo <= 30 else "year")
+        )
 
         for plataforma in plataformas:
             plataforma = plataforma.lower().strip()
@@ -766,7 +844,11 @@ def main() -> None:
         if len(resultados_totais) == 1:
             print(json.dumps(resultados_totais[0], ensure_ascii=False, indent=2))
         else:
-            print(json.dumps({"resultados": resultados_totais}, ensure_ascii=False, indent=2))
+            print(
+                json.dumps(
+                    {"resultados": resultados_totais}, ensure_ascii=False, indent=2
+                )
+            )
     elif formato == "markdown":
         for resultado in resultados_totais:
             print(formatar_resultado_markdown(resultado))

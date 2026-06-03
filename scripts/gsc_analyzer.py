@@ -22,7 +22,12 @@ import sys
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
 
-from validators import ValidationError, validar_inteiro, validar_texto, validar_url, handle_validation_error
+from validators import (
+    ValidationError,
+    validar_inteiro,
+    validar_texto,
+    handle_validation_error,
+)
 
 # ---------------------------------------------------------------------------
 # Configuração
@@ -49,6 +54,7 @@ DEFAULT_ROWS = 1000
 # Exceções
 # ---------------------------------------------------------------------------
 
+
 class GSCError(Exception):
     """Erro da API do Google Search Console."""
 
@@ -65,12 +71,12 @@ class GSCError(Exception):
 
 class GSCAuthError(GSCError):
     """Erro de autenticação com o Google Search Console."""
-    pass
 
 
 # ---------------------------------------------------------------------------
 # Autenticação (Service Account via JWT)
 # ---------------------------------------------------------------------------
+
 
 def _load_credentials() -> Dict:
     """Carrega credenciais da Service Account a partir de variável de ambiente ou arquivo."""
@@ -106,9 +112,6 @@ def _get_access_token(credentials: Dict) -> str:
     Usa apenas a biblioteca padrão (sem google-auth).
     """
     import base64
-    import hashlib
-    import hmac
-    import struct
     import time
     import urllib.error
     import urllib.parse
@@ -124,9 +127,9 @@ def _get_access_token(credentials: Dict) -> str:
 
     # Verificar se tem RSA disponível (necessário para assinar JWT)
     try:
-        import ssl
         from cryptography.hazmat.primitives import hashes, serialization
         from cryptography.hazmat.primitives.asymmetric import padding
+
         _HAS_CRYPTOGRAPHY = True
     except ImportError:
         _HAS_CRYPTOGRAPHY = False
@@ -137,9 +140,7 @@ def _get_access_token(credentials: Dict) -> str:
             "Instale com: pip install cryptography"
         )
 
-    from cryptography.hazmat.primitives import hashes, serialization
-    from cryptography.hazmat.primitives.asymmetric import padding
-
+    # hashes/serialization/padding já vêm do import dentro do try acima.
     now = int(time.time())
     claim_set = {
         "iss": credentials["client_email"],
@@ -162,10 +163,12 @@ def _get_access_token(credentials: Dict) -> str:
     jwt_token = f"{header}.{payload}.{b64url(signature)}"
 
     token_url = credentials.get("token_uri", OAUTH_TOKEN_URL)
-    post_data = urllib.parse.urlencode({
-        "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
-        "assertion": jwt_token,
-    }).encode("utf-8")
+    post_data = urllib.parse.urlencode(
+        {
+            "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+            "assertion": jwt_token,
+        }
+    ).encode("utf-8")
 
     try:
         req = urllib.request.Request(token_url, data=post_data, method="POST")
@@ -186,6 +189,7 @@ def _get_access_token(credentials: Dict) -> str:
 # ---------------------------------------------------------------------------
 # Cliente HTTP
 # ---------------------------------------------------------------------------
+
 
 def _api_get(url: str, token: str, params: Optional[Dict] = None) -> Dict:
     """Faz um GET autenticado para a API do GSC."""
@@ -249,9 +253,12 @@ def _api_post(url: str, token: str, body: Dict) -> Dict:
 # Funções de análise
 # ---------------------------------------------------------------------------
 
+
 def _date_range(days: int) -> tuple:
     """Retorna (start_date, end_date) como strings YYYY-MM-DD."""
-    end = datetime.now(tz=timezone.utc).date() - timedelta(days=3)  # GSC tem delay de ~3 dias
+    end = datetime.now(tz=timezone.utc).date() - timedelta(
+        days=3
+    )  # GSC tem delay de ~3 dias
     start = end - timedelta(days=days - 1)
     return start.isoformat(), end.isoformat()
 
@@ -292,6 +299,7 @@ def _search_analytics(
 def _encode_site_url(site_url: str) -> str:
     """Codifica a URL do site para uso no path da API."""
     import urllib.parse
+
     return urllib.parse.quote(site_url, safe="")
 
 
@@ -313,7 +321,9 @@ def get_search_queries(
     Returns:
         Lista de dicionários com: query, clicks, impressions, ctr, position.
     """
-    rows = _search_analytics(site_url, token, dimensions=["query"], days=days, row_limit=limit)
+    rows = _search_analytics(
+        site_url, token, dimensions=["query"], days=days, row_limit=limit
+    )
     return [
         {
             "query": row["keys"][0],
@@ -344,7 +354,9 @@ def get_top_pages(
     Returns:
         Lista de dicionários com: page, clicks, impressions, ctr, position.
     """
-    rows = _search_analytics(site_url, token, dimensions=["page"], days=days, row_limit=limit)
+    rows = _search_analytics(
+        site_url, token, dimensions=["page"], days=days, row_limit=limit
+    )
     return [
         {
             "page": row["keys"][0],
@@ -379,7 +391,9 @@ def get_ctr_opportunities(
     Returns:
         Lista de oportunidades ordenadas por impressões (maior primeiro).
     """
-    rows = _search_analytics(site_url, token, dimensions=["query"], days=days, row_limit=MAX_ROWS)
+    rows = _search_analytics(
+        site_url, token, dimensions=["query"], days=days, row_limit=MAX_ROWS
+    )
 
     oportunidades = []
     for row in rows:
@@ -387,15 +401,23 @@ def get_ctr_opportunities(
         ctr = row.get("ctr", 0) * 100
         position = row.get("position", 99)
 
-        if impressions >= min_impressions and ctr <= max_ctr and position <= max_position:
-            oportunidades.append({
-                "query": row["keys"][0],
-                "impressions": impressions,
-                "clicks": row.get("clicks", 0),
-                "ctr": round(ctr, 2),
-                "position": round(position, 1),
-                "ctr_potencial": round(impressions * 0.05, 0),  # Estimativa com CTR de 5%
-            })
+        if (
+            impressions >= min_impressions
+            and ctr <= max_ctr
+            and position <= max_position
+        ):
+            oportunidades.append(
+                {
+                    "query": row["keys"][0],
+                    "impressions": impressions,
+                    "clicks": row.get("clicks", 0),
+                    "ctr": round(ctr, 2),
+                    "position": round(position, 1),
+                    "ctr_potencial": round(
+                        impressions * 0.05, 0
+                    ),  # Estimativa com CTR de 5%
+                }
+            )
 
     return sorted(oportunidades, key=lambda x: x["impressions"], reverse=True)
 
@@ -421,7 +443,9 @@ def get_position_changes(
         Dicionário com queries que subiram, desceram e novos.
     """
     # Período atual
-    rows_atual = _search_analytics(site_url, token, dimensions=["query"], days=days, row_limit=limit)
+    rows_atual = _search_analytics(
+        site_url, token, dimensions=["query"], days=days, row_limit=limit
+    )
 
     # Período anterior (deslocado)
     end_anterior = datetime.now(tz=timezone.utc).date() - timedelta(days=3 + days)
@@ -442,8 +466,7 @@ def get_position_changes(
 
     # Construir dicionário do período anterior
     dict_anterior = {
-        row["keys"][0]: round(row.get("position", 99), 1)
-        for row in rows_anterior
+        row["keys"][0]: round(row.get("position", 99), 1) for row in rows_anterior
     }
 
     subiram = []
@@ -458,19 +481,23 @@ def get_position_changes(
         if pos_anterior is None:
             novos.append({"query": query, "position": pos_atual})
         elif pos_atual < pos_anterior:
-            subiram.append({
-                "query": query,
-                "position_atual": pos_atual,
-                "position_anterior": pos_anterior,
-                "variacao": round(pos_anterior - pos_atual, 1),
-            })
+            subiram.append(
+                {
+                    "query": query,
+                    "position_atual": pos_atual,
+                    "position_anterior": pos_anterior,
+                    "variacao": round(pos_anterior - pos_atual, 1),
+                }
+            )
         elif pos_atual > pos_anterior:
-            desceram.append({
-                "query": query,
-                "position_atual": pos_atual,
-                "position_anterior": pos_anterior,
-                "variacao": round(pos_atual - pos_anterior, 1),
-            })
+            desceram.append(
+                {
+                    "query": query,
+                    "position_atual": pos_atual,
+                    "position_anterior": pos_anterior,
+                    "variacao": round(pos_atual - pos_anterior, 1),
+                }
+            )
 
     subiram.sort(key=lambda x: x["variacao"], reverse=True)
     desceram.sort(key=lambda x: x["variacao"], reverse=True)
@@ -493,6 +520,7 @@ def get_position_changes(
 # Utilitários
 # ---------------------------------------------------------------------------
 
+
 def get_credentials_and_token() -> str:
     """Carrega credenciais e retorna access token."""
     credentials = _load_credentials()
@@ -513,7 +541,9 @@ def print_queries_table(queries: List[Dict]) -> None:
     print("-" * 82)
     for q in queries[:50]:
         query = q["query"][:48]
-        print(f"{query:<50} {q['clicks']:>8} {q['impressions']:>8} {q['ctr']:>5.1f}% {q['position']:>6.1f}")
+        print(
+            f"{query:<50} {q['clicks']:>8} {q['impressions']:>8} {q['ctr']:>5.1f}% {q['position']:>6.1f}"
+        )
 
 
 def print_pages_table(pages: List[Dict]) -> None:
@@ -531,6 +561,7 @@ def print_pages_table(pages: List[Dict]) -> None:
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
+
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -551,8 +582,12 @@ def build_parser() -> argparse.ArgumentParser:
     # queries
     p_q = sub.add_parser("queries", help="Principais queries de busca")
     p_q.add_argument("site_url", help="URL do site (https://example.com)")
-    p_q.add_argument("--days", type=int, default=30, help="Dias retroativos (padrão: 30)")
-    p_q.add_argument("--limit", type=int, default=100, help="Máximo de queries (padrão: 100)")
+    p_q.add_argument(
+        "--days", type=int, default=30, help="Dias retroativos (padrão: 30)"
+    )
+    p_q.add_argument(
+        "--limit", type=int, default=100, help="Máximo de queries (padrão: 100)"
+    )
     p_q.add_argument("--json", action="store_true", help="Saída em JSON")
 
     # top-pages
@@ -574,7 +609,9 @@ def build_parser() -> argparse.ArgumentParser:
     p_pc = sub.add_parser("position-changes", help="Variações de posição")
     p_pc.add_argument("site_url", help="URL do site")
     p_pc.add_argument("--days", type=int, default=30)
-    p_pc.add_argument("--compare", type=int, default=30, help="Período de comparação (dias)")
+    p_pc.add_argument(
+        "--compare", type=int, default=30, help="Período de comparação (dias)"
+    )
     p_pc.add_argument("--json", action="store_true")
 
     # full-report
@@ -592,7 +629,9 @@ def main() -> None:
 
     try:
         validar_texto(args.site_url, campo="site_url", max_len=500)
-        days = validar_inteiro(getattr(args, "days", 30), campo="days", min_val=1, max_val=365)
+        days = validar_inteiro(
+            getattr(args, "days", 30), campo="days", min_val=1, max_val=365
+        )
     except ValidationError as e:
         handle_validation_error(e)
         return
@@ -605,27 +644,42 @@ def main() -> None:
 
     try:
         if args.comando == "queries":
-            limit = validar_inteiro(args.limit, campo="limit", min_val=1, max_val=MAX_ROWS)
+            limit = validar_inteiro(
+                args.limit, campo="limit", min_val=1, max_val=MAX_ROWS
+            )
             data = get_search_queries(args.site_url, token, days=days, limit=limit)
             if getattr(args, "json", False):
                 print_json(data)
             else:
-                print(f"\n🔍 TOP QUERIES — Últimos {days} dias ({len(data)} resultados)")
+                print(
+                    f"\n🔍 TOP QUERIES — Últimos {days} dias ({len(data)} resultados)"
+                )
                 print_queries_table(data)
 
         elif args.comando == "top-pages":
-            limit = validar_inteiro(args.limit, campo="limit", min_val=1, max_val=MAX_ROWS)
+            limit = validar_inteiro(
+                args.limit, campo="limit", min_val=1, max_val=MAX_ROWS
+            )
             data = get_top_pages(args.site_url, token, days=days, limit=limit)
             if getattr(args, "json", False):
                 print_json(data)
             else:
-                print(f"\n📄 TOP PÁGINAS — Últimos {days} dias ({len(data)} resultados)")
+                print(
+                    f"\n📄 TOP PÁGINAS — Últimos {days} dias ({len(data)} resultados)"
+                )
                 print_pages_table(data)
 
         elif args.comando == "ctr-opportunities":
-            min_imp = validar_inteiro(args.min_impressions, campo="min_impressions", min_val=1, max_val=1000000)
+            min_imp = validar_inteiro(
+                args.min_impressions,
+                campo="min_impressions",
+                min_val=1,
+                max_val=1000000,
+            )
             data = get_ctr_opportunities(
-                args.site_url, token, days=days,
+                args.site_url,
+                token,
+                days=days,
                 min_impressions=min_imp,
                 max_ctr=args.max_ctr,
             )
@@ -636,8 +690,12 @@ def main() -> None:
                 print_queries_table(data)
 
         elif args.comando == "position-changes":
-            compare = validar_inteiro(args.compare, campo="compare", min_val=1, max_val=365)
-            data = get_position_changes(args.site_url, token, days=days, compare_days=compare)
+            compare = validar_inteiro(
+                args.compare, campo="compare", min_val=1, max_val=365
+            )
+            data = get_position_changes(
+                args.site_url, token, days=days, compare_days=compare
+            )
             if getattr(args, "json", False):
                 print_json(data)
             else:

@@ -6,6 +6,7 @@ Two layers:
 
 Uses matplotlib (Agg backend, no display required).
 """
+
 from __future__ import annotations
 
 import json
@@ -13,10 +14,10 @@ import sys
 from pathlib import Path
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
-
 
 _PRIORITY_BOOST = {"alta": 15, "media": 5, "baixa": 2}
 
@@ -58,7 +59,10 @@ def generate(
     # Replace None with 0 for plotting (visual only)
     current = [scores[d] if scores[d] is not None else 0 for d in dimensions]
     potential_scores = _compute_potential_scores(scores, fixes)
-    potential = [potential_scores[d] if potential_scores[d] is not None else 0 for d in dimensions]
+    potential = [
+        potential_scores[d] if potential_scores[d] is not None else 0
+        for d in dimensions
+    ]
 
     angles = np.linspace(0, 2 * np.pi, n, endpoint=False).tolist()
     angles += angles[:1]
@@ -68,8 +72,15 @@ def generate(
     fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True), dpi=200)
 
     # Potential outline (dashed, behind)
-    ax.plot(angles, potential, color=accent_color, linewidth=1.5,
-            linestyle="--", alpha=0.6, label="Potencial após fixes priorizados")
+    ax.plot(
+        angles,
+        potential,
+        color=accent_color,
+        linewidth=1.5,
+        linestyle="--",
+        alpha=0.6,
+        label="Potencial após fixes priorizados",
+    )
 
     # Current scores (solid filled)
     ax.fill(angles, current, color=accent_color, alpha=0.25)
@@ -77,7 +88,9 @@ def generate(
 
     # Axis labels
     ax.set_xticks(angles[:-1])
-    ax.set_xticklabels([_truncate(d) for d in dimensions], fontsize=9, color=primary_color)
+    ax.set_xticklabels(
+        [_truncate(d) for d in dimensions], fontsize=9, color=primary_color
+    )
 
     # Radial gridlines
     ax.set_ylim(0, 100)
@@ -93,8 +106,14 @@ def generate(
     ax.legend(loc="upper right", bbox_to_anchor=(1.3, 1.1), fontsize=9, frameon=False)
 
     plt.tight_layout()
-    plt.savefig(out_path, dpi=200, bbox_inches="tight",
-                facecolor="white", edgecolor="none", transparent=False)
+    plt.savefig(
+        out_path,
+        dpi=200,
+        bbox_inches="tight",
+        facecolor="white",
+        edgecolor="none",
+        transparent=False,
+    )
     plt.close(fig)
 
     return out_path
@@ -102,8 +121,11 @@ def generate(
 
 def _cli() -> int:
     import argparse
+
     parser = argparse.ArgumentParser()
-    parser.add_argument("--scores-json", required=True, help="Path to scoring_output.json")
+    parser.add_argument(
+        "--scores-json", required=True, help="Path to scoring_output.json"
+    )
     parser.add_argument("--output", required=True, help="Output PNG path")
     parser.add_argument("--primary-color", default="#0a2540")
     parser.add_argument("--accent-color", default="#ff6b35")
@@ -113,8 +135,13 @@ def _cli() -> int:
     scores = {d: info["score"] for d, info in data["dimensions"].items()}
     fixes = {d: info["fix"] for d, info in data["dimensions"].items()}
 
-    generate(scores, fixes, Path(args.output),
-             primary_color=args.primary_color, accent_color=args.accent_color)
+    generate(
+        scores,
+        fixes,
+        Path(args.output),
+        primary_color=args.primary_color,
+        accent_color=args.accent_color,
+    )
     print(args.output)
     return 0
 

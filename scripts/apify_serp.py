@@ -36,7 +36,6 @@ from apify_client import (
     save_result,
 )
 
-
 SERP_ACTOR_ID = "apify/google-search-scraper"
 DEFAULT_OUTPUT_DIR = "workspace/research/apify"
 DEFAULT_MAX_RESULTS = 10
@@ -189,7 +188,9 @@ def main() -> int:
         print(f"Dry-run: SERP scraping de '{args.query}'")
         print(f"  Actor: {SERP_ACTOR_ID}")
         print(f"  Results per page: {actor_input['resultsPerPage']}")
-        print(f"  Country/Lang: {actor_input['countryCode']}/{actor_input['languageCode']}")
+        print(
+            f"  Country/Lang: {actor_input['countryCode']}/{actor_input['languageCode']}"
+        )
         print(f"  Custo estimado: ${cost:.4f} USD")
         return 0
 

@@ -30,7 +30,6 @@ from apify_client import (
     save_result,
 )
 
-
 YOUTUBE_ACTOR_ID = "streamers/youtube-scraper"
 DEFAULT_OUTPUT_DIR = "workspace/research/apify"
 DEFAULT_MAX_VIDEOS = 20
@@ -164,9 +163,7 @@ def format_summary_md(parsed: Dict[str, Any], target: str) -> str:
         for v in top:
             duration = v.get("duration", "")
             duration_str = f" [{duration}]" if duration else ""
-            lines.append(
-                f"- **{v.get('title', '?')}**{duration_str}"
-            )
+            lines.append(f"- **{v.get('title', '?')}**{duration_str}")
             lines.append(
                 f"  {v['views']:,} views, {v['likes']:,} likes, "
                 f"{v['comments']:,} comments"

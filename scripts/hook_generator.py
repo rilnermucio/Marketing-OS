@@ -14,7 +14,13 @@ import json
 import random
 from typing import List, Dict
 
-from validators import ValidationError, validar_texto, validar_inteiro, validar_plataforma, handle_validation_error
+from validators import (
+    ValidationError,
+    validar_texto,
+    validar_inteiro,
+    validar_plataforma,
+    handle_validation_error,
+)
 
 # Estruturas de hooks virais por categoria
 HOOK_TEMPLATES = {
@@ -181,12 +187,14 @@ def generate_hooks(tema: str, plataforma: str = "reels", quantidade: int = 10) -
         else:
             formatted_hook = hook_text
 
-        hooks.append({
-            "hook": formatted_hook,
-            "categoria": categoria,
-            "emoji": emoji,
-            "chars": len(formatted_hook),
-        })
+        hooks.append(
+            {
+                "hook": formatted_hook,
+                "categoria": categoria,
+                "emoji": emoji,
+                "chars": len(formatted_hook),
+            }
+        )
         categorias_usadas.append(categoria)
 
     return {
@@ -215,15 +223,17 @@ def print_results(results: Dict) -> None:
     print("-" * 70)
     print()
 
-    for i, hook_data in enumerate(results['hooks'], 1):
-        status = "✅" if hook_data['chars'] <= results['specs']['max_chars'] else "⚠️"
+    for i, hook_data in enumerate(results["hooks"], 1):
+        status = "✅" if hook_data["chars"] <= results["specs"]["max_chars"] else "⚠️"
         print(f"   [{i}] {hook_data['hook']}")
-        print(f"       {status} {hook_data['chars']} chars | Categoria: {hook_data['categoria']}")
+        print(
+            f"       {status} {hook_data['chars']} chars | Categoria: {hook_data['categoria']}"
+        )
         print()
 
     print("-" * 70)
     print("📊 CATEGORIAS UTILIZADAS:")
-    for cat in results['categorias_usadas']:
+    for cat in results["categorias_usadas"]:
         print(f"   • {cat.title()}")
     print()
 
@@ -251,8 +261,16 @@ def main() -> None:
 
     try:
         tema = validar_texto(sys.argv[1], campo="tema", max_len=200)
-        plataforma = validar_plataforma(sys.argv[2], campo="plataforma") if len(sys.argv) > 2 else "reels"
-        quantidade = validar_inteiro(sys.argv[3], campo="quantidade", min_val=1, max_val=50) if len(sys.argv) > 3 else 10
+        plataforma = (
+            validar_plataforma(sys.argv[2], campo="plataforma")
+            if len(sys.argv) > 2
+            else "reels"
+        )
+        quantidade = (
+            validar_inteiro(sys.argv[3], campo="quantidade", min_val=1, max_val=50)
+            if len(sys.argv) > 3
+            else 10
+        )
     except ValidationError as e:
         handle_validation_error(e, mostrar_uso=USO)
         return

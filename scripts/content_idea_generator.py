@@ -15,79 +15,142 @@ import random
 from typing import List, Dict
 from datetime import datetime
 
-from validators import ValidationError, validar_texto, validar_inteiro, handle_validation_error
+from validators import (
+    ValidationError,
+    validar_texto,
+    validar_inteiro,
+    handle_validation_error,
+)
 
 # Pilares de conteúdo por nicho
 PILARES = {
     "tecnologia": {
-        "pilares": ["IA e Automação", "Produtividade", "Ferramentas", "Carreira Tech", "Tendências"],
+        "pilares": [
+            "IA e Automação",
+            "Produtividade",
+            "Ferramentas",
+            "Carreira Tech",
+            "Tendências",
+        ],
         "temas": [
-            "ChatGPT", "Automação", "No-code", "Programação", "Apps",
-            "Gadgets", "Cloud", "Segurança digital", "Trabalho remoto", "Startups"
+            "ChatGPT",
+            "Automação",
+            "No-code",
+            "Programação",
+            "Apps",
+            "Gadgets",
+            "Cloud",
+            "Segurança digital",
+            "Trabalho remoto",
+            "Startups",
         ],
         "problemas": [
             "perder tempo com tarefas repetitivas",
             "não saber usar ferramentas de IA",
             "ficar para trás na tecnologia",
             "não conseguir automatizar processos",
-            "gastar muito com ferramentas"
-        ]
+            "gastar muito com ferramentas",
+        ],
     },
     "marketing_digital": {
         "pilares": ["Tráfego", "Conversão", "Conteúdo", "Branding", "Analytics"],
         "temas": [
-            "Instagram", "Anúncios", "Copy", "SEO", "Email marketing",
-            "Funil de vendas", "Landing pages", "Métricas", "Growth", "Leads"
+            "Instagram",
+            "Anúncios",
+            "Copy",
+            "SEO",
+            "Email marketing",
+            "Funil de vendas",
+            "Landing pages",
+            "Métricas",
+            "Growth",
+            "Leads",
         ],
         "problemas": [
             "não conseguir vender online",
             "ter baixo engajamento",
             "não saber criar conteúdo",
             "gastar muito em ads sem retorno",
-            "não entender métricas"
-        ]
+            "não entender métricas",
+        ],
     },
     "empreendedorismo": {
         "pilares": ["Vendas", "Gestão", "Mindset", "Finanças", "Escala"],
         "temas": [
-            "Precificação", "Negociação", "Liderança", "Processos", "Fluxo de caixa",
-            "Contratação", "Produtividade", "Networking", "Pitch", "Investimento"
+            "Precificação",
+            "Negociação",
+            "Liderança",
+            "Processos",
+            "Fluxo de caixa",
+            "Contratação",
+            "Produtividade",
+            "Networking",
+            "Pitch",
+            "Investimento",
         ],
         "problemas": [
             "não conseguir clientes",
             "não ter tempo para tudo",
             "dificuldade em precificar",
             "medo de empreender",
-            "não saber delegar"
-        ]
+            "não saber delegar",
+        ],
     },
     "desenvolvimento_pessoal": {
-        "pilares": ["Mindset", "Hábitos", "Produtividade", "Relacionamentos", "Propósito"],
+        "pilares": [
+            "Mindset",
+            "Hábitos",
+            "Produtividade",
+            "Relacionamentos",
+            "Propósito",
+        ],
         "temas": [
-            "Rotina matinal", "Foco", "Procrastinação", "Autoconhecimento", "Metas",
-            "Meditação", "Leitura", "Comunicação", "Inteligência emocional", "Resiliência"
+            "Rotina matinal",
+            "Foco",
+            "Procrastinação",
+            "Autoconhecimento",
+            "Metas",
+            "Meditação",
+            "Leitura",
+            "Comunicação",
+            "Inteligência emocional",
+            "Resiliência",
         ],
         "problemas": [
             "procrastinar demais",
             "não ter disciplina",
             "ansiedade e estresse",
             "falta de motivação",
-            "não conseguir criar hábitos"
-        ]
+            "não conseguir criar hábitos",
+        ],
     },
     "financas": {
-        "pilares": ["Organização", "Investimentos", "Renda Extra", "Mindset", "Planejamento"],
+        "pilares": [
+            "Organização",
+            "Investimentos",
+            "Renda Extra",
+            "Mindset",
+            "Planejamento",
+        ],
         "temas": [
-            "Reserva de emergência", "Renda fixa", "Ações", "FIIs", "Criptomoedas",
-            "Orçamento", "Dívidas", "Aposentadoria", "Renda passiva", "Educação financeira"
+            "Reserva de emergência",
+            "Renda fixa",
+            "Ações",
+            "FIIs",
+            "Criptomoedas",
+            "Orçamento",
+            "Dívidas",
+            "Aposentadoria",
+            "Renda passiva",
+            "Educação financeira",
         ],
         "problemas": [
             "não sobrar dinheiro no fim do mês",
             "não saber investir",
             "ter muitas dívidas",
             "medo de investir",
-            "não ter controle financeiro"
-        ]
+            "não ter controle financeiro",
+        ],
     },
 }
 
@@ -198,18 +261,19 @@ def generate_ideas(nicho: str, quantidade: int = 20) -> Dict:
         # Adicionar ângulo (50% das vezes)
         if random.random() > 0.5:
             angulo_formatado = angulo.format(
-                tempo=random.choice(["7 dias", "30 dias", "24 horas"]),
-                ano=ano
+                tempo=random.choice(["7 dias", "30 dias", "24 horas"]), ano=ano
             )
             idea = f"{idea} ({angulo_formatado})"
 
-        ideas.append({
-            "idea": idea,
-            "pilar": pilar,
-            "tema_principal": tema,
-            "formato": formato_tipo,
-            "prioridade": random.choice(["alta", "média", "baixa"]),
-        })
+        ideas.append(
+            {
+                "idea": idea,
+                "pilar": pilar,
+                "tema_principal": tema,
+                "formato": formato_tipo,
+                "prioridade": random.choice(["alta", "média", "baixa"]),
+            }
+        )
 
     # Organizar por pilar
     ideas_por_pilar: Dict[str, List[Dict]] = {}
@@ -245,12 +309,16 @@ def print_results(results: Dict) -> None:
     print("-" * 70)
     print()
 
-    for pilar, ideias in results['ideias_por_pilar'].items():
+    for pilar, ideias in results["ideias_por_pilar"].items():
         print(f"📌 {pilar.upper()}")
         for i, idea in enumerate(ideias, 1):
-            prioridade_emoji = {"alta": "🔴", "média": "🟡", "baixa": "🟢"}[idea["prioridade"]]
+            prioridade_emoji = {"alta": "🔴", "média": "🟡", "baixa": "🟢"}[
+                idea["prioridade"]
+            ]
             print(f"   {prioridade_emoji} {idea['idea']}")
-            print(f"      └─ Formato: {idea['formato']} | Tema: {idea['tema_principal']}")
+            print(
+                f"      └─ Formato: {idea['formato']} | Tema: {idea['tema_principal']}"
+            )
         print()
 
     print("-" * 70)
@@ -260,8 +328,8 @@ def print_results(results: Dict) -> None:
 
     # Contar por formato
     formato_count: Dict[str, int] = {}
-    for idea in results['ideias']:
-        fmt = idea['formato']
+    for idea in results["ideias"]:
+        fmt = idea["formato"]
         formato_count[fmt] = formato_count.get(fmt, 0) + 1
 
     print("Distribuição por formato:")
@@ -297,7 +365,11 @@ def main() -> None:
 
     try:
         nicho = validar_texto(sys.argv[1], campo="nicho", max_len=100)
-        quantidade = validar_inteiro(sys.argv[2], campo="quantidade", min_val=1, max_val=100) if len(sys.argv) > 2 else 20
+        quantidade = (
+            validar_inteiro(sys.argv[2], campo="quantidade", min_val=1, max_val=100)
+            if len(sys.argv) > 2
+            else 20
+        )
     except ValidationError as e:
         handle_validation_error(e, mostrar_uso=_uso_ideias())
         return

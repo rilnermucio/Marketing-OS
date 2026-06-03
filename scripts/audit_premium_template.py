@@ -6,11 +6,10 @@ next steps. CSS embedded for weasyprint compatibility.
 
 Visual identity: deep ink blue #0a2540 + warm orange #ff6b35.
 """
+
 from __future__ import annotations
 
 from html import escape
-from pathlib import Path
-
 
 _DEFAULT_CONFIG = {
     "brand_name": "marketing-os",
@@ -167,7 +166,11 @@ def _render_methodology() -> str:
 
 def _render_visual_scorecard(data: dict, charts: dict) -> str:
     radar_path = charts.get("radar")
-    radar_html = f'<img class="radar-chart" src="file://{radar_path}" alt="Radar de scores" />' if radar_path else ""
+    radar_html = (
+        f'<img class="radar-chart" src="file://{radar_path}" alt="Radar de scores" />'
+        if radar_path
+        else ""
+    )
 
     rows = []
     for dim, info in data["dimensions"].items():
@@ -189,7 +192,9 @@ def _render_visual_scorecard(data: dict, charts: dict) -> str:
             status = "Atenção"
             cls = "scorecard-status status-atencao"
             score_str = str(score)
-        rows.append(f"<tr><td>{escape(dim)}</td><td>{weight}%</td><td>{score_str}</td><td><span class='{cls}'>{status}</span></td></tr>")
+        rows.append(
+            f"<tr><td>{escape(dim)}</td><td>{weight}%</td><td>{score_str}</td><td><span class='{cls}'>{status}</span></td></tr>"
+        )
 
     return f"""
     <section class="page">
@@ -213,7 +218,11 @@ def _render_dimension_section(name: str, data: dict, screenshot: str | None) -> 
     before_after = data.get("before_after", [])
     citation = data.get("agent_citation", "")
 
-    evid_html = "<ul>" + "".join(f"<li>{escape(e)}</li>" for e in evidences) + "</ul>" if evidences else ""
+    evid_html = (
+        "<ul>" + "".join(f"<li>{escape(e)}</li>" for e in evidences) + "</ul>"
+        if evidences
+        else ""
+    )
     fixes_html = ""
     for fix in fixes:
         prio = fix.get("priority", "baixa")
@@ -235,8 +244,16 @@ def _render_dimension_section(name: str, data: dict, screenshot: str | None) -> 
             """
         ba_html += "</div>"
 
-    citation_html = f'<blockquote class="agent-citation">{escape(citation)}</blockquote>' if citation else ""
-    screenshot_html = f'<img class="screenshot" src="file://{screenshot}" alt="Screenshot" />' if screenshot else ""
+    citation_html = (
+        f'<blockquote class="agent-citation">{escape(citation)}</blockquote>'
+        if citation
+        else ""
+    )
+    screenshot_html = (
+        f'<img class="screenshot" src="file://{screenshot}" alt="Screenshot" />'
+        if screenshot
+        else ""
+    )
 
     return f"""
     <section class="dimension-section">
@@ -393,7 +410,9 @@ def render(
     dim_screenshots = screenshots.get("dimensions", {})
     dim_html_parts = ["<section class='page'>", "<h1>Análise por Dimensão</h1>"]
     for dim_name, dim_data in report_data["dimensions"].items():
-        dim_html_parts.append(_render_dimension_section(dim_name, dim_data, dim_screenshots.get(dim_name)))
+        dim_html_parts.append(
+            _render_dimension_section(dim_name, dim_data, dim_screenshots.get(dim_name))
+        )
     dim_html_parts.append("</section>")
     sections.append("\n".join(dim_html_parts))
 

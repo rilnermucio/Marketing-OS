@@ -21,14 +21,13 @@ Uso:
 
 import argparse
 import json
-import sys
 from datetime import datetime, date
-from typing import Any, Dict, List, Optional, Union
-
+from typing import Any, Dict, List, Optional
 
 # ---------------------------------------------------------------------------
 # Serialização JSON segura (lida com tipos não serializáveis)
 # ---------------------------------------------------------------------------
+
 
 class _SafeEncoder(json.JSONEncoder):
     """Encoder JSON que lida com datetime, date e sets."""
@@ -49,6 +48,7 @@ def to_json(data: Any, indent: int = 2) -> str:
 # ---------------------------------------------------------------------------
 # Funções utilitárias de impressão
 # ---------------------------------------------------------------------------
+
 
 def print_json(data: Any) -> None:
     """Imprime dados como JSON formatado."""
@@ -178,6 +178,7 @@ def print_list(
 # Classe principal de formatação
 # ---------------------------------------------------------------------------
 
+
 class OutputFormatter:
     """
     Gerencia o modo de saída de um script (humano vs JSON).
@@ -192,7 +193,9 @@ class OutputFormatter:
     def __init__(self, args: argparse.Namespace):
         self.json_mode: bool = getattr(args, "json", False)
         self.output: Optional[str] = getattr(args, "output", None)
-        self.format: str = getattr(args, "format", "json" if self.json_mode else "human")
+        self.format: str = getattr(
+            args, "format", "json" if self.json_mode else "human"
+        )
 
     def is_json(self) -> bool:
         """Retorna True se o modo JSON estiver ativo."""
@@ -225,7 +228,9 @@ class OutputFormatter:
         elif human_fn is not None:
             human_fn(data)
 
-    def save(self, data: Any, base_name: str, directory: str = "output/reports") -> Optional[str]:
+    def save(
+        self, data: Any, base_name: str, directory: str = "output/reports"
+    ) -> Optional[str]:
         """
         Salva dados em arquivo se --output estiver definido.
 
@@ -242,7 +247,11 @@ class OutputFormatter:
             return None
 
         import os
-        os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else directory, exist_ok=True)
+
+        os.makedirs(
+            os.path.dirname(output_path) if os.path.dirname(output_path) else directory,
+            exist_ok=True,
+        )
 
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(to_json(data))
@@ -256,6 +265,7 @@ class OutputFormatter:
 # ---------------------------------------------------------------------------
 # Helpers para argparse
 # ---------------------------------------------------------------------------
+
 
 def add_output_args(
     parser: argparse.ArgumentParser,

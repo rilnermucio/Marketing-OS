@@ -16,13 +16,10 @@ Exemplos:
 """
 
 import sys
-import os
 import json
-import re
 import random
 from datetime import datetime
-from typing import List, Dict, Tuple, Optional
-from collections import Counter
+from typing import List, Dict, Optional
 
 # =============================================================================
 # BASE DE DADOS DE HASHTAGS POR NICHO
@@ -31,262 +28,420 @@ from collections import Counter
 HASHTAGS_DATABASE = {
     "marketing_digital": {
         "grandes": [  # 1M+ posts
-            "#marketingdigital", "#marketing", "#socialmedia", "#digitalmarketing",
-            "#empreendedorismo", "#negocios", "#vendas", "#sucesso", "#brasil"
+            "#marketingdigital",
+            "#marketing",
+            "#socialmedia",
+            "#digitalmarketing",
+            "#empreendedorismo",
+            "#negocios",
+            "#vendas",
+            "#sucesso",
+            "#brasil",
         ],
         "medias": [  # 100K-1M posts
-            "#marketingonline", "#marketingdeconteudo", "#estrategiademarketing",
-            "#marketingbrasil", "#midiassociais", "#gestaoderedes", "#trafegopago",
-            "#copywriting", "#funil", "#lancamento", "#infoproduto", "#mentoria"
+            "#marketingonline",
+            "#marketingdeconteudo",
+            "#estrategiademarketing",
+            "#marketingbrasil",
+            "#midiassociais",
+            "#gestaoderedes",
+            "#trafegopago",
+            "#copywriting",
+            "#funil",
+            "#lancamento",
+            "#infoproduto",
+            "#mentoria",
         ],
         "pequenas": [  # 10K-100K posts
-            "#marketingparainiciantes", "#dicasdemarketing", "#aprendamarketing",
-            "#marketingestratégico", "#crescernoinstagram", "#engajamentoinstagram",
-            "#dicasdenegocios", "#empreendedorismodigital", "#vendasonline"
+            "#marketingparainiciantes",
+            "#dicasdemarketing",
+            "#aprendamarketing",
+            "#marketingestratégico",
+            "#crescernoinstagram",
+            "#engajamentoinstagram",
+            "#dicasdenegocios",
+            "#empreendedorismodigital",
+            "#vendasonline",
         ],
         "nicho": [  # <10K posts, muito específicas
-            "#marketingparapequenasempresas", "#estrategiasdeconteudo",
-            "#crescimentoorganico", "#algoritmodoinstagram"
+            "#marketingparapequenasempresas",
+            "#estrategiasdeconteudo",
+            "#crescimentoorganico",
+            "#algoritmodoinstagram",
         ],
-        "trending": [
-            "#ia", "#inteligenciaartificial", "#chatgpt", "#automacao"
-        ],
-        "engajamento": [
-            "#dica", "#dicadodia", "#ficaadica", "#voceabia", "#savepost"
-        ]
+        "trending": ["#ia", "#inteligenciaartificial", "#chatgpt", "#automacao"],
+        "engajamento": ["#dica", "#dicadodia", "#ficaadica", "#voceabia", "#savepost"],
     },
-
     "empreendedorismo": {
         "grandes": [
-            "#empreendedorismo", "#negocios", "#sucesso", "#motivacao",
-            "#empreendedor", "#empresario", "#trabalho", "#carreira", "#dinheiro"
+            "#empreendedorismo",
+            "#negocios",
+            "#sucesso",
+            "#motivacao",
+            "#empreendedor",
+            "#empresario",
+            "#trabalho",
+            "#carreira",
+            "#dinheiro",
         ],
         "medias": [
-            "#empreendedorismodigital", "#empreendedorismofeminino", "#mentalidaderica",
-            "#mindsetempreendedor", "#negociosonline", "#rendaextra", "#liberdadefinanceira",
-            "#pequenoempreendedor", "#meuprópriochefe", "#vidadeempreendedor"
+            "#empreendedorismodigital",
+            "#empreendedorismofeminino",
+            "#mentalidaderica",
+            "#mindsetempreendedor",
+            "#negociosonline",
+            "#rendaextra",
+            "#liberdadefinanceira",
+            "#pequenoempreendedor",
+            "#meuprópriochefe",
+            "#vidadeempreendedor",
         ],
         "pequenas": [
-            "#empreendedorismobrasileiro", "#negocioproprio", "#donodenegocio",
-            "#empreendedorismocriativo", "#empreendacomproposito", "#meunegocio"
+            "#empreendedorismobrasileiro",
+            "#negocioproprio",
+            "#donodenegocio",
+            "#empreendedorismocriativo",
+            "#empreendacomproposito",
+            "#meunegocio",
         ],
-        "nicho": [
-            "#startupbrasil", "#microempreendedor", "#mulheresquempreendem"
-        ],
-        "trending": [
-            "#nomadedigital", "#trabalhoremoto", "#homeoffice"
-        ],
+        "nicho": ["#startupbrasil", "#microempreendedor", "#mulheresquempreendem"],
+        "trending": ["#nomadedigital", "#trabalhoremoto", "#homeoffice"],
         "engajamento": [
-            "#motivacaoempreendedora", "#focoemdeus", "#acreditenoseupotencial"
-        ]
+            "#motivacaoempreendedora",
+            "#focoemdeus",
+            "#acreditenoseupotencial",
+        ],
     },
-
     "fitness": {
         "grandes": [
-            "#fitness", "#treino", "#academia", "#musculacao", "#saude",
-            "#gym", "#fit", "#workout", "#fitnessmotivation", "#bodybuilding"
+            "#fitness",
+            "#treino",
+            "#academia",
+            "#musculacao",
+            "#saude",
+            "#gym",
+            "#fit",
+            "#workout",
+            "#fitnessmotivation",
+            "#bodybuilding",
         ],
         "medias": [
-            "#treinoemcasa", "#dieta", "#vidasaudavel", "#emagrecimento",
-            "#treinohard", "#foco", "#determinacao", "#hipertrofia", "#fitnessbrasil",
-            "#treinofuncional", "#crossfit", "#aerobico"
+            "#treinoemcasa",
+            "#dieta",
+            "#vidasaudavel",
+            "#emagrecimento",
+            "#treinohard",
+            "#foco",
+            "#determinacao",
+            "#hipertrofia",
+            "#fitnessbrasil",
+            "#treinofuncional",
+            "#crossfit",
+            "#aerobico",
         ],
         "pequenas": [
-            "#treinopesado", "#foconotreino", "#projetoverao", "#secando",
-            "#ganhodemassa", "#ficafortebrasil", "#motivacaofitness"
+            "#treinopesado",
+            "#foconotreino",
+            "#projetoverao",
+            "#secando",
+            "#ganhodemassa",
+            "#ficafortebrasil",
+            "#motivacaofitness",
         ],
         "nicho": [
-            "#treinoparamulheres", "#fitnessparabloggers", "#treinoparaganharmusculo"
+            "#treinoparamulheres",
+            "#fitnessparabloggers",
+            "#treinoparaganharmusculo",
         ],
-        "trending": [
-            "#12semanas", "#desafiofitness", "#transformacao"
-        ],
-        "engajamento": [
-            "#vemcomigo", "#boraTreinar", "#treinoDoDia"
-        ]
+        "trending": ["#12semanas", "#desafiofitness", "#transformacao"],
+        "engajamento": ["#vemcomigo", "#boraTreinar", "#treinoDoDia"],
     },
-
     "financas": {
         "grandes": [
-            "#financas", "#dinheiro", "#investimentos", "#economia", "#renda",
-            "#educacaofinanceira", "#investir", "#bolsadevalores", "#acoes"
+            "#financas",
+            "#dinheiro",
+            "#investimentos",
+            "#economia",
+            "#renda",
+            "#educacaofinanceira",
+            "#investir",
+            "#bolsadevalores",
+            "#acoes",
         ],
         "medias": [
-            "#liberdadefinanceira", "#financaspessoais", "#investidor",
-            "#rendafixa", "#rendavariavel", "#fundosimobiliarios", "#dividendos",
-            "#reservadeemergencia", "#poupanca", "#criptomoedas", "#bitcoin"
+            "#liberdadefinanceira",
+            "#financaspessoais",
+            "#investidor",
+            "#rendafixa",
+            "#rendavariavel",
+            "#fundosimobiliarios",
+            "#dividendos",
+            "#reservadeemergencia",
+            "#poupanca",
+            "#criptomoedas",
+            "#bitcoin",
         ],
         "pequenas": [
-            "#dicasdefinancas", "#comoinvestir", "#investirmelhor",
-            "#independenciafinanceira", "#enriquecer", "#multiplicardinheiro"
+            "#dicasdefinancas",
+            "#comoinvestir",
+            "#investirmelhor",
+            "#independenciafinanceira",
+            "#enriquecer",
+            "#multiplicardinheiro",
         ],
         "nicho": [
-            "#investidoriniciante", "#financasparacasais", "#primeirainvestimento"
+            "#investidoriniciante",
+            "#financasparacasais",
+            "#primeirainvestimento",
         ],
-        "trending": [
-            "#tesourodireta", "#fiis", "#daytradesbrasil"
-        ],
-        "engajamento": [
-            "#dicafinanceira", "#saiadividas", "#controlegastos"
-        ]
+        "trending": ["#tesourodireta", "#fiis", "#daytradesbrasil"],
+        "engajamento": ["#dicafinanceira", "#saiadividas", "#controlegastos"],
     },
-
     "moda": {
         "grandes": [
-            "#moda", "#fashion", "#estilo", "#look", "#tendencia",
-            "#outfit", "#style", "#ootd", "#lookdodia", "#modafeminina"
+            "#moda",
+            "#fashion",
+            "#estilo",
+            "#look",
+            "#tendencia",
+            "#outfit",
+            "#style",
+            "#ootd",
+            "#lookdodia",
+            "#modafeminina",
         ],
         "medias": [
-            "#modabrasileira", "#modapraia", "#modaintima", "#modasustentavel",
-            "#lookdoDia", "#inspiracaodemoda", "#fashionblogger", "#instafashion",
-            "#streetstyle", "#casualstyle", "#lookdeverao"
+            "#modabrasileira",
+            "#modapraia",
+            "#modaintima",
+            "#modasustentavel",
+            "#lookdoDia",
+            "#inspiracaodemoda",
+            "#fashionblogger",
+            "#instafashion",
+            "#streetstyle",
+            "#casualstyle",
+            "#lookdeverao",
         ],
         "pequenas": [
-            "#dicasdemoda", "#consultoriadeestilo", "#guarda-roupacapsula",
-            "#combinacaodelooks", "#styletips", "#fashioninspo"
+            "#dicasdemoda",
+            "#consultoriadeestilo",
+            "#guarda-roupacapsula",
+            "#combinacaodelooks",
+            "#styletips",
+            "#fashioninspo",
         ],
-        "nicho": [
-            "#modaplus", "#modaconsciente", "#slowfashion", "#modaatemporal"
-        ],
-        "trending": [
-            "#tendencias2026", "#coresbrasil", "#minimalismo"
-        ],
-        "engajamento": [
-            "#estiloproprio", "#autoestima", "#amooquevisto"
-        ]
+        "nicho": ["#modaplus", "#modaconsciente", "#slowfashion", "#modaatemporal"],
+        "trending": ["#tendencias2026", "#coresbrasil", "#minimalismo"],
+        "engajamento": ["#estiloproprio", "#autoestima", "#amooquevisto"],
     },
-
     "gastronomia": {
         "grandes": [
-            "#comida", "#food", "#gastronomia", "#receita", "#culinaria",
-            "#foodporn", "#instafood", "#delicia", "#gourmet", "#chef"
+            "#comida",
+            "#food",
+            "#gastronomia",
+            "#receita",
+            "#culinaria",
+            "#foodporn",
+            "#instafood",
+            "#delicia",
+            "#gourmet",
+            "#chef",
         ],
         "medias": [
-            "#receitafacil", "#cozinhabrasileira", "#receitasaudavel",
-            "#comidacaseira", "#foodlover", "#comidasaudavel", "#doces",
-            "#sobremesa", "#almoço", "#jantar", "#lanche"
+            "#receitafacil",
+            "#cozinhabrasileira",
+            "#receitasaudavel",
+            "#comidacaseira",
+            "#foodlover",
+            "#comidasaudavel",
+            "#doces",
+            "#sobremesa",
+            "#almoço",
+            "#jantar",
+            "#lanche",
         ],
         "pequenas": [
-            "#receitadodia", "#cozinheemcasa", "#receitasfit",
-            "#lowcarb", "#receitasveganas", "#semgluten", "#zerolactose"
+            "#receitadodia",
+            "#cozinheemcasa",
+            "#receitasfit",
+            "#lowcarb",
+            "#receitasveganas",
+            "#semgluten",
+            "#zerolactose",
         ],
-        "nicho": [
-            "#confeitariaartesanal", "#paneladepedra", "#airfryer"
-        ],
-        "trending": [
-            "#receitavirais", "#comidadoTikTok", "#foodhacks"
-        ],
-        "engajamento": [
-            "#fomeboa", "#bora", "#quemvaifazer"
-        ]
+        "nicho": ["#confeitariaartesanal", "#paneladepedra", "#airfryer"],
+        "trending": ["#receitavirais", "#comidadoTikTok", "#foodhacks"],
+        "engajamento": ["#fomeboa", "#bora", "#quemvaifazer"],
     },
-
     "tecnologia": {
         "grandes": [
-            "#tecnologia", "#tech", "#inovacao", "#programacao", "#ti",
-            "#developer", "#coding", "#software", "#startup", "#digital"
+            "#tecnologia",
+            "#tech",
+            "#inovacao",
+            "#programacao",
+            "#ti",
+            "#developer",
+            "#coding",
+            "#software",
+            "#startup",
+            "#digital",
         ],
         "medias": [
-            "#programador", "#desenvolvedor", "#python", "#javascript",
-            "#inteligenciaartificial", "#machinelearning", "#datascience",
-            "#webdesign", "#uxdesign", "#frontend", "#backend"
+            "#programador",
+            "#desenvolvedor",
+            "#python",
+            "#javascript",
+            "#inteligenciaartificial",
+            "#machinelearning",
+            "#datascience",
+            "#webdesign",
+            "#uxdesign",
+            "#frontend",
+            "#backend",
         ],
         "pequenas": [
-            "#devbrasil", "#programadorbrasil", "#aprendaprogramar",
-            "#dicasdetech", "#carreiraTI", "#desenvolvimentoweb"
+            "#devbrasil",
+            "#programadorbrasil",
+            "#aprendaprogramar",
+            "#dicasdetech",
+            "#carreiraTI",
+            "#desenvolvimentoweb",
         ],
-        "nicho": [
-            "#pythonbrasil", "#reactjs", "#nodeJS", "#flutterbrasil"
-        ],
-        "trending": [
-            "#ia", "#chatgpt", "#gemini", "#copilot", "#nocode"
-        ],
-        "engajamento": [
-            "#codequality", "#cleancode", "#buglife"
-        ]
+        "nicho": ["#pythonbrasil", "#reactjs", "#nodeJS", "#flutterbrasil"],
+        "trending": ["#ia", "#chatgpt", "#gemini", "#copilot", "#nocode"],
+        "engajamento": ["#codequality", "#cleancode", "#buglife"],
     },
-
     "desenvolvimento_pessoal": {
         "grandes": [
-            "#desenvolvimentopessoal", "#crescimentopessoal", "#autoconhecimento",
-            "#motivacao", "#mindset", "#foco", "#determinacao", "#sucesso"
+            "#desenvolvimentopessoal",
+            "#crescimentopessoal",
+            "#autoconhecimento",
+            "#motivacao",
+            "#mindset",
+            "#foco",
+            "#determinacao",
+            "#sucesso",
         ],
         "medias": [
-            "#inteligenciaemocional", "#habitos", "#produtividade", "#lideranca",
-            "#comunicacao", "#softskills", "#mentalidade", "#proposito",
-            "#coaching", "#pnl", "#meditacao"
+            "#inteligenciaemocional",
+            "#habitos",
+            "#produtividade",
+            "#lideranca",
+            "#comunicacao",
+            "#softskills",
+            "#mentalidade",
+            "#proposito",
+            "#coaching",
+            "#pnl",
+            "#meditacao",
         ],
         "pequenas": [
-            "#desenvolvimentohumano", "#crescercomohumano", "#evolucaopessoal",
-            "#transformacaopessoal", "#jornadadoheroi", "#melhorversao"
+            "#desenvolvimentohumano",
+            "#crescercomohumano",
+            "#evolucaopessoal",
+            "#transformacaopessoal",
+            "#jornadadoheroi",
+            "#melhorversao",
         ],
-        "nicho": [
-            "#estoicismo", "#ikigai", "#atomichabits", "#deepwork"
-        ],
-        "trending": [
-            "#saudemenral", "#ansiedade", "#burnout", "#wellness"
-        ],
-        "engajamento": [
-            "#reflexaododia", "#pensepositivo", "#voceconsegue"
-        ]
+        "nicho": ["#estoicismo", "#ikigai", "#atomichabits", "#deepwork"],
+        "trending": ["#saudemenral", "#ansiedade", "#burnout", "#wellness"],
+        "engajamento": ["#reflexaododia", "#pensepositivo", "#voceconsegue"],
     },
-
     "beleza": {
         "grandes": [
-            "#beleza", "#maquiagem", "#makeup", "#skincare", "#beauty",
-            "#pele", "#cabelo", "#unhas", "#nails", "#beautyblogger"
+            "#beleza",
+            "#maquiagem",
+            "#makeup",
+            "#skincare",
+            "#beauty",
+            "#pele",
+            "#cabelo",
+            "#unhas",
+            "#nails",
+            "#beautyblogger",
         ],
         "medias": [
-            "#cuidadoscomapele", "#rotinadebeleza", "#makeUp", "#tutorial",
-            "#skincareroutine", "#peleperfeita", "#tratamento", "#hidratacao",
-            "#antienvelhecimento", "#acne", "#cabeloslindos"
+            "#cuidadoscomapele",
+            "#rotinadebeleza",
+            "#makeUp",
+            "#tutorial",
+            "#skincareroutine",
+            "#peleperfeita",
+            "#tratamento",
+            "#hidratacao",
+            "#antienvelhecimento",
+            "#acne",
+            "#cabeloslindos",
         ],
         "pequenas": [
-            "#dicasdebeleza", "#produtosdebeleza", "#beautyTips",
-            "#makenatural", "#glowskin", "#selfcare"
+            "#dicasdebeleza",
+            "#produtosdebeleza",
+            "#beautyTips",
+            "#makenatural",
+            "#glowskin",
+            "#selfcare",
         ],
-        "nicho": [
-            "#skincarebrasileiro", "#dermato", "#retinol", "#vitaminac"
-        ],
-        "trending": [
-            "#glassskin", "#dopaminebeauty", "#cleanbeauty"
-        ],
-        "engajamento": [
-            "#antesedepois", "#makecompletou", "#getreadywithme"
-        ]
+        "nicho": ["#skincarebrasileiro", "#dermato", "#retinol", "#vitaminac"],
+        "trending": ["#glassskin", "#dopaminebeauty", "#cleanbeauty"],
+        "engajamento": ["#antesedepois", "#makecompletou", "#getreadywithme"],
     },
-
     "viagem": {
         "grandes": [
-            "#viagem", "#travel", "#turismo", "#ferias", "#viajar",
-            "#trip", "#traveling", "#wanderlust", "#adventure", "#brasil"
+            "#viagem",
+            "#travel",
+            "#turismo",
+            "#ferias",
+            "#viajar",
+            "#trip",
+            "#traveling",
+            "#wanderlust",
+            "#adventure",
+            "#brasil",
         ],
         "medias": [
-            "#viagembrasil", "#dicasdeviagem", "#roteiro", "#mochilao",
-            "#praia", "#montanha", "#natureza", "#paisagem", "#destinos",
-            "#viajarbarato", "#hotelaria", "#hospedagem"
+            "#viagembrasil",
+            "#dicasdeviagem",
+            "#roteiro",
+            "#mochilao",
+            "#praia",
+            "#montanha",
+            "#natureza",
+            "#paisagem",
+            "#destinos",
+            "#viajarbarato",
+            "#hotelaria",
+            "#hospedagem",
         ],
         "pequenas": [
-            "#viajantesolo", "#viagememfamilia", "#viagemromantica",
-            "#lugaresincriveis", "#lugaresbonitos", "#destinosnacionais"
+            "#viajantesolo",
+            "#viagememfamilia",
+            "#viagemromantica",
+            "#lugaresincriveis",
+            "#lugaresbonitos",
+            "#destinosnacionais",
         ],
-        "nicho": [
-            "#ecoturismo", "#turismodeexperiencia", "#roadtrip", "#vanlife"
-        ],
-        "trending": [
-            "#viagemsemroteiro", "#workcation", "#staycation"
-        ],
-        "engajamento": [
-            "#partiu", "#bora", "#proxmodestino", "#quemvai"
-        ]
-    }
+        "nicho": ["#ecoturismo", "#turismodeexperiencia", "#roadtrip", "#vanlife"],
+        "trending": ["#viagemsemroteiro", "#workcation", "#staycation"],
+        "engajamento": ["#partiu", "#bora", "#proxmodestino", "#quemvai"],
+    },
 }
 
 # Hashtags universais de engajamento
 HASHTAGS_ENGAJAMENTO_UNIVERSAL = [
-    "#dica", "#dicadodia", "#ficaadica", "#voceabia", "#salvaessapostagem",
-    "#compartilhecomalguem", "#marcaunamigo", "#comentaai", "#oquevocesacham",
-    "#postagemviral", "#conteudodevalor", "#aprendanotiktok", "#dicasdeouro"
+    "#dica",
+    "#dicadodia",
+    "#ficaadica",
+    "#voceabia",
+    "#salvaessapostagem",
+    "#compartilhecomalguem",
+    "#marcaunamigo",
+    "#comentaai",
+    "#oquevocesacham",
+    "#postagemviral",
+    "#conteudodevalor",
+    "#aprendanotiktok",
+    "#dicasdeouro",
 ]
 
 # Hashtags sazonais (atualizar conforme época)
@@ -302,7 +457,7 @@ HASHTAGS_SAZONAIS = {
     "setembro": ["#primavera", "#setembroamarelo"],
     "outubro": ["#outubrorosa", "#diacriancas", "#halloween"],
     "novembro": ["#blackfriday", "#novembroazul", "#consciencianegra"],
-    "dezembro": ["#natal", "#natal2026", "#reveillon", "#anonovo"]
+    "dezembro": ["#natal", "#natal2026", "#reveillon", "#anonovo"],
 }
 
 
@@ -310,10 +465,18 @@ def get_hashtags_sazonais() -> List[str]:
     """Retorna hashtags sazonais do mês atual."""
     mes_atual = datetime.now().strftime("%B").lower()
     meses_pt = {
-        "january": "janeiro", "february": "fevereiro", "march": "marco",
-        "april": "abril", "may": "maio", "june": "junho",
-        "july": "julho", "august": "agosto", "september": "setembro",
-        "october": "outubro", "november": "novembro", "december": "dezembro"
+        "january": "janeiro",
+        "february": "fevereiro",
+        "march": "marco",
+        "april": "abril",
+        "may": "maio",
+        "june": "junho",
+        "july": "julho",
+        "august": "agosto",
+        "september": "setembro",
+        "october": "outubro",
+        "november": "novembro",
+        "december": "dezembro",
     }
     mes_pt = meses_pt.get(mes_atual, "janeiro")
     return HASHTAGS_SAZONAIS.get(mes_pt, [])
@@ -365,7 +528,7 @@ def encontrar_nicho(termo: str) -> Optional[str]:
         "viagem": "viagem",
         "turismo": "viagem",
         "viajar": "viagem",
-        "ferias": "viagem"
+        "ferias": "viagem",
     }
 
     # Busca direta
@@ -380,9 +543,9 @@ def encontrar_nicho(termo: str) -> Optional[str]:
     # Busca por palavras-chave
     for nicho, dados in HASHTAGS_DATABASE.items():
         todas_hashtags = " ".join(
-            dados.get("grandes", []) +
-            dados.get("medias", []) +
-            dados.get("pequenas", [])
+            dados.get("grandes", [])
+            + dados.get("medias", [])
+            + dados.get("pequenas", [])
         ).lower()
         if termo_lower.replace("_", "") in todas_hashtags:
             return nicho
@@ -391,9 +554,7 @@ def encontrar_nicho(termo: str) -> Optional[str]:
 
 
 def gerar_set_hashtags(
-    nicho: str,
-    quantidade: int = 15,
-    objetivo: str = "engajamento"
+    nicho: str, quantidade: int = 15, objetivo: str = "engajamento"
 ) -> Dict:
     """
     Gera um set otimizado de hashtags para Instagram.
@@ -408,7 +569,7 @@ def gerar_set_hashtags(
     if not nicho_encontrado:
         return {
             "erro": f"Nicho '{nicho}' não encontrado",
-            "nichos_disponiveis": list(HASHTAGS_DATABASE.keys())
+            "nichos_disponiveis": list(HASHTAGS_DATABASE.keys()),
         }
 
     dados = HASHTAGS_DATABASE[nicho_encontrado]
@@ -420,7 +581,7 @@ def gerar_set_hashtags(
             "grandes": min(5, len(dados.get("grandes", []))),
             "medias": min(6, len(dados.get("medias", []))),
             "pequenas": min(3, len(dados.get("pequenas", []))),
-            "engajamento": 1
+            "engajamento": 1,
         }
     elif objetivo == "nicho":
         # Foco em hashtags pequenas e de nicho
@@ -428,7 +589,7 @@ def gerar_set_hashtags(
             "grandes": min(2, len(dados.get("grandes", []))),
             "medias": min(4, len(dados.get("medias", []))),
             "pequenas": min(6, len(dados.get("pequenas", []))),
-            "nicho": min(3, len(dados.get("nicho", [])))
+            "nicho": min(3, len(dados.get("nicho", []))),
         }
     else:  # engajamento (padrão)
         # Equilíbrio com foco em engajamento
@@ -437,7 +598,7 @@ def gerar_set_hashtags(
             "medias": min(5, len(dados.get("medias", []))),
             "pequenas": min(4, len(dados.get("pequenas", []))),
             "engajamento": min(2, len(dados.get("engajamento", []))),
-            "trending": 1
+            "trending": 1,
         }
 
     # Gerar set
@@ -471,7 +632,7 @@ def gerar_set_hashtags(
         "hashtags": hashtags_unicas,
         "hashtags_texto": " ".join(hashtags_unicas),
         "distribuicao": distribuicao,
-        "dica": get_dica_por_objetivo(objetivo)
+        "dica": get_dica_por_objetivo(objetivo),
     }
 
 
@@ -480,7 +641,7 @@ def get_dica_por_objetivo(objetivo: str) -> str:
     dicas = {
         "alcance": "Use este set para posts que querem atingir o máximo de pessoas possível. Ideal para conteúdo viral ou lançamentos.",
         "engajamento": "Este set equilibra alcance com engajamento. Ideal para posts do dia a dia que buscam interação.",
-        "nicho": "Set focado em público qualificado. Menos alcance, mas atrai pessoas mais interessadas no seu conteúdo específico."
+        "nicho": "Set focado em público qualificado. Menos alcance, mas atrai pessoas mais interessadas no seu conteúdo específico.",
     }
     return dicas.get(objetivo, "")
 
@@ -493,10 +654,10 @@ def analisar_hashtags(hashtags: List[str]) -> Dict:
             "grandes": [],
             "medias": [],
             "pequenas": [],
-            "desconhecidas": []
+            "desconhecidas": [],
         },
         "nichos_detectados": [],
-        "sugestoes": []
+        "sugestoes": [],
     }
 
     # Classificar cada hashtag
@@ -535,15 +696,25 @@ def analisar_hashtags(hashtags: List[str]) -> Dict:
     n_pequenas = len(resultado["categorias"]["pequenas"])
 
     if n_grandes > 5:
-        resultado["sugestoes"].append("Muitas hashtags grandes (competitivas). Reduza para 3-4 e adicione mais de nicho.")
+        resultado["sugestoes"].append(
+            "Muitas hashtags grandes (competitivas). Reduza para 3-4 e adicione mais de nicho."
+        )
     if n_grandes < 2:
-        resultado["sugestoes"].append("Adicione 2-3 hashtags grandes para aumentar alcance potencial.")
+        resultado["sugestoes"].append(
+            "Adicione 2-3 hashtags grandes para aumentar alcance potencial."
+        )
     if n_pequenas < 3:
-        resultado["sugestoes"].append("Adicione mais hashtags de nicho (pequenas) para atingir público qualificado.")
+        resultado["sugestoes"].append(
+            "Adicione mais hashtags de nicho (pequenas) para atingir público qualificado."
+        )
     if len(hashtags) < 10:
-        resultado["sugestoes"].append("Use pelo menos 10-15 hashtags para melhor performance no Instagram.")
+        resultado["sugestoes"].append(
+            "Use pelo menos 10-15 hashtags para melhor performance no Instagram."
+        )
     if len(hashtags) > 30:
-        resultado["sugestoes"].append("Mais de 30 hashtags pode parecer spam. Mantenha entre 10-20.")
+        resultado["sugestoes"].append(
+            "Mais de 30 hashtags pode parecer spam. Mantenha entre 10-20."
+        )
 
     # Score geral
     score = 0
@@ -558,10 +729,9 @@ def analisar_hashtags(hashtags: List[str]) -> Dict:
 
     resultado["score"] = score
     resultado["classificacao"] = (
-        "Excelente" if score >= 75 else
-        "Bom" if score >= 50 else
-        "Regular" if score >= 25 else
-        "Precisa melhorar"
+        "Excelente"
+        if score >= 75
+        else "Bom" if score >= 50 else "Regular" if score >= 25 else "Precisa melhorar"
     )
 
     return resultado
@@ -576,11 +746,9 @@ def gerar_variantes(nicho: str, quantidade_sets: int = 3) -> List[Dict]:
         objetivo = objetivos[i % len(objetivos)]
         set_hashtags = gerar_set_hashtags(nicho, 15, objetivo)
         if "erro" not in set_hashtags:
-            variantes.append({
-                "set_numero": i + 1,
-                "objetivo": objetivo,
-                **set_hashtags
-            })
+            variantes.append(
+                {"set_numero": i + 1, "objetivo": objetivo, **set_hashtags}
+            )
 
     return variantes
 
@@ -594,7 +762,9 @@ def formatar_tabela(resultado: Dict) -> str:
 
     if "erro" in resultado:
         linhas.append(f"\n❌ {resultado['erro']}")
-        linhas.append(f"\nNichos disponíveis: {', '.join(resultado.get('nichos_disponiveis', []))}")
+        linhas.append(
+            f"\nNichos disponíveis: {', '.join(resultado.get('nichos_disponiveis', []))}"
+        )
         return "\n".join(linhas)
 
     linhas.append(f"\n📊 Nicho: {resultado.get('nicho', 'N/A')}")
@@ -608,7 +778,7 @@ def formatar_tabela(resultado: Dict) -> str:
     hashtags = resultado.get("hashtags", [])
     # Formatar em colunas
     for i in range(0, len(hashtags), 3):
-        row = hashtags[i:i+3]
+        row = hashtags[i : i + 3]
         linhas.append("  " + "  ".join(f"{h:<20}" for h in row))
 
     linhas.append("\n" + "-" * 60)
@@ -630,7 +800,9 @@ def formatar_markdown(resultado: Dict) -> str:
 
     if "erro" in resultado:
         linhas.append(f"\n**Erro:** {resultado['erro']}")
-        linhas.append(f"\n**Nichos disponíveis:** {', '.join(resultado.get('nichos_disponiveis', []))}")
+        linhas.append(
+            f"\n**Nichos disponíveis:** {', '.join(resultado.get('nichos_disponiveis', []))}"
+        )
         return "\n".join(linhas)
 
     linhas.append(f"## Configuração\n")
@@ -710,17 +882,19 @@ def main() -> None:
     """Função principal."""
     args = sys.argv[1:]
 
-    if not args or '-h' in args or '--help' in args:
+    if not args or "-h" in args or "--help" in args:
         mostrar_ajuda()
         return
 
     # Listar nichos
-    if '--nichos' in args:
+    if "--nichos" in args:
         print("\n📋 NICHOS DISPONÍVEIS:")
         print("-" * 40)
         for nicho in HASHTAGS_DATABASE.keys():
-            n_total = sum(len(HASHTAGS_DATABASE[nicho].get(cat, []))
-                         for cat in ["grandes", "medias", "pequenas", "nicho"])
+            n_total = sum(
+                len(HASHTAGS_DATABASE[nicho].get(cat, []))
+                for cat in ["grandes", "medias", "pequenas", "nicho"]
+            )
             print(f"  • {nicho.replace('_', ' ').title()} ({n_total} hashtags)")
         return
 
@@ -736,26 +910,26 @@ def main() -> None:
     while i < len(args):
         arg = args[i]
 
-        if arg == '--analisar' and i + 1 < len(args):
-            analisar = args[i + 1].split(',')
+        if arg == "--analisar" and i + 1 < len(args):
+            analisar = args[i + 1].split(",")
             i += 2
-        elif arg == '--quantidade' and i + 1 < len(args):
+        elif arg == "--quantidade" and i + 1 < len(args):
             quantidade = int(args[i + 1])
             i += 2
-        elif arg == '--objetivo' and i + 1 < len(args):
+        elif arg == "--objetivo" and i + 1 < len(args):
             objetivo = args[i + 1]
             i += 2
-        elif arg == '--formato' and i + 1 < len(args):
+        elif arg == "--formato" and i + 1 < len(args):
             formato = args[i + 1]
             i += 2
-        elif arg == '--gerar-set' and i + 1 < len(args):
+        elif arg == "--gerar-set" and i + 1 < len(args):
             nicho = args[i + 1]
             i += 2
-        elif arg == '--variantes' and i + 1 < len(args):
+        elif arg == "--variantes" and i + 1 < len(args):
             nicho = args[i + 1]
             gerar_variantes_flag = True
             i += 2
-        elif not arg.startswith('--') and nicho is None:
+        elif not arg.startswith("--") and nicho is None:
             nicho = arg
             i += 1
         else:
@@ -771,15 +945,19 @@ def main() -> None:
             print("=" * 50)
             print(f"\nTotal: {resultado['total']} hashtags")
             print(f"Score: {resultado['score']}/100 ({resultado['classificacao']})")
-            print(f"\nNichos detectados: {', '.join(resultado['nichos_detectados']) or 'Nenhum'}")
+            print(
+                f"\nNichos detectados: {', '.join(resultado['nichos_detectados']) or 'Nenhum'}"
+            )
             print("\nDistribuição:")
             print(f"  • Grandes: {len(resultado['categorias']['grandes'])}")
             print(f"  • Médias: {len(resultado['categorias']['medias'])}")
             print(f"  • Pequenas: {len(resultado['categorias']['pequenas'])}")
-            print(f"  • Não classificadas: {len(resultado['categorias']['desconhecidas'])}")
-            if resultado['sugestoes']:
+            print(
+                f"  • Não classificadas: {len(resultado['categorias']['desconhecidas'])}"
+            )
+            if resultado["sugestoes"]:
                 print("\n💡 Sugestões:")
-                for sug in resultado['sugestoes']:
+                for sug in resultado["sugestoes"]:
                     print(f"  → {sug}")
 
     elif gerar_variantes_flag and nicho:
@@ -792,8 +970,10 @@ def main() -> None:
         print("=" * 60)
         for var in variantes:
             print(f"\n--- SET {var['set_numero']} ({var['objetivo'].upper()}) ---")
-            print(var['hashtags_texto'])
-        print("\n💡 Dica: Alterne entre os sets para evitar shadowban e testar performance.")
+            print(var["hashtags_texto"])
+        print(
+            "\n💡 Dica: Alterne entre os sets para evitar shadowban e testar performance."
+        )
 
     elif nicho:
         resultado = gerar_set_hashtags(nicho, quantidade, objetivo)

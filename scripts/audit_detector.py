@@ -5,13 +5,13 @@ Raises ValueError on invalid input.
 
 CLI: python audit_detector.py "<input>" → JSON to stdout.
 """
+
 from __future__ import annotations
 
 import json
 import re
 import sys
 from urllib.parse import urlparse, parse_qs
-
 
 _URL_RE = re.compile(r"^https?://", re.IGNORECASE)
 _IG_HANDLE_RE = re.compile(r"^@?[a-z0-9_.]{1,30}$", re.IGNORECASE)

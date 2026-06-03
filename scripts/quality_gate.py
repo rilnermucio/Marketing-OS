@@ -14,68 +14,101 @@ import os
 import re
 import sys
 import argparse
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 
 # Caracteres acentuados esperados em português
 ACCENT_PATTERNS = {
-    'a_agudo': r'[áÁ]',
-    'e_agudo': r'[éÉ]',
-    'i_agudo': r'[íÍ]',
-    'o_agudo': r'[óÓ]',
-    'u_agudo': r'[úÚ]',
-    'a_circunflexo': r'[âÂ]',
-    'e_circunflexo': r'[êÊ]',
-    'o_circunflexo': r'[ôÔ]',
-    'a_til': r'[ãÃ]',
-    'o_til': r'[õÕ]',
-    'cedilha': r'[çÇ]',
-    'a_grave': r'[àÀ]',
+    "a_agudo": r"[áÁ]",
+    "e_agudo": r"[éÉ]",
+    "i_agudo": r"[íÍ]",
+    "o_agudo": r"[óÓ]",
+    "u_agudo": r"[úÚ]",
+    "a_circunflexo": r"[âÂ]",
+    "e_circunflexo": r"[êÊ]",
+    "o_circunflexo": r"[ôÔ]",
+    "a_til": r"[ãÃ]",
+    "o_til": r"[õÕ]",
+    "cedilha": r"[çÇ]",
+    "a_grave": r"[àÀ]",
 }
 
 # Palavras comuns que DEVEM ter acento
 MUST_ACCENT_WORDS = {
-    'voce': 'você', 'nao': 'não', 'ja': 'já', 'ha': 'há',
-    'esta': 'está', 'sera': 'será', 'tambem': 'também',
-    'conteudo': 'conteúdo', 'negocio': 'negócio', 'estrategia': 'estratégia',
-    'unico': 'único', 'pratico': 'prático', 'facil': 'fácil',
-    'possivel': 'possível', 'incrivel': 'incrível', 'util': 'útil',
-    'ate': 'até', 'alem': 'além', 'entao': 'então',
-    'informacao': 'informação', 'solucao': 'solução', 'acao': 'ação',
+    "voce": "você",
+    "nao": "não",
+    "ja": "já",
+    "ha": "há",
+    "esta": "está",
+    "sera": "será",
+    "tambem": "também",
+    "conteudo": "conteúdo",
+    "negocio": "negócio",
+    "estrategia": "estratégia",
+    "unico": "único",
+    "pratico": "prático",
+    "facil": "fácil",
+    "possivel": "possível",
+    "incrivel": "incrível",
+    "util": "útil",
+    "ate": "até",
+    "alem": "além",
+    "entao": "então",
+    "informacao": "informação",
+    "solucao": "solução",
+    "acao": "ação",
 }
 
 # Limites de caracteres por plataforma
 PLATFORM_LIMITS = {
-    'instagram_feed': {'hook': 125, 'total': 2200, 'hashtags': 15},
-    'instagram_reels': {'hook': 150, 'total': 2200, 'hashtags': 5},
-    'linkedin': {'hook': 210, 'total': 3000, 'hashtags': 5},
-    'twitter': {'hook': 280, 'total': 280, 'hashtags': 3},
-    'tiktok': {'hook': 100, 'total': 2200, 'hashtags': 5},
+    "instagram_feed": {"hook": 125, "total": 2200, "hashtags": 15},
+    "instagram_reels": {"hook": 150, "total": 2200, "hashtags": 5},
+    "linkedin": {"hook": 210, "total": 3000, "hashtags": 5},
+    "twitter": {"hook": 280, "total": 280, "hashtags": 3},
+    "tiktok": {"hook": 100, "total": 2200, "hashtags": 5},
 }
 
 # Palavras de CTA forte
 STRONG_CTA_WORDS = [
-    'quero', 'garanta', 'comece', 'acesse', 'baixe', 'inscreva',
-    'reserve', 'conquiste', 'descubra', 'aprenda', 'receba',
-    'experimente', 'teste', 'entre', 'participe', 'cadastre'
+    "quero",
+    "garanta",
+    "comece",
+    "acesse",
+    "baixe",
+    "inscreva",
+    "reserve",
+    "conquiste",
+    "descubra",
+    "aprenda",
+    "receba",
+    "experimente",
+    "teste",
+    "entre",
+    "participe",
+    "cadastre",
 ]
 
 # Palavras de CTA fraca
 WEAK_CTA_WORDS = [
-    'clique aqui', 'saiba mais', 'veja mais', 'leia mais',
-    'confira', 'acesse o link', 'link na bio'
+    "clique aqui",
+    "saiba mais",
+    "veja mais",
+    "leia mais",
+    "confira",
+    "acesse o link",
+    "link na bio",
 ]
 
 
 def read_content(filepath: str) -> str:
     """Lê o conteúdo do arquivo."""
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, "r", encoding="utf-8") as f:
         return f.read()
 
 
 def check_accents(content: str) -> Tuple[int, List[str]]:
     """Verifica acentuação do texto em português."""
     issues = []
-    words = re.findall(r'\b[a-záàâãéèêíïóôõúüç]+\b', content.lower())
+    words = re.findall(r"\b[a-záàâãéèêíïóôõúüç]+\b", content.lower())
 
     for word in words:
         if word in MUST_ACCENT_WORDS:
@@ -84,7 +117,7 @@ def check_accents(content: str) -> Tuple[int, List[str]]:
                 issues.append(f"'{word}' deveria ser '{correct}'")
 
     # Verificar se há algum acento no texto (indicador básico)
-    has_any_accent = bool(re.search(r'[áàâãéèêíïóôõúüç]', content, re.IGNORECASE))
+    has_any_accent = bool(re.search(r"[áàâãéèêíïóôõúüç]", content, re.IGNORECASE))
 
     if not has_any_accent and len(content) > 100:
         issues.append("Texto longo sem nenhum acento — possível texto não acentuado")
@@ -95,7 +128,11 @@ def check_accents(content: str) -> Tuple[int, List[str]]:
 
 def check_hook(content: str) -> Tuple[int, str, List[str]]:
     """Avalia a força do hook (primeira linha)."""
-    lines = [l.strip() for l in content.strip().split('\n') if l.strip() and not l.strip().startswith('#')]
+    lines = [
+        l.strip()
+        for l in content.strip().split("\n")
+        if l.strip() and not l.strip().startswith("#")
+    ]
     if not lines:
         return 0, "", ["Nenhum conteúdo encontrado"]
 
@@ -113,14 +150,14 @@ def check_hook(content: str) -> Tuple[int, str, List[str]]:
 
     # Verificar padrões fortes
     strong_patterns = [
-        (r'^\d+\s', "Começa com número"),
-        (r'^como\s', "Formato 'Como'"),
-        (r'\?$', "Formato pergunta"),
-        (r'\bvocê\b', "Fala com 'você'"),
-        (r'\bsegredo', "Usa 'segredo'"),
-        (r'\berro', "Usa 'erro'"),
-        (r'\bnunca\b', "Usa 'nunca'"),
-        (r'\bninguém\b', "Usa 'ninguém'"),
+        (r"^\d+\s", "Começa com número"),
+        (r"^como\s", "Formato 'Como'"),
+        (r"\?$", "Formato pergunta"),
+        (r"\bvocê\b", "Fala com 'você'"),
+        (r"\bsegredo", "Usa 'segredo'"),
+        (r"\berro", "Usa 'erro'"),
+        (r"\bnunca\b", "Usa 'nunca'"),
+        (r"\bninguém\b", "Usa 'ninguém'"),
     ]
 
     patterns_found = []
@@ -151,13 +188,15 @@ def check_cta(content: str) -> Tuple[int, List[str]]:
     elif weak_found:
         score += 3
         issues.append(f"CTA fraco detectado: {', '.join(weak_found)}")
-        issues.append("Substitua por CTAs de ação: 'Quero [benefício]', 'Garanta sua vaga'")
+        issues.append(
+            "Substitua por CTAs de ação: 'Quero [benefício]', 'Garanta sua vaga'"
+        )
     else:
         issues.append("Nenhum CTA detectado no conteúdo")
 
     # Verificar se CTA está no final (últimas 20% do texto)
-    lines = content.strip().split('\n')
-    last_section = '\n'.join(lines[int(len(lines) * 0.8):]).lower()
+    lines = content.strip().split("\n")
+    last_section = "\n".join(lines[int(len(lines) * 0.8) :]).lower()
 
     if any(w in last_section for w in STRONG_CTA_WORDS + WEAK_CTA_WORDS):
         score += 3
@@ -172,10 +211,10 @@ def check_readability(content: str) -> Tuple[int, List[str]]:
     issues = []
 
     # Remover markdown headers e formatação
-    clean = re.sub(r'^#+\s.*$', '', content, flags=re.MULTILINE)
-    clean = re.sub(r'[*_`\[\]()]', '', clean)
+    clean = re.sub(r"^#+\s.*$", "", content, flags=re.MULTILINE)
+    clean = re.sub(r"[*_`\[\]()]", "", clean)
 
-    sentences = re.split(r'[.!?]+', clean)
+    sentences = re.split(r"[.!?]+", clean)
     sentences = [s.strip() for s in sentences if s.strip() and len(s.strip()) > 5]
 
     if not sentences:
@@ -185,10 +224,14 @@ def check_readability(content: str) -> Tuple[int, List[str]]:
     avg_sentence_length = sum(len(s.split()) for s in sentences) / len(sentences)
 
     if avg_sentence_length > 25:
-        issues.append(f"Sentenças muito longas (média: {avg_sentence_length:.0f} palavras)")
+        issues.append(
+            f"Sentenças muito longas (média: {avg_sentence_length:.0f} palavras)"
+        )
         score = 4
     elif avg_sentence_length > 20:
-        issues.append(f"Sentenças um pouco longas (média: {avg_sentence_length:.0f} palavras)")
+        issues.append(
+            f"Sentenças um pouco longas (média: {avg_sentence_length:.0f} palavras)"
+        )
         score = 6
     elif avg_sentence_length > 10:
         score = 9
@@ -196,10 +239,12 @@ def check_readability(content: str) -> Tuple[int, List[str]]:
         score = 10
 
     # Verificar parágrafos longos
-    paragraphs = [p.strip() for p in content.split('\n\n') if p.strip()]
+    paragraphs = [p.strip() for p in content.split("\n\n") if p.strip()]
     long_paragraphs = [p for p in paragraphs if len(p.split()) > 80]
     if long_paragraphs:
-        issues.append(f"{len(long_paragraphs)} parágrafo(s) muito longo(s) — quebre em partes menores")
+        issues.append(
+            f"{len(long_paragraphs)} parágrafo(s) muito longo(s) — quebre em partes menores"
+        )
         score -= 2
 
     return max(0, min(10, score)), issues
@@ -215,7 +260,9 @@ def check_format_compliance(content: str, content_type: str) -> Tuple[int, List[
 
     if content_type == "post":
         if char_count > 2200:
-            issues.append(f"Conteúdo excede limite do Instagram ({char_count}/2200 caracteres)")
+            issues.append(
+                f"Conteúdo excede limite do Instagram ({char_count}/2200 caracteres)"
+            )
             score -= 3
 
     elif content_type == "artigo":
@@ -223,22 +270,26 @@ def check_format_compliance(content: str, content_type: str) -> Tuple[int, List[
             issues.append(f"Artigo curto demais ({word_count} palavras, mínimo: 800)")
             score -= 3
         # Verificar headers
-        headers = re.findall(r'^#{1,3}\s', content, re.MULTILINE)
+        headers = re.findall(r"^#{1,3}\s", content, re.MULTILINE)
         if len(headers) < 3:
-            issues.append(f"Poucos headers ({len(headers)}) — artigos devem ter estrutura clara")
+            issues.append(
+                f"Poucos headers ({len(headers)}) — artigos devem ter estrutura clara"
+            )
             score -= 2
 
     elif content_type == "email":
-        lines = content.strip().split('\n')
+        lines = content.strip().split("\n")
         if lines:
             subject_line = lines[0]
             if len(subject_line) > 50:
-                issues.append(f"Subject line muito longa ({len(subject_line)}/50 caracteres)")
+                issues.append(
+                    f"Subject line muito longa ({len(subject_line)}/50 caracteres)"
+                )
                 score -= 2
 
     elif content_type == "landing-page":
         # Verificar seções essenciais
-        essential = ['headline', 'benefício', 'cta', 'prova social', 'garantia', 'faq']
+        essential = ["headline", "benefício", "cta", "prova social", "garantia", "faq"]
         content_lower = content.lower()
         missing = [s for s in essential if s not in content_lower]
         if missing:
@@ -255,12 +306,14 @@ def check_format_compliance(content: str, content_type: str) -> Tuple[int, List[
 
 def check_hashtags(content: str) -> Tuple[int, List[str]]:
     """Verifica hashtags."""
-    hashtags = re.findall(r'#\w+', content)
+    hashtags = re.findall(r"#\w+", content)
     issues = []
     score = 10
 
     if not hashtags:
-        return 5, ["Nenhuma hashtag encontrada (pode não ser necessário dependendo do formato)"]
+        return 5, [
+            "Nenhuma hashtag encontrada (pode não ser necessário dependendo do formato)"
+        ]
 
     if len(hashtags) > 30:
         issues.append(f"Muitas hashtags ({len(hashtags)}) — máximo recomendado: 15")
@@ -270,7 +323,7 @@ def check_hashtags(content: str) -> Tuple[int, List[str]]:
         score -= 1
 
     # Verificar hashtags genéricas demais
-    generic = ['#love', '#instagood', '#photooftheday', '#beautiful', '#happy']
+    generic = ["#love", "#instagood", "#photooftheday", "#beautiful", "#happy"]
     found_generic = [h for h in hashtags if h.lower() in generic]
     if found_generic:
         issues.append(f"Hashtags genéricas demais: {', '.join(found_generic)}")
@@ -288,35 +341,37 @@ def generate_report(filepath: str, content_type: str):
     print("=" * 60)
     print(f"\n📄 Arquivo: {filepath}")
     print(f"📝 Tipo: {content_type}")
-    print(f"📏 {len(content.split())} palavras | {len(content)} caracteres | {len(content.splitlines())} linhas")
+    print(
+        f"📏 {len(content.split())} palavras | {len(content)} caracteres | {len(content.splitlines())} linhas"
+    )
 
     # Executar todas as verificações
     checks = {}
 
     # 1. Acentuação
     accent_score, accent_issues = check_accents(content)
-    checks['Acentuação'] = (accent_score, accent_issues, 10)
+    checks["Acentuação"] = (accent_score, accent_issues, 10)
 
     # 2. Hook
     hook_score, hook_text, hook_issues = check_hook(content)
-    checks['Hook/Abertura'] = (hook_score, hook_issues, 10)
+    checks["Hook/Abertura"] = (hook_score, hook_issues, 10)
 
     # 3. CTA
     cta_score, cta_issues = check_cta(content)
-    checks['CTA'] = (cta_score, cta_issues, 10)
+    checks["CTA"] = (cta_score, cta_issues, 10)
 
     # 4. Legibilidade
     read_score, read_issues = check_readability(content)
-    checks['Legibilidade'] = (read_score, read_issues, 10)
+    checks["Legibilidade"] = (read_score, read_issues, 10)
 
     # 5. Formato
     format_score, format_issues = check_format_compliance(content, content_type)
-    checks['Formato'] = (format_score, format_issues, 10)
+    checks["Formato"] = (format_score, format_issues, 10)
 
     # 6. Hashtags (só para posts)
-    if content_type in ['post', 'social']:
+    if content_type in ["post", "social"]:
         hash_score, hash_issues = check_hashtags(content)
-        checks['Hashtags'] = (hash_score, hash_issues, 10)
+        checks["Hashtags"] = (hash_score, hash_issues, 10)
 
     # Calcular score total
     total_score = sum(score for score, _, _ in checks.values())
@@ -342,7 +397,9 @@ def generate_report(filepath: str, content_type: str):
     print("\n📊 DETALHAMENTO:")
     print("-" * 40)
     for name, (score, issues, max_s) in checks.items():
-        status = "✅" if score >= max_s * 0.7 else "⚠️" if score >= max_s * 0.4 else "❌"
+        status = (
+            "✅" if score >= max_s * 0.7 else "⚠️" if score >= max_s * 0.4 else "❌"
+        )
         print(f"   {status} {name}: {score}/{max_s}")
 
     # Hook encontrado
@@ -369,9 +426,13 @@ def generate_report(filepath: str, content_type: str):
         if accent_score < 8:
             print("   • Corrigir acentuação — regra obrigatória do Marketing OS")
         if hook_score < 7:
-            print("   • Fortalecer o hook — usar padrões: número, pergunta, 'Como...', curiosidade")
+            print(
+                "   • Fortalecer o hook — usar padrões: número, pergunta, 'Como...', curiosidade"
+            )
         if cta_score < 7:
-            print("   • Melhorar CTA — usar verbos de ação: 'Quero', 'Garanta', 'Comece'")
+            print(
+                "   • Melhorar CTA — usar verbos de ação: 'Quero', 'Garanta', 'Comece'"
+            )
         if read_score < 7:
             print("   • Melhorar legibilidade — frases mais curtas, parágrafos menores")
 
@@ -397,13 +458,25 @@ Exemplos:
   python quality_gate.py email.md --type email
   python quality_gate.py landing.md --type landing-page
   python quality_gate.py anuncio.md --type anuncio
-        """
+        """,
     )
 
     parser.add_argument("file", help="Arquivo de conteúdo para validar")
-    parser.add_argument("--type", "-t", required=True,
-                       choices=["post", "artigo", "email", "landing-page", "anuncio", "video", "social"],
-                       help="Tipo do conteúdo")
+    parser.add_argument(
+        "--type",
+        "-t",
+        required=True,
+        choices=[
+            "post",
+            "artigo",
+            "email",
+            "landing-page",
+            "anuncio",
+            "video",
+            "social",
+        ],
+        help="Tipo do conteúdo",
+    )
 
     args = parser.parse_args()
 

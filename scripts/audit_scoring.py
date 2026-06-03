@@ -5,11 +5,11 @@ evidences, fixes. Output: overall + sorted top wins/fixes + formatted markdown.
 
 CLI: reads JSON from stdin, writes JSON to stdout.
 """
+
 from __future__ import annotations
 
 import json
 import sys
-
 
 RUBRICS: dict[str, dict[str, int]] = {
     "landing": {
@@ -51,9 +51,7 @@ def validate_rubrics() -> None:
     for audit_type, rubric in RUBRICS.items():
         total = sum(rubric.values())
         if total != 100:
-            raise ValueError(
-                f"Rubric {audit_type!r} sums to {total}, expected 100"
-            )
+            raise ValueError(f"Rubric {audit_type!r} sums to {total}, expected 100")
 
 
 # Validate at import time so misconfigured rubric fails fast.

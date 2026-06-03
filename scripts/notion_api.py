@@ -27,8 +27,19 @@ import urllib.request
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-from output_formatter import add_output_args, OutputFormatter, print_json, print_table, print_key_value
-from validators import ValidationError, validar_texto, validar_inteiro, handle_validation_error
+from output_formatter import (
+    add_output_args,
+    OutputFormatter,
+    print_json,
+    print_table,
+    print_key_value,
+)
+from validators import (
+    ValidationError,
+    validar_texto,
+    validar_inteiro,
+    handle_validation_error,
+)
 
 # ---------------------------------------------------------------------------
 # Configuração
@@ -76,7 +87,9 @@ PROPRIEDADES_MARKETING = [
 class NotionAPIError(Exception):
     """Erro da Notion API."""
 
-    def __init__(self, message: str, status: Optional[int] = None, code: Optional[str] = None):
+    def __init__(
+        self, message: str, status: Optional[int] = None, code: Optional[str] = None
+    ):
         super().__init__(message)
         self.status = status
         self.code = code
@@ -116,7 +129,9 @@ def _headers(token: str) -> Dict[str, str]:
     }
 
 
-def _api_get(path: str, token: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+def _api_get(
+    path: str, token: str, params: Optional[Dict[str, Any]] = None
+) -> Dict[str, Any]:
     """GET autenticado na Notion API com tratamento de erros."""
     url = f"{NOTION_API_BASE}/{path}"
     if params:
@@ -164,7 +179,9 @@ def _api_patch(path: str, token: str, payload: Dict[str, Any]) -> Dict[str, Any]
     """PATCH autenticado na Notion API com tratamento de erros."""
     url = f"{NOTION_API_BASE}/{path}"
     data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(url, data=data, headers=_headers(token), method="PATCH")
+    req = urllib.request.Request(
+        url, data=data, headers=_headers(token), method="PATCH"
+    )
     try:
         with urllib.request.urlopen(req) as resp:
             return json.loads(resp.read().decode("utf-8"))
@@ -274,13 +291,15 @@ def list_databases(token: str, limit: int = 20) -> List[Dict[str, Any]]:
     result = _api_post("search", token, payload)
     databases = []
     for db in result.get("results", []):
-        databases.append({
-            "id": db.get("id", ""),
-            "titulo": _extract_title(db),
-            "url": db.get("url", ""),
-            "criado_em": db.get("created_time", "")[:10],
-            "editado_em": db.get("last_edited_time", "")[:10],
-        })
+        databases.append(
+            {
+                "id": db.get("id", ""),
+                "titulo": _extract_title(db),
+                "url": db.get("url", ""),
+                "criado_em": db.get("created_time", "")[:10],
+                "editado_em": db.get("last_edited_time", "")[:10],
+            }
+        )
     return databases
 
 
@@ -379,7 +398,9 @@ def create_page(
     }
 
 
-def append_block(token: str, page_id: str, text: str, block_type: str = "paragraph") -> Dict[str, Any]:
+def append_block(
+    token: str, page_id: str, text: str, block_type: str = "paragraph"
+) -> Dict[str, Any]:
     """
     Adiciona um bloco de texto a uma página Notion existente.
 
@@ -521,7 +542,9 @@ def _build_parser() -> argparse.ArgumentParser:
     # list-pages
     p_lp = sub.add_parser("list-pages", help="Lista páginas de um banco de dados")
     p_lp.add_argument("--database-id", "-d", default="", help="ID do banco de dados")
-    p_lp.add_argument("--limit", "-l", type=int, default=10, help="Máximo de páginas (padrão: 10)")
+    p_lp.add_argument(
+        "--limit", "-l", type=int, default=10, help="Máximo de páginas (padrão: 10)"
+    )
 
     # get-page
     p_gp = sub.add_parser("get-page", help="Detalhes de uma página")
@@ -531,7 +554,9 @@ def _build_parser() -> argparse.ArgumentParser:
     p_cp = sub.add_parser("create-page", help="Cria nova página em um banco de dados")
     p_cp.add_argument("--database-id", "-d", required=True, help="ID do banco de dados")
     p_cp.add_argument("--title", "-t", required=True, help="Título da página")
-    p_cp.add_argument("--content", "-c", default="", help="Conteúdo inicial (parágrafo)")
+    p_cp.add_argument(
+        "--content", "-c", default="", help="Conteúdo inicial (parágrafo)"
+    )
 
     # append-block
     p_ab = sub.add_parser("append-block", help="Adiciona bloco de texto a uma página")
@@ -561,7 +586,9 @@ def _build_parser() -> argparse.ArgumentParser:
 
     # full-report
     p_fr = sub.add_parser("full-report", help="Relatório completo")
-    p_fr.add_argument("--database-id", "-d", default="", help="ID do banco de dados para detalhar")
+    p_fr.add_argument(
+        "--database-id", "-d", default="", help="ID do banco de dados para detalhar"
+    )
 
     return parser
 
@@ -574,7 +601,9 @@ def main() -> int:
     try:
         if args.subcommand == "list-pages":
             args.limit = validar_inteiro(args.limit, "limit", min_val=1, max_val=100)
-            database_id = (args.database_id or os.environ.get(ENV_DATABASE_ID, "")).strip()
+            database_id = (
+                args.database_id or os.environ.get(ENV_DATABASE_ID, "")
+            ).strip()
             if not database_id:
                 print(
                     f"Erro: informe --database-id ou defina {ENV_DATABASE_ID}",
@@ -636,7 +665,9 @@ def main() -> int:
 
         elif args.subcommand == "create-page":
             result = create_page(
-                token, args.database_id, args.title,
+                token,
+                args.database_id,
+                args.title,
                 content=args.content or None,
             )
             if fmt.is_json():
@@ -651,7 +682,9 @@ def main() -> int:
             if fmt.is_json():
                 print_json(result)
             else:
-                print(f"✓ {result['total']} bloco(s) adicionado(s) à página {result['page_id']}")
+                print(
+                    f"✓ {result['total']} bloco(s) adicionado(s) à página {result['page_id']}"
+                )
 
         elif args.subcommand == "search":
             results = search(token, args.query, search_type=args.type, limit=args.limit)
@@ -661,7 +694,10 @@ def main() -> int:
                 if not results:
                     print(f"Nenhum resultado para '{args.query}'.")
                 else:
-                    rows = [[r["id"], r["titulo"], r["tipo"], r["editado_em"]] for r in results]
+                    rows = [
+                        [r["id"], r["titulo"], r["tipo"], r["editado_em"]]
+                        for r in results
+                    ]
                     print_table(["ID", "Título", "Tipo", "Última edição"], rows)
 
         elif args.subcommand == "schema":
@@ -675,7 +711,9 @@ def main() -> int:
                 print_table(["Propriedade", "Tipo"], rows)
 
         elif args.subcommand == "full-report":
-            db_id = (args.database_id or os.environ.get(ENV_DATABASE_ID, "")).strip() or None
+            db_id = (
+                args.database_id or os.environ.get(ENV_DATABASE_ID, "")
+            ).strip() or None
             report = full_report(token, database_id=db_id)
             if fmt.is_json():
                 print_json(report)
@@ -684,9 +722,14 @@ def main() -> int:
                 print(f"Total de bancos de dados: {report['total_databases']}\n")
                 if report.get("database_detalhado"):
                     det = report["database_detalhado"]
-                    print(f"Banco detalhadao: {det['titulo']} ({det['total_propriedades']} props)")
+                    print(
+                        f"Banco detalhadao: {det['titulo']} ({det['total_propriedades']} props)"
+                    )
                 if report.get("paginas_recentes"):
-                    rows = [[p["titulo"], p["editado_em"]] for p in report["paginas_recentes"]]
+                    rows = [
+                        [p["titulo"], p["editado_em"]]
+                        for p in report["paginas_recentes"]
+                    ]
                     print_table(["Título", "Última edição"], rows)
 
     except NotionAPIError as e:

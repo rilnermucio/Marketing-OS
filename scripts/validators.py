@@ -10,17 +10,32 @@ import sys
 from datetime import datetime
 from typing import List, Optional
 
-
 # Plataformas suportadas no Marketing OS
 PLATAFORMAS_VALIDAS = {
-    "instagram", "tiktok", "youtube", "shorts", "linkedin",
-    "twitter", "reels", "x", "facebook", "pinterest",
+    "instagram",
+    "tiktok",
+    "youtube",
+    "shorts",
+    "linkedin",
+    "twitter",
+    "reels",
+    "x",
+    "facebook",
+    "pinterest",
 }
 
 # Formatos de conteúdo válidos
 FORMATOS_VALIDOS = {
-    "reels", "carrossel", "post", "stories", "tutorial",
-    "shorts", "video", "artigo", "newsletter", "thread",
+    "reels",
+    "carrossel",
+    "post",
+    "stories",
+    "tutorial",
+    "shorts",
+    "video",
+    "artigo",
+    "newsletter",
+    "thread",
 }
 
 # Limites de tamanho de arquivo (bytes)
@@ -29,14 +44,16 @@ MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
 
 class ValidationError(ValueError):
     """Erro de validação de entrada."""
-    pass
 
 
 # ---------------------------------------------------------------------------
 # Validação de texto
 # ---------------------------------------------------------------------------
 
-def validar_texto(valor: str, campo: str = "texto", min_len: int = 1, max_len: int = 500) -> str:
+
+def validar_texto(
+    valor: str, campo: str = "texto", min_len: int = 1, max_len: int = 500
+) -> str:
     """
     Valida uma string de texto.
 
@@ -53,7 +70,9 @@ def validar_texto(valor: str, campo: str = "texto", min_len: int = 1, max_len: i
         ValidationError: Se a validação falhar.
     """
     if not isinstance(valor, str):
-        raise ValidationError(f"'{campo}' deve ser uma string, recebeu: {type(valor).__name__}")
+        raise ValidationError(
+            f"'{campo}' deve ser uma string, recebeu: {type(valor).__name__}"
+        )
 
     valor = valor.strip()
 
@@ -74,7 +93,10 @@ def validar_texto(valor: str, campo: str = "texto", min_len: int = 1, max_len: i
 # Validação numérica
 # ---------------------------------------------------------------------------
 
-def validar_inteiro(valor, campo: str = "número", min_val: int = 1, max_val: int = 1000) -> int:
+
+def validar_inteiro(
+    valor, campo: str = "número", min_val: int = 1, max_val: int = 1000
+) -> int:
     """
     Valida e converte um valor para inteiro dentro de um intervalo.
 
@@ -110,7 +132,9 @@ def validar_inteiro(valor, campo: str = "número", min_val: int = 1, max_val: in
     return inteiro
 
 
-def validar_float(valor, campo: str = "número", min_val: float = 0.0, max_val: float = 100.0) -> float:
+def validar_float(
+    valor, campo: str = "número", min_val: float = 0.0, max_val: float = 100.0
+) -> float:
     """
     Valida e converte um valor para float dentro de um intervalo.
 
@@ -129,9 +153,7 @@ def validar_float(valor, campo: str = "número", min_val: float = 0.0, max_val: 
     try:
         numero = float(valor)
     except (TypeError, ValueError):
-        raise ValidationError(
-            f"'{campo}' deve ser um número. Recebeu: '{valor}'"
-        )
+        raise ValidationError(f"'{campo}' deve ser um número. Recebeu: '{valor}'")
 
     if numero < min_val:
         raise ValidationError(
@@ -150,7 +172,10 @@ def validar_float(valor, campo: str = "número", min_val: float = 0.0, max_val: 
 # Validação de arquivo
 # ---------------------------------------------------------------------------
 
-def validar_arquivo(caminho: str, extensoes: Optional[List[str]] = None, campo: str = "arquivo") -> str:
+
+def validar_arquivo(
+    caminho: str, extensoes: Optional[List[str]] = None, campo: str = "arquivo"
+) -> str:
     """
     Valida que um caminho de arquivo existe, é legível e tem extensão permitida.
 
@@ -191,7 +216,9 @@ def validar_arquivo(caminho: str, extensoes: Optional[List[str]] = None, campo: 
 
     if extensoes:
         _, ext = os.path.splitext(caminho)
-        extensoes_norm = [e.lower() if e.startswith('.') else f'.{e.lower()}' for e in extensoes]
+        extensoes_norm = [
+            e.lower() if e.startswith(".") else f".{e.lower()}" for e in extensoes
+        ]
         if ext.lower() not in extensoes_norm:
             raise ValidationError(
                 f"Extensão inválida para '{campo}': '{ext}'. "
@@ -204,6 +231,7 @@ def validar_arquivo(caminho: str, extensoes: Optional[List[str]] = None, campo: 
 # ---------------------------------------------------------------------------
 # Validação de diretório de saída
 # ---------------------------------------------------------------------------
+
 
 def validar_diretorio_saida(caminho: str, campo: str = "diretório de saída") -> str:
     """
@@ -231,7 +259,9 @@ def validar_diretorio_saida(caminho: str, campo: str = "diretório de saída") -
         try:
             os.makedirs(caminho, exist_ok=True)
         except OSError as e:
-            raise ValidationError(f"Não foi possível criar o diretório '{caminho}': {e}")
+            raise ValidationError(
+                f"Não foi possível criar o diretório '{caminho}': {e}"
+            )
 
     if not os.access(caminho, os.W_OK):
         raise ValidationError(f"Sem permissão de escrita no diretório: '{caminho}'")
@@ -242,6 +272,7 @@ def validar_diretorio_saida(caminho: str, campo: str = "diretório de saída") -
 # ---------------------------------------------------------------------------
 # Validação de plataforma
 # ---------------------------------------------------------------------------
+
 
 def validar_plataforma(plataforma: str, campo: str = "plataforma") -> str:
     """
@@ -271,7 +302,9 @@ def validar_plataforma(plataforma: str, campo: str = "plataforma") -> str:
     return plataforma
 
 
-def validar_lista_plataformas(plataformas: List[str], campo: str = "plataformas") -> List[str]:
+def validar_lista_plataformas(
+    plataformas: List[str], campo: str = "plataformas"
+) -> List[str]:
     """
     Valida uma lista de plataformas, removendo duplicatas.
 
@@ -302,6 +335,7 @@ def validar_lista_plataformas(plataformas: List[str], campo: str = "plataformas"
 # ---------------------------------------------------------------------------
 # Validação de formato de conteúdo
 # ---------------------------------------------------------------------------
+
 
 def validar_formato(formato: str, campo: str = "formato") -> str:
     """
@@ -335,7 +369,10 @@ def validar_formato(formato: str, campo: str = "formato") -> str:
 # Validação de data
 # ---------------------------------------------------------------------------
 
-def validar_data(data_str: str, campo: str = "data", formato: str = "%Y-%m-%d") -> datetime:
+
+def validar_data(
+    data_str: str, campo: str = "data", formato: str = "%Y-%m-%d"
+) -> datetime:
     """
     Valida e converte uma string de data.
 
@@ -383,7 +420,7 @@ def validar_semana_iso(semana_str: str, campo: str = "semana") -> str:
 
     semana_str = semana_str.strip()
 
-    padrao = re.compile(r'^\d{4}-W(0[1-9]|[1-4]\d|5[0-3])$')
+    padrao = re.compile(r"^\d{4}-W(0[1-9]|[1-4]\d|5[0-3])$")
     if not padrao.match(semana_str):
         raise ValidationError(
             f"'{campo}' com valor '{semana_str}' não é uma semana ISO válida. "
@@ -396,6 +433,7 @@ def validar_semana_iso(semana_str: str, campo: str = "semana") -> str:
 # ---------------------------------------------------------------------------
 # Validação de URL
 # ---------------------------------------------------------------------------
+
 
 def validar_url(url: str, campo: str = "URL") -> str:
     """
@@ -417,13 +455,13 @@ def validar_url(url: str, campo: str = "URL") -> str:
     url = url.strip()
 
     padrao = re.compile(
-        r'^https?://'
-        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|'
-        r'localhost|'
-        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'
-        r'(?::\d+)?'
-        r'(?:/?|[/?]\S+)$',
-        re.IGNORECASE
+        r"^https?://"
+        r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|"
+        r"localhost|"
+        r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})"
+        r"(?::\d+)?"
+        r"(?:/?|[/?]\S+)$",
+        re.IGNORECASE,
     )
 
     if not padrao.match(url):
@@ -439,7 +477,10 @@ def validar_url(url: str, campo: str = "URL") -> str:
 # Handler de erro para CLI
 # ---------------------------------------------------------------------------
 
-def handle_validation_error(error: ValidationError, mostrar_uso: Optional[str] = None) -> None:
+
+def handle_validation_error(
+    error: ValidationError, mostrar_uso: Optional[str] = None
+) -> None:
     """
     Imprime uma mensagem de erro formatada e encerra o processo.
 

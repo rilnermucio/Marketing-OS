@@ -5,13 +5,12 @@ Generic, reusable across commands. White-label via .auditoria-config.json
 
 CLI: python pdf_generator.py <input.md> <output.pdf> [config.json]
 """
+
 from __future__ import annotations
 
-import json
 import os
 import sys
 from pathlib import Path
-
 
 # macOS: weasyprint dependencies (cairo, pango, gobject) live in /opt/homebrew/lib
 # but cffi looks for them by their non-versioned name. Set DYLD_FALLBACK_LIBRARY_PATH
@@ -85,7 +84,9 @@ def _build_html(markdown_text: str, config: dict | None) -> str:
     if cfg.get("logo_path"):
         logo_path = Path(cfg["logo_path"])
         if logo_path.exists():
-            header_parts.append(f'<img class="header-logo" src="{logo_path.resolve()}" />')
+            header_parts.append(
+                f'<img class="header-logo" src="{logo_path.resolve()}" />'
+            )
         else:
             print(f"[pdf_generator] logo não encontrado: {logo_path}", file=sys.stderr)
     if cfg.get("brand_name"):
@@ -140,7 +141,10 @@ def generate(
 
 def _cli(argv: list[str]) -> int:
     if len(argv) < 3:
-        print("Usage: pdf_generator.py [--from-html] <input> <output.pdf> [config.json]", file=sys.stderr)
+        print(
+            "Usage: pdf_generator.py [--from-html] <input> <output.pdf> [config.json]",
+            file=sys.stderr,
+        )
         return 1
 
     args = list(argv[1:])
@@ -150,7 +154,10 @@ def _cli(argv: list[str]) -> int:
         args.pop(0)
 
     if len(args) < 2:
-        print("Usage: pdf_generator.py [--from-html] <input> <output.pdf> [config.json]", file=sys.stderr)
+        print(
+            "Usage: pdf_generator.py [--from-html] <input> <output.pdf> [config.json]",
+            file=sys.stderr,
+        )
         return 1
 
     in_path = Path(args[0])

@@ -67,7 +67,10 @@ COMMAND_MAP: Dict[str, Dict[str, Tuple[str, str]]] = {
         "script": ("reels_script_generator.py", "Gera roteiros para Reels"),
     },
     "carousel": {
-        "structure": ("carousel_structure_generator.py", "Gera estruturas de carrossel"),
+        "structure": (
+            "carousel_structure_generator.py",
+            "Gera estruturas de carrossel",
+        ),
     },
     "trends": {
         "track": ("trend_tracker.py", "Monitora tendências"),
@@ -90,23 +93,41 @@ COMMAND_MAP: Dict[str, Dict[str, Tuple[str, str]]] = {
         "check": ("quality_gate.py", "Valida qualidade do conteúdo"),
     },
     "project": {
-        "novo": ("project_manager.py", "Cria novo projeto (--tipo lancamento|perpetuo|consultoria|mentoria)"),
+        "novo": (
+            "project_manager.py",
+            "Cria novo projeto (--tipo lancamento|perpetuo|consultoria|mentoria)",
+        ),
         "list": ("project_manager.py", "Lista projetos"),
         "status": ("project_manager.py", "Status de um projeto"),
         "avancar": ("project_manager.py", "Cria run pendente + auto-mkdir do stage"),
-        "completar": ("project_manager.py", "Marca run pending como pending_approval (com output path)"),
+        "completar": (
+            "project_manager.py",
+            "Marca run pending como pending_approval (com output path)",
+        ),
         "aprovar": ("project_manager.py", "Aprova ultimo run e avanca stage"),
         "rejeitar": ("project_manager.py", "Rejeita ultimo run com feedback"),
     },
     "apify": {
-        "serp": ("apify_serp.py", "SERP scraping via Apify (opcional, requer APIFY_TOKEN)"),
-        "instagram": ("apify_instagram.py", "Instagram profile scraping via Apify (opcional)"),
-        "meta-ads": ("apify_meta_ads.py", "Meta Ad Library scraping (Facebook + Instagram, opcional)"),
+        "serp": (
+            "apify_serp.py",
+            "SERP scraping via Apify (opcional, requer APIFY_TOKEN)",
+        ),
+        "instagram": (
+            "apify_instagram.py",
+            "Instagram profile scraping via Apify (opcional)",
+        ),
+        "meta-ads": (
+            "apify_meta_ads.py",
+            "Meta Ad Library scraping (Facebook + Instagram, opcional)",
+        ),
         "tiktok": ("apify_tiktok.py", "TikTok profile scraping (opcional)"),
         "youtube": ("apify_youtube.py", "YouTube channel scraping (opcional)"),
     },
     "youtube": {
-        "channel": ("youtube_analytics.py", "Métricas gerais do canal (requer YouTube API)"),
+        "channel": (
+            "youtube_analytics.py",
+            "Métricas gerais do canal (requer YouTube API)",
+        ),
         "videos": ("youtube_analytics.py", "Lista de vídeos com métricas"),
         "top-videos": ("youtube_analytics.py", "Vídeos com melhor performance"),
         "demographics": ("youtube_analytics.py", "Dados demográficos da audiência"),
@@ -114,7 +135,10 @@ COMMAND_MAP: Dict[str, Dict[str, Tuple[str, str]]] = {
         "full-report": ("youtube_analytics.py", "Relatório completo do canal"),
     },
     "gsc": {
-        "queries": ("gsc_analyzer.py", "Principais queries de busca (requer Search Console API)"),
+        "queries": (
+            "gsc_analyzer.py",
+            "Principais queries de busca (requer Search Console API)",
+        ),
         "top-pages": ("gsc_analyzer.py", "Páginas com melhor performance"),
         "ctr-opportunities": ("gsc_analyzer.py", "Oportunidades de CTR"),
         "position-changes": ("gsc_analyzer.py", "Variações de posição"),
@@ -141,10 +165,21 @@ SPECIAL_ARGS: Dict[Tuple[str, str], Callable[[List[str]], List[str]]] = {
 # Categorias cujo script tem subparser próprio (dest="comando"): o comando do mos
 # precisa ser repassado como 1º argumento posicional pro parser interno do script.
 _PASSTHROUGH_SUBCOMMANDS: Dict[str, List[str]] = {
-    "youtube": ["channel", "videos", "top-videos", "demographics",
-                "traffic-sources", "full-report"],
-    "gsc": ["queries", "top-pages", "ctr-opportunities",
-            "position-changes", "full-report"],
+    "youtube": [
+        "channel",
+        "videos",
+        "top-videos",
+        "demographics",
+        "traffic-sources",
+        "full-report",
+    ],
+    "gsc": [
+        "queries",
+        "top-pages",
+        "ctr-opportunities",
+        "position-changes",
+        "full-report",
+    ],
 }
 for _cat, _cmds in _PASSTHROUGH_SUBCOMMANDS.items():
     for _cmd in _cmds:
@@ -239,7 +274,7 @@ def run_script(script_name: str, args: List[str]) -> None:
 
 
 def main() -> None:
-    if len(sys.argv) < 2 or sys.argv[1] in ['--help', '-h', 'help']:
+    if len(sys.argv) < 2 or sys.argv[1] in ["--help", "-h", "help"]:
         print_help()
         sys.exit(0)
 
@@ -262,7 +297,9 @@ def main() -> None:
 
     if command not in COMMAND_MAP[category]:
         print(f"\n❌ Comando desconhecido: '{category} {command}'")
-        print(f"   Comandos válidos para '{category}': {', '.join(COMMAND_MAP[category].keys())}")
+        print(
+            f"   Comandos válidos para '{category}': {', '.join(COMMAND_MAP[category].keys())}"
+        )
         sys.exit(1)
 
     script_name, description = COMMAND_MAP[category][command]

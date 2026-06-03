@@ -25,6 +25,7 @@ from pathlib import Path
 
 try:
     import yaml  # type: ignore
+
     _HAS_YAML = True
 except ImportError:
     yaml = None  # type: ignore
@@ -61,7 +62,9 @@ def _parse_simple_yaml(text: str) -> dict:
             value = value[1:-1]
         elif value.startswith("[") and value.endswith("]"):
             inner = value[1:-1]
-            items = [x.strip().strip('"').strip("'") for x in inner.split(",") if x.strip()]
+            items = [
+                x.strip().strip('"').strip("'") for x in inner.split(",") if x.strip()
+            ]
             result[key] = items
             i += 1
             continue
@@ -86,10 +89,26 @@ REQUIRED_FIELDS = ["name", "description"]
 RECOMMENDED_FIELDS = ["tools", "model"]
 VALID_MODELS = {"opus", "sonnet", "haiku", "inherit"}
 KNOWN_TOOLS = {
-    "Bash", "Read", "Write", "Edit", "Glob", "Grep", "LS", "WebSearch",
-    "WebFetch", "NotebookEdit", "NotebookRead", "TodoWrite", "KillShell",
-    "BashOutput", "Agent", "ExitPlanMode", "ExitWorktree", "EnterWorktree",
-    "EnterPlanMode", "AskUserQuestion",
+    "Bash",
+    "Read",
+    "Write",
+    "Edit",
+    "Glob",
+    "Grep",
+    "LS",
+    "WebSearch",
+    "WebFetch",
+    "NotebookEdit",
+    "NotebookRead",
+    "TodoWrite",
+    "KillShell",
+    "BashOutput",
+    "Agent",
+    "ExitPlanMode",
+    "ExitWorktree",
+    "EnterWorktree",
+    "EnterPlanMode",
+    "AskUserQuestion",
 }
 
 KNOWLEDGE_REF_RE = re.compile(r"`?(subagents/[a-zA-Z0-9_\-/]+\.md)`?")
@@ -119,7 +138,7 @@ def parse_frontmatter(content: str) -> tuple[dict | None, str]:
     if end == -1:
         return None, content
     fm_str = content[4:end]
-    body = content[end + 4:].lstrip("\n")
+    body = content[end + 4 :].lstrip("\n")
     try:
         meta = _yaml_load(fm_str)
     except Exception as e:
@@ -137,11 +156,15 @@ def validate_tools(tools_raw, report: AgentReport) -> None:
     elif isinstance(tools_raw, list):
         tools = [str(t).strip() for t in tools_raw]
     else:
-        report.warnings.append(f"Campo 'tools' tem tipo inesperado: {type(tools_raw).__name__}")
+        report.warnings.append(
+            f"Campo 'tools' tem tipo inesperado: {type(tools_raw).__name__}"
+        )
         return
     unknown = [t for t in tools if t not in KNOWN_TOOLS and not t.startswith("mcp__")]
     if unknown:
-        report.warnings.append(f"Tools desconhecidas (podem ser válidas se novas): {unknown}")
+        report.warnings.append(
+            f"Tools desconhecidas (podem ser válidas se novas): {unknown}"
+        )
     report.info["tools_count"] = len(tools)
     report.info["tools"] = tools
 
@@ -149,7 +172,9 @@ def validate_tools(tools_raw, report: AgentReport) -> None:
 def validate_knowledge_refs(body: str, report: AgentReport) -> None:
     refs = set(KNOWLEDGE_REF_RE.findall(body))
     if not refs:
-        report.warnings.append("Nenhuma referência a knowledge base (`subagents/*.md`) encontrada. Tier-1 deveria apontar pra tier-2.")
+        report.warnings.append(
+            "Nenhuma referência a knowledge base (`subagents/*.md`) encontrada. Tier-1 deveria apontar pra tier-2."
+        )
         return
     missing = []
     for ref in refs:
@@ -224,7 +249,9 @@ def validate_agent(path: Path, seen_names: dict[str, Path]) -> AgentReport:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Valida native subagents Claude Code")
     parser.add_argument("--strict", action="store_true", help="Falha em warnings")
-    parser.add_argument("--dir", type=Path, default=AGENTS_DIR, help="Diretório de agents")
+    parser.add_argument(
+        "--dir", type=Path, default=AGENTS_DIR, help="Diretório de agents"
+    )
     args = parser.parse_args()
 
     agents_dir = args.dir
@@ -269,7 +296,9 @@ def main() -> int:
         print()
 
     print(f"{'='*60}")
-    print(f"Total: {total} | Clean: {clean} | OK (sem erros): {ok} | Com warnings: {with_warnings} | Falhas: {with_errors}")
+    print(
+        f"Total: {total} | Clean: {clean} | OK (sem erros): {ok} | Com warnings: {with_warnings} | Falhas: {with_errors}"
+    )
     print(f"{'='*60}\n")
 
     if with_errors > 0:

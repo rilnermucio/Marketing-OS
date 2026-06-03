@@ -2,6 +2,7 @@
 
 Returns dict on valid input, None on missing or invalid (with stderr warning).
 """
+
 from __future__ import annotations
 
 import json
@@ -9,7 +10,6 @@ import sys
 from pathlib import Path
 
 import jsonschema
-
 
 SCHEMA = {
     "$schema": "https://json-schema.org/draft-07/schema#",

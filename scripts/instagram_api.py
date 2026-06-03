@@ -24,7 +24,13 @@ import urllib.parse
 import urllib.request
 from typing import Any, Dict, List, Optional
 
-from validators import ValidationError, validar_inteiro, validar_texto, validar_url, handle_validation_error
+from validators import (
+    ValidationError,
+    validar_inteiro,
+    validar_texto,
+    validar_url,
+    handle_validation_error,
+)
 
 # ---------------------------------------------------------------------------
 # Configuração
@@ -62,10 +68,13 @@ PERIODOS_VALIDOS = {"day", "week", "days_28", "month", "lifetime"}
 # Exceções
 # ---------------------------------------------------------------------------
 
+
 class InstagramAPIError(Exception):
     """Erro retornado pela API do Instagram/Meta."""
 
-    def __init__(self, message: str, code: Optional[int] = None, subcode: Optional[int] = None):
+    def __init__(
+        self, message: str, code: Optional[int] = None, subcode: Optional[int] = None
+    ):
         super().__init__(message)
         self.code = code
         self.subcode = subcode
@@ -79,12 +88,12 @@ class InstagramAPIError(Exception):
 
 class InstagramAuthError(InstagramAPIError):
     """Erro de autenticação (token inválido ou expirado)."""
-    pass
 
 
 # ---------------------------------------------------------------------------
 # Cliente HTTP mínimo (sem dependências externas)
 # ---------------------------------------------------------------------------
+
 
 def _get(url: str, params: Dict[str, Any]) -> Dict:
     """Faz uma requisição GET e retorna o JSON."""
@@ -159,6 +168,7 @@ def _post(url: str, params: Dict[str, Any]) -> Dict:
 # ---------------------------------------------------------------------------
 # Funções principais da API
 # ---------------------------------------------------------------------------
+
 
 def get_account_insights(
     account_id: str,
@@ -385,6 +395,7 @@ def publish_carousel(
 # Utilitários
 # ---------------------------------------------------------------------------
 
+
 def get_token() -> str:
     """Lê o token da variável de ambiente INSTAGRAM_ACCESS_TOKEN."""
     token = os.environ.get(ENV_TOKEN, "").strip()
@@ -407,6 +418,7 @@ def print_json(data: Any) -> None:
 # CLI
 # ---------------------------------------------------------------------------
 
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Instagram Business API — Marketing OS",
@@ -425,7 +437,12 @@ def build_parser() -> argparse.ArgumentParser:
     # insights
     p_insights = sub.add_parser("insights", help="Retorna insights da conta")
     p_insights.add_argument("account_id", help="ID da conta Instagram Business")
-    p_insights.add_argument("--period", default="day", choices=list(PERIODOS_VALIDOS), help="Granularidade do período")
+    p_insights.add_argument(
+        "--period",
+        default="day",
+        choices=list(PERIODOS_VALIDOS),
+        help="Granularidade do período",
+    )
     p_insights.add_argument("--since", help="Data de início (YYYY-MM-DD)")
     p_insights.add_argument("--until", help="Data de fim (YYYY-MM-DD)")
 
@@ -440,7 +457,9 @@ def build_parser() -> argparse.ArgumentParser:
     # posts
     p_posts = sub.add_parser("posts", help="Posts recentes da conta")
     p_posts.add_argument("account_id", help="ID da conta Instagram Business")
-    p_posts.add_argument("--limit", type=int, default=10, help="Número de posts (1-100)")
+    p_posts.add_argument(
+        "--limit", type=int, default=10, help="Número de posts (1-100)"
+    )
 
     # publish-photo
     p_photo = sub.add_parser("publish-photo", help="Publica uma foto")
@@ -449,7 +468,9 @@ def build_parser() -> argparse.ArgumentParser:
     p_photo.add_argument("caption", help="Legenda do post")
 
     # publish-carousel
-    p_carousel = sub.add_parser("publish-carousel", help="Publica um carrossel (2-10 imagens)")
+    p_carousel = sub.add_parser(
+        "publish-carousel", help="Publica um carrossel (2-10 imagens)"
+    )
     p_carousel.add_argument("account_id", help="ID da conta Instagram Business")
     p_carousel.add_argument("caption", help="Legenda do carrossel")
     p_carousel.add_argument("image_urls", nargs="+", help="URLs das imagens (2-10)")
@@ -466,7 +487,8 @@ def main() -> None:
         if args.comando == "insights":
             validar_texto(args.account_id, campo="account_id", max_len=50)
             data = get_account_insights(
-                args.account_id, token,
+                args.account_id,
+                token,
                 period=args.period,
                 since=getattr(args, "since", None),
                 until=getattr(args, "until", None),
@@ -506,7 +528,9 @@ def main() -> None:
             validar_texto(args.caption, campo="caption", max_len=2200)
             for idx, url in enumerate(args.image_urls):
                 validar_url(url, campo=f"image_url[{idx}]")
-            result = publish_carousel(args.account_id, token, args.caption, args.image_urls)
+            result = publish_carousel(
+                args.account_id, token, args.caption, args.image_urls
+            )
             print(f"\n✅ Carrossel publicado com sucesso! ID: {result.get('id')}")
             print_json(result)
 
@@ -514,7 +538,10 @@ def main() -> None:
         handle_validation_error(e)
     except InstagramAuthError as e:
         print(f"\n❌ Erro de autenticação: {e}", file=sys.stderr)
-        print(f"Verifique se o token em {ENV_TOKEN} é válido e não expirou.", file=sys.stderr)
+        print(
+            f"Verifique se o token em {ENV_TOKEN} é válido e não expirou.",
+            file=sys.stderr,
+        )
         sys.exit(1)
     except InstagramAPIError as e:
         print(f"\n❌ Erro da API do Instagram: {e}", file=sys.stderr)

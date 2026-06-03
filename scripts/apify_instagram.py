@@ -39,7 +39,6 @@ from apify_client import (
     save_result,
 )
 
-
 INSTAGRAM_ACTOR_ID = "apify/instagram-scraper"
 DEFAULT_OUTPUT_DIR = "workspace/research/apify"
 DEFAULT_MAX_POSTS = 30
@@ -183,11 +182,7 @@ def format_summary_md(parsed: Dict[str, Any], handle: str) -> str:
         for p in top_posts:
             caption = (p.get("caption") or "").replace("\n", " ").strip()
             preview = caption[:80] + ("..." if len(caption) > 80 else "")
-            views = (
-                f", {p.get('video_views', 0):,} views"
-                if "video_views" in p
-                else ""
-            )
+            views = f", {p.get('video_views', 0):,} views" if "video_views" in p else ""
             lines.append(
                 f"- [{p.get('type', '?')}] {p['likes']:,} likes, "
                 f"{p['comments']:,} comments{views}"
