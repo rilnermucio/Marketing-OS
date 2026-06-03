@@ -9,7 +9,7 @@
 
 Marketing OS é um plugin para o [Claude Code](https://www.anthropic.com/claude-code) que orquestra 18 subagentes nativos especializados em domínios distintos do marketing digital. O plugin reivindica território explícito sobre briefings de marketing. Quando você pede "cria página de aplicação" ou "monta um webinar", ele dispatcha os subagents corretos em paralelo, com camada estratégica antes de qualquer execução técnica.
 
-**30 dos 32 slash commands** dispatcham subagents `mos-*`. Os 2 que não dispatcham são intencionais: `/publicar-notion` (utility do Notion MCP) e `/campanha` (índice dos 6 sub-commands de preset). Use `/mo` pra briefing aberto se não souber qual command escolher. **Conteúdo PT-BR otimizado para o mercado brasileiro.**
+**32 dos 35 slash commands** dispatcham subagents `mos-*`. Os 3 que não dispatcham são intencionais: `/publicar-notion` (utility do Notion MCP), `/campanha` (índice dos 6 sub-commands de preset) e `/projeto` (orquestrador de workflow com dispatch dinâmico). Use `/mo` pra briefing aberto se não souber qual command escolher. **Conteúdo PT-BR otimizado para o mercado brasileiro.**
 
 ## Instalação
 
@@ -130,10 +130,10 @@ Marketing OS/
 ├── agents/                 # 18 native subagents (mos-*.md)
 ├── skills/marketing-os/    # Skill entrypoint (SKILL.md = orquestrador)
 ├── subagents/              # Tier 2 knowledge bases (~3500 linhas cada)
-├── commands/               # 32 slash commands (30 com dispatch + /mo orquestrador + /campanha índice)
+├── commands/               # 35 slash commands (32 com dispatch + /mo orquestrador + /campanha índice + /projeto)
 ├── workflows/              # 10 workflows end-to-end documentados
 ├── assets/                 # Frameworks, personas, prompts, swipe files,
-│   ├── clones/             #   templates, 36 voice clones
+│   ├── clones/             #   templates, 34 voice clones
 │   ├── frameworks/
 │   ├── personas/
 │   ├── prompts/

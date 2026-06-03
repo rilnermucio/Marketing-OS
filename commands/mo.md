@@ -131,7 +131,7 @@ Pule as que já vieram explícitas no briefing OU já estão em memory do client
 Mesmo no modo "sugerir command", se você dispatcha qualquer agent ou consolida output, aplique os gates globais do `skills/marketing-os/SKILL.md`:
 
 - Sem `—` (travessão longo) — substituir por `.` `,` `:` ou quebrar frase
-- Sem "brutal" — usar: intenso, forte, pesado, impactante, poderoso
+- Sem "brutal", usar: intenso, forte, pesado, impactante, poderoso
 - Sem CAPS gratuito
 - Sem aspas em roteiros/falas (escrever direto)
 - Máximo 1-2 emojis (preferir 0)

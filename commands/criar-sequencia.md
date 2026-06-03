@@ -101,7 +101,7 @@ Produto: [produto] | Audiência: [audiência] | Goal: [goal]
 Aplicar gates globais do `skills/marketing-os/SKILL.md`:
 - Sem `—`, sem "brutal", sem CAPS gratuito, sem aspas em falas
 - Acentuação PT-BR correta
-- Máximo 1-2 emojis no output final (não nos posts em si — esses seguem regra do canal)
+- Máximo 1-2 emojis no output final (não nos posts em si, esses seguem regra do canal)
 - Enquete obrigatória em cada post social
 - Compliance regulatório se nicho saúde/finanças/suplementos
 - Fact-check (CONFIRMADO / PROVÁVEL) em qualquer claim citável
