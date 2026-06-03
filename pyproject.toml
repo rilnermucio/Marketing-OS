@@ -1,0 +1,7 @@
+# Apenas configuração de ferramentas. NÃO é um pacote Python (sem [build-system]).
+# O repo continua Python + Markdown puro; isto só fixa o estilo do black pra
+# que CI e dev local concordem na checagem de formatação.
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+extend-exclude = "workspace/"

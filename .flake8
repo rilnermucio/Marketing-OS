@@ -1,0 +1,9 @@
+[flake8]
+# Lint real (enforçado no CI). black cuida do layout; flake8 pega bugs reais
+# (imports/variáveis não usados, redefinições, f-strings quebradas).
+max-line-length = 120
+# Códigos ignorados = conflitam com o black (E203, E226, W503), são tratados
+# pelo black (E303), ou são cosméticos/intencionais neste repo (E402 backend
+# do matplotlib, E501 par com black, E741, F541 f-string sem placeholder).
+extend-ignore = E203,E226,E303,E402,E501,E741,W503,F541
+exclude = .git,__pycache__,scripts/tests,workspace
