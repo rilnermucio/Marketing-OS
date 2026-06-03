@@ -41,6 +41,71 @@ REPRESENTATIVE_AGENTS = [
         "Use o agente mos-ads para escrever copy de UM anuncio do Facebook para um curso de copywriting. Formato: headline em UMA linha + 1-2 paragrafos de texto principal + CTA. Responda apenas o anuncio, sem explicacao.",
         ["headline", "copy", "curso"],
     ),
+    (
+        "mos-ab-testing",
+        "Use o agente mos-ab-testing para propor UMA hipotese de teste A/B para a headline de uma landing page de curso. Formato: hipotese em 1-2 linhas + metrica primaria.",
+        ["teste", "headline", "curso", "metrica", "hipotese"],
+    ),
+    (
+        "mos-ai-tools",
+        "Use o agente mos-ai-tools para criar UM prompt de imagem (Midjourney) de um mockup de produto digital. Responda apenas o prompt.",
+        ["prompt", "mockup", "produto", "midjourney"],
+    ),
+    (
+        "mos-analytics",
+        "Use o agente mos-analytics para listar 3 KPIs essenciais para um perfil de Instagram em crescimento. Lista numerada.",
+        ["kpi", "instagram", "engajamento", "alcance"],
+    ),
+    (
+        "mos-audio",
+        "Use o agente mos-audio para escrever a estrutura (3 blocos) de UM episodio de podcast sobre produtividade. Formato: lista.",
+        ["podcast", "produtividade", "bloco", "intro"],
+    ),
+    (
+        "mos-brand",
+        "Use o agente mos-brand para definir o arquetipo de marca e UMA frase de posicionamento para uma consultoria de marketing. Formato curto.",
+        ["marca", "posicionamento", "arquetipo", "consultoria"],
+    ),
+    (
+        "mos-design",
+        "Use o agente mos-design para sugerir uma paleta de 3 cores (hex) e UMA fonte para um app de financas. Formato: lista.",
+        ["#", "cor", "fonte", "paleta"],
+    ),
+    (
+        "mos-funnel",
+        "Use o agente mos-funnel para descrever as 3 etapas (TOFU/MOFU/BOFU) de um funil para um curso online. Lista.",
+        ["funil", "tofu", "bofu", "etapa"],
+    ),
+    (
+        "mos-growth",
+        "Use o agente mos-growth para propor UM experimento de aquisicao para um SaaS B2B. Formato: hipotese + canal + metrica.",
+        ["experimento", "aquisicao", "canal", "metrica"],
+    ),
+    (
+        "mos-infoproduct",
+        "Use o agente mos-infoproduct para esbocar os 3 modulos de um curso online de copywriting. Lista numerada.",
+        ["modulo", "curso", "copywriting", "aula"],
+    ),
+    (
+        "mos-launch",
+        "Use o agente mos-launch para listar as 3 fases de um lancamento (pre, carrinho, pos). Lista.",
+        ["lancamento", "fase", "carrinho", "email"],
+    ),
+    (
+        "mos-research",
+        "Use o agente mos-research para listar 3 angulos de pesquisa de concorrencia para um nicho de financas pessoais. Lista.",
+        ["pesquisa", "concorrente", "nicho", "financas"],
+    ),
+    (
+        "mos-storytelling",
+        "Use o agente mos-storytelling para escrever a estrutura (3 atos) de uma historia de marca de origem. Lista.",
+        ["historia", "ato", "marca", "jornada"],
+    ),
+    (
+        "mos-video",
+        "Use o agente mos-video para escrever UM hook (3 segundos) e a estrutura de retencao de um Reels sobre produtividade. Formato curto.",
+        ["hook", "reels", "produtividade", "retencao"],
+    ),
 ]
 
 
