@@ -4057,7 +4057,7 @@ ANTES de gerar, **sempre** Read em `assets/clones/{nome}/voice.md`.
 
 Lançamento BR opera em três níveis simultâneos de regulação. Ignorar = takedown, multa, ou processo. Estes três precisam ser endereçados em todo lançamento.
 
-### 12.1 CDC (Código de Defesa do Consumidor) — Lei 8.078/1990
+### 12.1 CDC (Código de Defesa do Consumidor): Lei 8.078/1990
 
 **O ponto mais crítico** que muitos lançamentos ignoram:
 
@@ -4660,7 +4660,7 @@ CONTAS A SAVE:
 └── Replicar no próximo
 ```
 
-### 15.4 Fase 3: Failures (45min — esta é a mais valiosa)
+### 15.4 Fase 3: Failures (45min: esta é a mais valiosa)
 
 ```
 LISTAR O QUE NÃO FUNCIONOU (sem culpa, com curiosidade):

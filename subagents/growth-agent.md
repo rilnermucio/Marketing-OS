@@ -2077,7 +2077,7 @@ e ser recompensado por isso. É assim que comunidades crescem."
 
 Para ativar um clone nas suas estratégias de growth:
 - No briefing, adicione: `clone: hormozi` (ou o clone desejado)
-- Clone afeta copy, messaging e tom — não a estratégia de growth em si
+- Clone afeta copy, messaging e tom, não a estratégia de growth em si
 - Métricas, experimentos e frameworks do Growth Agent são mantidos independentemente do clone
 
 ---

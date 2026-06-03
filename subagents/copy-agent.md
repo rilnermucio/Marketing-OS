@@ -1,4 +1,4 @@
-# Copy Agent v3.1 — O Agente de Copywriting Mais Avançado do Planeta
+# Copy Agent v3.1: O Agente de Copywriting Mais Avançado do Planeta
 
 > "Copy is a direct conversation with the consumer." — Shirley Polykoff
 
@@ -519,7 +519,7 @@ TRIGGERS DE ATIVAÇÃO:
 
 ---
 
-## Estilo 1: David Ogilvy — O Publicitário Científico
+## Estilo 1: David Ogilvy: O Publicitário Científico
 
 ```
 DNA DO ESTILO:
@@ -571,7 +571,7 @@ algo mais valioso: clareza."
 
 ---
 
-## Estilo 2: Gary Halbert — O Príncipe do Print
+## Estilo 2: Gary Halbert: O Príncipe do Print
 
 ```
 DNA DO ESTILO:
@@ -634,7 +634,7 @@ não vou reabrir. Já fiz isso antes e me arrependi."
 
 ---
 
-## Estilo 3: Joseph Sugarman — O Arquiteto da Leitura
+## Estilo 3: Joseph Sugarman: O Arquiteto da Leitura
 
 ```
 DNA DO ESTILO:
@@ -700,7 +700,7 @@ uma coisa sobre como o ouvido humano funciona..."
 
 ---
 
-## Estilo 4: Dan Kennedy — O Millionaire Maker
+## Estilo 4: Dan Kennedy: O Millionaire Maker
 
 ```
 DNA DO ESTILO:
@@ -771,7 +771,7 @@ porque eu faço as sessões ao vivo pessoalmente."
 
 ---
 
-## Estilo 5: Gary Provost — O Poeta da Prosa
+## Estilo 5: Gary Provost: O Poeta da Prosa
 
 ```
 DNA DO ESTILO:
@@ -837,7 +837,7 @@ Sete minutos que mudam tudo."
 
 ---
 
-## Estilo 6: Claude Hopkins — O Cientista da Publicidade
+## Estilo 6: Claude Hopkins: O Cientista da Publicidade
 
 ```
 DNA DO ESTILO:
@@ -896,7 +896,7 @@ cancele com um clique."
 
 ---
 
-## Estilo 7: Eugene Schwartz — O Mestre da Consciência
+## Estilo 7: Eugene Schwartz: O Mestre da Consciência
 
 ```
 DNA DO ESTILO:
@@ -962,7 +962,7 @@ esse tempo todo."
 
 ---
 
-## Estilo 8: John Caples — O Testador de Headlines
+## Estilo 8: John Caples: O Testador de Headlines
 
 ```
 DNA DO ESTILO:
@@ -1026,7 +1026,7 @@ Ou devolvemos seu investimento."
 
 ---
 
-## Estilo 9: Robert Collier — O Mestre da Carta
+## Estilo 9: Robert Collier: O Mestre da Carta
 
 ```
 DNA DO ESTILO:
@@ -1093,7 +1093,7 @@ ver como funciona."
 
 ---
 
-## Estilo 10: Robert Cialdini — O Cientista da Influência
+## Estilo 10: Robert Cialdini: O Cientista da Influência
 
 ```
 DNA DO ESTILO:
@@ -3280,7 +3280,7 @@ Qual te interessa?"
 
 ---
 
-# PARTE IX: MICROFORMATOS — SMS, PUSH, X/TWITTER, THREADS
+# PARTE IX: MICROFORMATOS: SMS, PUSH, X/TWITTER, THREADS
 
 ## 9.1 SMS Marketing Copy
 
@@ -4813,7 +4813,7 @@ PÓS-PUBLICAÇÃO:
 
 # PARTE XIX: CASE STUDIES
 
-## 19.1 Apple — "Think Different"
+## 19.1 Apple: "Think Different"
 
 ```
 ANÁLISE:
@@ -4833,7 +4833,7 @@ As melhores copies não vendem produtos.
 Vendem identidade. "Quem eu me torno ao comprar?"
 ```
 
-## 19.2 Dollar Shave Club — Vídeo Viral
+## 19.2 Dollar Shave Club: Vídeo Viral
 
 ```
 ANÁLISE:
@@ -4858,7 +4858,7 @@ Autenticidade + humor + clareza = viralidade.
 Não precisa de budget, precisa de personalidade.
 ```
 
-## 19.3 Airbnb — "Belong Anywhere"
+## 19.3 Airbnb: "Belong Anywhere"
 
 ```
 ANÁLISE:
@@ -4877,7 +4877,7 @@ Reframe o produto. Hotel vende quartos.
 Airbnb vende pertencimento. A copy definiu a marca.
 ```
 
-## 19.4 Ramit Sethi — Email Marketing
+## 19.4 Ramit Sethi: Email Marketing
 
 ```
 ANÁLISE:
@@ -5307,7 +5307,7 @@ Empurrão:     "A única coisa entre você e [resultado] é um clique"
 
 ---
 
-*Copy Agent v3.1 — O Agente de Copywriting Mais Avançado do Planeta*
+*Copy Agent v3.1, O Agente de Copywriting Mais Avançado do Planeta*
 
 *Neurociência + Frameworks Clássicos + AI-Assisted + UX Writing + Conversational Commerce*
 

@@ -1,4 +1,4 @@
-# AB Testing Agent v1.0 — Especialista em Experimentação e Otimização de Conversão
+# AB Testing Agent v1.0: Especialista em Experimentação e Otimização de Conversão
 
 > "In God we trust; all others must bring data." — W. Edwards Deming
 
@@ -577,7 +577,7 @@ FASE 3 — Testar oferta (semanas 9-12)
 
 # PARTE IX: TESTES DE ANÚNCIOS PAGOS
 
-## 9.1 Meta Ads — Framework de Testes
+## 9.1 Meta Ads: Framework de Testes
 
 ```
 ESTRUTURA RECOMENDADA PARA TESTES:
@@ -618,7 +618,7 @@ CRITÉRIO DE ESCALA (dobrar budget se):
   - CPA abaixo da meta
 ```
 
-## 9.2 Google Ads — Framework de Testes
+## 9.2 Google Ads: Framework de Testes
 
 | Elemento | Frequência de Teste | Impacto |
 |----------|--------------------|---------|

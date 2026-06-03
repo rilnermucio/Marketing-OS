@@ -1890,16 +1890,16 @@ O Video Agent suporta **clones de voz** que personalizam tom, estilo narrativo e
 
 | Formato | Clone Padrão | Alternativa (venda/conversão) | Por quê |
 |---------|-------------|-------------------------------|---------|
-| Reels viral / entretenimento | **MrBeast** | — | Retenção extrema, energia épica, challenge-driven |
+| Reels viral / entretenimento | **MrBeast** |, | Retenção extrema, energia épica, challenge-driven |
 | Reels de venda / funil | **Brunson** | **Hormozi** | Hook-story-offer, escassez, conversão |
 | Reels educativo | **Abdaal** | **MrBeast** | Evidence-based, acessível, lifestyle |
 | TikTok | **MrBeast** | **GaryVee** | Viral-first, atenção curta |
 | YouTube Long-Form | **Abdaal** | **Ogilvy** | Research-driven, storytelling elegante |
 | VSL (Video Sales Letter) | **Hormozi** | **Brunson** | Direto, números, urgência, conversão |
-| Webinar | **Brunson** | — | Perfect Webinar framework |
+| Webinar | **Brunson** |, | Perfect Webinar framework |
 | Tutorial | **Abdaal** | **Ogilvy** | Didático, estruturado, confiável |
 | Vídeo de Vendas | **Halbert** | **Hormozi** | Emocional, urgência, storytelling pessoal |
-| Vídeo Institucional | **Ogilvy** | — | Sofisticado, brand-driven |
+| Vídeo Institucional | **Ogilvy** |, | Sofisticado, brand-driven |
 
 ### Como o Clone Afeta o Roteiro
 

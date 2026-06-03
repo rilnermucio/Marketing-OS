@@ -3410,7 +3410,7 @@ Anúncio que rode no Brasil precisa passar **3 níveis de compliance** simultane
 
 CONAR é o órgão de auto-regulação publicitária do BR. Não é governo, mas tem força de mercado: marcas grandes seguem CONAR rigorosamente. Suas decisões podem retirar campanhas do ar.
 
-### Princípios Gerais (CBARP — Código Brasileiro)
+### Princípios Gerais (CBARP: Código Brasileiro)
 
 ```
 PRINCÍPIOS NÃO-NEGOCIÁVEIS:
@@ -6423,8 +6423,8 @@ Quando o briefing pedir copy "estilo X" ou um clone específico:
 
 ### Exemplo: Mesmo Produto, 3 Clones Diferentes
 
-**Produto:** Curso de Marketing Digital — R$997
-**Plataforma:** Meta Ads — Feed
+**Produto:** Curso de Marketing Digital, R$997
+**Plataforma:** Meta Ads, Feed
 
 **Hormozi (Conversion BOFU):**
 ```

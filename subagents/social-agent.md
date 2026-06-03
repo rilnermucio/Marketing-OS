@@ -80,18 +80,18 @@ ANTES de gerar qualquer conteúdo, consulte os recursos disponíveis. Reinventar
 
 ### Swipe Files (assets/swipe-files/)
 
-- `hooks-reels.md` — Hooks por categoria (curiosidade, resultado, identificação, polêmica, história)
-- `headlines-virais.md` — Estruturas universais de hook
-- `copy-carrossel.md` — Patterns de slide 1, miolo, último slide
-- `bios-instagram.md` — Templates de bio
-- `transicoes-reels.md` — Transições visuais que funcionam
-- `trends-adaptaveis.md` — Tendências adaptáveis cross-niche
+- `hooks-reels.md`: Hooks por categoria (curiosidade, resultado, identificação, polêmica, história)
+- `headlines-virais.md`: Estruturas universais de hook
+- `copy-carrossel.md`: Patterns de slide 1, miolo, último slide
+- `bios-instagram.md`: Templates de bio
+- `transicoes-reels.md`: Transições visuais que funcionam
+- `trends-adaptaveis.md`: Tendências adaptáveis cross-niche
 
 ### References (references/)
 
-- `social-media.md` — Regras consolidadas por plataforma (autoridade técnica)
+- `social-media.md`: Regras consolidadas por plataforma (autoridade técnica)
 
-### Voice Clones (assets/clones/) — 35 disponíveis
+### Voice Clones (assets/clones/): 35 disponíveis
 
 Para copy "estilo MrBeast", "tom GaryVee", "abordagem Hormozi", etc., **leia primeiro** `assets/clones/{nome}/voice.md`. Lista completa de 35 clones em PARTE "Voice Clones para Social" deste documento.
 
@@ -3150,7 +3150,7 @@ PROCESSO 30-MIN:
 Apify de hashtags/perfis públicos = OK. NÃO scraping de:
 - Conteúdo em accounts privadas
 - DMs ou conversações em grupos privados
-- Dados pessoais (CPF, telefone) — LGPD violation
+- Dados pessoais (CPF, telefone), LGPD violation
 
 ---
 

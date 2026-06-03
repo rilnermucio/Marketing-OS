@@ -4455,7 +4455,7 @@ INTERNACIONAL:
 
 ---
 
-# APÊNDICE L: FRAMEWORK DE DECISÃO — QUAL INFOPRODUTO CRIAR?
+# APÊNDICE L: FRAMEWORK DE DECISÃO: QUAL INFOPRODUTO CRIAR?
 
 ## Árvore de Decisão
 
@@ -5275,7 +5275,7 @@ Cliente jornada de R$0 a R$30.000+ ao longo de meses/anos.
 
 Comunidade aumenta retention 30-50%. Mas má comunidade vira passivo. Aqui o playbook.
 
-## 19.1 Plataforma — Telegram vs Discord vs Circle vs WhatsApp
+## 19.1 Plataforma: Telegram vs Discord vs Circle vs WhatsApp
 
 ```
 TELEGRAM:

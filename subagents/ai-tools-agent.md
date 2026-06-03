@@ -1,4 +1,4 @@
-# AI Tools Agent v3.0 — O Mais Avançado Guia de Ferramentas de IA do Planeta
+# AI Tools Agent v3.0: O Mais Avançado Guia de Ferramentas de IA do Planeta
 
 > **Versão:** 3.0 | **Última atualização:** 7 de fevereiro de 2026
 > **Escopo:** Guia definitivo e enciclopédico de ferramentas de IA para criação de conteúdo, abrangendo imagem, vídeo, áudio, texto, código, 3D, apresentações, websites, tradução, automação, ética e compliance.
@@ -50,12 +50,12 @@ Ser o guia mais completo, preciso e atualizado do planeta sobre ferramentas de I
 
 ### Princípios Operacionais
 
-1. **Dados verificados** — Nunca inventar preços, benchmarks ou capacidades
-2. **Atualização constante** — Dados refletem o estado atual (fev/2026)
-3. **Prático primeiro** — Cada ferramenta inclui casos de uso reais e prompts funcionais
-4. **Comparação justa** — Rankings baseados em benchmarks públicos (LM Arena, SWE-bench, etc.)
-5. **Transparência total** — Limitações e problemas são documentados junto com pontos fortes
-6. **Zero hype** — Análise técnica sem marketing
+1. **Dados verificados**: Nunca inventar preços, benchmarks ou capacidades
+2. **Atualização constante**: Dados refletem o estado atual (fev/2026)
+3. **Prático primeiro**: Cada ferramenta inclui casos de uso reais e prompts funcionais
+4. **Comparação justa**: Rankings baseados em benchmarks públicos (LM Arena, SWE-bench, etc.)
+5. **Transparência total**: Limitações e problemas são documentados junto com pontos fortes
+6. **Zero hype**: Análise técnica sem marketing
 
 ---
 
@@ -142,7 +142,7 @@ Você é [persona] com expertise em [domínio].
 
 ## 1.4 Prompts por Categoria de Ferramenta
 
-### Imagem — Prompt Structure
+### Imagem: Prompt Structure
 
 ```
 [Sujeito principal], [ação/pose], [ambiente/cenário],
@@ -160,7 +160,7 @@ aspirational and approachable mood,
 shot on Canon R5, 85mm f/1.4, shallow depth of field
 ```
 
-### Vídeo — Prompt Structure
+### Vídeo: Prompt Structure
 
 ```
 [Tipo de cena], [sujeito e ação], [movimento de câmera],
@@ -177,7 +177,7 @@ warm orange and purple sunset light with city lights starting to glow,
 ambient city sounds with subtle orchestral underscore
 ```
 
-### Texto/LLM — Prompt Structure
+### Texto/LLM: Prompt Structure
 
 ```
 [Persona e expertise], [contexto do projeto],
@@ -186,7 +186,7 @@ ambient city sounds with subtle orchestral underscore
 [restrições e requisitos], [exemplos se aplicável]
 ```
 
-### Áudio/Voz — Prompt Structure
+### Áudio/Voz: Prompt Structure
 
 ```
 [Tipo de voz], [idioma e sotaque], [emoção e energia],
@@ -194,7 +194,7 @@ ambient city sounds with subtle orchestral underscore
 [duração aproximada]
 ```
 
-### Música — Prompt Structure
+### Música: Prompt Structure
 
 ```
 [Gênero musical], [mood/sentimento], [BPM aproximado],
@@ -202,7 +202,7 @@ ambient city sounds with subtle orchestral underscore
 [duração], [referências sonoras], [uso pretendido]
 ```
 
-### Código — Prompt Structure
+### Código: Prompt Structure
 
 ```
 [Linguagem/framework], [funcionalidade desejada],
@@ -540,7 +540,7 @@ Modelo base → Pensamento estendido → Resposta refinada
 
 ## 2.3 Benchmarks e Rankings Públicos (Fevereiro 2026)
 
-### LM Arena (arena.ai) — Texto
+### LM Arena (arena.ai): Texto
 
 Ranking baseado em preferência humana (ELO):
 
@@ -553,16 +553,16 @@ Ranking baseado em preferência humana (ELO):
 | Alto | Llama 4 Maverick | 1417 | Meta |
 | Alto | DeepSeek R1 | ~1350+ | DeepSeek |
 
-### LM Arena — Imagem (Text-to-Image)
+### LM Arena: Imagem (Text-to-Image)
 
 | Rank | Modelo | ELO | Votos |
 |------|--------|-----|-------|
-| **#1** | **GPT Image 1.5** | **1264** | — |
+| **#1** | **GPT Image 1.5** | **1264** |, |
 | **#2** | **Gemini 3 Pro Image** | **1235** | 43.546 |
-| 3-9 | FLUX.2 Max, Flex, Pro, Dev | ~1176-1220 | — |
-| — | Midjourney v7 | Tier alto | — |
-| — | Ideogram 3.0 | Tier alto | — |
-| — | Recraft V3 | 1172 (HF) | — |
+| 3-9 | FLUX.2 Max, Flex, Pro, Dev | ~1176-1220 |, |
+|, | Midjourney v7 | Tier alto |, |
+|, | Ideogram 3.0 | Tier alto |, |
+|, | Recraft V3 | 1172 (HF) |, |
 | NOVO | Grok Imagine Pro | TBD | Adicionado 7/fev/2026 |
 
 ### SWE-bench Verified (Coding)
@@ -573,7 +573,7 @@ Ranking baseado em preferência humana (ELO):
 | 2 | Claude Sonnet 4.5 | **77.2%** |
 | 3 | Claude Haiku 4.5 | **73.3%** |
 | 4 | Devstral 2 (Mistral) | **72.2%** |
-| — | GPT-5.2 Pro | 55.6% |
+|, | GPT-5.2 Pro | 55.6% |
 
 ### GPQA Diamond (Raciocínio Avançado)
 
@@ -582,8 +582,8 @@ Ranking baseado em preferência humana (ELO):
 | 1 | GPT-5.2 | ~92-93% |
 | 2 | Claude Opus 4.6 | **91.3%** |
 | 3 | Claude Sonnet 4.5 | **83.4%** |
-| — | Llama 4 Maverick | 69.8% |
-| — | DeepSeek V3 | 59.1% |
+|, | Llama 4 Maverick | 69.8% |
+|, | DeepSeek V3 | 59.1% |
 
 ## 2.4 Formatos e Especificações Técnicas
 
@@ -622,13 +622,13 @@ Ranking baseado em preferência humana (ELO):
 
 | Plataforma | Feed | Stories/Reels | Thumbnail |
 |------------|------|--------------|-----------|
-| Instagram | 1:1, 4:5 | 9:16 | — |
-| TikTok | 9:16 | 9:16 | — |
+| Instagram | 1:1, 4:5 | 9:16 |, |
+| TikTok | 9:16 | 9:16 |, |
 | YouTube | 16:9 | 9:16 (Shorts) | 16:9 |
-| LinkedIn | 1:1, 1.91:1 | — | — |
-| Twitter/X | 16:9, 1:1 | — | — |
-| Facebook | 1:1, 4:5 | 9:16 | — |
-| Pinterest | 2:3 | 9:16 | — |
+| LinkedIn | 1:1, 1.91:1 |, |, |
+| Twitter/X | 16:9, 1:1 |, |, |
+| Facebook | 1:1, 4:5 | 9:16 |, |
+| Pinterest | 2:3 | 9:16 |, |
 
 ---
 
@@ -644,15 +644,15 @@ Ranking baseado em preferência humana (ELO):
 | S | Midjourney v7 | Estética artística | Tier alto |
 | S | Ideogram 3.0 | Texto em imagens | Tier alto |
 | A+ | Recraft V3 | Vetorial/SVG nativo | ELO 1172 (HF) |
-| A+ | Adobe Firefly 5 | Segurança comercial | — |
-| A | Leonardo Phoenix | Resolução 5MP+ | — |
-| A | Stable Diffusion 3.5 | Open-source/comunidade | — |
+| A+ | Adobe Firefly 5 | Segurança comercial |, |
+| A | Leonardo Phoenix | Resolução 5MP+ |, |
+| A | Stable Diffusion 3.5 | Open-source/comunidade |, |
 | A | HiDream-I1 | Open-source avançado | GenEval #1 |
-| B+ | Canva Magic Studio | All-in-one design | — |
+| B+ | Canva Magic Studio | All-in-one design |, |
 | B+ | Grok Aurora | Menos restrições | TBD (novo) |
-| B | Microsoft Designer | Integração M365 | — |
+| B | Microsoft Designer | Integração M365 |, |
 
-## 3.2 GPT Image 1.5 (OpenAI) — #1 Global
+## 3.2 GPT Image 1.5 (OpenAI): #1 Global
 
 ### Visão Geral
 
@@ -685,7 +685,7 @@ Ranking baseado em preferência humana (ELO):
 | GPT Image 1 | low | 1024x1024 | $0.011 |
 | GPT Image 1 | medium | 1024x1024 | $0.032 |
 | GPT Image 1 | high | 1024x1024 | $0.050 |
-| GPT Image 1 Mini | — | 1024x1024 | ~80% mais barato |
+| GPT Image 1 Mini |, | 1024x1024 | ~80% mais barato |
 
 ### Prompts Otimizados para GPT Image 1.5
 
@@ -725,7 +725,7 @@ Shot at eye level. Color: cognac brown. 4K quality.
 | Base instalada massiva (ChatGPT) | Dependente de assinatura ChatGPT |
 | Geração rápida (1.5 é 4x mais rápido) | Sem ControlNet ou fine-tuning |
 
-## 3.3 Gemini 3 Pro Image / Nano Banana Pro (Google) — #2 Global
+## 3.3 Gemini 3 Pro Image / Nano Banana Pro (Google): #2 Global
 
 ### Visão Geral
 
@@ -755,7 +755,7 @@ Shot at eye level. Color: cognac brown. 4K quality.
 | Imagen 4 Fast | Até 2K | Velocidade (10x mais rápido) |
 | Gemini 3 Pro Image | Até 4K | Flagship multimodal |
 
-## 3.4 FLUX.2 (Black Forest Labs) — Melhor Ecossistema de API
+## 3.4 FLUX.2 (Black Forest Labs): Melhor Ecossistema de API
 
 ### Visão Geral
 
@@ -781,9 +781,9 @@ Shot at eye level. Color: cognac brown. 4K quality.
 
 | Modelo | 1º MP | MP adicional | Self-hosted |
 |--------|-------|-------------|-------------|
-| FLUX.2 [pro] | $0.03 | $0.015 | — |
-| FLUX.2 [klein] | $0.014 | $0.001 | — |
-| FLUX.2 [dev] | — | — | $1.999/mês (até 200K imagens) |
+| FLUX.2 [pro] | $0.03 | $0.015 |, |
+| FLUX.2 [klein] | $0.014 | $0.001 |, |
+| FLUX.2 [dev] |, |, | $1.999/mês (até 200K imagens) |
 
 ### Capacidades Inovadoras
 
@@ -802,7 +802,7 @@ Shot at eye level. Color: cognac brown. 4K quality.
 | **Modos** | Ultra (composição/precisão) e Raw (texturas/realismo) |
 | **Diferencial** | 2.5x mais rápido que concorrentes em alta resolução |
 
-## 3.5 Midjourney v7 — Melhor Estética Artística
+## 3.5 Midjourney v7: Melhor Estética Artística
 
 ### Visão Geral
 
@@ -816,7 +816,7 @@ Shot at eye level. Color: cognac brown. 4K quality.
 ### Melhorias vs v6
 
 - Renderização significativamente melhor de texturas realistas, iluminação e anatomia
-- **Personalização habilitada por default** — usuários avaliam imagens para calibrar preferências estéticas
+- **Personalização habilitada por default**: usuários avaliam imagens para calibrar preferências estéticas
 - **Draft Mode:** Geração 10x mais rápida por metade do custo
 - **Omni Reference:** Sistema de referência de personagens e objetos para controle de estilo
 - Precisão anatômica (mãos, rosto, objetos complexos) drasticamente melhorada
@@ -848,7 +848,7 @@ neon blues and warm golds, dark background,
 cinematic atmosphere --ar 1:1 --v 7 --personalize
 ```
 
-## 3.6 Ideogram 3.0 — Melhor Texto em Imagens
+## 3.6 Ideogram 3.0: Melhor Texto em Imagens
 
 ### Visão Geral
 
@@ -874,7 +874,7 @@ cinematic atmosphere --ar 1:1 --v 7 --personalize
 | Plus | ~$16-20 | 1.000 prioritários + ilimitados lentos | Privacidade |
 | Pro | ~$48-60 | 3.000 prioritários + ilimitados lentos | Batch Generation |
 
-## 3.7 Recraft V3 — Único com SVG/Vetorial Nativo
+## 3.7 Recraft V3: Único com SVG/Vetorial Nativo
 
 ### Visão Geral
 
@@ -891,10 +891,10 @@ cinematic atmosphere --ar 1:1 --v 7 --personalize
 | Free | $0 | 50 créditos/dia |
 | Pro | $10/mês (anual) | Acesso completo |
 | Teams | $55/mês (anual) | Colaboração |
-| API Raster | $0.04/imagem | — |
+| API Raster | $0.04/imagem |, |
 | API Vetorial | $0.08/imagem | SVG nativo |
 
-## 3.8 Adobe Firefly Image Model 5 — Melhor para Segurança Comercial
+## 3.8 Adobe Firefly Image Model 5: Melhor para Segurança Comercial
 
 ### Visão Geral
 
@@ -917,22 +917,22 @@ cinematic atmosphere --ar 1:1 --v 7 --personalize
 | Plano | Preço/Mês | Créditos |
 |-------|-----------|----------|
 | Firefly Standard | $9.99 | 2.000 |
-| Creative Cloud Pro | — | 4.000 + gerações standard ilimitadas |
-| Add-on 4K | — | 4.000 créditos |
-| Add-on 7K | — | 7.000 créditos |
-| Add-on 50K | — | 50.000 créditos |
-| **Promoção** (23/jan - 16/mar/2026) | — | Gerações ilimitadas até 2K |
+| Creative Cloud Pro |, | 4.000 + gerações standard ilimitadas |
+| Add-on 4K |, | 4.000 créditos |
+| Add-on 7K |, | 7.000 créditos |
+| Add-on 50K |, | 50.000 créditos |
+| **Promoção** (23/jan - 16/mar/2026) |, | Gerações ilimitadas até 2K |
 
-## 3.9 Leonardo Phoenix — Maior Resolução Nativa
+## 3.9 Leonardo Phoenix: Maior Resolução Nativa
 
 | Atributo | Detalhe |
 |----------|---------|
 | **Resolução** | Modo Ultra: até **5MP+** (maior resolução nativa) |
-| **Destaque** | "Edit with AI" — refinamento iterativo |
+| **Destaque** | "Edit with AI", refinamento iterativo |
 | **Status** | Adquirido pela Canva → alimenta Dream Lab |
 | **Preço** | Free / Starter $15 / Creator $35 / Maestro $60 |
 
-## 3.10 Stable Diffusion 3.5 — Comunidade Open-Source
+## 3.10 Stable Diffusion 3.5: Comunidade Open-Source
 
 | Atributo | Detalhe |
 |----------|---------|
@@ -942,7 +942,7 @@ cinematic atmosphere --ar 1:1 --v 7 --personalize
 | **Força** | Anime/estilizado, LoRAs, ControlNets |
 | **Preço** | Free (open-source) |
 
-## 3.11 HiDream-I1 — Open-Source Avançado
+## 3.11 HiDream-I1: Open-Source Avançado
 
 | Atributo | Detalhe |
 |----------|---------|
@@ -966,7 +966,7 @@ cinematic atmosphere --ar 1:1 --v 7 --personalize
 - **Motor:** GPT Image (4o)
 - **Preço:** Free (15 boosts/dia) / M365 Copilot
 
-## 3.13 Decision Tree — Imagem
+## 3.13 Decision Tree: Imagem
 
 ```
 SVG/vetorial? → Recraft V3
@@ -1001,11 +1001,11 @@ Qualidade máxima? → GPT Image 1.5 ou Gemini 3 Pro Image
 | B | Opus Clip | 9:16 | Long→short | Captions | Free/$15 |
 | B | Descript | 4K Pro | Editor | 200+ vozes | Free/$12 |
 
-## 4.2 Google Veo 3.1 — 4K Nativa
+## 4.2 Google Veo 3.1: 4K Nativa
 
 | Atributo | Detalhe |
 |----------|---------|
-| **Resolução** | **4K (3840x2160)** — primeiro modelo AI 4K nativo |
+| **Resolução** | **4K (3840x2160)**: primeiro modelo AI 4K nativo |
 | **Duração** | 8s por geração. Extensível até ~148s total |
 | **Áudio** | Diálogo com lip-sync, SFX, sons ambientes |
 | **API Fast** | $0.15/s (com áudio), $0.10/s (sem) |
@@ -1024,7 +1024,7 @@ Qualidade máxima? → GPT Image 1.5 ou Gemini 3 Pro Image
 | **Preço** | Plus $20/mês, Pro $200/mês |
 | **Free** | Descontinuado 10/jan/2026 |
 
-## 4.4 Kling 2.6/O1 — Áudio-Visual Unificado
+## 4.4 Kling 2.6/O1: Áudio-Visual Unificado
 
 | Atributo | Detalhe |
 |----------|---------|
@@ -1035,13 +1035,13 @@ Qualidade máxima? → GPT Image 1.5 ou Gemini 3 Pro Image
 | **Standard** | $10/mês (660 créditos) |
 | **Pro** | $37/mês (3.000 créditos) |
 
-## 4.5 Luma Ray3.14 — HDR Nativo
+## 4.5 Luma Ray3.14: HDR Nativo
 
 | Atributo | Detalhe |
 |----------|---------|
 | **HDR** | Primeiro 16-bit HDR nativo (EXR studio-grade) |
 | **Velocidade** | 4x mais rápido, 3x mais barato que anteriores |
-| **Ray3 Modify** | Workflow híbrido — retém motion/timing/emoção do ator |
+| **Ray3 Modify** | Workflow híbrido, retém motion/timing/emoção do ator |
 | **Lite** | $9.99/mês (3.200 créditos) |
 | **Plus** | $29.99/mês (10.000 + comercial) |
 
@@ -1093,7 +1093,7 @@ Qualidade máxima? → GPT Image 1.5 ou Gemini 3 Pro Image
 - 200+ vozes (ElevenLabs v3) / Overdub clonagem
 - Free / Creator $12-15 / Business $24-30
 
-## 4.10 Decision Tree — Vídeo
+## 4.10 Decision Tree: Vídeo
 
 ```
 4K nativa? → Veo 3.1 ou Ray3.14 (HDR)
@@ -1110,7 +1110,7 @@ Orçamento mínimo? → Kling Free ou Pika $8/mês
 
 # Part V: Ferramentas de Áudio e Voz
 
-## 5.1 ElevenLabs — Líder Indiscutível
+## 5.1 ElevenLabs: Líder Indiscutível
 
 | Atributo | Detalhe |
 |----------|---------|
@@ -1173,64 +1173,64 @@ at 5 seconds. 10 seconds.
 
 # Part VI: Ferramentas de Texto e LLMs
 
-## 6.1 Tabela Comparativa — LLMs Frontier (Fevereiro 2026)
+## 6.1 Tabela Comparativa: LLMs Frontier (Fevereiro 2026)
 
 | Modelo | Contexto | Input/1M | Output/1M | SWE-bench | GPQA | Open |
 |--------|---------|----------|-----------|-----------|------|------|
 | Claude Opus 4.6 | 1M | $5.00 | $25.00 | **80.8%** | **91.3%** | Não |
 | Claude Sonnet 4.5 | 1M | $3.00 | $15.00 | 77.2% | 83.4% | Não |
-| Claude Haiku 4.5 | 200K | $1.00 | $5.00 | 73.3% | — | Não |
+| Claude Haiku 4.5 | 200K | $1.00 | $5.00 | 73.3% |, | Não |
 | GPT-5.2 | 400K | $1.75 | $14.00 | 55.6% | **~92-93%** | Não |
-| Gemini 2.5 Pro | 1M (2M breve) | $1.25-2.50 | $10-15 | — | — | Não |
-| Grok 4 Fast | **2M** | — | — | — | — | Não |
-| Grok 3 Beta | 1M | $3.00 | $15.00 | — | — | Não |
-| Grok 3 Mini | 1M | $0.30 | $0.50 | — | — | Não |
-| Llama 4 Scout | **10M** | Free | Free | — | — | Sim |
-| Llama 4 Maverick | 1M | Free | Free | — | 69.8% | Sim |
-| DeepSeek R1 | 128K | $0.70 | $2.40 | — | — | Sim |
-| DeepSeek V3 | 128K | **$0.19** | **$0.87** | — | 59.1% | Sim |
-| Devstral 2 | 256K | $0.40 | $2.00 | 72.2% | — | Sim |
-| Devstral Small 2 | 256K | $0.10 | $0.30 | — | — | Sim |
-| Mistral Large 3 | — | — | — | — | — | Sim |
+| Gemini 2.5 Pro | 1M (2M breve) | $1.25-2.50 | $10-15 |, |, | Não |
+| Grok 4 Fast | **2M** |, |, |, |, | Não |
+| Grok 3 Beta | 1M | $3.00 | $15.00 |, |, | Não |
+| Grok 3 Mini | 1M | $0.30 | $0.50 |, |, | Não |
+| Llama 4 Scout | **10M** | Free | Free |, |, | Sim |
+| Llama 4 Maverick | 1M | Free | Free |, | 69.8% | Sim |
+| DeepSeek R1 | 128K | $0.70 | $2.40 |, |, | Sim |
+| DeepSeek V3 | 128K | **$0.19** | **$0.87** |, | 59.1% | Sim |
+| Devstral 2 | 256K | $0.40 | $2.00 | 72.2% |, | Sim |
+| Devstral Small 2 | 256K | $0.10 | $0.30 |, |, | Sim |
+| Mistral Large 3 |, |, |, |, |, | Sim |
 
-## 6.2 Claude Opus 4.6 — #1 Coding
+## 6.2 Claude Opus 4.6: #1 Coding
 
 - **SWE-bench:** 80.8% (#1 global)
 - **GPQA Diamond:** 91.3% (#2)
 - **Claude Code:** Agent Teams, Checkpoints, Custom Subagents, Hooks, Memory, MCP
 - **Planos:** Pro $20 / Max 5x $100 / Max 20x $200 / Team $150/user
 
-## 6.3 GPT-5.2 — #1 Raciocínio
+## 6.3 GPT-5.2: #1 Raciocínio
 
 - **GPQA Diamond:** ~92-93% (#1 global)
 - **Integrado:** GPT Image 1.5 (#1 imagem) + Sora 2 (vídeo)
 - **Planos:** Plus $20 / Pro $200 / Team $25/user
 
-## 6.4 Gemini 2.5 Pro — Contexto Longo
+## 6.4 Gemini 2.5 Pro: Contexto Longo
 
 - **Contexto:** 1M (2M em breve)
 - **MMLU:** 89.5% | **HumanEval:** 84.1%
 - **Thinking adaptativo** em todos os modelos
 
-## 6.5 Grok 4 Fast — Maior Contexto Proprietário
+## 6.5 Grok 4 Fast: Maior Contexto Proprietário
 
 - **Contexto:** 2M tokens
 - **Search Arena:** #1 (1163 ELO)
 - **Grok 5 anunciado:** 6 trilhões de parâmetros
 
-## 6.6 Llama 4 (Meta) — Open-Weight
+## 6.6 Llama 4 (Meta): Open-Weight
 
 - **Scout:** 10M contexto (maior do mercado), roda em 1x H100
 - **Maverick:** ELO 1417, MMLU-Pro 80.5%
 - **Behemoth:** 288B ativos (em treinamento)
 
-## 6.7 DeepSeek — Mais Barato
+## 6.7 DeepSeek: Mais Barato
 
 - **V3:** $0.19/$0.87 por 1M tokens (mais barato do mercado)
 - **R1:** Raciocínio nível o1 por $0.70/$2.40
 - **Custo treino R1:** ~$294K
 
-## 6.8 Decision Tree — LLM
+## 6.8 Decision Tree: LLM
 
 ```
 Coding? → Claude Opus 4.6 (alt: Devstral 2)
@@ -1254,7 +1254,7 @@ Custo-benefício? → Claude Sonnet 4.5 ou Gemini 2.5 Pro
 | D-ID | API avatar | Multi | $4.70/mês |
 | Invideo AI Twins | Clone de 30s | 50+ | $28/mês |
 | OmniHuman-1 | 1 foto + áudio | Multi | API |
-| Pikaformance | Expressões de foto | — | $8/mês |
+| Pikaformance | Expressões de foto |, | $8/mês |
 
 ## 7.2 Destaques
 
@@ -1305,14 +1305,14 @@ Corporate jingle, acoustic guitar, light percussion, uplifting,
 - Acordo UMG: dados licenciados
 - Standard ~$10/mês | Pro ~$30/mês
 
-## 8.3 Soundraw — 100% Copyright-Safe
+## 8.3 Soundraw: 100% Copyright-Safe
 
 - Treinado **apenas** em composições originais internas
 - Edição por seção (intro, chorus, outro)
 - Stems em WAV (drums, bass, melodia, vocals, FX)
 - Creator $11.04/mês
 
-## 8.4 Decision Tree — Música
+## 8.4 Decision Tree: Música
 
 ```
 Música com vocais? → Suno
@@ -1390,7 +1390,7 @@ Podcast background? → Soundraw
 | Luma Genie | Text-to-3D | <10s | USDZ, GLTF/GLB | Free/$9.99 |
 | Point-E (OpenAI) | Text-to-3D | 1-2 min | Point cloud | Free (OSS) |
 
-## 10.2 Meshy — Mais Completo
+## 10.2 Meshy: Mais Completo
 
 | Atributo | Detalhe |
 |----------|---------|
@@ -1409,7 +1409,7 @@ Podcast background? → Soundraw
 | Max | $48 | 4.000 |
 | Max Unlimited | $96 | Ilimitado |
 
-## 10.3 Tripo3D — Mais Rápido
+## 10.3 Tripo3D: Mais Rápido
 
 | Atributo | Detalhe |
 |----------|---------|
@@ -1428,7 +1428,7 @@ Podcast background? → Soundraw
 | **Física** | Dampening, wind, densidades |
 | **Dual platform** | 3D (Genie) + Vídeo (Dream Machine/Ray3) |
 
-## 10.5 Gaussian Splatting — Tecnologia Emergente
+## 10.5 Gaussian Splatting: Tecnologia Emergente
 
 **Status 2026:** Transição de pesquisa para produção.
 
@@ -1460,7 +1460,7 @@ Podcast background? → Soundraw
 | PowerPoint Copilot | ~$30/user | Agent Mode, brand governance |
 | Tome | **Descontinuado** | Pivotou para sales automation (mar/2025) |
 
-## 11.2 Gamma — Melhor AI-Native
+## 11.2 Gamma: Melhor AI-Native
 
 | Atributo | Detalhe |
 |----------|---------|
@@ -1480,7 +1480,7 @@ Podcast background? → Soundraw
 | Business | $40 |
 | Ultra | $100 |
 
-## 11.3 PowerPoint Copilot — Enterprise
+## 11.3 PowerPoint Copilot: Enterprise
 
 | Atributo | Detalhe |
 |----------|---------|
@@ -1545,7 +1545,7 @@ Podcast background? → Soundraw
 
 # Part XIII: Tradução e Localização
 
-## 13.1 DeepL — Líder em Qualidade
+## 13.1 DeepL: Líder em Qualidade
 
 | Atributo | Detalhe |
 |----------|---------|
@@ -1777,7 +1777,7 @@ Texto → Claude/GPT (ToS permitem uso comercial)
 
 # Part XVI: Técnicas Avançadas de Prompting
 
-## 16.1 Prompt Engineering para Imagem — Avançado
+## 16.1 Prompt Engineering para Imagem: Avançado
 
 ### Controlando Iluminação
 
@@ -1831,7 +1831,7 @@ Texto → Claude/GPT (ToS permitem uso comercial)
 --personalize [se desejado] --no [elementos indesejados]
 ```
 
-## 16.2 Prompt Engineering para Vídeo — Avançado
+## 16.2 Prompt Engineering para Vídeo: Avançado
 
 ### Movimentos de Câmera
 
@@ -1868,7 +1868,7 @@ Mood: [atmosfera]. Duration: [15-25 seconds].
 Sound: [diálogo ou efeitos sonoros].
 ```
 
-## 16.3 Prompt Engineering para LLMs — Avançado
+## 16.3 Prompt Engineering para LLMs: Avançado
 
 ### Constitutional AI Prompting
 
@@ -1915,7 +1915,7 @@ PERSONA 3 — O Moderador Estratégico:
 Conduza 3 rodadas de debate e conclua com recomendações.
 ```
 
-## 16.4 Prompt Library — Templates Prontos
+## 16.4 Prompt Library: Templates Prontos
 
 ### Template: Post de Instagram (Feed)
 
@@ -2000,7 +2000,7 @@ REGRAS SEO:
 
 # Part XVII: Ética, Copyright e Compliance
 
-## 17.1 EU AI Act — Cronograma de Implementação
+## 17.1 EU AI Act: Cronograma de Implementação
 
 | Data | O Que Entra em Vigor |
 |------|---------------------|
@@ -2009,7 +2009,7 @@ REGRAS SEO:
 | **Ago/2026** | **Requisitos completos de IA de alto risco** + **Artigo 50 (transparência)** |
 | Ago/2027 | IA de alto risco em produtos regulados (transição estendida) |
 
-### Artigo 50 — Obrigações de Transparência (Agosto 2026)
+### Artigo 50: Obrigações de Transparência (Agosto 2026)
 
 - **Disclosure obrigatório** de interações com IA
 - **Rotulagem de conteúdo sintético** (imagens, vídeos, áudio)
@@ -2198,7 +2198,7 @@ ACT (Agir):
 5. Iterar com variações do vencedor
 ```
 
-## 18.3 Calculadora de Custos — Produção Mensal
+## 18.3 Calculadora de Custos: Produção Mensal
 
 ### Cenário: Criador de Conteúdo Individual
 
@@ -2210,7 +2210,7 @@ ACT (Agir):
 | Textos/copy | Claude Pro | $20 |
 | Música background | Soundraw Creator | $11 |
 | Edição vídeo | CapCut Pro | $20 |
-| **TOTAL** | — | **~$96/mês** |
+| **TOTAL** |, | **~$96/mês** |
 
 ### Cenário: Agência de Marketing (5 clientes)
 
@@ -2224,7 +2224,7 @@ ACT (Agir):
 | Música | Soundraw Artist | $20 |
 | Apresentações | Gamma Pro | $18 |
 | Automação | Make Pro | $9 |
-| **TOTAL** | — | **~$356/mês** |
+| **TOTAL** |, | **~$356/mês** |
 
 ### Cenário: Enterprise
 
@@ -2236,7 +2236,7 @@ ACT (Agir):
 | LLM | Claude Team | $150/user |
 | Coding | GitHub Copilot Enterprise | $39/user |
 | Automação | Make Enterprise | Custom |
-| **TOTAL** | — | **$320+/user/mês** |
+| **TOTAL** |, | **$320+/user/mês** |
 
 ---
 
@@ -2247,35 +2247,35 @@ ACT (Agir):
 | Termo | Definição |
 |-------|-----------|
 | **Autoregressive** | Modelo que gera output um token por vez, cada um condicionado aos anteriores |
-| **BPE** | Byte Pair Encoding — método de tokenização |
-| **C2PA** | Coalition for Content Provenance and Authenticity — standard de proveniência |
-| **CFG** | Classifier-Free Guidance — controla aderência ao prompt em diffusion models |
-| **CoT** | Chain-of-Thought — técnica de raciocínio passo-a-passo |
+| **BPE** | Byte Pair Encoding, método de tokenização |
+| **C2PA** | Coalition for Content Provenance and Authenticity, standard de proveniência |
+| **CFG** | Classifier-Free Guidance, controla aderência ao prompt em diffusion models |
+| **CoT** | Chain-of-Thought, técnica de raciocínio passo-a-passo |
 | **Diffusion** | Modelo que gera dados removendo ruído gradualmente |
 | **ELO** | Sistema de ranking (originalmente xadrez) usado em arenas AI |
 | **Fine-tune** | Treinamento adicional de modelo em dados específicos |
 | **Flow Matching** | Alternativa a diffusion com trajetórias mais eficientes |
 | **FPS** | Frames Per Second |
-| **GPQA** | Graduate-Level Google-Proof Q&A — benchmark de raciocínio |
-| **GoT** | Graph-of-Thought — raciocínio em grafo |
-| **HDR** | High Dynamic Range — imagens/vídeos com gama expandida |
+| **GPQA** | Graduate-Level Google-Proof Q&A, benchmark de raciocínio |
+| **GoT** | Graph-of-Thought, raciocínio em grafo |
+| **HDR** | High Dynamic Range, imagens/vídeos com gama expandida |
 | **Inference** | Processo de gerar output a partir de um modelo treinado |
-| **LoRA** | Low-Rank Adaptation — fine-tuning eficiente |
+| **LoRA** | Low-Rank Adaptation, fine-tuning eficiente |
 | **LLM** | Large Language Model |
-| **MCP** | Model Context Protocol — protocolo para tools de LLMs |
+| **MCP** | Model Context Protocol, protocolo para tools de LLMs |
 | **MMDiT** | Multimodal Diffusion Transformer |
-| **MMLU** | Massive Multitask Language Understanding — benchmark |
-| **MoE** | Mixture-of-Experts — arquitetura com experts selecionáveis |
-| **PBR** | Physically Based Rendering — texturas 3D realistas |
-| **RAG** | Retrieval-Augmented Generation — geração com busca |
-| **ReAct** | Reasoning + Acting — framework de agentes |
+| **MMLU** | Massive Multitask Language Understanding, benchmark |
+| **MoE** | Mixture-of-Experts, arquitetura com experts selecionáveis |
+| **PBR** | Physically Based Rendering, texturas 3D realistas |
+| **RAG** | Retrieval-Augmented Generation, geração com busca |
+| **ReAct** | Reasoning + Acting, framework de agentes |
 | **SFX** | Sound Effects |
 | **SSML** | Speech Synthesis Markup Language |
 | **STT** | Speech-to-Text |
 | **SVG** | Scalable Vector Graphics |
 | **SWE-bench** | Software Engineering Benchmark |
 | **SynthID** | Watermark invisível do Google para conteúdo AI |
-| **ToT** | Tree-of-Thought — raciocínio em árvore |
+| **ToT** | Tree-of-Thought, raciocínio em árvore |
 | **TTS** | Text-to-Speech |
 | **VAE** | Variational Autoencoder |
 | **VLM** | Vision-Language Model |
@@ -2288,15 +2288,15 @@ ACT (Agir):
 |-----------|-------------|-------------|-----------|
 | GPT Image 1.5 | $0.009 | $0.055 | Via ChatGPT Free (limitado) |
 | Gemini 3 Pro Image | Variável | Variável | Sim (ImageFX) |
-| FLUX.2 Pro | $0.03/MP | — | Não |
-| FLUX.2 klein | $0.014/MP | — | Não (mas open-source) |
+| FLUX.2 Pro | $0.03/MP |, | Não |
+| FLUX.2 klein | $0.014/MP |, | Não (mas open-source) |
 | Midjourney v7 | $10/mês | $120/mês | Não |
 | Ideogram 3.0 | Free | $60/mês | Sim (10/dia) |
 | Recraft V3 | $0.04/img | $0.08/SVG | Sim (50/dia) |
 | Firefly 5 | $9.99/mês | CC subscription | Não (trial) |
 | Leonardo Phoenix | Free | $60/mês | Sim (150 tokens/dia) |
-| SD 3.5 | Free (local) | — | Sim (open-source) |
-| HiDream-I1 | Free (local) | — | Sim (open-source) |
+| SD 3.5 | Free (local) |, | Sim (open-source) |
+| HiDream-I1 | Free (local) |, | Sim (open-source) |
 
 ### Vídeo (por segundo/geração)
 
@@ -2462,11 +2462,11 @@ O QUE VOCÊ PRECISA CRIAR?
 
 ### Comunidades
 
-- **r/StableDiffusion** — Maior comunidade de imagem AI
-- **r/midjourney** — Comunidade Midjourney
-- **Civitai** — Modelos e LoRAs para Stable Diffusion
-- **Hugging Face** — Modelos open-source
-- **GitHub** — Código e ferramentas
+- **r/StableDiffusion**: Maior comunidade de imagem AI
+- **r/midjourney**: Comunidade Midjourney
+- **Civitai**: Modelos e LoRAs para Stable Diffusion
+- **Hugging Face**: Modelos open-source
+- **GitHub**: Código e ferramentas
 
 ### Documentação Oficial
 
@@ -2510,6 +2510,6 @@ O QUE VOCÊ PRECISA CRIAR?
 
 ---
 
-*AI Tools Agent v3.0 — O Mais Avançado Guia de Ferramentas de IA do Planeta*
+*AI Tools Agent v3.0, O Mais Avançado Guia de Ferramentas de IA do Planeta*
 *Última atualização: 7 de fevereiro de 2026*
 *Dados verificados via LM Arena, documentação oficial e pesquisa web*

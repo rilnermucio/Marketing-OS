@@ -1,4 +1,4 @@
-# Design Agent v3.2 — Subagente de Design Visual
+# Design Agent v3.2: Subagente de Design Visual
 
 > **O agente de design visual mais avançado do planeta — Maio 2026**
 
@@ -27,7 +27,7 @@ Subagente especializado em direção criativa, design visual, UX, acessibilidade
 9. [Visual Storytelling](#visual-storytelling)
 10. [Tendências de Design 2026](#tendências-de-design-2026)
 11. [Motion Design e Animação](#motion-design-e-animação)
-12. [UX Design — Princípios e Frameworks](#ux-design-princípios-e-frameworks)
+12. [UX Design, Princípios e Frameworks](#ux-design-princípios-e-frameworks)
 13. [Acessibilidade e Design Inclusivo (WCAG 2.2)](#acessibilidade-e-design-inclusivo)
 14. [Design Cultural e Localização](#design-cultural-e-localização)
 15. [Specs Técnicos por Plataforma (Fev 2026)](#specs-técnicos-por-plataforma)
@@ -41,7 +41,7 @@ Subagente especializado em direção criativa, design visual, UX, acessibilidade
 23. [Design para Impressão (Print)](#design-para-impressão)
 24. [Métricas e Testes de Design](#métricas-e-testes-de-design)
 25. [Video Design para Social Media](#video-design-para-social-media)
-26. [Posts Prontos — Sistema Híbrido](#posts-prontos)
+26. [Posts Prontos, Sistema Híbrido](#posts-prontos)
 27. [Templates por Nicho](#templates-por-nicho)
 28. [Workflows e Integração](#workflows-e-integração)
 
@@ -1039,7 +1039,7 @@ TIMING DE MICRO-INTERAÇÕES:
 • Nunca: 1000ms+ (frustração)
 ```
 
-### Lottie vs Rive — Comparação Completa
+### Lottie vs Rive: Comparação Completa
 
 ```
 LOTTIE vs RIVE — QUAL ESCOLHER?
@@ -1178,7 +1178,7 @@ ESTADOS DE CARREGAMENTO
    → Shake animation no erro
 ```
 
-### Ferramentas de Motion Design — Comparação
+### Ferramentas de Motion Design: Comparação
 
 ```
 FERRAMENTAS DE MOTION DESIGN 2026
@@ -1198,7 +1198,7 @@ FERRAMENTAS DE MOTION DESIGN 2026
 └───────────────┴────────────────────────┴────────────────────┘
 ```
 
-### Reduced Motion — Acessibilidade
+### Reduced Motion: Acessibilidade
 
 ```
 RESPEITANDO PREFERÊNCIAS DE MOTION
@@ -1221,7 +1221,7 @@ BOAS PRÁTICAS:
 
 ---
 
-## UX Design — Princípios e Frameworks
+## UX Design: Princípios e Frameworks
 
 ### 10 Heurísticas de Nielsen
 
@@ -1292,7 +1292,7 @@ DESIGN THINKING — 5 FASES
 PROCESSO É ITERATIVO, NÃO LINEAR
 ```
 
-### Atomic Design (Brad Frost) — 6 Níveis
+### Atomic Design (Brad Frost): 6 Níveis
 
 ```
 ATOMIC DESIGN — SISTEMA COMPLETO
@@ -1390,7 +1390,7 @@ MELHORES PRÁTICAS:
 
 ## Acessibilidade e Design Inclusivo
 
-### WCAG 2.2 — Compliance Completo
+### WCAG 2.2: Compliance Completo
 
 ```
 WCAG 2.2 — PADRÃO ATUAL (ISO/IEC 40500:2025)
@@ -1530,7 +1530,7 @@ WCAG 3.0 (PREVIEW — esperado 2026+):
   cognitivas dos usuários
 ```
 
-### Design Inclusivo — Princípios Microsoft
+### Design Inclusivo: Princípios Microsoft
 
 ```
 DESIGN INCLUSIVO — MICROSOFT TOOLKIT
@@ -2565,7 +2565,7 @@ ERROS COMUNS:
 ✗ CTAs confusos ou múltiplos
 ```
 
-### Banner Ads — IAB Standard Sizes
+### Banner Ads: IAB Standard Sizes
 
 ```
 TAMANHOS PADRÃO DE ANÚNCIOS DIGITAIS (IAB 2026)
@@ -3246,7 +3246,7 @@ AI background removal, smart B-roll) domina todos os tools.
 
 ---
 
-## Posts Prontos — Sistema Híbrido
+## Posts Prontos: Sistema Híbrido
 
 ### Sistema de Design para Posts
 
@@ -3965,7 +3965,7 @@ V2.0 (refresh significativo):
 
 ## 10 Exemplos BR de Design Forte
 
-### Sallve — Clean Beauty Editorial
+### Sallve: Clean Beauty Editorial
 
 ```
 ESTÉTICA: clean editorial + science-backed
@@ -3977,7 +3977,7 @@ LIÇÃO: clean beauty BR funciona via "ciência humanizada"
         — não pode ser frio, mas precisa de credibilidade
 ```
 
-### Nubank — Minimalist Disruptor
+### Nubank: Minimalist Disruptor
 
 ```
 ESTÉTICA: minimalismo radical + cor signature
@@ -3989,7 +3989,7 @@ LIÇÃO: signature color extrema funciona quando categoria
        é colorida demais (banco = cinza/azul → Nubank = roxo)
 ```
 
-### Magazine Luiza — Friendly Inclusivo
+### Magazine Luiza: Friendly Inclusivo
 
 ```
 ESTÉTICA: bold cores + inclusão visível
@@ -4001,7 +4001,7 @@ LIÇÃO: BR responde a representação real (Lu mascote, modelos diversos)
        — design forte sem perder warmth
 ```
 
-### iFood — Bold Direct
+### iFood: Bold Direct
 
 ```
 ESTÉTICA: bold red + simplicidade radical
@@ -4013,7 +4013,7 @@ LIÇÃO: vermelho usado bem é trigger forte
        (apetite + urgência), mas precisa controle
 ```
 
-### Natura — Sustainable Editorial
+### Natura: Sustainable Editorial
 
 ```
 ESTÉTICA: orgânico + premium acessível
@@ -4025,7 +4025,7 @@ LIÇÃO: BR premium pode ser "premium acessível"
        (Natura é classe média BR, não luxury europeu)
 ```
 
-### O Boticário — Sensorial Approachable
+### O Boticário: Sensorial Approachable
 
 ```
 ESTÉTICA: rosas + dourados + romantismo cotidiano
@@ -4037,7 +4037,7 @@ LIÇÃO: amante BR precisa ser acessível (Vivara é mais cara,
        mas Boticário é o democrático)
 ```
 
-### Havaianas — Brazilian Joy
+### Havaianas: Brazilian Joy
 
 ```
 ESTÉTICA: cores BR + simplicidade + humor
@@ -4049,7 +4049,7 @@ LIÇÃO: BR como ativo de design (não estereótipo,
        celebração inteligente)
 ```
 
-### Stone Pagamentos — Tech-Forward Trust
+### Stone Pagamentos: Tech-Forward Trust
 
 ```
 ESTÉTICA: tech corporate + verde signature
@@ -4061,7 +4061,7 @@ LIÇÃO: verde BR funciona quando é "verde tech-forward"
        (não ecológico, não dinheiro, mas growth)
 ```
 
-### Vivo — Classic Reinventado
+### Vivo: Classic Reinventado
 
 ```
 ESTÉTICA: roxo signature + photography rica
@@ -4073,7 +4073,7 @@ LIÇÃO: marca antiga pode rejuvenescer
        (rebranding contínuo da Vivo desde 2003)
 ```
 
-### Banco Inter — Premium Acessível
+### Banco Inter: Premium Acessível
 
 ```
 ESTÉTICA: laranja + branco + premium feel
@@ -4984,7 +4984,7 @@ FLUXO COMPLETO DE PRODUÇÃO VISUAL:
 
 ---
 
-*Design Agent v3.2 — O agente de design visual mais avançado do planeta*
+*Design Agent v3.2, O agente de design visual mais avançado do planeta*
 
 *37 seções | Última atualização Maio 2026 | WCAG 2.2 | 10+ plataformas*
 

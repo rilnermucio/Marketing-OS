@@ -3575,7 +3575,7 @@ FRAMEWORK BVL (Brand Voice Lock):
    - Tom: [adjetivos]
    - Anti-padrões: [lista]
 
-   Se for gerar algo que viola, não gere — peça clarificação."
+   Se for gerar algo que viola, não gere, peça clarificação."
    ```
 
 3. POST-GENERATION VALIDATION
@@ -3748,7 +3748,7 @@ REPUTAÇÃO:
 
 A maioria de brand textbooks usa exemplos americanos. Pra contexto BR, aqui 12 cases nacionais relevantes.
 
-### Natura — Cuidador / Inocente
+### Natura: Cuidador / Inocente
 
 ```
 ARQUÉTIPO: Cuidador (primário) + Inocente (secundário)
@@ -3761,7 +3761,7 @@ APPLICAÇÃO: Storytelling de origem (consultoras, Amazônia),
 LIÇÃO: Brand consistency over 50+ anos via valor central (cuidar)
 ```
 
-### Magazine Luiza — Cara Comum
+### Magazine Luiza: Cara Comum
 
 ```
 ARQUÉTIPO: Cara Comum (primário)
@@ -3775,7 +3775,7 @@ APPLICAÇÃO: Lu em todos touchpoints (TikTok, Instagram, suporte),
 LIÇÃO: Mascot que envelhece com a brand (Lu há 15+ anos consistente)
 ```
 
-### Nubank — Forasteiro / Mago
+### Nubank: Forasteiro / Mago
 
 ```
 ARQUÉTIPO: Forasteiro (primário) + Mago (secundário)
@@ -3789,7 +3789,7 @@ APPLICAÇÃO: Onboarding gameficado, tom de chat amigável,
 LIÇÃO: Forasteiro pode ser premium (Nubank é unicórnio)
 ```
 
-### iFood — Prestativo
+### iFood: Prestativo
 
 ```
 ARQUÉTIPO: Prestativo (primário)
@@ -3802,7 +3802,7 @@ APPLICAÇÃO: App-first (UX é o brand), notificações com personalidade,
 LIÇÃO: Prestativo escala se promessa é mantida (delivery on time)
 ```
 
-### O Boticário — Amante / Inocente
+### O Boticário: Amante / Inocente
 
 ```
 ARQUÉTIPO: Amante (primário) + Inocente (secundário)
@@ -3815,7 +3815,7 @@ APPLICAÇÃO: Campanhas estações (Dia das Mães é flagship),
 LIÇÃO: Amante BR adapta-se a poder aquisitivo médio
 ```
 
-### Havaianas — Cara Comum / Inocente
+### Havaianas: Cara Comum / Inocente
 
 ```
 ARQUÉTIPO: Cara Comum (primário) + Inocente (secundário)
@@ -3828,7 +3828,7 @@ APPLICAÇÃO: Campanhas com cores BR, edições temáticas,
 LIÇÃO: Cara Comum + brasilidade = brand global (Havaianas em 100+ países)
 ```
 
-### Vivara — Governante / Amante
+### Vivara: Governante / Amante
 
 ```
 ARQUÉTIPO: Governante (primário) + Amante (secundário)
@@ -3841,7 +3841,7 @@ APPLICAÇÃO: Lojas físicas estética premium, campanhas em datas
 LIÇÃO: Governante + accessibility é niche viável BR
 ```
 
-### Renner / Lojas Renner — Cara Comum / Criador
+### Renner / Lojas Renner: Cara Comum / Criador
 
 ```
 ARQUÉTIPO: Cara Comum (primário) + Criador (secundário)
@@ -3854,7 +3854,7 @@ APPLICAÇÃO: Modelos diversos em campanhas (representação),
 LIÇÃO: Inclusão = brand asset BR em 2020+
 ```
 
-### XP Investimentos — Sábio / Herói
+### XP Investimentos: Sábio / Herói
 
 ```
 ARQUÉTIPO: Sábio (primário) + Herói (secundário)
@@ -3867,7 +3867,7 @@ APPLICAÇÃO: Conteúdo gigante (Spiti = arm de educação),
 LIÇÃO: Sábio + Forasteiro mix funciona em fintech BR
 ```
 
-### Conrado Adolpho / Marketing Digital BR — Sábio / Mago
+### Conrado Adolpho / Marketing Digital BR: Sábio / Mago
 
 ```
 ARQUÉTIPO PERSONAL BRAND: Sábio (primário) + Mago (secundário)
@@ -3879,7 +3879,7 @@ APPLICAÇÃO: Cursos, lives, livros, eventos próprios
 LIÇÃO: Personal brand BR pode escalar via expertise + framework
 ```
 
-### Joel Jota — Sábio / Cara Comum
+### Joel Jota: Sábio / Cara Comum
 
 ```
 ARQUÉTIPO PERSONAL BRAND: Sábio (primário) + Cara Comum (secundário)
@@ -3891,7 +3891,7 @@ APPLICAÇÃO: Cursos de produtividade, lives, conteúdo curto
 LIÇÃO: Personal brand BR ganha em "ensinar como faz" autêntico
 ```
 
-### Casas Bahia — Cara Comum / Prestativo
+### Casas Bahia: Cara Comum / Prestativo
 
 ```
 ARQUÉTIPO: Cara Comum (primário) + Prestativo (secundário)
@@ -3908,7 +3908,7 @@ LIÇÃO: Brand pode envelhecer e re-energizar (rebranding 2020+)
 
 ## PARTE XXI: CONTINUOUS BRAND HEALTH AUDIT PROTOCOL
 
-Brand não é "set and forget" — voz e percepção evoluem. Audit cíclico mantém saúde.
+Brand não é "set and forget", voz e percepção evoluem. Audit cíclico mantém saúde.
 
 ### 21.1 Daily (não aplicável)
 
