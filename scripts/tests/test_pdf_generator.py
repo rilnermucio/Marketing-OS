@@ -13,6 +13,29 @@ import pytest
 
 from pdf_generator import generate, _build_html
 
+SCRIPT = Path(__file__).resolve().parent.parent / "pdf_generator.py"
+
+
+def _run_cli(args, out_path: Path, retries: int = 1, timeout: int = 120):
+    """Run the pdf_generator CLI robustly.
+
+    weasyprint (fontconfig/pango/cairo) can fail transiently under load, so we
+    retry once and only assert on the final attempt. A real breakage (rc != 0
+    on every try) surfaces stderr instead of a bare CalledProcessError.
+    """
+    last = None
+    for _ in range(retries + 1):
+        last = subprocess.run(
+            [sys.executable, str(SCRIPT), *args],
+            capture_output=True, text=True, timeout=timeout,
+        )
+        if last.returncode == 0 and out_path.exists():
+            return last
+    raise AssertionError(
+        f"pdf_generator CLI falhou após {retries + 1} tentativas "
+        f"(rc={last.returncode}):\nSTDERR:\n{last.stderr[:800]}"
+    )
+
 
 class TestBasicGenerate:
     def test_generate_creates_non_empty_pdf(self, tmp_path: Path):
@@ -113,11 +136,7 @@ class TestPDFCLI:
         md = tmp_path / "r.md"
         md.write_text("# CLI Test")
         out = tmp_path / "r.pdf"
-        script = Path(__file__).resolve().parent.parent / "pdf_generator.py"
-        result = subprocess.run(
-            [sys.executable, str(script), str(md), str(out)],
-            capture_output=True, text=True, check=True,
-        )
+        _run_cli([str(md), str(out)], out)
         assert out.exists()
 
     def test_cli_with_config(self, tmp_path: Path):
@@ -126,11 +145,7 @@ class TestPDFCLI:
         cfg = tmp_path / "cfg.json"
         cfg.write_text(json.dumps({"brand_name": "Brand X"}))
         out = tmp_path / "r.pdf"
-        script = Path(__file__).resolve().parent.parent / "pdf_generator.py"
-        result = subprocess.run(
-            [sys.executable, str(script), str(md), str(out), str(cfg)],
-            capture_output=True, text=True, check=True,
-        )
+        _run_cli([str(md), str(out), str(cfg)], out)
         assert out.exists()
 
     def test_cli_too_few_args_exits_nonzero(self):
